@@ -6,7 +6,7 @@ export default function Main() {
   return (
     <>
      <Header/>
-      <Footer></Footer>
+    <Footer></Footer>
     </>
   )
 }
