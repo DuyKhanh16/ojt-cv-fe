@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './InformationUser.scss'
 import Header from '../../../../components/header/Header'
 import Footer from '../../../../components/footer/Footer'
@@ -20,7 +20,12 @@ import Exp from '../../../../components/modal/updateInforUser/Exp'
 import ProjectUser from '../../../../components/modal/updateInforUser/ProjectUser'
 import Skill from '../../../../components/modal/updateInforUser/Skill'
 import UpdateInforUser from '../../../../components/modal/updateInforUser/UpdateInforUser'
+import FormSearch from '../../../../components/formSearch/FormSearch'
 export default function InformationUser() {
+  const [isOpen, setIsOpen] = useState(true)
+  const open = () => {
+    setIsOpen(!isOpen)
+  }
   return (
     <>
       <AboutUser></AboutUser>
@@ -30,6 +35,7 @@ export default function InformationUser() {
       <ProjectUser></ProjectUser>
       <Skill></Skill>
       <Header></Header>
+      <FormSearch></FormSearch>
       <UpdateInforUser></UpdateInforUser>
       <div className="informationUser">
         <div className="informationUser__navbar1">
@@ -54,11 +60,18 @@ export default function InformationUser() {
           </div>
         </div>
         <div className="informationUser__contain">
-          <div className="informationUser__contain__left">
+          <div className="informationUser__contain__left" >
             <p>
               Nâng cấp hồ sơ xin việc của bạn bằng việc bổ sung các trường sau
             </p>
-            <div className="informationUser__contain__left__list">
+            <img
+                  src={vector1}
+                  alt=""
+                  className='informationUser__contain__left__vector'
+                  style={{ width: "16px", height: "9px"}}
+                  onClick={open}
+                />
+            <div className="informationUser__contain__left__list" style={{height:isOpen?"380px":"0px"}}>
               <div className="informationUser__contain__left__item">
                 <img src={vetor} alt="" />
                 <p>Thêm giới thiệu bản thân</p>
