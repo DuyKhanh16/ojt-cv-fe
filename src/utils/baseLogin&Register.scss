@@ -1,0 +1,21 @@
+:root {
+  --primary: rgba(188, 34, 40, 1);
+  --secondary: rgba(0, 0, 0, 1);
+  --white: rgba(255, 255, 255, 1);
+  --gray: rgba(93, 90, 111, 1);
+  --dark-blue: rgba(10, 3, 60, 1);
+  --line-gadient: linear-gradient(
+    rgba(10, 3, 60, 0),
+    rgba(10, 3, 60, 1),
+    rgba(10, 3, 60, 0)
+  );
+}
+html,
+body {
+  font-family: "Cabin", sans-serif;
+  font-size: 30px;
+}
+body {
+  padding-left: 62.5px;
+  padding-top: 20.06px;
+}
