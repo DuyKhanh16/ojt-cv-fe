@@ -12,6 +12,7 @@ import InformationUser from './pages/home/homeUser/informationUser/InformationUs
 import FormSearch from './components/formSearch/FormSearch'
 import ListCompany from './pages/home/homeUser/listCompany/ListCompany'
 import InformationComany from './pages/home/homeUser/informationComany/InformationComany'
+import UpdateInforBusiness from './pages/home/homeBusiness/updateInforBusiness/UpdateInforBusiness'
 export default function App() {
   return (
     <div>
@@ -27,6 +28,7 @@ export default function App() {
         <Route path='*' element={<FormSearch />}></Route>
         <Route path='/listcompany' element={<ListCompany />}></Route>
         <Route path='/companyView' element={<InformationComany />}></Route>
+        <Route path='/updateinforcompany' element={<UpdateInforBusiness />}></Route>
       </Routes>
     </div>
   )
