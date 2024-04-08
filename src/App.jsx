@@ -9,6 +9,8 @@ import AdminRegister from './pages/adminRegister/AdminRegister'
 import Main from './pages/home/main/Main'
 import InformationUser from './pages/home/homeUser/informationUser/InformationUser'
 
+import FormSearch from './components/formSearch/FormSearch'
+import ListCompany from './pages/home/homeUser/listCompany/ListCompany'
 export default function App() {
   return (
     <div>
@@ -21,6 +23,8 @@ export default function App() {
         <Route path="/admin-dangky" element={<AdminRegister />} />
         <Route path='/home' element={<Main />}></Route>
         <Route path="/InformationUser" element={<InformationUser />} />
+        <Route path='*' element={<FormSearch />}></Route>
+        <Route path='/listcompany' element={<ListCompany />}></Route>
       </Routes>
     </div>
   )
