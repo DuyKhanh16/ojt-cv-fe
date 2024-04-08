@@ -1,0 +1,331 @@
+body {
+    font-family: "Cabin", sans-serif;
+    font-size: 30px;
+    padding: 0;
+    margin: 0;
+  }
+  .user-ListJob-title {
+    background-color: #F1F2F4;
+    width: 100%;
+    height: 70px;
+    padding: 24px 60px 24px 60px;
+    font-size: 16px;
+    margin-bottom: 20px;
+
+    span {
+        opacity: 0.5;
+    }
+    }  
+    .user-companyView{
+      .user-companyView-info{
+      width: 1320px;
+      height: 120px;
+      margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        .user-companyView-info-company{
+          display: flex;
+          
+          .user-companyView-info-company-logo{
+            width: 96px;
+            height: 96px;
+          }
+          .user-companyView-info-company-name{
+            font-size: 24px;
+            font-weight: 500;
+            height: 32px;
+          }
+          .user-companyView-info-company-type{
+            display: inline-block;
+              width: 100px;
+              height: 28px;
+              font-size: 14px;
+              font-weight: 600;
+              border-radius: 3px;
+            padding: 4px 12px;
+
+              color: white;
+              background-color: #0BA02C;
+          }
+          .user-companyView-info-company-verified{
+            display: inline-block;
+            width: 74px;
+            height: 28px;
+            font-size: 14px;
+            font-weight: 400;
+            border-radius: 3px;
+            border-radius: 52px;
+            padding: 4px 12px;
+            color: #0A65CC;
+            background-color: #E7F0FA;
+          }
+          .user-companyView-info-company-web{
+            font-size: 18px;
+            font-weight: 400;
+            height: 28px; 
+            margin-left: 24px;
+            color: #474C54;
+          }
+        }
+        .user-companyView-info-feature{
+          display: flex;
+          .user-companyView-info-feature-like{
+              color: #BC2228;
+              background-color:#bc22274f ;
+              width: 56px;
+              height: 56px;
+              text-align: center;
+              padding-top: 15px;
+              font-size: 18px;
+              border-radius: 4px;
+              margin-right: 12px
+          }
+          button{
+            width: 248px;
+            height: 56px;
+            border-radius: 4px;
+            font-size: 16px;
+            border: none;
+            color: white;
+            background-color: #BC2228;
+          }
+        }
+       
+      }
+      
+    } 
+    .user-companyView-describe{
+        width: 760px;
+        font-size: 16px;
+        font-weight: 400;
+        color: #5E6670;
+      }
+    .user-companyView-orther{
+      margin-left: 28px;
+        width: 540px;
+        .user-companyView-orther-local{
+          width: 100%;
+          height: 105px;
+          padding-left: 32px;
+          padding-top: 10px;
+          border-radius: 8px;
+          border: 2px solid #E7F0FA;
+          margin-bottom: 60px;
+          .user-companyView-orther-title{
+            font-size: 16px;
+            width: 476px;
+            height: 32px;
+            i{
+              color: #BC2228;
+              margin-right: 4px;
+            }
+          }
+          .user-companyView-orther-address{
+            width: 476px;
+            font-size: 16px;
+            opacity: 0.6;
+          }
+        }
+        .user-companyView-orther-map{
+            font-size: 18px;
+            border: 2px solid #E7F0FA;
+            border-radius: 8px;
+            padding: 32px ;
+            margin-bottom: 75px;
+            i{
+              color: #BC2228;
+              margin-right: 20px;
+            }
+            p{
+              width: 540px;
+              height: 38px;
+              padding-top: 5px;
+            }
+            img{
+              width: 400px;
+              padding: 38px;
+            }
+        }
+        .user-companyView-orther-social{
+          display: flex;
+          font-size: 16px;
+          margin-top: 10px;
+          i{
+            font-size: 20px;
+          }
+          p{
+            width: 40px;
+            height: 40px;
+            background-color: #bc222734;
+            margin-left: 8px;
+            color: #BC2228;
+            text-align: center;
+            padding-top: 10px;
+          }
+        }
+  
+  
+    }
+    .user-companyView-findJob {
+      display: flex;
+      width: 760px;
+      height: 72px;
+      // margin: 0 auto;
+      border-radius: 8px;
+      margin-left: 60px;
+    
+      border: 1px solid rgba(128, 128, 128, 0.314);
+      margin-bottom: 50px;
+
+      .user-companyView-findJob-input {
+          width: 200px;
+          height: 48px;
+          border-radius: 5px;
+          // border: 1px solid rgba(128, 128, 128, 0.58);
+          display: flex;
+          padding: 16px;
+
+          i {
+              margin-top: 5px;
+              font-size: 24px;
+              color: rgba(255, 0, 0, 0.852);
+              margin-right: 10px;
+          }
+
+          input {
+              padding: 5px;
+              height: 40px;
+              width: 310px;
+              border: none;
+              color: gray;
+              font-size: 18px;
+          }
+      }
+
+      .user-companyView-findJob-local {
+          width: 200px;
+          height: 48px;
+          border-radius: 5px;
+          margin-left: 20px;
+          padding: 12px;
+          i {
+              margin-top: 5px;
+              font-size: 24px;
+              color: rgba(255, 0, 0, 0.852);
+              margin-right: 10px;
+          }
+
+          select {
+              width: 70px;
+              height: 40px;
+              font-size: 18px;
+              color: gray;
+              border: none;
+          }
+      }
+
+      .user-companyView-findJob-filter {
+          border-radius: 3px;
+          display: flex;
+          width: 135px;
+          height: 48px;
+          padding: 10px;
+          padding-left: 25px;
+          background-color: #F1F2F4;
+          margin-right: 12px;
+          margin-top: 12px;
+          margin-left: 50px;
+
+          i {
+              font-size: 18px;
+              margin-right: 10px;
+              margin-top: 5px;
+
+          }
+
+          p {
+              font-size: 20px;
+          }
+      }
+
+      .user-companyView-findJob-btn {
+          width: 115px;
+          height: 48px;
+          border-radius: 3px;
+          padding: 12px 24px 12px 24px;
+          font-size: 18px;
+          margin-top: 12px;
+          border: none;
+          background-color: #BC2228;
+          color: #F1F2F4;
+      }
+  }
+  .user-ListJob-job {
+    width: 760px;
+    height: 170px;
+    border: 1px solid rgba(128, 128, 128, 0.314);
+    border-radius: 8px;
+    padding: 24px;
+    margin-bottom: 24px;
+    margin-left: 60px;
+    p {
+      font-size: 16px;
+  }
+
+  i {
+      font-size: 18px;
+      color: rgba(128, 128, 128, 0.314);
+  }
+    .user-ListJob-job-title {
+        font-size: 20px;
+    }
+
+    .user-ListJob-job-typeSalary {
+        display: flex;
+        p {
+            color: gray;
+        }
+        .typeJob {
+            color: rgb(4, 144, 4);
+            background-color: #E2F6EA;
+            margin-right: 8px;
+        }
+    }
+
+.user-ListJob-job-info {
+    height: 48px;
+    display: flex;
+    margin-top: 20px;
+    justify-content: space-between;
+
+    .user-ListJob-job-infoCompany {
+        display: flex;
+
+        .user-ListJob-job-info-logo {
+            width: 48px;
+            height: 48px;
+          margin-right: 12px;
+          background-color: #EDEFF5;
+          border-radius: 4px;
+        }
+
+        .user-ListJob-job-info-company {
+            p {
+                height: 20px;
+            }
+
+            margin: 5px;
+
+            .user-ListJob-job-info-location {
+                i {
+                    color: black;
+                }
+
+                opacity: 0.6;
+            }
+        }
+
+    }
+
+}
+}

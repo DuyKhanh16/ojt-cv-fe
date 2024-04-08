@@ -9,6 +9,7 @@ import AdminRegister from './pages/adminRegister/AdminRegister'
 import Main from './pages/home/main/Main'
 import FormSearch from './components/formSearch/FormSearch'
 import ListCompany from './pages/home/homeUser/listCompany/ListCompany'
+import InformationComany from './pages/home/homeUser/informationComany/InformationComany'
 export default function App() {
   return (
     <div>
@@ -22,6 +23,7 @@ export default function App() {
         <Route path='/home' element={<Main />}></Route>
         <Route path='*' element={<FormSearch />}></Route>
         <Route path='/listcompany' element={<ListCompany />}></Route>
+        <Route path='/companyView' element={<InformationComany />}></Route>
       </Routes>
     </div>
   )
