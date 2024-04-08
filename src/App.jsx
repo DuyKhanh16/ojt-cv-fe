@@ -7,6 +7,8 @@ import CompanyRegister from './pages/companyRegister/CompanyRegister'
 import AdminLogin from './pages/adminLogin/AdminLogin'
 import AdminRegister from './pages/adminRegister/AdminRegister'
 import Main from './pages/home/main/Main'
+import InformationUser from './pages/home/homeUser/informationUser/InformationUser'
+
 export default function App() {
   return (
     <div>
@@ -18,6 +20,7 @@ export default function App() {
         <Route path="/admin-dangnhap" element={<AdminLogin />} />
         <Route path="/admin-dangky" element={<AdminRegister />} />
         <Route path='/home' element={<Main />}></Route>
+        <Route path="/InformationUser" element={<InformationUser />} />
       </Routes>
     </div>
   )
