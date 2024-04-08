@@ -1,0 +1,57 @@
+.certificate{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    // height: 275px;
+    input{
+        width: 100%;
+        // height: 48px;
+        border: 1px solid #767f8c5f;
+        font-size: 14px;
+        padding: 10px;
+    }
+    p{
+        font-size: 16px !important;
+        line-height: 20px;
+        font-weight: 500 !important;
+        color: #52575e !important;    
+    }
+    .date{
+        width: 10%;
+    }
+    .certificateTime{
+        padding-top: 20px;
+        padding-bottom: 20px;
+        display: flex;
+        gap: 30px;
+        align-items: center;
+        .timeSame{
+            display: flex;
+            flex-direction: column;
+            label{
+                font-size: 12px;
+                line-height: 20px;
+                font-weight: 400;
+                color: var(--primary);
+                padding-left: 10px;
+            }
+            input{
+                width: 100%;
+                border: none;
+                border-bottom: 1px solid #767f8c61;
+                font-size: 14px;
+            }
+           
+        }
+        
+    }
+    textarea{
+        width: 100%;
+        height: 100px;
+        border: none;
+        border: 1px solid #767f8c65;
+        font-size: 14px;
+        padding: 10px;
+    }
+}

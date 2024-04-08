@@ -1,0 +1,71 @@
+.skill{
+    width: 100%;
+    .updateInforUser__table__skill__contain{
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 20px ;        
+        label{
+            font-size: 18px;
+            line-height: 24px;
+            color: #0a033c93;
+        }
+        .skillSame{
+            display: flex;
+            flex-direction: column;
+            select{
+                width: 200px;
+                font-size: 14px;
+                border: 1px solid #0A033C80;
+                padding: 5px;
+                color: #0A033C80;
+            }
+        }
+        .skillButton{
+            button{
+                font-size: 16px;
+                line-height: 20px;
+                background-color: white;
+                border-radius: 4px;
+                border: 1px solid var(--primary);
+                color: var(--primary);
+                padding: 5px 10px;
+            }
+        }       
+    }
+   
+   
+}
+.updateInforUser__table__skill__level{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap:20px;
+    padding: 10px 0 20px 0;
+    border-bottom: 1px solid #6F7482;
+    .updateInforUser__table__skill__level--item{
+        padding: 10px;
+        display: flex;
+        align-items: center;
+        gap:20px;
+        // justify-content: space-between;
+        .levelSame{
+            display: flex;
+            flex-direction: column;
+            label{
+                font-size: 18px;
+                line-height: 24px;
+                font-weight: 600;
+                color: #000000;
+            }
+            input{
+                width: 200px;
+                font-size: 16px;
+                border: none;
+                padding: 5px;
+                color: #6F7482;
+            }
+        }
+    }
+}
