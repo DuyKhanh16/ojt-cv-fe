@@ -6,6 +6,7 @@ import UserRegister from './pages/userRegister/UserRegister'
 import CompanyRegister from './pages/companyRegister/CompanyRegister'
 import AdminLogin from './pages/adminLogin/AdminLogin'
 import AdminRegister from './pages/adminRegister/AdminRegister'
+import FormSearch from './components/formSearch/FormSearch'
 export default function App() {
   return (
     <div>
@@ -16,6 +17,9 @@ export default function App() {
         <Route path="/dangky-congty" element={<CompanyRegister />} />
         <Route path="/admin-dangnhap" element={<AdminLogin />} />
         <Route path="/admin-dangky" element={<AdminRegister />} />
+        <Route path="/fromsearch" element={<FormSearch />} />
+        
+
       </Routes>
     </div>
   )
