@@ -17,7 +17,7 @@ export default function App() {
         <Route path="/dangky-congty" element={<CompanyRegister />} />
         <Route path="/admin-dangnhap" element={<AdminLogin />} />
         <Route path="/admin-dangky" element={<AdminRegister />} />
-        <Route path="/home" element={<Main />} />
+        <Route path='/home' element={<Main />}></Route>
       </Routes>
     </div>
   )
