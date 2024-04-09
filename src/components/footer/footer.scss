@@ -54,10 +54,10 @@ body {
     }
 }
   }
-@media screen and (min-width: 512px ) and (max-width: 767px )  {
+@media screen and (min-width: 576px ) and (max-width: 767px )  {
     .footer{
         background-color:#BC2228 ;
-        width: 100%;
+        width: 100vw;
         // height: 346px;
         padding: 30px 20px 16px 20px;
         font-size: 18px;
@@ -110,46 +110,46 @@ body {
         }
     }
 }
-@media screen and (max-width: 511px )  {
+@media screen and (max-width: 576px )  {
     .footer{
         background-color:#BC2228 ;
-        width: 100%;
+        width: 100vw;
         // height: 346px;
         padding: 30px 20px 16px 20px;
         font-size: 18px;
         color: white;
         font-weight: 400;
         .footer-container{
-            width: 100%;
+            width: 100vw;
             // height: 290px;
             margin: 0 auto;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 30px;
+            gap: 20px;
             .footer-infor{
-                width: 566px;
-                height: 232px;
+                width: 100vw;
+                // height: 232px;
                 .footer-text{
-                     margin-top: 30px;
-                    width: 296px;
-                    height: 136px;
+                    margin-top: 30px;
+                    width: 90vw;
+                    // height: 136px;
                 }
                 .footer-social{
                     margin-top: 10px;
-                    width: 70px;
+                    width: 10vw;
                     display: flex;
                     justify-content: space-between;
                 }
     
             }
             .footer-outsource{
-                width: 550px;
+                width: 100vw;
                 display: flex;
                 flex-direction: column;
                 justify-content: space-between;
             .footer-lean{
-                width: 115px;
+                width: 100vw;
                 // height: 185px;
             }
             .footer-textSub{
