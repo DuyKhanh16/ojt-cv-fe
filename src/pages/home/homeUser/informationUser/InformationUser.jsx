@@ -23,7 +23,7 @@ import UpdateInforUser from '../../../../components/modal/updateInforUser/Update
 import FormSearch from '../../../../components/formSearch/FormSearch'
 import Confirm from '../../../../components/confirm/Confirm'
 
-export default function InformationUser() {
+export default function InformationUserB() {
   const [isOpen, setIsOpen] = useState(true)
   const [openABout, setOpenAbout] = useState(false)
   const [openEdu, setOpenEdu] = useState(false)
