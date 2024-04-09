@@ -143,6 +143,7 @@
                .form__search--input--text{
                    margin-top: -38px;
                    margin-left: 145px;
+                  
                   input{
                     border: none;
                     font-size: 3px;
@@ -206,6 +207,10 @@
                 color: #9199A3;
                 font-size: 16px;
                 font: inter;
+                @media screen and (max-width: 576px )  {
+                    width: 60vw!important;
+                    margin-top: 8px;
+                   }
                 // margin-top: -0px;
                 // &::placeholder {
                 //     /* Thiết lập vị trí của placeholder */
