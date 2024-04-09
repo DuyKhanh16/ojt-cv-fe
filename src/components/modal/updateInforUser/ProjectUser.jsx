@@ -1,10 +1,11 @@
 import React from 'react'
 import './formModal.scss'
 import './Certificate.scss'
-export default function ProjectUser() {
+export default function ProjectUser({isOpen,close}) {
   return (
     <>
-         <div className="updateInforUser" style={{display:'none'}} >
+    <div style={{display:isOpen?'block':'none'}} >
+       <div className="updateInforUser" >
         <div className="updateInforUser__contain">
           <h4>Dự án cá nhân</h4>
         <div className="updateInforUser__table certificate">
@@ -37,10 +38,12 @@ export default function ProjectUser() {
         </div>
         <div className="updateInforUser__button">
           <button>Cập nhập</button>
-          <button className='updateInforUser__button__cancel'>Hủy Bỏ</button>
+          <button className='updateInforUser__button__cancel' onClick={()=>close()}>Hủy Bỏ</button>
         </div>
         </div> 
       </div>
+    </div>
+        
     </>
   )
 }

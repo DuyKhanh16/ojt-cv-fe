@@ -21,19 +21,35 @@ import ProjectUser from '../../../../components/modal/updateInforUser/ProjectUse
 import Skill from '../../../../components/modal/updateInforUser/Skill'
 import UpdateInforUser from '../../../../components/modal/updateInforUser/UpdateInforUser'
 import FormSearch from '../../../../components/formSearch/FormSearch'
+import Confirm from '../../../../components/confirm/Confirm'
+
 export default function InformationUser() {
   const [isOpen, setIsOpen] = useState(true)
+  const [openABout, setOpenAbout] = useState(false)
+  const [openEdu, setOpenEdu] = useState(false)
+  const [openCert, setOpenCert] = useState(false)
+  const [openExp, setOpenExp] = useState(false)
+  const [openProject, setOpenProject] = useState(false)
   const open = () => {
     setIsOpen(!isOpen)
   }
+  const close = () => {
+    setOpenAbout(false)
+    setOpenEdu(false)
+    setOpenCert(false)
+    setOpenExp(false)
+    setOpenProject(false)
+  }
+  
   return (
     <>
-      <AboutUser></AboutUser>
-      <Certificate></Certificate>
-      <Education></Education>
-      <Exp></Exp>
-      <ProjectUser></ProjectUser>
+      <AboutUser isOpen={openABout} close={close}></AboutUser>
+      <Certificate isOpen={openCert} close={close}></Certificate>
+      <Education isOpen={openEdu} close={close}></Education>
+      <Exp isOpen={openExp} close={close}></Exp>
+      <ProjectUser isOpen={openProject} close={close}></ProjectUser>
       <Skill></Skill>
+      <Confirm></Confirm>
       <Header></Header>
       <FormSearch></FormSearch>
       <UpdateInforUser></UpdateInforUser>
@@ -72,8 +88,8 @@ export default function InformationUser() {
                   onClick={open}
                 />
             <div className="informationUser__contain__left__list" style={{height:isOpen?"380px":"0px"}}>
-              <div className="informationUser__contain__left__item">
-                <img src={vetor} alt="" />
+              <div className="informationUser__contain__left__item" >
+                <img src={vetor} alt=""  />
                 <p>Thêm giới thiệu bản thân</p>
               </div>
               <div className="informationUser__contain__left__item">
@@ -120,7 +136,7 @@ export default function InformationUser() {
           <div className="informationUser__contain__right">
             <div className="informationUser__contain__right__infor">
               <div>
-                <img src={logo} alt="" />
+                <img src={logo} alt=""  />
               </div>
 
               <div className="informationUser__infor">
@@ -176,31 +192,31 @@ export default function InformationUser() {
             <div className="informationUser__contain__right__item">
               <p>Giới thiệu Bản Thân</p>
               <input type="text" placeholder='Giơí thiệu điểm mạnh của bản thân và kinh nghiệm của bạn '/>
-              <img src={vetor} alt="" />
+              <img src={vetor} alt="" onClick={()=>setOpenAbout(!openABout)}/>
             </div>
 
             <div className="informationUser__contain__right__item">
               <p>Học Vấn</p>
               <input type="text" placeholder='Giơí thiệu điểm mạnh của bản thân và kinh nghiệm của bạn '/>
-              <img src={vetor} alt="" />
+              <img src={vetor} alt="" onClick={()=>setOpenEdu(!openEdu)}/>
             </div>
 
             <div className="informationUser__contain__right__item">
               <p>Kinh Nghiệm Làm Việc</p>
               <input type="text" placeholder='Giơí thiệu điểm mạnh của bản thân và kinh nghiệm của bạn '/>
-              <img src={vetor} alt="" />
+              <img src={vetor} alt="" onClick={()=>setOpenExp(!openExp)} />
             </div>
 
             <div className="informationUser__contain__right__item">
               <p>Dự Án Cá Nhân</p>
               <input type="text" placeholder='Giơí thiệu điểm mạnh của bản thân và kinh nghiệm của bạn '/>
-              <img src={vetor} alt="" />
+              <img src={vetor} alt="" onClick={()=>setOpenProject(!openProject)} />
             </div>
 
             <div className="informationUser__contain__right__item">
               <p>Chứng Chỉ</p>
               <input type="text" placeholder='Giơí thiệu điểm mạnh của bản thân và kinh nghiệm của bạn '/>
-              <img src={vetor} alt="" />
+              <img src={vetor} alt="" onClick={()=>setOpenCert(!openCert)}/>
             </div>
 
           </div>
