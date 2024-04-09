@@ -31,7 +31,7 @@ export default function App() {
         <Route path="/trangchu" element={<Main />} />
         <Route path="/thongtin-ungvien" element={<InformationUser />} />
         <Route path="/themvieclammoi" element={<AddJob />} />
-        <Route path="*" element={<JobDetail />}></Route>
+        <Route path="*" element={<UpdateJobBusiness />}></Route>
         <Route path="/InformationUser" element={<InformationUserB />} />
         <Route path="*" element={<FormSearch />}></Route>
         <Route path="/listcompany" element={<ListCompany />}></Route>
