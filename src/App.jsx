@@ -22,16 +22,18 @@ export default function App() {
   return (
     <div>
       <Routes>
-        <Route path="/dangnhap" element={<UserLogin />} />
-        <Route path="/dangky" element={<UserRegister />} />
-        <Route path="/dangnhap-congty" element={<CompanyLogin />} />
-        <Route path="/dangky-congty" element={<CompanyRegister />} />
-        <Route path="/admin-dangnhap" element={<AdminLogin />} />
-        <Route path="/admin-dangky" element={<AdminRegister />} />
-        <Route path="/trangchu" element={<Main />} />
-        <Route path="/thongtin-ungvien" element={<InformationUser />} />
-        <Route path="/themvieclammoi" element={<AddJob />} />
-        <Route path="*" element={<UpdateJobBusiness />}></Route>
+
+        <Route path="/login" element={<UserLogin />} />
+        <Route path="/register" element={<UserRegister />} />
+        <Route path="/companylogin" element={<CompanyLogin />} />
+        <Route path="/companyregister" element={<CompanyRegister />} />
+        <Route path="/adminlogin" element={<AdminLogin />} />
+        <Route path="/adminregister" element={<AdminRegister />} />
+        <Route path="/home" element={<Main />} />
+        <Route path="/informationUser-business" element={<InformationUser />} />
+        <Route path="/addnewjob" element={<AddJob />} />
+        <Route path="*" element={<JobDetail />}></Route>
+
         <Route path="/InformationUser" element={<InformationUserB />} />
         <Route path="*" element={<FormSearch />}></Route>
         <Route path="/listcompany" element={<ListCompany />}></Route>
