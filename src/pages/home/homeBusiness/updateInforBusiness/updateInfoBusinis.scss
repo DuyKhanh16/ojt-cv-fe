@@ -3,6 +3,26 @@ body{
     padding: 0;
     box-sizing: border-box;
 }
+.company-info-user-container{
+    @media screen and (min-width: 576px) and (max-width: 768px) {
+        width: 100vw!important;
+        flex-direction: column;
+    }
+    @media screen and (max-width: 576px) {
+        flex-direction: column;
+        width: 100vw!important;
+    }
+    .company-info-user-detail{
+        @media screen and (min-width: 576px) and (max-width: 768px) {
+            width: 80vw!important; 
+            margin: auto;
+        }
+        @media screen and (max-width: 576px) {
+            width: 80vw !important;
+            margin: auto;
+            
+        }
+ 
 .company-info-user{
     height: 78px;;
        display: flex;
@@ -54,4 +74,6 @@ body{
     border-radius: 3px;
     background-color: rgba(255, 0, 0, 0.224);
     color:red;
+}
+}
 }
