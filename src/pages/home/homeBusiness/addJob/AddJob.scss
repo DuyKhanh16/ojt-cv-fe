@@ -1,0 +1,462 @@
+:root {
+  --primary: rgba(188, 34, 40, 1);
+  --secondary: rgba(0, 0, 0, 1);
+  --white: rgba(255, 255, 255, 1);
+  --gray: rgba(93, 90, 111, 1);
+  --dark-blue: rgba(10, 3, 60, 1);
+  --line-gadient: linear-gradient(
+    rgba(10, 3, 60, 0),
+    rgba(10, 3, 60, 1),
+    rgba(10, 3, 60, 0)
+  );
+}
+html,
+body {
+  font-family: "Cabin", sans-serif;
+  font-size: 30px;
+  padding: 0;
+  margin: 0;
+}
+
+/* main */
+.addJob__container {
+  width: 1440px;
+  background-color: #fff;
+  .addJob__nav {
+    width: 100%;
+    height: 68px;
+    padding: 24px 60px 24px 60px;
+    display: flex;
+    align-items: center;
+    background-color: rgba(241, 242, 244, 1);
+    p {
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 20px;
+      color: rgba(118, 127, 140, 1);
+    }
+    .addJob__nav__addNewJob {
+      color: #000;
+    }
+  }
+  .addJob__body {
+    padding: 48px 60px 0 60px;
+    label {
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 23px;
+    }
+    input {
+      height: 48px;
+      border: 1px solid rgba(228, 229, 232, 1);
+      padding: 12px;
+      border-radius: 4px;
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 24px;
+    }
+    .addJob__body__form {
+      width: 100%;
+      height: 1100px;
+      margin-top: 40px;
+      .addJob__body__form__nameJob {
+        width: 100%;
+        height: 74px;
+        .addJob__body__form__nameJob--text {
+          width: 100%;
+          height: 48px;
+        }
+      }
+      .addJob__body__form__Fusion {
+        width: 100%;
+        height: 74px;
+        margin-top: 50px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .addJob__body__form__location {
+          height: 100%;
+          width: 655px;
+          input {
+            width: 100%;
+            height: 48px;
+          }
+        }
+        .addJob__body__form__time {
+          height: 100%;
+          width: 452px;
+          select {
+            width: 100%;
+            height: 48px;
+            padding: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            color: rgba(111, 116, 130, 1);
+            border: 1px solid rgba(228, 229, 232, 1);
+            border-radius: 4px;
+          }
+        }
+      }
+      .addJob__body__form__highInfor {
+        margin-top: 70px;
+        width: 100%;
+        height: 158px;
+        background-color: #f1f2f3;
+        label {
+          font-size: 16px;
+          font-weight: 500;
+          line-height: 23px;
+        }
+        p {
+          font-size: 16px;
+          font-weight: 500;
+        }
+        .addJob__body__form__highInfor__all {
+          display: flex;
+          gap: 120px;
+          justify-content: space-between;
+          align-items: center;
+          padding: 0px 30px 42px 30px;
+
+          input {
+            width: 300px;
+            height: 48px;
+            color: rgba(111, 116, 130, 1);
+          }
+          select {
+            width: 300px;
+            height: 48px;
+            padding: 12px;
+            font-size: 14px;
+            font-size: 600;
+            color: rgba(111, 116, 130, 1);
+            border: 1px solid rgba(228, 229, 232, 1);
+            border-radius: 4px;
+            cursor: pointer;
+          }
+        }
+      }
+      .addJob__body__form__description {
+        margin-top: 30px;
+        label {
+          font-size: 16px;
+          font-weight: 500;
+          line-height: 23px;
+        }
+        textarea {
+          width: 100%;
+          height: 273px;
+          border-radius: 4px;
+          border: 1px solid rgba(228, 229, 232, 1);
+          padding: 12px;
+          font-size: 14px;
+          font-weight: 400;
+          line-height: 22px;
+        }
+      }
+      .addJob__body__form__button {
+        width: 125px;
+        height: 48px;
+        background-color: var(--primary);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 30px;
+        color: #fff;
+        border-radius: 5px;
+        border: none;
+        margin-top: 100px;
+        cursor: pointer;
+        user-select: none;
+        position: relative;
+        isolation: isolate;
+        overflow: hidden;
+
+        &:hover::before {
+          left: auto;
+          right: 0;
+          width: 100%;
+        }
+
+        &::before {
+          content: "";
+          position: absolute;
+          left: 0;
+          right: auto;
+          top: 0;
+          height: 100%;
+          width: 0;
+          background-color: #fff;
+          opacity: 0.1;
+          z-index: -1;
+          transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+      }
+    }
+  }
+}
+/* end main */
+/* Responsive */
+
+/* mobile */
+@media only screen and (max-width: 576px) {
+  .addJob__container {
+    width: 100vw;
+    max-width: 576px;
+    .addJob__nav {
+      p {
+        font-size: 12px;
+      }
+    }
+    .addJob__body {
+      h4 {
+        font-size: 20px;
+      }
+      label {
+        font-size: 16px;
+      }
+      input {
+        font-size: 16px;
+      }
+      .addJob__body__form {
+        .addJob__body__form__nameJob {
+          width: 456px;
+          height: 120px;
+          .addJob__body__form__nameJob--text {
+            height: 40px;
+          }
+        }
+        .addJob__body__form__Fusion {
+          width: 456px;
+          height: 120px;
+          .addJob__body__form__location {
+            height: 120px;
+            width: 300px;
+            input {
+              width: 80%;
+              height: 40px;
+            }
+          }
+          .addJob__body__form__time {
+            height: 120px;
+            width: 120px;
+            select {
+              width: 100%;
+              height: 40px;
+              font-size: 16px;
+              padding: 0 12px;
+            }
+          }
+        }
+        .addJob__body__form__highInfor {
+          width: 456px;
+          height: 300px;
+          label {
+            font-size: 16px;
+          }
+          p {
+            font-size: 16px;
+          }
+          .addJob__body__form__highInfor__all {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 50px;
+            padding: 0px 30px 42px 30px;
+
+            input {
+              width: 120px;
+              height: 40px;
+            }
+            select {
+              width: 100px;
+              height: 40px;
+              font-size: 16px;
+              padding: 0 12px;
+            }
+          }
+        }
+        .addJob__body__form__description {
+          label {
+            font-size: 16px;
+          }
+          textarea {
+            width: 456px;
+            font-size: 16px;
+          }
+        }
+        .addJob__body__form__button {
+          width: 120px;
+          height: 60px;
+          background-color: var(--primary);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 16px;
+          font-weight: 500;
+          line-height: 30px;
+          color: #fff;
+          border-radius: 5px;
+          border: none;
+          margin-top: 20px;
+          cursor: pointer;
+          user-select: none;
+          position: relative;
+          isolation: isolate;
+          overflow: hidden;
+
+          &:hover::before {
+            left: auto;
+            right: 0;
+            width: 100%;
+          }
+
+          &::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: auto;
+            top: 0;
+            height: 100%;
+            width: 0;
+            background-color: #fff;
+            opacity: 0.1;
+            z-index: -1;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+          }
+        }
+      }
+    }
+  }
+}
+
+/* ipad */
+@media only screen and (min-width: 577px) and (max-width: 769px) {
+  .addJob__container {
+    width: 100vw;
+    max-width: 768px;
+    height: 1500px;
+    .addJob__nav {
+      p {
+        font-size: 18px;
+      }
+    }
+    .addJob__body {
+      h4 {
+        font-size: 38px;
+      }
+      label {
+        font-size: 18px;
+      }
+      input {
+        font-size: 20px;
+      }
+      .addJob__body__form {
+        .addJob__body__form__nameJob {
+          width: 648px;
+          height: 120px;
+          .addJob__body__form__nameJob--text {
+            height: 80px;
+          }
+        }
+        .addJob__body__form__Fusion {
+          width: 648px;
+          height: 120px;
+          .addJob__body__form__location {
+            height: 120px;
+            width: 400px;
+            input {
+              width: 80%;
+              height: 80px;
+            }
+          }
+          .addJob__body__form__time {
+            height: 120px;
+            width: 250px;
+            select {
+              width: 100%;
+              height: 80px;
+              font-size: 20px;
+            }
+          }
+        }
+        .addJob__body__form__highInfor {
+          width: 648px;
+          height: 300px;
+          label {
+            font-size: 18px;
+          }
+          p {
+            font-size: 26px;
+          }
+          .addJob__body__form__highInfor__all {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            input {
+              width: 250px;
+              height: 40px;
+            }
+            select {
+              width: 100px;
+              height: 40px;
+              font-size: 18px;
+              padding: 0 10px;
+            }
+          }
+        }
+        .addJob__body__form__description {
+          label {
+            font-size: 18px;
+          }
+          textarea {
+            width: 648px;
+            font-size: 18px;
+          }
+        }
+        .addJob__body__form__button {
+          width: 150px;
+          height: 60px;
+          background-color: var(--primary);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 18px;
+          font-weight: 500;
+          line-height: 30px;
+          color: #fff;
+          border-radius: 5px;
+          border: none;
+          margin-top: 20px;
+          cursor: pointer;
+          user-select: none;
+          position: relative;
+          isolation: isolate;
+          overflow: hidden;
+
+          &:hover::before {
+            left: auto;
+            right: 0;
+            width: 100%;
+          }
+
+          &::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: auto;
+            top: 0;
+            height: 100%;
+            width: 0;
+            background-color: #fff;
+            opacity: 0.1;
+            z-index: -1;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+          }
+        }
+      }
+    }
+  }
+}
+/* end Responsive */

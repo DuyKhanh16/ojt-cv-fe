@@ -1,3 +1,6 @@
+.user__login__container {
+  padding-left: 62.5px;
+  padding-top: 20.06px;
 /* logo */
 .logo {
   width: 200px;
@@ -13,7 +16,7 @@
 
 /* main */
 .user__login {
-  width: 100%;
+  width: 100vw;
   height: 630px;
   display: flex;
   justify-content: space-between;
@@ -176,3 +179,98 @@
   }
 }
 /* end main */
+}
+
+/* Reponsive */
+/* Mobile */
+@media only screen and (max-width: 576px) {
+  .user__login__container {
+    width: 100vw;
+    padding-left: 0px;
+    padding-top: 0px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 800px;
+    .logo {
+      margin-top: 80px;
+    }
+    .user__login {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      .user__login-form-content {
+        font-size: 16px;
+        line-height: 20px;
+        text-align: center;
+        p {
+          line-break: auto;
+        }
+      }
+      .user__login-form-input {
+        
+        margin-top: 0px;
+        .btn {
+          width: 40%;
+          margin: 20px auto;
+        }
+      }
+      .line, .image {
+        display: none;
+      }
+
+    }
+    
+  }
+  
+}
+
+/* Ipad */
+@media only screen and (min-width: 577px) and (max-width:769px) {
+  .user__login__container {
+    width: 100vw;
+    padding-left: 0px;
+    padding-top: 0px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    .logo {
+      margin-top: 80px;
+    }
+    .user__login {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      .user__login-form-content {
+        font-size: 16px;
+        line-height: 20px;
+        text-align: center;
+        p {
+          line-break: auto;
+        }
+      }
+      .user__login-form-input {
+        
+        margin-top: 0px;
+        .btn {
+          width: 40%;
+          margin: 20px auto;
+        }
+      }
+      .line, .image {
+        display: none;
+      }
+
+    }
+    
+  }
+}
+
+/* end Reponsive */
+
