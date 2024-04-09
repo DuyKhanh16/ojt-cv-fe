@@ -1,0 +1,153 @@
+body {
+    font-family: "Cabin", sans-serif;
+    font-size: 30px;
+    padding: 0;
+    margin: 0;
+    width: 1440px;
+  }
+  .user-ListJob-findJob {
+    display: flex;
+    width: 1320px;
+    height: 72px;
+    margin: 0 auto;
+    border-radius: 8px;
+    border: 1px solid rgba(128, 128, 128, 0.314);
+    margin-bottom: 50px;
+
+    .user-ListJob-findJob-input {
+        width: 576px;
+        height: 48px;
+        border-radius: 5px;
+        display: flex;
+        padding: 16px;
+
+        i {
+            margin-top: 5px;
+            font-size: 24px;
+            color: rgba(255, 0, 0, 0.852);
+            margin-right: 10px;
+        }
+
+        input {
+            padding: 5px;
+            height: 40px;
+            width: 310px;
+            border: none;
+            color: gray;
+            font-size: 16px;
+        }
+    }
+
+    .user-ListJob-findJob-local {
+        width: 425px;
+        height: 48px;
+        border-radius: 5px;
+        margin-left: 3px;
+        padding: 12px;
+
+        i {
+            margin-top: 5px;
+            font-size: 24px;
+            color: rgba(255, 0, 0, 0.852);
+            margin-right: 10px;
+        }
+
+        select {
+            width: 200px;
+            height: 40px;
+            font-size: 16px;
+            color: gray;
+            border: none;
+        }
+    }
+
+    .user-ListJob-findJob-filter {
+        border-radius: 3px;
+        display: flex;
+        width: 135px;
+        height: 48px;
+        padding: 10px;
+        padding-left: 25px;
+        background-color: #F1F2F4;
+        margin-right: 12px;
+        margin-top: 12px;
+
+        i {
+            font-size: 18px;
+            margin-right: 10px;
+            margin-top: 5px;
+
+        }
+
+        p {
+            font-size: 20px;
+        }
+    }
+
+    .user-ListJob-findJob-btn {
+        width: 115px;
+        height: 48px;
+        border-radius: 3px;
+        padding: 12px 24px 12px 24px;
+        font-size: 18px;
+        margin-top: 12px;
+        border: none;
+        background-color: #BC2228;
+        color: #F1F2F4;
+    }
+}
+  .user-ListCompany{
+    width: 1320px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+   .user-ListCompany-company{
+    width: 425px;
+    border: 1px solid rgba(128, 128, 128, 0.319);
+    border-radius: 8px;
+    padding: 24px;
+    margin-bottom: 24px;
+    .user-ListCompany-company-info{
+      display: flex;
+      margin-bottom: 22px;
+      img{
+        width: 56px;
+        height: 56px;
+        border-radius: 3px;
+        margin-right:16px ;
+      }
+      p{
+        font-size: 14px;
+        opacity: 0.6;
+      }
+      .user-ListCompany-company-info-nameCompany{
+        font-size: 20px;
+        opacity: 1;
+        margin-right: 8px;
+      }
+      .feature{
+        display: inline-block;
+         width: 83px;
+        height: 26px;
+        font-size: 14px;
+        font-style:italic;
+        padding: 3px 12px;
+        border-radius: 52px;
+        background-color: #FCEEEE;
+        color:#E05151;
+      };
+    }
+    .user-ListCompany-company-open{
+        width: 376px;
+        height: 48px;
+        background-color: #E7F0FA;
+        color: #0A65CC;
+        font-size: 18px;
+        font-weight: 600;
+        text-align: center;
+        padding-top: 12px;
+        border-radius: 3px;
+    }
+   }
+  }

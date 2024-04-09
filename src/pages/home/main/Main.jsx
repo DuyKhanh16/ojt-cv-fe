@@ -1,3 +1,4 @@
+
 import React from "react";
 import "./Main.scss";
 import imgSearch from "../../../assets/images/main/Software code testing-pana 1.png";
@@ -1251,4 +1252,4 @@ export default function Main() {
       </div>
     </>
   );
-}
+

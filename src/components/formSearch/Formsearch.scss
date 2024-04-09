@@ -1,0 +1,269 @@
+
+@media screen and (max-width: 100vw) {
+   
+    .form__search{
+        background-color: white;
+        max-width: 1440px;
+        height: 139px;
+        padding:  33.5px 152px 33.5px 152px;
+        .form__search--content{
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            padding:  8px, 30px, 8px, 30px;
+            gap: 30px;
+            background-color: white;
+            justify-content: space-between;
+            .form__search--image{
+                width: 127px;
+                height: 56px;
+                
+            }
+            .form__search--input{
+                margin-top: -10px;
+                .form__search--input--boder{
+                    width: 668px;
+                height: 50px;
+                border-radius: 5px;
+                border: 1px solid #E4E5E8;
+                padding: 10px 29.47px;
+                color: #9199A3;
+                font-size: 16px;
+                font: inter;
+                // margin-top: -0px;
+                // &::placeholder {
+                //     /* Thiết lập vị trí của placeholder */
+                //     text-indent: 120px; /* Dịch chuyển vị trí sang phải 10px */
+                    
+                //   }
+                }
+                .form__search--input--adress{
+                    margin-top: -37px;
+                    margin-left: 24px;
+                    font: inter;
+                    font-size: 14px;
+                }
+                .form__search--input--logo{
+                    width: 10px;
+                    height: 5px;
+                    margin-left: 75px;
+                    margin-top: -10px;
+                }
+                .form__search--input--logo2{
+                    margin-left: 95px;
+                    margin-top: -20px;
+                }
+                .form__search--input--logo3{
+                    margin-left: 115px;
+                    margin-top: -30px;
+                    width: 24px;
+                    height: 24px;
+                }
+               .form__search--input--text{
+                   margin-top: -38px;
+                   margin-left: 145px;
+                  input{
+                    border: none;
+                  }
+    
+               }
+            }
+          
+    }
+    }
+    
+}
+
+@media screen and (min-width: 512px ) and (max-width: 767px )  {
+    .form__search{
+        background-color: white;
+        max-width: 767px;
+        min-width: 512px;
+        height: 139px;
+        padding:  15.5px 30px 15.5px 30px;
+        .form__search--content{
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            padding:  8px, 30px, 8px, 30px;
+            gap: 30px;
+            background-color: white;
+            justify-content: space-between;
+            .form__search--image{
+                width: 0px;
+                height: 56px;
+                .form__search--image--logo{
+                    width: 60px;
+                    height: 56px;
+                }
+            }
+            .form__search--input{
+                margin-top: -10px;
+                .form__search--input--boder{
+                    width: 360px;
+                height: 30px;
+                border-radius: 5px;
+                border: 1px solid #E4E5E8;
+                padding: 10px 29.47px;
+                color: #9199A3;
+                font-size: 16px;
+                font: inter;
+                // margin-top: -0px;
+                // &::placeholder {
+                //     /* Thiết lập vị trí của placeholder */
+                //     text-indent: 120px; /* Dịch chuyển vị trí sang phải 10px */
+                    
+                //   }
+                }
+                .form__search--input--adress{
+                    margin-top: -23px;
+                    margin-left: 24px;
+                    font: inter;
+                    font-size: 12px;
+                }
+                .form__search--input--logo{
+                    width: 10px;
+                    height: 5px;
+                    margin-left: 75px;
+                    margin-top: -10px;
+                }
+                .form__search--input--logo2{
+                    margin-left: 95px;
+                    margin-top: -20px;
+                    height: 30px;
+                }
+                .form__search--input--logo3{
+                    margin-left: 115px;
+                    margin-top: -25px;
+                    width: 20px;
+                    height: 20px;
+                }
+               .form__search--input--text{
+                   margin-top: -38px;
+                   margin-left: 145px;
+                  input{
+                    border: none;
+                    font-size: 3px;
+                  }
+    
+               }
+            }
+            .form__search--info{
+                width: 30px;
+                height: 30px;
+                margin-left: -30px;
+                margin-top: -5px;
+
+               
+            }
+            .form__search--notifacation{
+                width: 20px;
+                height: 20px;
+                margin-left: -20px;
+                margin-top: -5px;
+            }
+            .form__search--name
+            {
+                display: none;
+            }
+    }
+    }
+}
+@media screen and (max-width: 511px )  {
+    .form__search{
+        background-color: white;
+        max-width: 767px;
+        min-width: 512px;
+        height: 139px;
+        padding:  15.5px 30px 15.5px 30px;
+        .form__search--content{
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            padding:  8px, 30px, 8px, 30px;
+            gap: 30px;
+            background-color: white;
+            justify-content: space-between;
+            .form__search--image{
+                width: 0px;
+                height: 56px;
+                .form__search--image--logo{
+                    width: 60px;
+                    height: 56px;
+                }
+            }
+            .form__search--input{
+                margin-top: -10px;
+                .form__search--input--boder{
+                    width: 360px;
+                height: 30px;
+                border-radius: 5px;
+                border: 1px solid #E4E5E8;
+                padding: 10px 29.47px;
+                color: #9199A3;
+                font-size: 16px;
+                font: inter;
+                // margin-top: -0px;
+                // &::placeholder {
+                //     /* Thiết lập vị trí của placeholder */
+                //     text-indent: 120px; /* Dịch chuyển vị trí sang phải 10px */
+                    
+                //   }
+                }
+                .form__search--input--adress{
+                    margin-top: -23px;
+                    margin-left: 24px;
+                    font: inter;
+                    font-size: 12px;
+                }
+                .form__search--input--logo{
+                    width: 10px;
+                    height: 5px;
+                    margin-left: 75px;
+                    margin-top: -10px;
+                }
+                .form__search--input--logo2{
+                    margin-left: 95px;
+                    margin-top: -20px;
+                    height: 30px;
+                }
+                .form__search--input--logo3{
+                    margin-left: 115px;
+                    margin-top: -25px;
+                    width: 20px;
+                    height: 20px;
+                }
+               .form__search--input--text{
+                   margin-top: -38px;
+                   margin-left: 145px;
+                  input{
+                    border: none;
+                    font-size: 3px;
+                  }
+    
+               }
+            }
+            .form__search--info{
+                width: 20px;
+                height: 20px;
+                margin-left: -30px;
+                margin-top: -5px;
+
+               
+            }
+            .form__search--notifacation{
+                width: 15px;
+                height: 15px;
+                margin-left: -20px;
+                margin-top: -5px;
+            }
+            .form__search--name
+            {
+                display: none;
+            }
+    }
+    }
+}
