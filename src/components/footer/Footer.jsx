@@ -6,6 +6,7 @@ import youtobe from "../../assets/images/logo/youtobe.png"
 export default function Footer() {
   return (
     <div className='footer'>
+      
       <div className='footer-container'>
         <div className='footer-infor'>
           <div className='footer-logo'>
@@ -23,6 +24,7 @@ export default function Footer() {
          
         </div>
         <div className='footer-outsource'>
+
         <div className='footer-lean'>
           <p>Khóa Học</p>
           <div className='footer-textSub'>
@@ -33,6 +35,7 @@ export default function Footer() {
             <p>Bổ trợ cho nghềp</p>
           </div>
         </div>
+
         <div className='footer-resurces'>
         <p>Tài nguyên học tập</p>
         <div className='footer-textSub'>
@@ -43,6 +46,7 @@ export default function Footer() {
           <p>Cộng đồng</p>
         </div>
         </div>
+
         <div className='footer-support'>
           <p>Vì sao chọn Rikkei Academy</p>
           <div className='footer-textSub'>
@@ -53,8 +57,10 @@ export default function Footer() {
             <p>Liên hệ</p>
           </div>
         </div>
+
         </div>
       </div>
+
       <p style={{textAlign: 'center', fontSize: '14px'}}>Copyright 2023 © Rikkei Education. All Rights Reserved.</p>
     </div>
   )

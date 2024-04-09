@@ -7,10 +7,18 @@ import CompanyRegister from './pages/companyRegister/CompanyRegister'
 import AdminLogin from './pages/adminLogin/AdminLogin'
 import AdminRegister from './pages/adminRegister/AdminRegister'
 import Main from './pages/home/main/Main'
+
 // import FormSearch from './components/formSearch/FormSearch'
 import JobDetail from './pages/home/homeUser/jobDetail/JobDetail'
 import UpdateJobBusiness from './pages/home/homeBusiness/updateJobBusiness/UpdateJobBusiness'
+
+import InformationUser from './pages/home/homeUser/informationUser/InformationUser'
+
+
 import FormSearch from './components/formSearch/FormSearch'
+import ListCompany from './pages/home/homeUser/listCompany/ListCompany'
+import InformationComany from './pages/home/homeUser/informationComany/InformationComany'
+import UpdateInforBusiness from './pages/home/homeBusiness/updateInforBusiness/UpdateInforBusiness'
 export default function App() {
   return (
     <div>
@@ -22,7 +30,15 @@ export default function App() {
         <Route path="/admin-dangnhap" element={<AdminLogin />} />
         <Route path="/admin-dangky" element={<AdminRegister />} />
         <Route path='/home' element={<Main />}></Route>
+
         <Route path='*' element={<JobDetail />}></Route>
+
+        <Route path="/InformationUser" element={<InformationUser />} />
+        <Route path='*' element={<FormSearch />}></Route>
+        <Route path='/listcompany' element={<ListCompany />}></Route>
+        <Route path='/companyView' element={<InformationComany />}></Route>
+        <Route path='/updateinforcompany' element={<UpdateInforBusiness />}></Route>
+
       </Routes>
     </div>
   )
