@@ -2,10 +2,11 @@ import React from 'react'
 import './formModal.scss'
 import './Certificate.scss'
 
-export default function Education() {
+export default function Education({isOpen,close}) {
   return (
     <>
-    <div className="updateInforUser" style={{display: 'none'}} >
+    <div style={{display:isOpen?'block':'none'}}>
+      <div className="updateInforUser"  >
         <div className="updateInforUser__contain">
           <h4>Học Vấn</h4>
         <div className="updateInforUser__table certificate">
@@ -38,10 +39,12 @@ export default function Education() {
         </div>
         <div className="updateInforUser__button">
           <button>Cập nhập</button>
-          <button className='updateInforUser__button__cancel'>Hủy Bỏ</button>
+          <button className='updateInforUser__button__cancel' onClick={()=>close()}>Hủy Bỏ</button>
         </div>
         </div> 
       </div>
+    </div>
+    
     </>
   )
 }
