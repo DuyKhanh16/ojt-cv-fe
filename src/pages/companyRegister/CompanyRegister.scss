@@ -1,62 +1,66 @@
-/* logo */
-.logo {
-  width: 200px;
-  height: 67.6px;
+.company__register__container {
+  padding-left: 62.5px;
+  padding-top: 20.06px;
+  /* logo */
+  .logo {
+    width: 200px;
+    height: 67.6px;
 
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-  }
-}
-/* end logo */
-
-/* main */
-.company__register {
-  width: 100%;
-  height: 630px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 30px;
-
-  .company__register__form--left {
-    width: 486.54px;
-    height: 100%;
-
-    .company__register-form-content {
+    img {
       width: 100%;
-      height: 106px;
-      font-weight: 700;
-      line-height: 40px;
+      height: 100%;
+      object-fit: contain;
     }
+  }
+  /* end logo */
 
-    .company__register-form-input {
-      width: 100%;
-      height: 472.75px;
-      margin-top: 0px;
+  /* main */
+  .company__register {
+    width: 100vw;
+    height: 630px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 30px;
 
-      .company__register-infor__Account {
+    .company__register__form--left {
+      width: 486.54px;
+      height: 100%;
+
+      .company__register-form-content {
         width: 100%;
-        height: 40px;
-        border-left: 10px solid var(--primary);
-        font-size: 24px;
+        height: 106px;
+        font-size: 2vw;
         font-weight: 700;
-        padding: 8px 25.42px;
-        display: flex;
-        align-items: center;
+        line-height: 40px;
       }
+
+      .company__register-form-input {
+        width: 100%;
+        height: 472.75px;
+        margin-top: 0px;
+
+        .company__register-infor__Account {
+          width: 100%;
+          height: 40px;
+          border-left: 10px solid var(--primary);
+          font-size: 24px;
+          font-weight: 700;
+          padding: 8px 25.42px;
+          display: flex;
+          align-items: center;
+        }
         .company__register-input__email {
           width: 100%;
           height: 108.5px;
         }
-        
+
         .company__register-input__password {
           margin-top: -20px;
           .company__register-input__password-wrapper {
             position: relative;
             .togglePasswordVisibility {
-             position: absolute;
+              position: absolute;
               top: 50%;
               right: 20.8px;
               transform: translateY(-50%);
@@ -65,11 +69,10 @@
           }
         }
         .company__register-input__confirmPassword {
-          
           .company__register-confirmPassword-input-wrapper {
             position: relative;
             .togglePasswordVisibility {
-             position: absolute;
+              position: absolute;
               top: 50%;
               right: 20.8px;
               transform: translateY(-50%);
@@ -77,145 +80,292 @@
             }
           }
         }
-        
+      }
     }
-  }
 
-  label {
-    width: 61.01px;
-    height: 43.5px;
-    font-size: 16px;
-    font-weight: 500px;
-    padding: 10px;
-    line-height: 30px;
-  }
-  input {
-    width: 100%;
-    height: 40px;
-    border: 1px solid rgba(222, 221, 228, 1);
-    border-radius: 5px;
-    padding: 13px 29.47px;
-    font-size: 14px;
-    font-weight: 400px;
-    line-height: 30px;
-    display: flex;
-    align-items: center;
-  }
-
-  .line {
-    width: 1.45px;
-    height: 100%;
-    background: linear-gradient(
-      to bottom,
-      rgba(10, 3, 60, 0),
-      rgba(10, 3, 60, 1),
-      rgba(10, 3, 60, 0)
-    );
-  }
-  .company__register__form--right {
-    height: 600px;
-    width: 600px;
-    margin-top: 68px;
-
-    .company__register-form-input {
+    label {
+      width: 61.01px;
+      height: 43.5px;
+      font-size: 16px;
+      font-weight: 500px;
+      padding: 10px;
+      line-height: 30px;
+    }
+    input {
       width: 100%;
-      height: 472.75px;
-      margin-top: 60.43px;
-      .company__register-infor__company {
-        width: 100%;
-        height: 40px;
-        border-left: 10px solid var(--primary);
-        font-size: 24px;
-        font-weight: 700;
-        padding: 8px 25.42px;
-        display: flex;
-        align-items: center;
+      height: 40px;
+      border: 1px solid rgba(222, 221, 228, 1);
+      border-radius: 5px;
+      padding: 13px 29.47px;
+      font-size: 14px;
+      font-weight: 400px;
+      line-height: 30px;
+      display: flex;
+      align-items: center;
+    }
+
+    .line {
+      width: 1.45px;
+      height: 100%;
+      background: linear-gradient(
+        to bottom,
+        rgba(10, 3, 60, 0),
+        rgba(10, 3, 60, 1),
+        rgba(10, 3, 60, 0)
+      );
+    }
+    .company__register__form--right {
+      height: 600px;
+      width: 600px;
+      margin-top: 68px;
+
+      .company__register-form-input {
+        width: 85%;
+        height: 472.75px;
+        margin-top: 60.43px;
+        .company__register-infor__company {
+          width: 100%;
+          height: 40px;
+          border-left: 10px solid var(--primary);
+          font-size: 24px;
+          font-weight: 700;
+          padding: 8px 25.42px;
+          display: flex;
+          align-items: center;
+        }
       }
     }
   }
-}
-/* end main */
+  /* end main */
 
-/* btn */
-.btn {
-  width: 100%;
-  height: 65px;
-  background-color: var(--primary);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 16px;
-  font-weight: 500;
-  line-height: 30px;
-  color: #fff;
-  border-radius: 5px;
-  border: none;
-  margin-top: 37.06px;
-  cursor: pointer;
-  user-select: none;
-  position: relative;
-  isolation: isolate;
-  overflow: hidden;
-
-  &:hover::before {
-    left: auto;
-    right: 0;
+  /* btn */
+  .btn {
     width: 100%;
-  }
-
-  &::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    right: auto;
-    top: 0;
-    height: 100%;
-    width: 0;
-    background-color: #fff;
-    opacity: 0.1;
-    z-index: -1;
-    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-  }
-}
-.btn--registerCompany {
-  width: 474.95px;
-  left: 30%;
-}
-/* end btn */
-
-/* footer register */
-.company__register-input__footer {
-  margin-top: 22.91px;
-  width: 100%;
-  font-size: 14px;
-  font-weight: 500;
-  color: var(--gray);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  .company__register-input__footer--forgot {
+    height: 65px;
+    background-color: var(--primary);
     display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 30px;
+    color: #fff;
+    border-radius: 5px;
+    border: none;
+    margin-top: 37.06px;
     cursor: pointer;
-    justify-content: center; /* Căn giữa theo chiều ngang */
-    margin-top: 10px;
-    margin-left: -100px; /* Khoảng cách giữa span và div bên dưới */
-  }
+    user-select: none;
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
 
-  .company__register-input__footer--register {
-    .company__register-input__footer--text{
-      margin-right: 4px; 
-      margin-left: -100px; /* Khoảng cách giữa các span bên trong div */
+    &:hover::before {
+      left: auto;
+      right: 0;
+      width: 100%;
     }
-    .company__register-input__footer--register--Nav {
-      color: var(--primary);
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: auto;
+      top: 0;
+      height: 100%;
+      width: 0;
+      background-color: #fff;
+      opacity: 0.1;
+      z-index: -1;
+      transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+  }
+  .btn--registerCompany {
+    width: 474.95px;
+    left: 30%;
+  }
+  /* end btn */
+
+  /* footer register */
+  .company__register-input__footer {
+    margin-top: 22.91px;
+    width: 100%;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--gray);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .company__register-input__footer--forgot {
+      display: flex;
       cursor: pointer;
+      justify-content: center; /* Căn giữa theo chiều ngang */
+      margin-top: 10px;
+      margin-left: -100px; /* Khoảng cách giữa span và div bên dưới */
+    }
+
+    .company__register-input__footer--register {
+      .company__register-input__footer--text {
+        margin-right: 4px;
+        margin-left: -100px; /* Khoảng cách giữa các span bên trong div */
+      }
+      .company__register-input__footer--register--Nav {
+        color: var(--primary);
+        cursor: pointer;
+      }
+    }
+  }
+  /* end footer register */
+
+  .admin_input {
+    margin-top: -40px;
+  }
+}
+
+/* Reponsive */
+/* Mobile */
+@media only screen and (max-width: 576px) {
+  .company__register__container {
+    width: 100vw;
+    padding-top: 0px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    .logo {
+      margin-top: 0px;
+    }
+    .company__register {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+     .company__register__form--left {
+        margin-top: 300px;
+        
+        .company__register-form-content {
+          font-size: 16px;
+          line-height: 20px;
+          line-break: auto;
+          text-align: center;
+        }
+        .company__register-form-input {
+          margin-top: -50px;
+          margin-left: -30px;
+          .company__register-infor__Account {
+          font-size: 14px;
+          border-left: 5px solid var(--primary);
+          height: 20px;
+          }
+      
+        }
+     }
+      .line {
+        display: none;
+      }
+      .company__register__form--right {
+        width: 100%;
+        margin-top: -150px;
+        margin-left: -30px;
+
+        .company__register-form-input {
+          input {
+            width: 486.54px;
+          }
+          .company__register-infor__company {
+            font-size: 14px;
+            border-left: 5px solid var(--primary);
+            height: 20px;
+          }
+        }
+        
+      }
+    }
+    .btn--registerCompany {
+      margin-top: 200px;
+      margin-right: 350px;
+      width: 300px;
+    }
+    .company__register-input__footer {
+      margin-right: -60px;
+    }
+    
+  }
+  
+}
+
+/* Ipad */
+@media only screen and (min-width: 577px) and (max-width:769px) {
+  .company__register__container {
+    width: 100vw;
+    max-width: 768px;
+    padding-left: 0px;
+    padding-top: 0px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    .logo {
+      margin-top: 0px;
+    }
+    .company__register {
+      width: 768px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+     .company__register__form--left {
+        margin-top: 300px;
+        .company__register-form-content {
+          font-size: 16px;
+          line-height: 20px;
+          line-break: auto;
+          text-align: center;
+        }
+        .company__register-form-input {
+          margin-top: -50px;
+          margin-left: 0px;
+          .company__register-infor__Account {
+          font-size: 14px;
+          border-left: 5px solid var(--primary);
+          height: 20px;
+          }
+      
+        }
+     }
+      .line {
+        display: none;
+      }
+      .company__register__form--right {
+        width: 768px;
+        margin-top: -150px;
+        margin-left: 280px;
+
+        .company__register-form-input {
+          input {
+            width: 486.54px;
+          }
+          .company__register-infor__company {
+            font-size: 14px;
+            border-left: 5px solid var(--primary);
+            height: 20px;
+          }
+        }
+        
+      }
+    }
+    .btn--registerCompany {
+      margin-top: 200px;
+      margin-right: 460px;
+      width: 300px;
+    }
+    .company__register-input__footer {
+      width: 60%;
+      margin-left: 100px;
     }
     
   }
 }
-/* end footer register */
 
-.admin_input {
-  margin-top: -40px;
-}
+/* end Reponsive */
