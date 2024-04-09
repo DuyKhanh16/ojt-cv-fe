@@ -2,6 +2,9 @@ import React from 'react'
 import axios from "axios";
 import filter from "../../../../assets/images/listJob/filter.png"
 import './jobList.scss'
+import Header from '../../../../components/header/Header';
+import FormSearch from '../../../../components/formSearch/FormSearch';
+import Footer from '../../../../components/footer/Footer';
 
 export default function JobList() {
   const [ListCity, setListCity] = React.useState([]);
@@ -82,6 +85,9 @@ export default function JobList() {
     getListCity();
   }, [])
   return (
+    <>
+    <Header></Header>
+    <FormSearch></FormSearch>
     <div className='user-ListJob'>
       <div className='user-ListJob-title'>
         <p><span>Trang chủ /</span> Việc làm</p>
@@ -95,7 +101,7 @@ export default function JobList() {
       <div className='user-ListJob-findJob-local'>
       <i class="fa-solid fa-location-dot"></i>
       <select>
-      <option>--Chọn thành phố--</option>
+      <option>Chọn thành phố</option>
       {ListCity.map((city) => (
         <option key={city.province_id} value={city.province_id}>{city. province_name}</option>
       ))}
@@ -132,5 +138,7 @@ export default function JobList() {
           })}
       </div>
     </div>
+    <Footer></Footer>
+    </>
   )
 }
