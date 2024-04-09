@@ -7,6 +7,9 @@ import CompanyRegister from './pages/companyRegister/CompanyRegister'
 import AdminLogin from './pages/adminLogin/AdminLogin'
 import AdminRegister from './pages/adminRegister/AdminRegister'
 import Main from './pages/home/main/Main'
+// import FormSearch from './components/formSearch/FormSearch'
+import JobDetail from './pages/home/homeUser/jobDetail/JobDetail'
+import UpdateJobBusiness from './pages/home/homeBusiness/updateJobBusiness/UpdateJobBusiness'
 import FormSearch from './components/formSearch/FormSearch'
 export default function App() {
   return (
@@ -19,7 +22,7 @@ export default function App() {
         <Route path="/admin-dangnhap" element={<AdminLogin />} />
         <Route path="/admin-dangky" element={<AdminRegister />} />
         <Route path='/home' element={<Main />}></Route>
-        <Route path='*' element={<FormSearch />}></Route>
+        <Route path='*' element={<JobDetail />}></Route>
       </Routes>
     </div>
   )
