@@ -89,7 +89,7 @@ body{
 @media screen and (min-width: 512px )  and (max-width: 768px )  {
  .header{
     position: relative;
-    width: 100%;
+    width: 100vw;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -177,7 +177,7 @@ body{
 @media screen and (max-width: 512px )  {
     .header{
        position: relative;
-       width: 100%;
+       width: 100vw;
        display: flex;
        align-items: center;
        justify-content: space-between;
