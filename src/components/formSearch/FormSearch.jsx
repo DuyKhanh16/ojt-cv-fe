@@ -1,6 +1,6 @@
 import React from "react";
 import "./Formsearch.scss";
-
+import logo from '../../assets/images/fromsearch/Vector.png'
 export default function FormSearch() {
   return (
     <div className="form__search">

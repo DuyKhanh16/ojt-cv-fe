@@ -1,0 +1,208 @@
+:root {
+    --primary: rgba(188, 34, 40, 1);
+    --secondary: rgba(0, 0, 0, 1);
+    --white: rgba(255, 255, 255, 1);
+    --gray: rgba(93, 90, 111, 1);
+    --dark-blue: rgba(10, 3, 60, 1);
+    --line-gadient: linear-gradient(
+      rgba(10, 3, 60, 0),
+      rgba(10, 3, 60, 1),
+      rgba(10, 3, 60, 0)
+    );
+  }
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  html,
+  body {
+    font-family: "Cabin", sans-serif;
+    font-size: 30px;
+    padding: 0;
+    margin: 0;
+  }
+  .allCV__container {
+    width: 100vw;
+    height: 100vh;
+    .allCV__header {
+        width: 100vw;
+        height: 10vh;
+        background: linear-gradient(269.85deg, #54151C 0%, #121212 54.89%);
+        padding-left: 2vw ;
+        padding-right: 3vw ;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: #fff;
+        .allCV__header--left {
+            display: flex;
+            gap: 0.7vw;
+            align-items: center;
+            font-size: 1.3vw;
+            cursor: pointer;
+        }
+        .allCV__header--mid {
+            font-size: 1.9vw;
+            font-weight:bolder;
+        }
+        .allCV__header--right {
+            display: flex;
+            gap: 1vw;
+
+            p {
+                font-size: 1vw;
+                font-weight: 800;
+            }
+            .allCV__header--right_EN {
+                opacity: 0.6;
+                cursor: pointer;
+            }
+            .allCV__header--right_line {
+                width: 0.2vw;
+                height: 2.4vh;
+                background-color: rgb(202, 196, 196);
+            }
+            .allCV__header--right_VI {
+                cursor: pointer;
+            }
+        }
+    }
+    .allCV__content {
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        .allCV__content--left {
+            width: 30%;
+            height: 100vh;
+            overflow-y: scroll;
+            height: auto;
+            background-color: rgb(76, 75, 77);
+            .allCV__content--left__list {
+                width: 100%;
+                height: 80vh;
+                display: flex;
+                flex-wrap:wrap;
+                .allCV__content--left__list__item {
+                    width: 50%;
+                    padding: 1.3vw 1vw;
+                    text-align: center;
+                    cursor: pointer;
+                    .allCV__content--left__item--img {
+                        width: 100%;
+                        height: 330px;
+                        border-radius: 0.5vw;
+                        img {
+                            width: 100%;
+                            height: 100%;
+                            border-radius: 0.5vw;
+                            
+                        }
+                    }
+                    span {
+                        font-size: 1.2vw;
+                        font-weight:900;
+                        color: #fff;
+                    }
+                }
+                .cv1 {
+                    position: relative;
+                    .allCV__content--left__item--img {
+                        box-shadow: 0 0 0 4px #0ab305;
+                    }
+                    .allCV__content--left__item--choose {
+                        position: absolute;
+                        top: 40%;
+                        right: 34%;
+                        width: 64px;
+                        height: 64px;
+                        background-color: #0ab305;
+                        border-radius: 50%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        .material-symbols-outlined {
+                            color: #fff;
+                            font-size: 33px;
+                            font-weight: 400;
+                        }
+                    }
+
+                }
+            }
+        }
+        .allCV__content--right {
+            width: 70%;
+            height: 100vh;
+            overflow-y: auto;
+            background-color: rgb(166,166,166);
+            // background-color: #fff;
+            height: auto;
+            padding-top: 3vh;
+            padding-bottom: 10vh;
+            padding-left: 6vw;
+            padding-right: 6vw;
+            position: relative;
+            .allCV__content--right__export {
+                position: fixed;
+                bottom: 0;
+                z-index: 1000;
+                width: 69.7%;
+                height: 90px;
+                right: 0;
+                background-color: rgb(2, 2, 2,0.8);
+                backdrop-filter: blur(5px);
+                display: flex;
+                gap: 1vw;
+                justify-content: right;
+                align-items: center;
+                .allCV__content--right__export--context {
+                    color: #fff;
+                    font-size: 1.4vw;
+                    font-weight: 700;
+                    margin-top: 1vh;
+                }
+                .allCV__content--right__export--btn {
+                    width: 20%;
+                    height: 8vh;
+                    margin-right: 1.5vw;
+                    // margin-top: 1vh;
+                    background-color: var(--primary);
+                    display: flex;
+                    gap: 0.8vw;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 1.4vw;
+                    font-weight: 500;
+                    line-height: 30px;
+                    color: #fff;
+                    border-radius: 5px;
+                    border: none;
+                    cursor: pointer;
+                    user-select: none;
+                    position: relative;
+                    isolation: isolate;
+                    overflow: hidden;
+                    &:hover::before {
+                      left: auto;
+                      right: 0;
+                      width: 100%;
+                    }
+                    &::before {
+                      content: "";
+                      position: absolute;
+                      left: 0;
+                      right: auto;
+                      top: 0;
+                      height: 100%;
+                      width: 0;
+                      background-color: #fff;
+                      opacity: 0.1;
+                      z-index: -1;
+                      transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+                    }
+                  }
+            }
+        }
+    }
+  }
