@@ -168,7 +168,7 @@ export default function UpdateInforBusiness() {
             </div>
           </div>
         </div>
-        <div style={{ display: 'flex', width: '1320px', margin: '0 auto' }}>
+        <div className='user-companyView-describeMap' style={{ display: 'flex', width: '1320px', margin: '0 auto' }}>
           <div className="user-companyView-describe">
             <p style={{ fontWeight: '500', fontSize: '18px', color: 'black' }}>
               Mô tả về công ty{' '}
@@ -233,7 +233,7 @@ export default function UpdateInforBusiness() {
               </p>
               <img src={map} alt="" />
             </div>
-            <div
+            <div className='user-companyView-orther-social-container'
               style={{
                 padding: '32px',
                 width: '100%',
@@ -330,7 +330,7 @@ export default function UpdateInforBusiness() {
       >
         Ứng viên nổi bật
       </p>
-      <div
+      <div className='company-info-user-container'
         style={{
           width: '1320px',
           margin: '0 auto',
@@ -341,7 +341,7 @@ export default function UpdateInforBusiness() {
       >
         {ListUser.map((user) => {
           return (
-            <div
+            <div  className='company-info-user-detail'
               key={user.id}
               style={{
                 width: '425px',

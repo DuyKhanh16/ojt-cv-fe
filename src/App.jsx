@@ -19,11 +19,16 @@ import UpdateInforBusiness from "./pages/home/homeBusiness/updateInforBusiness/U
 import CV1 from "./components/cv/cv1/CV1";
 import CV2 from "./components/cv/cv2/CV2";
 import AllCV from "./pages/home/homeUser/allCV/AllCV";
+import JobList from "./pages/home/homeUser/jobList/JobList";
+import Cv3 from "./components/cv/cv3/Cv3";
+import Cv4 from "./components/cv/cv4/Cv4";
+
 
 export default function App() {
   return (
     <div>
       <Routes>
+
         <Route path="/login" element={<UserLogin />} />
         <Route path="/register" element={<UserRegister />} />
         <Route path="/companylogin" element={<CompanyLogin />} />
@@ -35,7 +40,7 @@ export default function App() {
         <Route path="/addnewjob" element={<AddJob />} />
         <Route path="*" element={<JobDetail />}></Route>
         <Route path="/InformationUser" element={<InformationUserB />} />
-        <Route path="*" element={<FormSearch />}></Route>
+        <Route path="*" element={<UpdateJobBusiness />}></Route>
         <Route path="/listcompany" element={<ListCompany />}></Route>
         <Route path="/companyView" element={<InformationComany />}></Route>
         <Route path="/cv1" element={<CV1 />}></Route>
@@ -43,8 +48,11 @@ export default function App() {
         <Route path="/allCV" element={<AllCV />}></Route>
         <Route
           path="/updateinforcompany"
-          element={<UpdateInforBusiness />}
+          element={<UpdateInforBusiness />}>
+        </Route>
+        <Route path="/updateinforcompany" element={<UpdateInforBusiness />}
         ></Route>
+        <Route path="/listjob" element={<JobList />}></Route>
       </Routes>
     </div>
   );

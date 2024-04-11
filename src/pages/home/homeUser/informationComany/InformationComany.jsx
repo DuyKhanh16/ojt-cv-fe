@@ -162,7 +162,7 @@ export default function InformationComany() {
             </div>
           </div>
         </div>
-        <div style={{display:"flex", width:"1320px", margin:"0 auto"}}>
+        <div className='user-companyView-describeMap' style={{display:"flex", width:"1320px", margin:"0 auto"}}>
           <div className='user-companyView-describe'>
             <p style={{fontWeight:"500", fontSize:"18px", color:"black"}}>Mô tả về công ty</p>
             {companyDetail.describe.map((item, index) => {
@@ -182,7 +182,7 @@ export default function InformationComany() {
               <p><i class="fa-regular fa-map"></i> Xem trên Maps</p>
               <img src={map} alt="" />
             </div>
-            <div style={{padding:"32px",width:"100%",height:"140px",border:"2px solid #E7F0FA", borderRadius:"8px"}}>
+            <div className='user-companyView-orther-social-container' style={{padding:"32px",width:"100%",height:"140px",border:"2px solid #E7F0FA", borderRadius:"8px"}}>
               <p style={{fontWeight:"500", height:"28px", fontSize:"18px", color:"black"}}>chia sẻ thông tin công ty đến mọi người:</p>
               <div  className='user-companyView-orther-social'>
                 <p style={{width:'150px', height:"40px"}}><i class="fa-solid fa-link"></i> Coppy links</p>
@@ -227,7 +227,7 @@ export default function InformationComany() {
           <button className="user-companyView-findJob-btn">Find Job</button>
         </div>
       </div>
-      <div style={{width:"760px",marginleft:"60px"}}>
+      <div className='user-ListJob-container' style={{width:"760px",marginleft:"60px"}}>
       {ListJob.map((job) => {
           return( <div key={job.Id} className='user-ListJob-job'>
             <p className='user-ListJob-job-title'>{job.title}</p>
