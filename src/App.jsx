@@ -16,6 +16,9 @@ import FormSearch from "./components/formSearch/FormSearch";
 import ListCompany from "./pages/home/homeUser/listCompany/ListCompany";
 import InformationComany from "./pages/home/homeUser/informationComany/InformationComany";
 import UpdateInforBusiness from "./pages/home/homeBusiness/updateInforBusiness/UpdateInforBusiness";
+import CV1 from "./components/cv/cv1/CV1";
+import CV2 from "./components/cv/cv2/CV2";
+import AllCV from "./pages/home/homeUser/allCV/AllCV";
 
 export default function App() {
   return (
@@ -35,6 +38,9 @@ export default function App() {
         <Route path="*" element={<FormSearch />}></Route>
         <Route path="/listcompany" element={<ListCompany />}></Route>
         <Route path="/companyView" element={<InformationComany />}></Route>
+        <Route path="/cv1" element={<CV1 />}></Route>
+        <Route path="/cv2" element={<CV2 />}></Route>
+        <Route path="/allCV" element={<AllCV />}></Route>
         <Route
           path="/updateinforcompany"
           element={<UpdateInforBusiness />}

@@ -1,0 +1,326 @@
+:root {
+  --primary: rgba(188, 34, 40, 1);
+  --secondary: rgba(0, 0, 0, 1);
+  --white: rgba(255, 255, 255, 1);
+  --gray: rgba(93, 90, 111, 1);
+  --dark-blue: rgba(10, 3, 60, 1);
+  --line-gadient: linear-gradient(
+    rgba(10, 3, 60, 0),
+    rgba(10, 3, 60, 1),
+    rgba(10, 3, 60, 0)
+  );
+}
+html,
+body {
+  font-family: "Cabin", sans-serif;
+  font-size: 2vw;
+}
+/*main */
+.CV1__container {
+  width: 100%;
+  position: relative;
+  background-repeat: no-repeat;
+  background-color: #fff;
+  overflow-x: hidden;
+  height: 100vh;
+  background-size: cover;
+  padding: 2vw;
+  border: 1vw solid #ced4da;
+  .CV1__header {
+    width: 100%;
+    height: 13vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1vw;
+    background-color: #ced4da;
+    overflow: hidden;
+    z-index: 2;
+
+    .CV1__header--left {
+      width: 50%;
+      height: 100%;
+      padding: 2vw 0 0 2vw;
+      .CV1__header--left__job {
+        text-transform: uppercase;
+        font-size: 1.5vw;
+        font-weight: 800;
+        color: #f8f7f7;
+      }
+      .CV1__header--left__name {
+        font-size: 2.5vw;
+        font-weight: 600;
+      }
+    }
+    .CV1__header--right {
+      width: 40%;
+      height: 100%;
+      padding: 1vw 2vw 0 6vw;
+      z-index: 2;
+
+      .CV1__header--right__avatar {
+        width: 10vw;
+        height: 10vw;
+        border-radius: 50%;
+        border: 0.1vw solid #fff;
+        img {
+          width: 100%;
+          height: 100%;
+          border-radius: 50%;
+        }
+      }
+    }
+    
+  }
+  .CV1__header::after{
+    position: absolute;
+    left:0;
+    top: 12vw;
+    content: "";
+    width: 150%;
+    height: 20%;
+    background-color: rgb(255, 255, 255);
+    transform: rotate(-2deg);
+    z-index: 1;
+  }
+  
+  .CV1__content {
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: space-between;
+    padding-top: 3vw;
+    position: absolute;
+    z-index: 3;
+    .CV1__content--left {
+      width: 40%;
+      display: flex;
+      flex-direction: column;
+      gap: 3vw;
+      padding-left: 2vw;
+      .title {
+        color: var(--primary);
+        font-size: 1.5vw;
+        font-weight: 600;
+        text-transform: uppercase;
+
+      }
+      .CV1__content--left__yourInfor {
+        img {
+          width: 2vw;
+          height: 1vw;
+        }
+        .CV1__content--left__yourInfor--phone {
+          display: flex;
+          align-items: center;
+          gap: 1vw;
+          font-size: 1vw;
+          font-weight: 400;
+          margin-top: 2vw;
+        }
+        .CV1__content--left__yourInfor--email {
+          display: flex;
+          align-items: center;
+          gap: 1vw;
+          font-size: 1vw;
+          font-weight: 400;
+          margin-top: 1vw;
+        }
+        .CV1__content--left__yourInfor--date {
+          display: flex;
+          align-items: center;
+          gap: 1vw;
+          font-size: 1vw;
+          font-weight: 400;
+          margin-top: 1vw;
+        }
+        .CV1__content--left__yourInfor--address {
+          display: flex;
+          align-items: center;
+          gap: 1vw;
+          font-size: 1vw;
+          font-weight: 400;
+          margin-top: 1vw;
+        }
+      }
+      .CV1__content--left__education {
+        display: flex;
+        flex-direction: column;
+        gap: 2vw;
+        .CV1__content--left__education--item {
+          display: flex;
+          flex-direction: column;
+          gap: 1vw;
+          .CV1__content--left__education--item__school {
+            font-size: 1.3vw;
+            font-weight: 700;
+            color: #000;
+          }
+          .CV1__content--left__education--item__job {
+            font-size: 1.1vw;
+            font-weight: 600;
+            color: #000;
+          }
+          .CV1__content--left__education--item__time {
+            font-size: 0.7vw;
+            font-weight: 400;
+            color: #000;
+          }
+        }
+      }
+      .CV1__content--left__skill {
+        display: flex;
+        flex-direction: column;
+        gap: 2vw;
+        .CV1__content--left__skill__item {
+          display: flex;
+          flex-direction: column;
+          gap: 1vw;
+          .CV1__content--left__skill__item__level {
+            font-size: 1vw;
+            font-weight: 700;
+            color: #000;
+          }
+          .CV1__content--left__skill__item__nameSkill {
+            font-size: 0.7vw;
+            font-weight: 500;
+            color: #2b2a2a;
+            width: 5vw;
+            height: 2vw;
+            background-color: #e0e5e9;
+            padding: 0.5vw;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 0.3vw;
+          }
+        }
+      }
+      .CV1__content--left__certificate {
+        display: flex;
+        flex-direction: column;
+        gap: 2vw;
+        .CV1__content--left__certificate--item {
+          display: flex;
+          flex-direction: column;
+          gap: 1vw;
+          .CV1__content--left__certificate--item__name {
+            font-size: 1.3vw;
+            font-weight: 700;
+            color: #000;
+          }
+          .CV1__content--left__certificate--item__address {
+            font-size: 1.1vw;
+            font-weight: 600;
+            color: #000;
+          }
+          .CV1__content--left__certificate--item__time {
+            font-size: 0.7vw;
+            font-weight: 400;
+            color: #000;
+          }
+        }
+      }
+    }
+    .CV1__content--line {
+      border-left: 0.1vw solid #dedede;
+      height: auto;
+    }
+    .CV1__content--right {
+      width: 60%;
+      display: flex;
+      flex-direction: column;
+      gap: 3vw;
+      padding-left: 5vw;
+      padding-right: 5vw;
+      .title {
+        color: var(--primary);
+        font-size: 1.5vw;
+        font-weight: 600;
+        text-transform: uppercase;
+      }
+      .CV1__content--right__introduce {
+        .CV1__content--right__introduce__content {
+          margin-top: 2vw;
+          font-size:1vw;
+          font-weight: 400;
+          line-break: auto;
+        }
+      }
+      .CV1__content--right__experience {
+        display: flex;
+        flex-direction: column;
+        gap: 2vw;
+        .CV1__content--right__experience--item {
+          display: flex;
+          flex-direction: column;
+          gap: 1vw;
+          .CV1__content--right__experience--item__role {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            .CV1__content--right__experience--item__role__title {
+              font-size: 1.3vw;
+              font-weight: 700;
+              text-transform: uppercase;
+              color: #000;
+            }
+            .CV1__content--right__experience--item__role__time {
+            font-size: 0.7vw;
+            font-weight: 400;
+            color: #000;
+            }
+            
+          }
+          .CV1__content--right__experience--item__company {
+            font-size: 1.1vw;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: #000;
+          }
+          .CV1__content--right__experience--item__discription {
+            font-size: 1vw;
+            font-weight: 400;
+            color: #000;
+          }
+        }
+      }
+      .CV1__content--right__project {
+        display: flex;
+        flex-direction: column;
+        gap: 2vw;
+        .CV1__content--right__project--item {
+          display: flex;
+          flex-direction: column;
+          gap: 1vw;
+          .CV1__content--right__project--item__nameProject {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            .CV1__content--right__project--item__nameProject__title {
+              font-size: 1.3vw;
+              font-weight: 700;
+              text-transform: uppercase;
+              color: #000;
+            }
+            .CV1__content--right__project--item__nameProject__time {
+            font-size: 0.7vw;
+            font-weight: 400;
+            color: #000;
+            }
+            
+          }
+          .CV1__content--right__project--item__discription {
+            font-size: 1vw;
+            font-weight: 400;
+            color: #000;
+          }
+        }
+      }
+      
+    }
+  }
+}
+/* end main */
