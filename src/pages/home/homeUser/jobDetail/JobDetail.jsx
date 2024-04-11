@@ -63,7 +63,7 @@ export default function JobDetail() {
                   src="./src/assets/images/jobDetails/BookmarkSimple.png"
                 ></img>
               </button>
-              <button className="job__detail--company--apply--apply">
+              <button className="job__detail--company--apply--apply1">
                 <p>Ứng tuyển </p>
                 <img src="./src/assets/images/jobDetails/fi_arrow-right.png"></img>
               </button>
