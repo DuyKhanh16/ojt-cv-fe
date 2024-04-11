@@ -17,6 +17,8 @@ import ListCompany from "./pages/home/homeUser/listCompany/ListCompany";
 import InformationComany from "./pages/home/homeUser/informationComany/InformationComany";
 import UpdateInforBusiness from "./pages/home/homeBusiness/updateInforBusiness/UpdateInforBusiness";
 import JobList from "./pages/home/homeUser/jobList/JobList";
+import Cv3 from "./components/cv/cv3/Cv3";
+import Cv4 from "./components/cv/cv4/Cv4";
 
 export default function App() {
   return (
@@ -35,7 +37,7 @@ export default function App() {
         <Route path="*" element={<JobDetail />}></Route>
 
         <Route path="/InformationUser" element={<InformationUserB />} />
-        <Route path="*" element={<FormSearch />}></Route>
+        <Route path="*" element={<UpdateJobBusiness />}></Route>
         <Route path="/listcompany" element={<ListCompany />}></Route>
         <Route path="/companyView" element={<InformationComany />}></Route>
         <Route path="/updateinforcompany" element={<UpdateInforBusiness />}
