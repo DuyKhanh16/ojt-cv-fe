@@ -16,9 +16,14 @@ import avatar from "../../../assets/images/main/avatar.png";
 import Quote from "../../../assets/images/main/Quote.png";
 import Rating from "../../../assets/images/main/Rating.png";
 import arrowLeft from "../../../assets/images/main/fi_arrow-left.png";
+import Header from "../../../components/header/Header";
+import Footer from "../../../components/footer/Footer";
+import FormSearch from "../../../components/formSearch/FormSearch";
 export default function Main() {
   return (
     <>
+    <Header></Header>
+    <FormSearch></FormSearch>
       <div className="main__container">
         <div className="main__introduce">
           <div className="main--searchJob">
@@ -1250,6 +1255,7 @@ export default function Main() {
           </div>
         </div>
       </div>
+      <Footer></Footer>
     </>
   );
 }

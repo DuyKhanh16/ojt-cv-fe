@@ -1,0 +1,337 @@
+:root {
+  --primary: rgba(188, 34, 40, 1);
+  --secondary: rgba(0, 0, 0, 1);
+  --white: rgba(255, 255, 255, 1);
+  --gray: rgba(93, 90, 111, 1);
+  --dark-blue: rgba(10, 3, 60, 1);
+  --line-gadient: linear-gradient(
+    rgba(10, 3, 60, 0),
+    rgba(10, 3, 60, 1),
+    rgba(10, 3, 60, 0)
+  );
+}
+html,
+body {
+  font-family: "Cabin", sans-serif;
+  font-size: 2vw;
+}
+/*main */
+.CV2__container {
+  width: 100%;
+  background-image: url("../../../assets/images/cv/top9.png");
+  background-size: cover; /* Hiển thị ảnh mà không bị vỡ, có thể cắt đi một phần nếu cần */
+  object-fit: fill;
+  padding: 2vw;
+  border: 1vw solid #ced4da;
+
+  .CV2__header {
+    width: 100%;
+    height: 13vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1vw;
+    overflow: hidden;
+
+    .CV2__header--left {
+      width: 60%;
+      height: 100%;
+      padding: 4vw 0 0 4vw;
+      .CV2__header--left__job {
+        text-transform: uppercase;
+        font-size: 1.4vw;
+        color: #ddd0d0;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      }
+      .CV2__header--left__name {
+        font-size: 3vw;
+        font-weight: 600;
+        color: #fff;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      }
+    }
+    .CV2__header--right {
+      width: 40%;
+      height: 100%;
+      padding: 1vw 0.5vw 0 6vw;
+      z-index: 2;
+
+      .CV2__header--right__avatar {
+        width: 10vw;
+        height: 10vw;
+        border-radius: 50%;
+        border: 0.1vw solid #fff;
+        img {
+          width: 100%;
+          height: 100%;
+          border-radius: 50%;
+        }
+      }
+    }
+  }
+
+  .CV2__content {
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: space-between;
+    padding-top: 3vw;
+    .CV2__content--left {
+      width: 40%;
+      display: flex;
+      flex-direction: column;
+      gap: 3vw;
+      padding-left: 5vw;
+      .title {
+        color: #ff0000;
+        width: 100%;
+        font-size: 1.5vw;
+        font-weight: 800;
+        text-transform: uppercase;
+        text-shadow: 2px 2px 4px rgba(65, 63, 63, 0.5);
+      }
+      .CV2__content--left__yourInfor {
+        img {
+          width: 2vw;
+          height: 1vw;
+          color: red;
+          text-shadow: 6px 6px 8px rgba(0, 0, 0, 0.5);
+        }
+        .CV2__content--left__yourInfor--phone {
+          display: flex;
+          align-items: center;
+          gap: 2vw;
+          font-size: 1vw;
+          font-weight: 800;
+          margin-top: 2vw;
+          text-shadow: 2px 5px 30px rgba(11, 11, 11, 0.5);
+          color: #fff;
+          span {
+            font-size: 2vw;
+          }
+        }
+        .CV2__content--left__yourInfor--email {
+          display: flex;
+          color: #fff;
+          align-items: center;
+          gap: 2vw;
+          font-size: 1vw;
+          font-weight: 800;
+          text-shadow: 2px 5px 30px rgba(11, 11, 11, 0.5);
+          margin-top: 1vw;
+          span {
+            font-size: 2vw;
+          }
+        }
+        .CV2__content--left__yourInfor--date {
+          display: flex;
+          color: #fff;
+          align-items: center;
+          gap: 2vw;
+          font-size: 1vw;
+          font-weight: 800;
+          text-shadow: 2px 5px 30px rgba(11, 11, 11, 0.5);
+          margin-top: 1vw;
+          span {
+            font-size: 2vw;
+          }
+        }
+        .CV2__content--left__yourInfor--address {
+          display: flex;
+          color: #fff;
+          align-items: center;
+          gap: 2vw;
+          font-size: 1vw;
+          font-weight: 800;
+          text-shadow: 2px 5px 30px rgba(11, 11, 11, 0.5);
+          margin-top: 1vw;
+          span {
+            font-size: 2vw;
+          }
+        }
+      }
+      .CV2__content--left__education {
+        display: flex;
+        color: #fff;
+        flex-direction: column;
+        gap: 2vw;
+        .CV2__content--left__education--item {
+          display: flex;
+          flex-direction: column;
+          gap: 1vw;
+          .CV2__content--left__education--item__school {
+            font-size: 1.3vw;
+            font-weight: 700;
+            color: #fff;
+          }
+          .CV2__content--left__education--item__job {
+            font-size: 1.1vw;
+            font-weight: 600;
+            color: #fff;
+          }
+          .CV2__content--left__education--item__time {
+            font-size: 0.7vw;
+            font-weight: 400;
+            color: #fff;
+          }
+        }
+      }
+      .CV2__content--left__skill {
+        display: flex;
+        color: #fff;
+        flex-direction: column;
+        gap: 2vw;
+        .CV2__content--left__skill__item {
+          display: flex;
+          flex-direction: column;
+          gap: 1vw;
+          .CV2__content--left__skill__item__level {
+            font-size: 1vw;
+            font-weight: 700;
+            color: #fff;
+          }
+          .CV2__content--left__skill__item__nameSkill {
+            font-size: 0.7vw;
+            font-weight: 500;
+            color: #2b2a2a;
+            width: 5vw;
+            height: 2vw;
+            background-color: #e0e5e9;
+            padding: 0.5vw;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 0.3vw;
+            box-shadow: 2px 2px 4px rgba(65, 63, 63, 0.5);
+          }
+        }
+      }
+      .CV2__content--left__certificate {
+        display: flex;
+        color: #fff;
+        flex-direction: column;
+        gap: 2vw;
+        .CV2__content--left__certificate--item {
+          display: flex;
+          flex-direction: column;
+          gap: 1vw;
+          .CV2__content--left__certificate--item__name {
+            font-size: 1.3vw;
+            font-weight: 700;
+            color: #fff;
+          }
+          .CV2__content--left__certificate--item__address {
+            font-size: 1.1vw;
+            font-weight: 600;
+            color: #fff;
+          }
+          .CV2__content--left__certificate--item__time {
+            font-size: 0.7vw;
+            font-weight: 400;
+            color: #fff;
+          }
+        }
+      }
+    }
+    .CV2__content--line {
+      border-left: 0vw solid #ccc6c6;
+      height: auto;
+    }
+    .CV2__content--right {
+      width: 60%;
+      display: flex;
+      flex-direction: column;
+      gap: 3vw;
+      padding-left: 5vw;
+      padding-right: 2vw;
+      .title {
+        color: #ff0000;
+        font-size: 1.5vw;
+        font-weight: 800;
+        text-transform: uppercase;
+        text-shadow: 2px 2px 4px rgba(65, 63, 63, 0.5);
+      }
+      .CV2__content--right__introduce {
+        .CV2__content--right__introduce__content {
+          margin-top: 2vw;
+          font-size: 1vw;
+          font-weight: 400;
+          color: #fff;
+          line-break: auto;
+        }
+      }
+      .CV2__content--right__experience {
+        display: flex;
+        flex-direction: column;
+        gap: 2vw;
+        .CV2__content--right__experience--item {
+          display: flex;
+          flex-direction: column;
+          gap: 1vw;
+          .CV2__content--right__experience--item__role {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            color: #fff;
+            align-items: center;
+            .CV2__content--right__experience--item__role__title {
+              font-size: 1.3vw;
+              font-weight: 700;
+              text-transform: uppercase;
+              color: #fff;
+            }
+            .CV2__content--right__experience--item__role__time {
+              font-size: 0.7vw;
+              font-weight: 400;
+              color: #fff;
+            }
+          }
+          .CV2__content--right__experience--item__company {
+            font-size: 1.1vw;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: #fff;
+          }
+          .CV2__content--right__experience--item__discription {
+            font-size: 1vw;
+            font-weight: 400;
+            color: #fff;
+          }
+        }
+      }
+      .CV2__content--right__project {
+        display: flex;
+        flex-direction: column;
+        gap: 2vw;
+        .CV2__content--right__project--item {
+          display: flex;
+          flex-direction: column;
+          gap: 1vw;
+          .CV2__content--right__project--item__nameProject {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            .CV2__content--right__project--item__nameProject__title {
+              font-size: 1.3vw;
+              font-weight: 700;
+              text-transform: uppercase;
+              color: #fff;
+            }
+            .CV2__content--right__project--item__nameProject__time {
+              font-size: 0.7vw;
+              font-weight: 400;
+              color: #fff;
+            }
+          }
+          .CV2__content--right__project--item__discription {
+            font-size: 1vw;
+            font-weight: 400;
+            color: #fff;
+          }
+        }
+      }
+    }
+  }
+}
+/* end main */
