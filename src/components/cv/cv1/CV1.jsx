@@ -99,6 +99,28 @@ export default function CV1() {
                   9/2024-10/2028
                 </p>
               </div>
+              <div className="CV1__content--left__certificate--item">
+                <p className="CV1__content--left__certificate--item__name">
+                  Toeic 750
+                </p>
+                <p className="CV1__content--left__certificate--item__address">
+                  Hà Nội
+                </p>
+                <p className="CV1__content--left__certificate--item__time">
+                  9/2024-10/2028
+                </p>
+              </div>
+              <div className="CV1__content--left__certificate--item">
+                <p className="CV1__content--left__certificate--item__name">
+                  Toeic 750
+                </p>
+                <p className="CV1__content--left__certificate--item__address">
+                  Hà Nội
+                </p>
+                <p className="CV1__content--left__certificate--item__time">
+                  9/2024-10/2028
+                </p>
+              </div>
             </div>
           </div>
           <div className="CV1__content--line"></div>

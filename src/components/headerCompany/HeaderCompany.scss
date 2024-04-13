@@ -7,7 +7,7 @@ body{
     color: var(--primary);
 }
 @media screen and (min-width: 768px )  {
-   .header{
+   .headerCompany{
     width: 100vw;
     height: 48px;
     background-color: #F1F2F4;
@@ -15,8 +15,8 @@ body{
     display: flex;
     align-items: center;
     justify-content: space-between;
-    .header__navbar{
-        width: 402px;
+    .headerCompany__navbar{
+        width: 40%;
         height: 48px;
         display: flex;
         align-items: center;
@@ -24,7 +24,7 @@ body{
         text-decoration: none;
         gap:24px;
         }
-        .header__navbar__menu{
+        .headerCompany__navbar__menu{
             display: none;
         }
     .navbar_item{
@@ -39,14 +39,14 @@ body{
         color: var(--primary);
         border-bottom: 2px solid var(--primary) ;
     }
-    .header__contact{
+    .headerCompany__contact{
         height: 24px;
-        width: 280px;
+        width: 20%;
         display: flex;
         align-items: center;
         justify-content: space-between;
-        .header__contact__phone{
-            width: 152px;   
+        .headerCompany__contact__phone{
+            width: 50%;   
             height: 24px;
             display: flex;
             align-items: center;
@@ -63,8 +63,8 @@ body{
                 color: #18191C;
             }
         }
-        .header__language{
-            width: 104px;
+        .headerCompany__language{
+            width: 40%;
             height: 24px;
             display: flex;
             align-items: center;
@@ -87,7 +87,7 @@ body{
 } 
 }
 @media screen and (min-width: 576px )  and (max-width: 768px )  {
- .header{
+ .headerCompany{
     position: relative;
     width: 100vw;
     display: flex;
@@ -95,7 +95,7 @@ body{
     justify-content: space-between;
     background-color: #F1F2F4;
 
-    .header__navbar{
+    .headerCompany__navbar{
         display: flex;
         flex-direction: column;
         position: absolute;
@@ -104,7 +104,7 @@ body{
         transition: 1s;   
         overflow: hidden;
     }
-    .header__navbar__menu{
+    .headerCompany__navbar__menu{
         padding: 15px;
         span{
             font-size: 30px;
@@ -128,13 +128,13 @@ body{
         border-bottom: 2px solid var(--primary) ;
     }
  }
- .header__contact{
+ .headerCompany__contact{
     height: 24px;
     width: 280px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    .header__contact__phone{
+    .headerCompany__contact__phone{
         width: 152px;   
         height: 24px;
         display: flex;
@@ -152,7 +152,7 @@ body{
             color: #18191C;
         }
     }
-    .header__language{
+    .headerCompany__language{
         width: 104px;
         height: 24px;
         display: flex;
@@ -175,7 +175,7 @@ body{
 }
 }
 @media screen and (max-width: 576px )  {
-    .header{
+    .headerCompany{
        position: relative;
        width: 100vw;
        display: flex;
@@ -183,7 +183,7 @@ body{
        justify-content: space-between;
        background-color: #F1F2F4;
    
-       .header__navbar{
+       .headerCompany__navbar{
            width: 100%;
            display: flex;
            flex-direction: column;
@@ -193,7 +193,7 @@ body{
            transition: 1s;   
            overflow: hidden;
        }
-       .header__navbar__menu{
+       .headerCompany__navbar__menu{
            padding: 15px;
            span{
                font-size: 30px;
@@ -217,13 +217,13 @@ body{
            border-bottom: 2px solid var(--primary) ;
        }
     }
-    .header__contact{
+    .headerCompany__contact{
        height: 24px;
        width: 280px;
        display: flex;
        align-items: center;
        justify-content: space-between;
-       .header__contact__phone{
+       .headerCompany__contact__phone{
            width: 152px;   
            height: 24px;
            display: flex;
@@ -241,7 +241,7 @@ body{
                color: #18191C;
            }
        }
-       .header__language{
+       .headerCompany__language{
            width: 104px;
            height: 24px;
            display: flex;

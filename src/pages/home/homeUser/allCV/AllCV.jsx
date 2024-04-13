@@ -6,6 +6,7 @@ import cv3 from '../../../../assets/images/cv/cv3.png'
 import cv4 from '../../../../assets/images/cv/cv4.png'
 import CV2 from '../../../../components/cv/cv2/CV2'
 import CV1 from '../../../../components/cv/cv1/CV1'
+import CV3 from '../../../../components/cv/cv3/Cv3'
 export default function AllCV() {
   return (
     <>
@@ -65,7 +66,7 @@ export default function AllCV() {
         </div>
         <div className='allCV__content--right'>
               <div>
-                <CV2></CV2>
+                <CV3></CV3>
               </div>
               <div className='allCV__content--right__export'>
                 <div className='allCV__content--right__export--context'>

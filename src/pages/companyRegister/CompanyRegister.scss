@@ -16,15 +16,16 @@
 
   /* main */
   .company__register {
-    width: 100vw;
+    width: 90vw;
     height: 630px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin: 0 auto;
     margin-top: 30px;
 
     .company__register__form--left {
-      width: 486.54px;
+      width: 30%;
       height: 100%;
 
       .company__register-form-content {
@@ -103,7 +104,6 @@
       display: flex;
       align-items: center;
     }
-
     .line {
       width: 1.45px;
       height: 100%;
@@ -116,7 +116,7 @@
     }
     .company__register__form--right {
       height: 600px;
-      width: 600px;
+      width: 30%;
       margin-top: 68px;
 
       .company__register-form-input {

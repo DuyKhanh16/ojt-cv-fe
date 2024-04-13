@@ -12,23 +12,32 @@ import AddJob from "./pages/home/homeBusiness/addJob/AddJob";
 import JobDetail from "./pages/home/homeUser/jobDetail/JobDetail";
 import UpdateJobBusiness from "./pages/home/homeBusiness/updateJobBusiness/UpdateJobBusiness";
 import InformationUserB from "./pages/home/homeUser/informationUser/InformationUser";
-import FormSearch from "./components/formSearch/FormSearch";
 import ListCompany from "./pages/home/homeUser/listCompany/ListCompany";
 import InformationComany from "./pages/home/homeUser/informationComany/InformationComany";
 import UpdateInforBusiness from "./pages/home/homeBusiness/updateInforBusiness/UpdateInforBusiness";
-import CV1 from "./components/cv/cv1/CV1";
-import CV2 from "./components/cv/cv2/CV2";
 import AllCV from "./pages/home/homeUser/allCV/AllCV";
 import JobList from "./pages/home/homeUser/jobList/JobList";
-import Cv3 from "./components/cv/cv3/Cv3";
+import HeaderAdmin from "./components/headerAdmin/HeaderAdmin";
+import AllUserAdmin from "./pages/home/admin/allUserAdmin/AllUserAdmin";
+import AllJobAdmin from "./pages/home/admin/allJobAdmin/AllJobAdmin";
+import AllCompanyAdmin from "./pages/home/admin/allCompanyAdmin/AllCompanyAdmin";
+import AllUserApply from "./pages/home/homeBusiness/allUserApply/AllUserApply";
+import Alljob from "./pages/home/homeBusiness/allJob/Alljob";
 import Cv4 from "./components/cv/cv4/Cv4";
+import HomeAdmin from "./pages/home/admin/homeAdmin/HomeAdmin";
 
 
 export default function App() {
   return (
     <div>
       <Routes>
-
+      <Route path="/admin-alluser" element={<AllUserAdmin />} />
+      <Route path="/admin-home" element={<HomeAdmin />} />
+      <Route path="/admin-alljob" element={<AllJobAdmin />} />
+      <Route path="/admin-allcompany" element={<AllCompanyAdmin />} />
+      <Route path="/company-alluserapply" element={<AllUserApply />} />
+      <Route path="/company-alljob" element={<Alljob />} />
+        
         <Route path="/login" element={<UserLogin />} />
         <Route path="/register" element={<UserRegister />} />
         <Route path="/companylogin" element={<CompanyLogin />} />
@@ -40,12 +49,11 @@ export default function App() {
         <Route path="/addnewjob" element={<AddJob />} />
         <Route path="*" element={<JobDetail />}></Route>
         <Route path="/InformationUser" element={<InformationUserB />} />
-        <Route path="*" element={<UpdateJobBusiness />}></Route>
+        <Route path="/updatejob" element={<UpdateJobBusiness />}></Route>
         <Route path="/listcompany" element={<ListCompany />}></Route>
         <Route path="/companyView" element={<InformationComany />}></Route>
-        <Route path="/cv1" element={<CV1 />}></Route>
-        <Route path="/cv2" element={<CV2 />}></Route>
         <Route path="/allCV" element={<AllCV />}></Route>
+        <Route path="/cv4" element={<Cv4 />}></Route>
         <Route
           path="/updateinforcompany"
           element={<UpdateInforBusiness />}>
