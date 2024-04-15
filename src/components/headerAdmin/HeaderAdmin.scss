@@ -1,0 +1,267 @@
+body{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.active{
+    color: var(--primary);
+}
+body::-webkit-scrollbar {
+    display: none;
+  }
+@media screen and (min-width: 768px )  {
+   .headerAdmin{
+    width: 60vw;
+    height: 48px;
+    background-color: #F1F2F4;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .headerAdmin__navbar{
+        width: 40%;
+        height: 48px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        text-decoration: none;
+        gap:24px;
+        }
+        .headerAdmin__navbar__menu{
+            display: none;
+        }
+    .navbar_item{
+        text-decoration: none;
+        height: 48px;
+        font-size: 16px;
+        color:#5E6670;
+        display: flex;
+        align-items: center;
+    }
+    .navbar_item:hover{
+        color: var(--primary);
+        border-bottom: 2px solid var(--primary) ;
+    }
+    .headerAdmin__contact{
+        height: 24px;
+        width: 20%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        .headerAdmin__contact__phone{
+            width: 50%;   
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            p{
+                font-size: 16px;
+                line-height: 20px;
+                font-weight: 500;
+                color: #18191C;
+            }
+            img{
+                width: 24px;
+                height: 24px;
+                color: #18191C;
+            }
+        }
+        .headerAdmin__language{
+            width: 40%;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            img{
+                width: 24px;
+                height: 16px;
+            }
+            select{
+                width: 104px;
+                height: 24px;
+                border: none;
+                font-size: 16px;
+                background-color:  #F1F2F4;
+                color: #5E6670;
+            }
+        }
+    }
+} 
+}
+@media screen and (min-width: 576px )  and (max-width: 768px )  {
+ .headerAdmin{
+    position: relative;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #F1F2F4;
+
+    .headerAdmin__navbar{
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 58px;
+        height: 0px;
+        transition: 1s;   
+        overflow: hidden;
+    }
+    .headerAdmin__navbar__menu{
+        padding: 15px;
+        span{
+            font-size: 30px;
+        }
+    }
+    .navbar_item{
+        width: 100vw;
+        text-decoration: none;
+        height: 50px;
+        font-size: 16px;
+        color:#5E6670;
+        display: flex;
+        align-items: center;
+        background-color: #F1F2F4;
+        border-bottom: 1px solid  silver;
+        padding-left: 30px;
+        // overflow: hidden;
+    }
+    .navbar_item:hover{
+        color: var(--primary);
+        border-bottom: 2px solid var(--primary) ;
+    }
+ }
+ .headerAdmin__contact{
+    height: 24px;
+    width: 280px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .headerAdmin__contact__phone{
+        width: 152px;   
+        height: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        p{
+            font-size: 16px;
+            line-height: 20px;
+            font-weight: 500;
+            color: #18191C;
+        }
+        img{
+            width: 24px;
+            height: 24px;
+            color: #18191C;
+        }
+    }
+    .headerAdmin__language{
+        width: 104px;
+        height: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+        img{
+            width: 24px;
+            height: 16px;
+        }
+        select{
+            width: 104px;
+            height: 24px;
+            border: none;
+            font-size: 16px;
+            background-color:  #F1F2F4;
+            color: #5E6670;
+        }
+    }
+}
+}
+@media screen and (max-width: 576px )  {
+    .headerAdmin{
+       position: relative;
+       width: 100vw;
+       display: flex;
+       align-items: center;
+       justify-content: space-between;
+       background-color: #F1F2F4;
+   
+       .headerAdmin__navbar{
+           width: 100%;
+           display: flex;
+           flex-direction: column;
+           position: absolute;
+           top: 58px;
+           height: 0px;
+           transition: 1s;   
+           overflow: hidden;
+       }
+       .headerAdmin__navbar__menu{
+           padding: 15px;
+           span{
+               font-size: 30px;
+           }
+       }
+       .navbar_item{
+           width: 100%;
+           text-decoration: none;
+           height: 50px;
+           font-size: 16px;
+           color:#5E6670;
+           display: flex;
+           align-items: center;
+           background-color: #F1F2F4;
+           border-bottom: 1px solid  silver;
+           padding-left: 30px;
+           // overflow: hidden;
+       }
+       .navbar_item:hover{
+           color: var(--primary);
+           border-bottom: 2px solid var(--primary) ;
+       }
+    }
+    .headerAdmin__contact{
+       height: 24px;
+       width: 280px;
+       display: flex;
+       align-items: center;
+       justify-content: space-between;
+       .headerAdmin__contact__phone{
+           width: 152px;   
+           height: 24px;
+           display: flex;
+           align-items: center;
+           justify-content: space-between;
+           p{
+               font-size: 16px;
+               line-height: 20px;
+               font-weight: 500;
+               color: #18191C;
+           }
+           img{
+               width: 24px;
+               height: 24px;
+               color: #18191C;
+           }
+       }
+       .headerAdmin__language{
+           width: 104px;
+           height: 24px;
+           display: flex;
+           align-items: center;
+           justify-content: space-between;
+           gap: 8px;
+           img{
+               width: 24px;
+               height: 16px;
+           }
+           select{
+               width: 104px;
+               height: 24px;
+               border: none;
+               font-size: 16px;
+               background-color:  #F1F2F4;
+               color: #5E6670;
+           }
+       }
+   }
+   }

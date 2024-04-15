@@ -67,23 +67,19 @@ export default function InformationUser() {
                     Great troubleshooting and analytical skills combined with
                     the desire to tackle challenges head-on
                   </li>
-                  <br />
                   <li>
                     3+ years of experience in back-end development working
                     either with multiple smaller projects simultaneously or
                     large-scale applications
                   </li>
-                  <br />
                   <li>
                     Experience with HTML, JavaScript, CSS, PHP, Symphony and/or
                     Laravel
                   </li>
-                  <br />
                   <li>
                     Working regularly with APIs and Web Services (REST,
                     GrapthQL, SOAP, etc)
                   </li>
-                  <br />
                   <li>
                     Have experience/awareness in Agile application development,
                     commercial off-the-shelf software, middleware, servers and
@@ -103,23 +99,19 @@ export default function InformationUser() {
                     Great troubleshooting and analytical skills combined with
                     the desire to tackle challenges head-on
                   </li>
-                  <br />
                   <li>
                     3+ years of experience in back-end development working
                     either with multiple smaller projects simultaneously or
                     large-scale applications
                   </li>
-                  <br />
                   <li>
                     Experience with HTML, JavaScript, CSS, PHP, Symphony and/or
                     Laravel
                   </li>
-                  <br />
                   <li>
                     Working regularly with APIs and Web Services (REST,
                     GrapthQL, SOAP, etc)
                   </li>
-                  <b></b>
                   <li>
                     Have experience/awareness in Agile application development,
                     commercial off-the-shelf software, middleware, servers and

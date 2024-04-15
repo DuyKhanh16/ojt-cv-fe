@@ -1,4 +1,3 @@
-
 import React from "react";
 import "./Main.scss";
 import imgSearch from "../../../assets/images/main/Software code testing-pana 1.png";
@@ -16,18 +15,21 @@ import avatar from "../../../assets/images/main/avatar.png";
 import Quote from "../../../assets/images/main/Quote.png";
 import Rating from "../../../assets/images/main/Rating.png";
 import arrowLeft from "../../../assets/images/main/fi_arrow-left.png";
+import Header from "../../../components/header/Header";
+import Footer from "../../../components/footer/Footer";
+import FormSearch from "../../../components/formSearch/FormSearch";
 export default function Main() {
   return (
     <>
+      <Header></Header>
+      <FormSearch></FormSearch>
       <div className="main__container">
         <div className="main__introduce">
           <div className="main--searchJob">
             <div className="main--searchJob--left">
               <h1>
                 {" "}
-                Tìm kiếm công việc phù 
-                hợp với năng lực của 
-                bạn cùng chúng tôi
+                Tìm kiếm công việc phù hợp với năng lực của bạn cùng chúng tôi
               </h1>
               <p className="main--searchJob--left__text--up">
                 Aliquam vitae turpis in diam convallis finibus in at risus.
@@ -1248,9 +1250,74 @@ export default function Main() {
               <img src={arrow} alt="" />
             </div>
           </div>
+          <div class="fui-roundedFull-pagination">
+            <ul class="pagination-list">
+              <li class="pagination-item btn-prev">
+                <a href="#" class="pagination-link">
+                  <svg
+                    width="6"
+                    height="10"
+                    viewBox="0 0 6 10"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      clip-rule="evenodd"
+                      d="M5.20711 0.792893C5.59763 1.18342 5.59763 1.81658 5.20711 2.20711L2.41421 5L5.20711 7.79289C5.59763 8.18342 5.59763 8.81658 5.20711 9.20711C4.81658 9.59763 4.18342 9.59763 3.79289 9.20711L0.292893 5.70711C-0.0976311 5.31658 -0.0976311 4.68342 0.292893 4.29289L3.79289 0.792893C4.18342 0.402369 4.81658 0.402369 5.20711 0.792893Z"
+                      fill="currentColor"
+                    ></path>
+                  </svg>
+                </a>
+              </li>
+              <li class="pagination-item">
+                <a href="#" class="pagination-link">
+                  1
+                </a>
+              </li>
+              <li class="pagination-item">
+                <a href="#" class="pagination-link selected">
+                  2
+                </a>
+              </li>
+              <li class="pagination-item">
+                <a href="#" class="pagination-link">
+                  3
+                </a>
+              </li>
+              <li class="pagination-item">
+                <a href="#" class="pagination-link">
+                  4
+                </a>
+              </li>
+              <li class="pagination-item">
+                <a href="#" class="pagination-link">
+                  5
+                </a>
+              </li>
+              <li class="pagination-item btn-next">
+                <a href="#" class="pagination-link">
+                  <svg
+                    width="6"
+                    height="10"
+                    viewBox="0 0 6 10"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      clip-rule="evenodd"
+                      d="M0.792893 0.792893C0.402369 1.18342 0.402369 1.81658 0.792893 2.20711L3.58579 5L0.792893 7.79289C0.402369 8.18342 0.402369 8.81658 0.792893 9.20711C1.18342 9.59763 1.81658 9.59763 2.20711 9.20711L5.70711 5.70711C6.09763 5.31658 6.09763 4.68342 5.70711 4.29289L2.20711 0.792893C1.81658 0.402369 1.18342 0.402369 0.792893 0.792893Z"
+                      fill="currentColor"
+                    ></path>
+                  </svg>
+                </a>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
+      <Footer></Footer>
     </>
   );
 }
-

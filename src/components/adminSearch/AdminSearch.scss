@@ -1,0 +1,252 @@
+@media screen and (min-width: 768px) {
+  .admin__search {
+    background-color: white;
+    width: 100%;
+    height: 139px;
+    padding: 33.5px 152px 33.5px 152px;
+    .admin__search--content {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      padding: 8px, 30px, 8px, 30px;
+      gap: 30px;
+      background-color: white;
+      justify-content: space-around;
+      .admin__search--image {
+        width: 127px;
+        height: 56px;
+      }
+      .admin__search--input {
+        margin-top: -10px;
+        .admin__search--input--boder {
+          width: 668px;
+          height: 50px;
+          border-radius: 5px;
+          border: 1px solid #e4e5e8;
+          font-size: 16px;
+          display: flex;
+          gap: 1vw;
+          align-items: center;
+          padding: 3px 30px;
+          .admin__search--input__select {
+            display: flex;
+            width: 14%;
+            align-items: center;
+            border-right:2px solid gray;
+
+          }
+          .admin__search--input__iconsearch {
+            width: 80%;
+            display: flex;
+            align-items: center;
+            gap: 1vw;
+            input {
+              border: none;
+              width: 100%;
+              height: 100%;
+             
+            }
+          }
+        }
+        
+      }
+    }
+  }
+}
+
+// @media screen and (min-width: 576px ) and (max-width: 767px )  {
+//     .admin__search{
+//         background-color: white;
+//         width: 100vw;
+
+//         // height: 139px;
+//         padding:  15.5px 30px 15.5px 30px;
+//         .admin__search--content{
+//             width: 100%;
+//             height: 100%;
+//             display: flex;
+//             align-items: center;
+//             padding:  8px, 30px, 8px, 30px;
+//             gap: 30px;
+//             background-color: white;
+//             // justify-content: space-between;
+//             .admin__search--image{
+//                 width: 10vw;
+//                 // height: 56px;
+//                 .admin__search--image--logo{
+//                     width: 10vw;
+//                     // height: 56px;
+//                 }
+//             }
+//             .admin__search--input{
+//                 margin-top: -10px;
+//                 .admin__search--input--boder{
+//                 width: 50vw;
+//                 height: 30px;
+//                 border-radius: 5px;
+//                 border: 1px solid #E4E5E8;
+//                 padding: 10px 29.47px;
+//                 color: #9199A3;
+//                 font-size: 16px;
+//                 font: inter;
+//                 // margin-top: -0px;
+//                 // &::placeholder {
+//                 //     /* Thiết lập vị trí của placeholder */
+//                 //     text-indent: 120px; /* Dịch chuyển vị trí sang phải 10px */
+
+//                 //   }
+//                 }
+//                 .admin__search--input--adress{
+//                     margin-top: -23px;
+//                     margin-left: 24px;
+//                     font: inter;
+//                     font-size: 12px;
+//                 }
+//                 .admin__search--input--logo{
+//                     width: 10px;
+//                     height: 5px;
+//                     margin-left: 75px;
+//                     margin-top: -10px;
+//                 }
+//                 .admin__search--input--logo2{
+//                     margin-left: 95px;
+//                     margin-top: -20px;
+//                     height: 30px;
+//                 }
+//                 .admin__search--input--logo3{
+//                     margin-left: 115px;
+//                     margin-top: -25px;
+//                     width: 20px;
+//                     height: 20px;
+//                 }
+//                .admin__search--input--text{
+//                    margin-top: -38px;
+//                    margin-left: 145px;
+
+//                   input{
+//                     border: none;
+//                     font-size: 3px;
+//                   }
+
+//                }
+//             }
+//             .admin__search--info{
+//                 width: 3vw;
+//                 height: 3vw;
+//                 // margin-left: 30px;
+//                 margin-top: -5px;
+
+//             }
+//             .admin__search--notifacation{
+//                 width: 3vw;
+//                 height: 3vw;
+//                 // margin-left: -20px;
+//                 margin-top: -5px;
+//             }
+//             .admin__search--name
+//             {
+//                 display: none;
+//             }
+//     }
+//     }
+// }
+// @media screen and (max-width: 576px )  {
+//     .admin__search{
+//         background-color: white;
+//         width: 100vw;
+
+//         // height: 139px;
+//         padding:  15.5px 30px 15.5px 30px;
+//         .admin__search--content{
+//             width: 100%;
+//             height: 100%;
+//             display: flex;
+//             align-items: center;
+//             padding:  8px, 30px, 8px, 30px;
+//             gap: 20px;
+//             background-color: white;
+//             // justify-content: space-between;
+//             .admin__search--image{
+//                 width: 10vw;
+//                 // height: 56px;
+//                 .admin__search--image--logo{
+//                     width: 10vw;
+//                     // height: 56px;
+//                 }
+//             }
+//             .admin__search--input{
+//                 margin-top: -10px;
+//                 .admin__search--input--boder{
+//                 width: 30vw;
+//                 height: 30px;
+//                 border-radius: 5px;
+//                 border: 1px solid #E4E5E8;
+//                 padding: 10px 29.47px;
+//                 color: #9199A3;
+//                 font-size: 16px;
+//                 font: inter;
+//                 @media screen and (max-width: 576px )  {
+//                     width: 60vw!important;
+//                     margin-top: 8px;
+//                    }
+//                 // margin-top: -0px;
+//                 // &::placeholder {
+//                 //     /* Thiết lập vị trí của placeholder */
+//                 //     text-indent: 120px; /* Dịch chuyển vị trí sang phải 10px */
+
+//                 //   }
+//                 }
+//                 .admin__search--input--adress{
+//                     margin-top: -23px;
+//                     margin-left: 24px;
+//                     font: inter;
+//                     font-size: 12px;
+//                 }
+//                 .admin__search--input--logo{
+//                     width: 10px;
+//                     height: 5px;
+//                     margin-left: 75px;
+//                     margin-top: -10px;
+//                 }
+//                 .admin__search--input--logo2{
+//                     margin-left: 95px;
+//                     margin-top: -20px;
+//                     height: 30px;
+//                 }
+//                 .admin__search--input--logo3{
+//                     margin-left: 115px;
+//                     margin-top: -25px;
+//                     width: 20px;
+//                     height: 20px;
+//                 }
+//                .admin__search--input--text{
+//                    margin-top: -38px;
+//                    margin-left: 145px;
+//                   input{
+//                     border: none;
+//                     font-size: 3px;
+//                   }
+
+//                }
+//             }
+//             .admin__search--info{
+//                 width: 4.5vw;
+//                 height: 4.5vw;
+//                 margin-left: -10px;
+//                 margin-top: -5px;
+
+//             }
+//             .admin__search--notifacation{
+//                 width: 5vw;
+//                 height: 5vw;
+//                 // margin-left: -20px;
+//                 // margin-top: -5px;
+//             }
+//             .admin__search--name
+//             {
+//                 display: none;
+//             }
+//     }
+//     }
+// }

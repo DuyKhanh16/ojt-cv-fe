@@ -4,6 +4,9 @@ import FormSearch from "../../../../components/formSearch/FormSearch";
 import "./UpdateJobBusiness.scss";
 import Footer from "../../../../components/footer/Footer";
 import { Modal } from "antd";
+import "../../../../components/confirm/Confirm";
+
+// const { confirm } = Modal;
 
 export default function UpdateJobBusiness() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -37,8 +40,9 @@ export default function UpdateJobBusiness() {
               <div className="job__detail--company--Logo--name">
                 <h2>Senior Ux Designer</h2>
                 <div className="job__detail--company--Logo--name--address">
-                  <div style={{ fontSize: "18px" }}>at FPT Software</div>
+                  <div className="adress">at FPT Software</div>
                   <div
+                    className="content"
                     style={{
                       fontSize: "18px",
                       backgroundColor: "#0BA02C",
@@ -70,12 +74,16 @@ export default function UpdateJobBusiness() {
               </div>
             </div>
             <div className="job__detail--company--apply">
+              <button className="job__detail--company--apply--delete">
+                Xoá
+              </button>
               <button
                 onClick={showModal}
                 className="job__detail--company--apply--apply"
               >
-                <p>Cập nhật thông tin</p>
+                Cập nhật thông tin
               </button>
+
               <Modal
                 title="Cập nhật thông tin công việc"
                 open={isModalOpen}
@@ -151,22 +159,41 @@ export default function UpdateJobBusiness() {
                   }}
                 ></textarea>
                 <div
-                  style={{ display: "flex", justifyContent: "space-between",marginBottom: "20px" }}
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    marginBottom: "20px",
+                  }}
                 >
-                  <div style={{color: "#BC2228",marginTop: "20px"}}>Thời gian ứng tuyển :</div>
-                  <div>
-                    {" "}
-                    <p style={{color: "#BC2228"}}>Start Date</p>
-                    <p>7/9/2024</p>
-                    <div style={{width: "100%", height: "1px", backgroundColor: "#BC2228", marginTop: "10px"}}></div>
+                  <div style={{ color: "#BC2228", marginTop: "20px" }}>
+                    Thời gian ứng tuyển :
                   </div>
-                  <div style={{color: "#BC2228", marginTop: "20px"}}>to</div>
                   <div>
                     {" "}
-                    <p style={{color: "#BC2228"}}>End Date</p>
+                    <p style={{ color: "#BC2228" }}>Start Date</p>
                     <p>7/9/2024</p>
-                    <div style={{width: "100%", height: "1px", backgroundColor: "#BC2228", marginTop: "10px"}}></div>
-
+                    <div
+                      style={{
+                        width: "100%",
+                        height: "1px",
+                        backgroundColor: "#BC2228",
+                        marginTop: "10px",
+                      }}
+                    ></div>
+                  </div>
+                  <div style={{ color: "#BC2228", marginTop: "20px" }}>to</div>
+                  <div>
+                    {" "}
+                    <p style={{ color: "#BC2228" }}>End Date</p>
+                    <p>7/9/2024</p>
+                    <div
+                      style={{
+                        width: "100%",
+                        height: "1px",
+                        backgroundColor: "#BC2228",
+                        marginTop: "10px",
+                      }}
+                    ></div>
                   </div>
                 </div>
               </Modal>
@@ -318,7 +345,7 @@ export default function UpdateJobBusiness() {
                 ></div>
                 <div style={{ textAlign: "center" }}>
                   <img
-                    style={{ marginLeft: "40px", marginBottom: "10px" }}
+                    style={{ marginLeft: "40px" }}
                     src="./src/assets/images/jobDetails/MapTrifold.png"
                   ></img>
                   <h3>Job Location</h3>
@@ -331,15 +358,9 @@ export default function UpdateJobBusiness() {
                 <div className="line1">
                   <h3 style={{ marginBottom: "10px" }}>Job Overview</h3>
                   <div style={{ display: "flex", flexWrap: "wrap" }}>
-                    <div
-                      style={{
-                        width: "146px",
-                        height: "70px",
-                        marginBottom: "35px",
-                      }}
-                    >
+                    <div className="item">
                       <img
-                        style={{ marginRight: "10px", marginBottom: "10px" }}
+                        style={{ marginRight: "10px" }}
                         src="./src/assets/images/jobDetails/CalendarBlank.png"
                       ></img>
                       <p style={{ color: "gray", fontSize: "18px" }}>
@@ -347,9 +368,9 @@ export default function UpdateJobBusiness() {
                       </p>
                       <span>14 Jun, 2021</span>
                     </div>
-                    <div style={{ width: "146px", height: "70px" }}>
+                    <div className="item">
                       <img
-                        style={{ marginRight: "10px", marginBottom: "10px" }}
+                        style={{ marginRight: "10px" }}
                         src="./src/assets/images/jobDetails/Timer.png"
                       ></img>
                       <p style={{ color: "gray", fontSize: "18px" }}>
@@ -357,9 +378,9 @@ export default function UpdateJobBusiness() {
                       </p>
                       <span>14 Jun, 2021</span>
                     </div>
-                    <div style={{ width: "146px", height: "70px" }}>
+                    <div className="item">
                       <img
-                        style={{ marginRight: "10px", marginBottom: "10px" }}
+                        style={{ marginRight: "10px" }}
                         src="./src/assets/images/jobDetails/Stack.png"
                       ></img>
                       <p style={{ color: "gray", fontSize: "18px" }}>
@@ -367,9 +388,9 @@ export default function UpdateJobBusiness() {
                       </p>
                       <span>14 Jun, 2021</span>
                     </div>
-                    <div style={{ width: "146px", height: "70px" }}>
+                    <div className="item">
                       <img
-                        style={{ marginRight: "10px", marginBottom: "10px" }}
+                        style={{ marginRight: "10px" }}
                         src="./src/assets/images/jobDetails/Wallet.png"
                       ></img>
                       <p style={{ color: "gray", fontSize: "18px" }}>
@@ -377,9 +398,9 @@ export default function UpdateJobBusiness() {
                       </p>
                       <span>14 Jun, 2021</span>
                     </div>
-                    <div style={{ width: "146px", height: "70px" }}>
+                    <div className="item">
                       <img
-                        style={{ marginRight: "10px", marginBottom: "10px" }}
+                        style={{ marginRight: "10px" }}
                         src="./src/assets/images/jobDetails/briefcase.png"
                       ></img>
                       <p style={{ color: "gray", fontSize: "18px" }}>
@@ -453,12 +474,16 @@ export default function UpdateJobBusiness() {
                     </div>
                   </div>
                 </div>
-                <div>
-                  <img src="./src/assets/images/jobDetails/arrow.right.png"></img>
+                <div className="img">
+                  <img
+                    className="img"
+                    src="./src/assets/images/jobDetails/arrow.right.png"
+                  ></img>
                 </div>
               </div>
 
               <div
+                className="Technical-skills"
                 style={{
                   marginTop: "20px",
                   display: "flex",
@@ -468,6 +493,7 @@ export default function UpdateJobBusiness() {
               >
                 Technical skills :
                 <div
+                  className="skill"
                   style={{
                     backgroundColor: "#E7F6EA",
                     width: "70px",
@@ -495,6 +521,7 @@ export default function UpdateJobBusiness() {
                 </div>
               </div>
               <div
+                className="language"
                 style={{
                   marginTop: "20px",
                   display: "flex",
@@ -515,19 +542,6 @@ export default function UpdateJobBusiness() {
                   }}
                 >
                   N2
-                </div>
-                <div
-                  style={{
-                    backgroundColor: "#FCE1D1",
-                    width: "AUTO",
-                    height: "20px",
-                    padding: "0px 8px 1px 12px",
-                    color: "#F16A1B",
-                    borderRadius: "3px",
-                    fontSize: "14px",
-                  }}
-                >
-                  TOEIC 750
                 </div>
               </div>
               <div style={{ marginTop: "20px", display: "flex", gap: "10px" }}>
@@ -582,12 +596,16 @@ export default function UpdateJobBusiness() {
                     </div>
                   </div>
                 </div>
-                <div>
-                  <img src="./src/assets/images/jobDetails/arrow.right.png"></img>
+                <div className="img">
+                  <img
+                    className="img"
+                    src="./src/assets/images/jobDetails/arrow.right.png"
+                  ></img>
                 </div>
               </div>
 
               <div
+                className="Technical-skills"
                 style={{
                   marginTop: "20px",
                   display: "flex",
@@ -597,6 +615,7 @@ export default function UpdateJobBusiness() {
               >
                 Technical skills :
                 <div
+                  className="skill"
                   style={{
                     backgroundColor: "#E7F6EA",
                     width: "70px",
@@ -624,6 +643,7 @@ export default function UpdateJobBusiness() {
                 </div>
               </div>
               <div
+                className="language"
                 style={{
                   marginTop: "20px",
                   display: "flex",
@@ -644,19 +664,6 @@ export default function UpdateJobBusiness() {
                   }}
                 >
                   N2
-                </div>
-                <div
-                  style={{
-                    backgroundColor: "#FCE1D1",
-                    width: "AUTO",
-                    height: "20px",
-                    padding: "0px 8px 1px 12px",
-                    color: "#F16A1B",
-                    borderRadius: "3px",
-                    fontSize: "14px",
-                  }}
-                >
-                  TOEIC 750
                 </div>
               </div>
               <div style={{ marginTop: "20px", display: "flex", gap: "10px" }}>
@@ -711,12 +718,16 @@ export default function UpdateJobBusiness() {
                     </div>
                   </div>
                 </div>
-                <div>
-                  <img src="./src/assets/images/jobDetails/arrow.right.png"></img>
+                <div className="img">
+                  <img
+                    className="img"
+                    src="./src/assets/images/jobDetails/arrow.right.png"
+                  ></img>
                 </div>
               </div>
 
               <div
+                className="Technical-skills"
                 style={{
                   marginTop: "20px",
                   display: "flex",
@@ -726,6 +737,7 @@ export default function UpdateJobBusiness() {
               >
                 Technical skills :
                 <div
+                  className="skill"
                   style={{
                     backgroundColor: "#E7F6EA",
                     width: "70px",
@@ -753,6 +765,7 @@ export default function UpdateJobBusiness() {
                 </div>
               </div>
               <div
+                className="language"
                 style={{
                   marginTop: "20px",
                   display: "flex",
@@ -773,19 +786,6 @@ export default function UpdateJobBusiness() {
                   }}
                 >
                   N2
-                </div>
-                <div
-                  style={{
-                    backgroundColor: "#FCE1D1",
-                    width: "AUTO",
-                    height: "20px",
-                    padding: "0px 8px 1px 12px",
-                    color: "#F16A1B",
-                    borderRadius: "3px",
-                    fontSize: "14px",
-                  }}
-                >
-                  TOEIC 750
                 </div>
               </div>
               <div style={{ marginTop: "20px", display: "flex", gap: "10px" }}>
@@ -840,12 +840,16 @@ export default function UpdateJobBusiness() {
                     </div>
                   </div>
                 </div>
-                <div>
-                  <img src="./src/assets/images/jobDetails/arrow.right.png"></img>
+                <div className="img">
+                  <img
+                    className="img"
+                    src="./src/assets/images/jobDetails/arrow.right.png"
+                  ></img>
                 </div>
               </div>
 
               <div
+                className="Technical-skills"
                 style={{
                   marginTop: "20px",
                   display: "flex",
@@ -855,6 +859,7 @@ export default function UpdateJobBusiness() {
               >
                 Technical skills :
                 <div
+                  className="skill"
                   style={{
                     backgroundColor: "#E7F6EA",
                     width: "70px",
@@ -882,6 +887,7 @@ export default function UpdateJobBusiness() {
                 </div>
               </div>
               <div
+                className="language"
                 style={{
                   marginTop: "20px",
                   display: "flex",
@@ -902,277 +908,6 @@ export default function UpdateJobBusiness() {
                   }}
                 >
                   N2
-                </div>
-                <div
-                  style={{
-                    backgroundColor: "#FCE1D1",
-                    width: "AUTO",
-                    height: "20px",
-                    padding: "0px 8px 1px 12px",
-                    color: "#F16A1B",
-                    borderRadius: "3px",
-                    fontSize: "14px",
-                  }}
-                >
-                  TOEIC 750
-                </div>
-              </div>
-              <div style={{ marginTop: "20px", display: "flex", gap: "10px" }}>
-                <img
-                  style={{ width: "20px", height: "20px" }}
-                  src="./src/assets/images/jobDetails/MapPin.png"
-                ></img>
-                <div style={{ fontSize: "16px" }}>Hà Nội, Việt Nam</div>
-              </div>
-            </div>
-            <div className="job__detail--Relatedjob--content--item">
-              <div
-                style={{
-                  display: "flex",
-                  gap: "10px",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                }}
-              >
-                <div style={{ display: "flex" }}>
-                  <div>
-                    <img src="./src/assets/images/jobDetails/Rectangle 43.png"></img>
-                  </div>
-                  <div style={{ marginLeft: "10px", marginTop: "20px" }}>
-                    <h2>Nguyen van A</h2>
-                    <div style={{ display: "flex", gap: "10px" }}>
-                      <div
-                        style={{
-                          backgroundColor: "#0BA02C",
-                          width: "98px",
-                          height: "28px",
-                          // textAlign: "center",
-                          padding: "3px 15px 3px 18px",
-                          color: "white",
-                          borderRadius: "3px",
-                        }}
-                      >
-                        Front-end
-                      </div>
-                      <div
-                        style={{
-                          width: "75px",
-                          height: "28px",
-                          backgroundColor: "#E7F0FA",
-                          borderRadius: "40px",
-                          padding: "3px 15px 3px 18px",
-                          color: "#0A65CC",
-                        }}
-                      >
-                        Fresher
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div>
-                  <img src="./src/assets/images/jobDetails/arrow.right.png"></img>
-                </div>
-              </div>
-
-              <div
-                style={{
-                  marginTop: "20px",
-                  display: "flex",
-                  gap: "10px",
-                  fontSize: "16px",
-                }}
-              >
-                Technical skills :
-                <div
-                  style={{
-                    backgroundColor: "#E7F6EA",
-                    width: "70px",
-                    height: "20px",
-                    padding: "0px 8px 1px 12px",
-                    color: "#0BA02C",
-                    borderRadius: "3px",
-                    fontSize: "14px",
-                  }}
-                >
-                  ReactJS
-                </div>
-                <div
-                  style={{
-                    backgroundColor: "#E7F6EA",
-                    width: "70px",
-                    height: "20px",
-                    padding: "0px 8px 1px 12px",
-                    color: "#0BA02C",
-                    borderRadius: "3px",
-                    fontSize: "14px",
-                  }}
-                >
-                  NODEJS
-                </div>
-              </div>
-              <div
-                style={{
-                  marginTop: "20px",
-                  display: "flex",
-                  gap: "10px",
-                  fontSize: "16px",
-                }}
-              >
-                Foregin language :
-                <div
-                  style={{
-                    backgroundColor: "#FCE1D1",
-                    width: "AUTO",
-                    height: "20px",
-                    padding: "0px 8px 1px 12px",
-                    color: "#F16A1B",
-                    borderRadius: "3px",
-                    fontSize: "14px",
-                  }}
-                >
-                  N2
-                </div>
-                <div
-                  style={{
-                    backgroundColor: "#FCE1D1",
-                    width: "AUTO",
-                    height: "20px",
-                    padding: "0px 8px 1px 12px",
-                    color: "#F16A1B",
-                    borderRadius: "3px",
-                    fontSize: "14px",
-                  }}
-                >
-                  TOEIC 750
-                </div>
-              </div>
-              <div style={{ marginTop: "20px", display: "flex", gap: "10px" }}>
-                <img
-                  style={{ width: "20px", height: "20px" }}
-                  src="./src/assets/images/jobDetails/MapPin.png"
-                ></img>
-                <div style={{ fontSize: "16px" }}>Hà Nội, Việt Nam</div>
-              </div>
-            </div>
-            <div className="job__detail--Relatedjob--content--item">
-              <div
-                style={{
-                  display: "flex",
-                  gap: "10px",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                }}
-              >
-                <div style={{ display: "flex" }}>
-                  <div>
-                    <img src="./src/assets/images/jobDetails/Rectangle 43.png"></img>
-                  </div>
-                  <div style={{ marginLeft: "10px", marginTop: "20px" }}>
-                    <h2>Nguyen van A</h2>
-                    <div style={{ display: "flex", gap: "10px" }}>
-                      <div
-                        style={{
-                          backgroundColor: "#0BA02C",
-                          width: "98px",
-                          height: "28px",
-                          // textAlign: "center",
-                          padding: "3px 15px 3px 18px",
-                          color: "white",
-                          borderRadius: "3px",
-                        }}
-                      >
-                        Front-end
-                      </div>
-                      <div
-                        style={{
-                          width: "75px",
-                          height: "28px",
-                          backgroundColor: "#E7F0FA",
-                          borderRadius: "40px",
-                          padding: "3px 15px 3px 18px",
-                          color: "#0A65CC",
-                        }}
-                      >
-                        Fresher
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div>
-                  <img src="./src/assets/images/jobDetails/arrow.right.png"></img>
-                </div>
-              </div>
-
-              <div
-                style={{
-                  marginTop: "20px",
-                  display: "flex",
-                  gap: "10px",
-                  fontSize: "16px",
-                }}
-              >
-                Technical skills :
-                <div
-                  style={{
-                    backgroundColor: "#E7F6EA",
-                    width: "70px",
-                    height: "20px",
-                    padding: "0px 8px 1px 12px",
-                    color: "#0BA02C",
-                    borderRadius: "3px",
-                    fontSize: "14px",
-                  }}
-                >
-                  ReactJS
-                </div>
-                <div
-                  style={{
-                    backgroundColor: "#E7F6EA",
-                    width: "70px",
-                    height: "20px",
-                    padding: "0px 8px 1px 12px",
-                    color: "#0BA02C",
-                    borderRadius: "3px",
-                    fontSize: "14px",
-                  }}
-                >
-                  NODEJS
-                </div>
-              </div>
-              <div
-                style={{
-                  marginTop: "20px",
-                  display: "flex",
-                  gap: "10px",
-                  fontSize: "16px",
-                }}
-              >
-                Foregin language :
-                <div
-                  style={{
-                    backgroundColor: "#FCE1D1",
-                    width: "AUTO",
-                    height: "20px",
-                    padding: "0px 8px 1px 12px",
-                    color: "#F16A1B",
-                    borderRadius: "3px",
-                    fontSize: "14px",
-                  }}
-                >
-                  N2
-                </div>
-                <div
-                  style={{
-                    backgroundColor: "#FCE1D1",
-                    width: "AUTO",
-                    height: "20px",
-                    padding: "0px 8px 1px 12px",
-                    color: "#F16A1B",
-                    borderRadius: "3px",
-                    fontSize: "14px",
-                  }}
-                >
-                  TOEIC 750
                 </div>
               </div>
               <div style={{ marginTop: "20px", display: "flex", gap: "10px" }}>
