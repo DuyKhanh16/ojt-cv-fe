@@ -13,12 +13,18 @@ import InformationComany from "./pages/home/homeUser/informationComany/Informati
 import UpdateInforBusiness from "./pages/home/homeBusiness/updateInforBusiness/UpdateInforBusiness";
 import AllCV from "./pages/home/homeUser/allCV/AllCV";
 import JobList from "./pages/home/homeUser/jobList/JobList";
+
 import AllUserAdmin from "./pages/home/admin/allUserAdmin/AllUserAdmin";
 import AllJobAdmin from "./pages/home/admin/allJobAdmin/AllJobAdmin";
 import AllCompanyAdmin from "./pages/home/admin/allCompanyAdmin/AllCompanyAdmin";
+
 import AllUserApply from "./pages/home/homeBusiness/allUserApply/AllUserApply";
 import Alljob from "./pages/home/homeBusiness/allJob/Alljob";
 import HomeAdmin from "./pages/home/admin/homeAdmin/HomeAdmin";
+import AdminAllUser from './layouts/adminSideBar/AdminAllUser';
+import AdminAllJob from './layouts/adminSideBar/AdminAllJob';
+import AdminAllCompany from './layouts/adminSideBar/AdminAllCompany';
+import MainBusiness from "./pages/home/homeBusiness/mainBusiness/MainBusiness";
 
 import {
   Outlet,
@@ -28,6 +34,7 @@ import {
   useNavigation,
 } from "react-router-dom";
 import AdminChart from "./pages/home/admin/adminChart/AdminChart";
+
 
 const router = createBrowserRouter([
           // trang chủ
@@ -91,6 +98,7 @@ const router = createBrowserRouter([
 
           },
         
+
         
           {
             path: "/company-updatejob",

@@ -1,3 +1,7 @@
+
+body::-webkit-scrollbar {
+    display: none;
+  }
 @media screen and (min-width: 767px ){
     .job__detail--container{
         width: 100vw !important;

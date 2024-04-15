@@ -6,6 +6,9 @@ body{
 .active{
     color: var(--primary);
 }
+body::-webkit-scrollbar {
+    display: none;
+  }
 @media screen and (min-width: 768px )  {
    .headerAdmin{
     width: 60vw;

@@ -3,6 +3,9 @@ body{
     padding: 0;
     box-sizing: border-box;
 }
+body::-webkit-scrollbar {
+    display: none;
+  }
 .company-info-user-container{
     @media screen and (min-width: 576px) and (max-width: 768px) {
         width: 100vw!important;
