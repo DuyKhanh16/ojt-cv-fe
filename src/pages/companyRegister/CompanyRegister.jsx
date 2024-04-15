@@ -24,11 +24,6 @@ export default function () {
               <div className="company__register-infor__Account">
                 <p>Thông tin tài khoản</p>
               </div>
-              <div className="company__register-input__name">
-                <label htmlFor="">Họ tên</label>
-                <br />
-                <input type="text" placeholder="Nhập họ tên" />
-              </div>
               <div className="company__register-input__email">
                 <label htmlFor="">Email</label>
                 <br />
@@ -76,7 +71,7 @@ export default function () {
                 <input type="text" placeholder="Tên công ty" />
               </div>
               <div className="company__register-input__address">
-                <label htmlFor="">Địa điểm làm việc</label>
+                <label htmlFor="">Địa chỉ công ty</label>
                 <br />
                 <input type="text" placeholder="quận/huyện" />
               </div>
@@ -85,11 +80,7 @@ export default function () {
                 <br />
                 <input type="text" placeholder="12334444" />
               </div>
-              <div className="company__register-input__emailCompany">
-                <label htmlFor="">Email công ty</label>
-                <br />
-                <input type="text" placeholder="company@gmail.com" />
-              </div>
+              
             </div>
           </div>
         </div>

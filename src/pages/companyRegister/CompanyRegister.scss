@@ -109,7 +109,7 @@ body::-webkit-scrollbar {
     }
     .line {
       width: 1.45px;
-      height: 100%;
+      height: 60%;
       background: linear-gradient(
         to bottom,
         rgba(10, 3, 60, 0),
@@ -155,13 +155,13 @@ body::-webkit-scrollbar {
     color: #fff;
     border-radius: 5px;
     border: none;
-    margin-top: 37.06px;
     cursor: pointer;
     user-select: none;
     position: relative;
     isolation: isolate;
     overflow: hidden;
-
+    margin-top: -8vw;
+    margin-left: 50px;
     &:hover::before {
       left: auto;
       right: 0;
@@ -190,7 +190,7 @@ body::-webkit-scrollbar {
 
   /* footer register */
   .company__register-input__footer {
-    margin-top: 22.91px;
+    // margin-top: 22.91px;
     width: 100%;
     font-size: 14px;
     font-weight: 500;
@@ -198,7 +198,7 @@ body::-webkit-scrollbar {
     display: flex;
     flex-direction: column;
     align-items: center;
-
+    margin-left: 3vw;
     .company__register-input__footer--forgot {
       display: flex;
       cursor: pointer;
