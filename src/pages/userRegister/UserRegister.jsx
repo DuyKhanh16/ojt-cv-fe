@@ -4,6 +4,7 @@ import "./UserRegister.scss";
 import logo from "../../assets/images/userLogin/logo-rikkei2.png";
 import investment from "../../assets/images/userLogin/Investment data-rafiki 1.png";
 import eye from "../../assets/images/userLogin/eye (1) 1.png";
+import { Link } from "react-router-dom";
 export default function () {
   return (
     <>
@@ -19,9 +20,8 @@ export default function () {
           <div className="user__register__form">
             <div className="user__register-form-content">
               <p>
-                Cùng Rikkei Education xây dựng hồ 
-                sơ nổi bật và nhận được các cơ hội 
-                sự nghiệp lý tưởng
+                Cùng Rikkei Education xây dựng hồ sơ nổi bật và nhận được các cơ
+                hội sự nghiệp lý tưởng
               </p>
             </div>
             <div className="user__register-form-input">
@@ -72,9 +72,11 @@ export default function () {
                   <span className="user__register-input__footer--text">
                     Bạn đã có tài khoản?
                   </span>
-                  <span className="user__register-input__footer--Nav">
-                    Đăng nhập ngay
-                  </span>
+                  <Link to={"/login"}>
+                    <span className="user__register-input__footer--Nav">
+                      Đăng nhập ngay
+                    </span>
+                  </Link>
                 </div>
               </div>
             </div>

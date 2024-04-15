@@ -4,6 +4,8 @@ import AllUserAdmin from "../allUserAdmin/AllUserAdmin";
 import FormSearch from "../../../../components/formSearch/FormSearch";
 import logo from "../../../../assets/images/logo/logo.png";
 import avatar from '../../../../assets/images/cv/ACg8ocILX9TfOIrNEplYDawUBSv1Rpw3rLnuugZCNRefPEMyjM6NXIV4=s96-c.jpg'
+import { Link } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 export default function HomeAdmin() {
   const body = document.querySelector("body"),
     sidebar = body.querySelector(".fui-sidbar-navigiation nav"),
@@ -389,7 +391,7 @@ export default function HomeAdmin() {
                       </a>
                     </li>
                     <li className="nav-link">
-                      <a href="#">
+                      <Link to="/admin/admin-allcompany">
                         <span className="icon">
                           <svg
                             width="24"
@@ -438,8 +440,12 @@ export default function HomeAdmin() {
                             />
                           </svg>
                         </span>
+                        <Link to ="/login">
                         <span className="text nav-text">Light/Dark</span>
-                      </a>
+                        </Link>
+                      </Link>
+                    </li>
+                    <li><Link to ="/login">Về trang chủ</Link>
                     </li>
                   </ul>
                 </div>
@@ -455,7 +461,8 @@ export default function HomeAdmin() {
             }}
           >
             <div className="homeAdmin__content-Right__content">
-              <AllUserAdmin></AllUserAdmin>
+              
+              <Outlet />
             </div>
           </div>
         </div>

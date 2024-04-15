@@ -1,12 +1,12 @@
 @media screen and (min-width: 767px ) {
-    .job__detail--container{
+    .job__detail--container1{
         width: 100vw !important;
         height: 68px;
        padding: 24px, 60px, 24px, 60px;
        background-color: #F1F2F4;
        font: inter;
        font-size: 14px;
-      .job__detail--title{
+      .job__detail--title1{
         display: flex;
         gap:10px;
         padding: 24px 60px ;
@@ -14,30 +14,31 @@
       }
     }
     
-    .job__detail--content{
+    .job__detail--content1{
         background-color: white;
-        width: 1320px;
-        height: 1396px;
+        width: 100vw;
+        height: auto;
         // top: 290px;
         padding: 24px 60px 24px 60px;
         left: 60px;
         position: relative;
         
-        .job__detail--company{
+        .job__detail--company1{
             display: flex;
             justify-content: space-between;
-            .job__detail--company--apply{
+            .job__detail--company--apply1{
                 // background-color: red;
                 width: 316px;
                 height: 56px;
                 margin-top: 15px;
                 display: flex;
-                margin-left: 40px;
+                // margin-left: -40px;
+                margin-right: 180px;
                 color: white;
                 border-radius: 5px;
                 cursor: pointer;
                 gap: 12px;
-                .job__detail--company--apply--bookmark{
+                .job__detail--company--apply--bookmark1{
                     width: 56px;
                     height: 56px;
                     background-color: #c64a4e38;
@@ -46,7 +47,7 @@
                     opacity: 0px;
                     margin-left: 53px;
                 }
-                .job__detail--company--apply--apply1{
+                .job__detail--company--apply--apply11{
                     width: Fixed (248px)px;
                     height: Hug (56px)px;
                     padding: 16px 32px 16px 32px;
@@ -60,14 +61,14 @@
                     // margin-left: 51px;
                 }
             }
-            .job__detail--company--Logo{
+            .job__detail--company--Logo1{
                 display: flex;
                 gap: 24px;
               
-                .job__detail--company--Logo--name{  
+                .job__detail--company--Logo--name1{  
                     padding-top: 10px;
                     
-                    .job__detail--company--Logo--name--address{
+                    .job__detail--company--Logo--name--address1{
                         display: flex;
                         gap: 10px;
                         padding-top: 10px;
@@ -78,12 +79,12 @@
                 }
             }
         }
-        .job__detail--description{
+        .job__detail--description1{
             margin-top: 32px;
             display: flex;
             width: 1320px;
             gap: 24px;
-            .job__detail--description--title{
+            .job__detail--description--title1{
                 width: 630px;
                 height: 1268px;
                 color: #5E6670;
@@ -99,7 +100,7 @@
                     }
                 }
             }
-            .job__detail--description--details{
+            .job__detail--description--details1{
                 width: 550px;
                 height: 160px;
                 border: 2px #E7F0FA solid;
@@ -110,7 +111,7 @@
              
                
             }
-            .job__detail--description--overview{
+            .job__detail--description--overview1{
                 margin-top: 32px;
                 width: 550px;
                 height: 278px;
@@ -122,7 +123,7 @@
                 // align-items: center;
                 
             }
-            .job__detail--description--Share{
+            .job__detail--description--Share1{
                 width: 550px;
                 height: 178px;
                 border: 2px #E7F0FA solid;
@@ -132,13 +133,13 @@
         }
        
     }
-    .job__detail--Relatedjob{
+    .job__detail--Relatedjob1{
         width: 100%;
         height: 662px;
         padding: 100px;
         // background-color: #F1F2F4;
         border-top: 2px #E7F0FA solid;
-        .job__detail--Relatedjob--content{
+        .job__detail--Relatedjob--content1{
             left: 60px;
             // background-color: #BC2228;
         width: 1320px;
@@ -147,7 +148,7 @@
         flex-wrap: wrap;
         height: 400px;
         margin-top: 40px;
-        .job__detail--Relatedjob--content--item{
+        .job__detail--Relatedjob--content--item1{
             width: 415px;
             height: 170px;
             border: 1px #E7F0FA solid;
@@ -159,7 +160,7 @@
     }
 }
 @media screen and (min-width: 576px ) and (max-width: 766px ) {
-    .job__detail--container{
+    .job__detail--container1{
         width: 100vw!important;
         // height: 68px;
        padding: 24px, 60px, 24px, 60px;
@@ -174,7 +175,7 @@
       }
     }
     
-    .job__detail--content{
+    .job__detail--content1{
         background-color: white;
         width: 100vw!important;
         height: auto!important;
@@ -183,13 +184,13 @@
         left: 20px!important;
         position: relative;
         
-        .job__detail--company{
+        .job__detail--company1{
             display: flex;
             justify-content: space-between;
-            .job__detail--company--Logo1{
+            .job__detail--company--Logo11{
                 width: 20vw !important;
             }
-            .job__detail--company--apply{
+            .job__detail--company--apply1{
                 // background-color: red;
                 width: 316px;
                 height: 56px;
@@ -200,7 +201,7 @@
                 border-radius: 5px;
                 cursor: pointer;
                 gap: 0px !important;
-                .job__detail--company--apply--bookmark{
+                .job__detail--company--apply--bookmark1{
                     width: 46px !important;
                     height: 46px !important;
                     background-color: #c64a4e38;
@@ -209,7 +210,7 @@
                     opacity: 0px;
                     margin-left: 53px;
                 }
-                .job__detail--company--apply--apply1{
+                .job__detail--company--apply--apply11{
                     width: 148px!important;
                     height: 46px !important;
                     padding: 13px 22px 13px 22px !important;
@@ -227,15 +228,15 @@
                     // margin-left: 51px;
                 }
             }
-            .job__detail--company--Logo{
+            .job__detail--company--Logo1{
                 display: flex;
                 gap: 24px;
               
-                .job__detail--company--Logo--name{  
+                .job__detail--company--Logo--name1{  
                     padding-top: 10px;
                     margin-left: -45px;
                     
-                    .job__detail--company--Logo--name--address{
+                    .job__detail--company--Logo--name--address1{
                         display: flex;
                         gap: 10px;
                         padding-top: 10px;
@@ -254,13 +255,13 @@
                 }
             }
         }
-        .job__detail--description{
+        .job__detail--description1{
             margin-top: 32px;
             display: inline-block !important;
 
             width: 100vw!important;
             // gap: 24px;
-            .job__detail--description--title{
+            .job__detail--description--title1{
                 width: 80vw !important;
                 height: auto!important;
                 color: #5E6670;
@@ -276,7 +277,7 @@
                     }
                 }
             }
-            .job__detail--description--details{
+            .job__detail--description--details1{
                 width: 80vw!important;
                 margin-top: 40px !important;
                 height: 160px;
@@ -288,7 +289,7 @@
              
                
             }
-            .job__detail--description--overview{
+            .job__detail--description--overview1{
                 margin-top: 32px;
                 width: 80vw!important;
                 height: 278px;
@@ -300,7 +301,7 @@
                 // align-items: center;
                 
             }
-            .job__detail--description--Share{
+            .job__detail--description--Share1{
                 width: 80vw!important;
                 height: 178px;
                 border: 2px #E7F0FA solid;
@@ -310,13 +311,13 @@
         }
        
     }
-    .job__detail--Relatedjob{
+    .job__detail--Relatedjob1{
         width: 100vw !important;
         height: auto !important;
         padding: 50px !important;
         // background-color: #F1F2F4;
         border-top: 2px #E7F0FA solid;
-        .job__detail--Relatedjob--content{
+        .job__detail--Relatedjob--content1{
             left: 20px !important;
             // background-color: #BC2228;
         width: 90vw !important;
@@ -325,7 +326,7 @@
         flex-wrap: wrap;
         height: 400px;
         margin-top: 40px;
-        .job__detail--Relatedjob--content--item{
+        .job__detail--Relatedjob--content--item1{
             width: 40vw !important;
             height: auto !important;
             border: 1px #E7F0FA solid;
@@ -337,7 +338,7 @@
     }
 }
 @media screen and (max-width: 576px ) {
-    .job__detail--container{
+    .job__detail--container1{
         width: 100vw!important;
         // height: 68px;
        padding: 24px, 60px, 24px, 60px;
@@ -352,7 +353,7 @@
       }
     }
     
-    .job__detail--content{
+    .job__detail--content1{
         background-color: white;
         width: 100vw!important;
         height: auto!important;
@@ -361,13 +362,13 @@
         left: 5px!important;
         position: relative;
         
-        .job__detail--company{
+        .job__detail--company1{
             display: flex;
             justify-content: space-between;
-            .job__detail--company--Logo1{
+            .job__detail--company--Logo11{
                 width: 20vw !important;
             }
-            .job__detail--company--apply{
+            .job__detail--company--apply1{
                 // background-color: red;
                 width: 316px;
                 height: 56px;
@@ -378,7 +379,7 @@
                 border-radius: 5px;
                 cursor: pointer;
                 gap: 0px !important;
-                .job__detail--company--apply--bookmark{
+                .job__detail--company--apply--bookmark1{
                     width: 26px !important;
                     height: 26px !important;
                     background-color: #c64a4e38;
@@ -390,7 +391,7 @@
                         margin-left: 1px !important;
                     }
                 }
-                .job__detail--company--apply--apply1{
+                .job__detail--company--apply--apply11{
                     width: 98px!important;
                     height: 26px !important;
                     padding: 3px 12px 13px 22px !important;
@@ -411,26 +412,26 @@
                     // margin-left: 51px;
                 }
             }
-            .job__detail--company--Logo{
+            .job__detail--company--Logo1{
                 display: flex;
                 gap: 24px;
               
-                .job__detail--company--Logo--name{  
+                .job__detail--company--Logo--name1{  
                     padding-top: 10px;
                     margin-left: -45px;
                     
-                    .job__detail--company--Logo--name--address{
+                    .job__detail--company--Logo--name--address1{
                         display: flex;
                         gap: 10px;
                         padding-top: 10px;
                         color: #767F8C;
                     //    font: size 10px !important; 
-                        .adress{
+                        .adress1{
                             font-size: 14px;
                             width: 20vw;
                             // margin-bottom: -20px!important;
                         }
-                        .hinhthuc{
+                        .hinhthuc1{
                             margin-left: -20px;
                             
                         }
@@ -438,13 +439,13 @@
                 }
             }
         }
-        .job__detail--description{
+        .job__detail--description1{
             margin-top: 32px;
             display: inline-block !important;
 
             width: 100vw!important;
             // gap: 24px;
-            .job__detail--description--title{
+            .job__detail--description--title1{
                 width: 80vw !important;
                 height: auto!important;
                 color: #5E6670;
@@ -460,7 +461,7 @@
                     }
                 }
             }
-            .job__detail--description--details{
+            .job__detail--description--details1{
                 width: 80vw!important;
                 margin-top: 40px !important;
                 height: 160px;
@@ -472,7 +473,7 @@
              
                
             }
-            .job__detail--description--overview{
+            .job__detail--description--overview1{
                 margin-top: 32px;
                 width: 80vw!important;
                 height: 278px;
@@ -484,7 +485,7 @@
                 // align-items: center;
                 
             }
-            .job__detail--description--Share{
+            .job__detail--description--Share1{
                 width: 80vw!important;
                 height: 178px;
                 border: 2px #E7F0FA solid;
@@ -494,13 +495,13 @@
         }
        
     }
-    .job__detail--Relatedjob{
+    .job__detail--Relatedjob1{
         width: 100vw !important;
         height: auto !important;
         padding: 50px !important;
         // background-color: #F1F2F4;
         border-top: 2px #E7F0FA solid;
-        .job__detail--Relatedjob--content{
+        .job__detail--Relatedjob--content1{
             left: 20px !important;
             // background-color: #BC2228;
         width: 90vw !important;
@@ -509,7 +510,7 @@
         flex-wrap: wrap;
         height: 400px;
         margin-top: 40px;
-        .job__detail--Relatedjob--content--item{
+        .job__detail--Relatedjob--content--item1{
             width: 40vw !important;
             height: auto !important;
             border: 1px #E7F0FA solid;

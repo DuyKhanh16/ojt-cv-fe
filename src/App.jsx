@@ -1,11 +1,7 @@
 import React from "react";
 import UserLogin from "./pages/userLogin/UserLogin";
-import { Route, Routes } from "react-router-dom";
-import CompanyLogin from "./pages/companyLogin/CompanyLogin";
 import UserRegister from "./pages/userRegister/UserRegister";
 import CompanyRegister from "./pages/companyRegister/CompanyRegister";
-import AdminLogin from "./pages/adminLogin/AdminLogin";
-import AdminRegister from "./pages/adminRegister/AdminRegister";
 import Main from "./pages/home/main/Main";
 import InformationUser from "./pages/home/homeBusiness/informationUser/InformationUser";
 import AddJob from "./pages/home/homeBusiness/addJob/AddJob";
@@ -17,51 +13,122 @@ import InformationComany from "./pages/home/homeUser/informationComany/Informati
 import UpdateInforBusiness from "./pages/home/homeBusiness/updateInforBusiness/UpdateInforBusiness";
 import AllCV from "./pages/home/homeUser/allCV/AllCV";
 import JobList from "./pages/home/homeUser/jobList/JobList";
-import HeaderAdmin from "./components/headerAdmin/HeaderAdmin";
 import AllUserAdmin from "./pages/home/admin/allUserAdmin/AllUserAdmin";
 import AllJobAdmin from "./pages/home/admin/allJobAdmin/AllJobAdmin";
 import AllCompanyAdmin from "./pages/home/admin/allCompanyAdmin/AllCompanyAdmin";
 import AllUserApply from "./pages/home/homeBusiness/allUserApply/AllUserApply";
 import Alljob from "./pages/home/homeBusiness/allJob/Alljob";
-import Cv4 from "./components/cv/cv4/Cv4";
 import HomeAdmin from "./pages/home/admin/homeAdmin/HomeAdmin";
 
+import {
+  Outlet,
+  Link,
+  createBrowserRouter,
+  RouterProvider,
+  useNavigation,
+} from "react-router-dom";
+import AdminChart from "./pages/home/admin/adminChart/AdminChart";
+
+const router = createBrowserRouter([
+          // trang chủ
+          {
+            path: "/",
+            element: <Main />,
+          },
+          {
+            path: "/login",
+            element: <UserLogin />,
+          },
+          {
+            path: "/user-register",
+            element: <UserRegister />,
+          },
+          {
+            path: "/company-register",
+            element: <CompanyRegister />,
+          },
+          // trang quản trị admin
+          {
+            path: "admin",
+            element: <HomeAdmin />, // Component layout chung cho admin
+            children: [
+              {
+                path: "all-users",
+                element: <AllUserAdmin />,
+              },
+              {
+                path: "home-admin",
+                element: <AdminChart />,
+              },
+              {
+                path: "all-jobs",
+                element: <AllJobAdmin />,
+              },
+              {
+                path: "all-companies",
+                element: <AllCompanyAdmin />,
+              },
+              // ... thêm các route con khác dành cho admin ở đây
+            ],
+          },
+          // các đường link của company
+
+          {
+            path: "/company-alluserapply",
+            element: <AllUserApply />,
+          },
+          {
+            path: "/company-alljob",
+            element: <Alljob />,
+          },
+          {
+            path: "/company-infouser-outstanding",
+            element: <InformationUser />,
+          },
+          {
+            path: "/company-addnewjob",
+            element: <AddJob />,
+
+          },
+        
+        
+          {
+            path: "/company-updatejob",
+            element: <UpdateJobBusiness />,
+          },
+          {
+            path: "/company-updateinfor",
+            element: <UpdateInforBusiness />,
+          },
+          // các đường link của user
+          {
+            path: "/user-listcompany",
+            element: <ListCompany />,
+          },
+          {
+            path: "/user-companyview",
+            element: <InformationComany />,
+          },
+          {
+            path: "/user-info",
+            element: <InformationUserB />,
+          },
+          {
+            path: "/company-job-detail",
+            element: <JobDetail />,
+          },
+          {
+            path: "/user-createcv",
+            element: <AllCV />,
+          },
+        
+          {
+            path: "/user-jobList",
+            element: <JobList />,
+          },
+        ]);
 
 export default function App() {
-  return (
-    <div>
-      <Routes>
-      <Route path="/admin-alluser" element={<AllUserAdmin />} />
-      <Route path="/admin-home" element={<HomeAdmin />} />
-      <Route path="/admin-alljob" element={<AllJobAdmin />} />
-      <Route path="/admin-allcompany" element={<AllCompanyAdmin />} />
-      <Route path="/company-alluserapply" element={<AllUserApply />} />
-      <Route path="/company-alljob" element={<Alljob />} />
-        
-        <Route path="/login" element={<UserLogin />} />
-        <Route path="/register" element={<UserRegister />} />
-        <Route path="/companylogin" element={<CompanyLogin />} />
-        <Route path="/companyregister" element={<CompanyRegister />} />
-        <Route path="/adminlogin" element={<AdminLogin />} />
-        <Route path="/adminregister" element={<AdminRegister />} />
-        <Route path="/home" element={<Main />} />
-        <Route path="/informationUser-business" element={<InformationUser />} />
-        <Route path="/addnewjob" element={<AddJob />} />
-        <Route path="*" element={<JobDetail />}></Route>
-        <Route path="/InformationUser" element={<InformationUserB />} />
-        <Route path="/updatejob" element={<UpdateJobBusiness />}></Route>
-        <Route path="/listcompany" element={<ListCompany />}></Route>
-        <Route path="/companyView" element={<InformationComany />}></Route>
-        <Route path="/allCV" element={<AllCV />}></Route>
-        <Route path="/cv4" element={<Cv4 />}></Route>
-        <Route
-          path="/updateinforcompany"
-          element={<UpdateInforBusiness />}>
-        </Route>
-        <Route path="/updateinforcompany" element={<UpdateInforBusiness />}
-        ></Route>
-        <Route path="/listjob" element={<JobList />}></Route>
-      </Routes>
-    </div>
-  );
+  return <RouterProvider router={router} fallbackElement={<p>Loading...</p>} />;
+  
 }

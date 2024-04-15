@@ -4,6 +4,7 @@ import "./UserLogin.scss";
 import logo from "../../assets/images/userLogin/logo-rikkei2.png";
 import investment from "../../assets/images/userLogin/Investment data-rafiki 1.png";
 import eye from "../../assets/images/userLogin/eye (1) 1.png";
+import { Link } from "react-router-dom";
 export default function UserLogin() {
   return (
     <>
@@ -19,9 +20,8 @@ export default function UserLogin() {
           <div className="user__login__form">
             <div className="user__login-form-content">
               <p>
-                Cùng Rikkei Education xây dựng hồ
-                sơ nổi bật và nhận được các cơ hội 
-                sự nghiệp lý tưởng
+                Cùng Rikkei Education xây dựng hồ sơ nổi bật và nhận được các cơ
+                hội sự nghiệp lý tưởng
               </p>
             </div>
             <div className="user__login-form-input">
@@ -51,11 +51,27 @@ export default function UserLogin() {
                 </span>
                 <div className="user__login-input__footer--context">
                   <span className="user__login-input__footer--text">
-                    Bạn không có tài khoản?
+                    Bạn không có tài khoản ?
                   </span>
-                  <span className="user__login-input__footer--Nav">
-                    Tạo 1 tài khoản
-                  </span>
+                  <Link
+                    to={"/user-register"}
+                    style={{ textDecoration: "none" }}
+                  >
+                    {" "}
+                    <span className="user__login-input__footer--Nav">
+                      Tạo tài khoản Học viên
+                    </span>
+                  </Link>
+                  <span style={{ marginLeft: "10px" }}>Hoặc</span>
+                  <Link to={"/company-register"} style={{ textDecoration: "none" }}>
+                    {" "}
+                    <span
+                      style={{ marginLeft: "10px" }}
+                      className="user__login-input__footer--Nav"
+                    >
+                      Tạo 1 tài khoản Công ty
+                    </span>
+                  </Link>
                 </div>
               </div>
             </div>

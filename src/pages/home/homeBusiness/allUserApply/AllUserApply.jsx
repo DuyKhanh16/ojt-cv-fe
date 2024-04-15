@@ -2,6 +2,7 @@ import React from "react";
 import FormSearch from "../../../../components/formSearch/FormSearch";
 import "./AllUserApply.scss";
 import HeaderCompany from "../../../../components/headerCompany/HeaderCompany";
+import Footer from "../../../../components/footer/Footer";
 export default function AllUserApply() {
   return (
     <>
@@ -106,6 +107,7 @@ export default function AllUserApply() {
            
           </div>
         </div>
+        <Footer></Footer>
       </div>
     </>
   );
