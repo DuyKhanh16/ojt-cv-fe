@@ -9,23 +9,23 @@ export default function JobDetail() {
     <div>
       <Header></Header>
       <FormSearch></FormSearch>
-      <div className="job__detail--container">
-        <div className="job__detail--title" style={{ color: "#767F8C" }}>
+      <div className="job__detail--container1">
+        <div className="job__detail--title1" style={{ color: "#767F8C" }}>
           <p>Trang chủ / </p> <p>Việc làm / </p> <p>Graphics Designer /</p>{" "}
           <p style={{ color: "#18191C" }}>Job A Details</p>{" "}
         </div>
-        <div className="job__detail--content">
-          <div className="job__detail--company">
-            <div className="job__detail--company--Logo">
-              <div className="job__detail--company--Logo1">
+        <div className="job__detail--content1">
+          <div className="job__detail--company1">
+            <div className="job__detail--company--Logo1">
+              <div className="job__detail--company--Logo11">
                 <img src="./src/assets/images/jobDetails/Rectangle 43.png"></img>
               </div>
-              <div className="job__detail--company--Logo--name">
+              <div className="job__detail--company--Logo--name1">
                 <h2>Senior Ux Designer</h2>
-                <div className="job__detail--company--Logo--name--address">
+                <div className="job__detail--company--Logo--name--address1">
                   <div className="adress">at FPT Software</div>
                   <div
-                    className="hinhthuc"
+                    className="hinhthuc1"
                     style={{
                       fontSize: "18px",
                       backgroundColor: "#0BA02C",
@@ -56,21 +56,21 @@ export default function JobDetail() {
                 </div>
               </div>
             </div>
-            <div className="job__detail--company--apply">
-              <button className="job__detail--company--apply--bookmark">
+            <div className="job__detail--company--apply1">
+              <button className="job__detail--company--apply--bookmark1">
                 <img
                   style={{ marginLeft: "10px" }}
                   src="./src/assets/images/jobDetails/BookmarkSimple.png"
                 ></img>
               </button>
-              <button className="job__detail--company--apply--apply1">
+              <button className="job__detail--company--apply--apply11">
                 <p>Ứng tuyển </p>
                 <img src="./src/assets/images/jobDetails/fi_arrow-right.png"></img>
               </button>
             </div>
           </div>
-          <div className="job__detail--description">
-            <div className="job__detail--description--title">
+          <div className="job__detail--description1">
+            <div className="job__detail--description--title1">
               <h2>Job Description</h2>
               <p>
                 {" "}
@@ -196,7 +196,7 @@ export default function JobDetail() {
               </ul>
             </div>
             <div>
-              <div className="job__detail--description--details">
+              <div className="job__detail--description--details1">
                 <div style={{ textAlign: "center" }}>
                   <h3 style={{ marginBottom: "10px" }}>Salary (Usd)</h3>
                   <p style={{ color: "#0BA02C", fontSize: "18px" }}>
@@ -224,7 +224,7 @@ export default function JobDetail() {
                   </p>
                 </div>
               </div>
-              <div className="job__detail--description--overview">
+              <div className="job__detail--description--overview1">
                 <div className="line1">
                   <h3 style={{ marginBottom: "10px" }}>Job Overview</h3>
                   <div style={{ display: "flex", flexWrap: "wrap" }}>
@@ -288,7 +288,7 @@ export default function JobDetail() {
                 </div>
                 <div className="line2"></div>
               </div>
-              <div className="job__detail--description--Share">
+              <div className="job__detail--description--Share1">
                 <div className="line1">
                   <h3 style={{ marginBottom: "10px" }}>Share thit Job :</h3>
                   <div style={{ display: "flex", gap: "10px" }}>
@@ -303,10 +303,10 @@ export default function JobDetail() {
             </div>
           </div>
         </div>
-        <div className="job__detail--Relatedjob">
+        <div className="job__detail--Relatedjob1">
           <h1>Related job</h1>
-          <div className="job__detail--Relatedjob--content">
-            <div className="job__detail--Relatedjob--content--item">
+          <div className="job__detail--Relatedjob--content1">
+            <div className="job__detail--Relatedjob--content--item1">
               <div>
                 <h3 style={{ marginBottom: "10px" }}>Techical Suport</h3>
                 <div style={{ display: "flex", gap: "10px" }}>
@@ -356,7 +356,7 @@ export default function JobDetail() {
                 </div>
               </div>
             </div>
-            <div className="job__detail--Relatedjob--content--item">
+            <div className="job__detail--Relatedjob--content--item1">
               <div>
                 <h3 style={{ marginBottom: "10px" }}>Techical Suport</h3>
                 <div style={{ display: "flex", gap: "10px" }}>
@@ -406,7 +406,7 @@ export default function JobDetail() {
                 </div>
               </div>
             </div>
-            <div className="job__detail--Relatedjob--content--item">
+            <div className="job__detail--Relatedjob--content--item1">
               <div>
                 <h3 style={{ marginBottom: "10px" }}>Techical Suport</h3>
                 <div style={{ display: "flex", gap: "10px" }}>
@@ -456,7 +456,7 @@ export default function JobDetail() {
                 </div>
               </div>
             </div>
-            <div className="job__detail--Relatedjob--content--item">
+            <div className="job__detail--Relatedjob--content--item1">
               <div>
                 <h3 style={{ marginBottom: "10px" }}>Techical Suport</h3>
                 <div style={{ display: "flex", gap: "10px" }}>
@@ -506,7 +506,7 @@ export default function JobDetail() {
                 </div>
               </div>
             </div>
-            <div className="job__detail--Relatedjob--content--item">
+            <div className="job__detail--Relatedjob--content--item1">
               <div>
                 <h3 style={{ marginBottom: "10px" }}>Techical Suport</h3>
                 <div style={{ display: "flex", gap: "10px" }}>
@@ -556,7 +556,7 @@ export default function JobDetail() {
                 </div>
               </div>
             </div>
-            <div className="job__detail--Relatedjob--content--item">
+            <div className="job__detail--Relatedjob--content--item1">
               <div>
                 <h3 style={{ marginBottom: "10px" }}>Techical Suport</h3>
                 <div style={{ display: "flex", gap: "10px" }}>

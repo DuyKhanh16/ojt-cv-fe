@@ -20,10 +20,10 @@ export default function Header() {
           <NavLink to="/" className="navbar_item">
             Trang chủ
           </NavLink>
-          <NavLink to="/" className="navbar_item">
+          <NavLink to="/user-jobList" className="navbar_item">
             Việc làm
           </NavLink>
-          <NavLink to="/" className="navbar_item">
+          <NavLink to="/user-info" className="navbar_item">
             CV của bạn
           </NavLink>
           <NavLink to="/" className="navbar_item">
