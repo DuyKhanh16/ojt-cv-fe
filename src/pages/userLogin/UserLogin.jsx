@@ -6,6 +6,7 @@ import investment from "../../assets/images/userLogin/Investment data-rafiki 1.p
 import eye from "../../assets/images/userLogin/eye (1) 1.png";
 import { Await, Link, useNavigate } from "react-router-dom";
 import publicAxios from "../../config/pulic.axios";
+import { notification } from "antd";
 export default function UserLogin() {
   const [user, setUser] = useState({
     email: "",
@@ -46,29 +47,39 @@ export default function UserLogin() {
   const handlelogin = async () => {
     if(validate()) {
       try {
-        // console.log(user,"111")
-        // const res = await publicAxios.post("api/v2/auth/login",user)
+        console.log(user,"111")
+        const res = await publicAxios.post("api/v2/auth/login",user)
         
         if(res.data.data.role === 0 ){
-          localStorage.setItem("token",JSON.stringify(res.data.data.token_access))
-          alert(res.data.message)
-          window.location.href = "/admin/home-admin"
+          localStorage.setItem("token",JSON.stringify(res.data.data.token))
+          notification.success({
+            message:res.data.message
+          })
+          navigate("/admin/home-admin")
         }
 
         if(res.data.data.role === 1){
-          localStorage.setItem("token",JSON.stringify(res.data.data.token_access))
-          window.location.href = "/"
-          alert(res.data.message)
-
+          console.log(res.data.data.token)
+          localStorage.setItem("token",JSON.stringify(res.data.data.token))
+          navigate("/")
+          notification.success({
+            message:res.data.message
+          })
         }
         if(res.data.data.role ===2){
-          localStorage.setItem("token",JSON.stringify(res.data.data.token_access))
-          window.location.href = "/"
-          alert(res.data.message)
-
+          localStorage.setItem("token",JSON.stringify(res.data.data.token))
+          navigate("/company")
+          notification.success({
+            message:res.data.message
+          })
         }
       } catch (error) {
-        console.log(error);
+        console.log(error)
+        notification.error(
+          {
+            message:"Đăng nhập thất bại"
+          }
+        );
       }
     }
   }

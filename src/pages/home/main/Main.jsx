@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./Main.scss";
 import imgSearch from "../../../assets/images/main/Software code testing-pana 1.png";
 import searchIcon from "../../../assets/images/main/fi_search.png";
@@ -18,7 +18,52 @@ import arrowLeft from "../../../assets/images/main/fi_arrow-left.png";
 import Header from "../../../components/header/Header";
 import Footer from "../../../components/footer/Footer";
 import FormSearch from "../../../components/formSearch/FormSearch";
+import { notification } from "antd";
+import publicAxios from "../../../config/pulic.axios";
+
 export default function Main() {
+  const [allCompany, setAllCompany] = useState([]);
+  const [allLiveJob, setLiveJob] = useState([]);
+  const [allNewJob, setNewJob] = useState([]);
+  const [allCandidate, setAllCandidate] = useState([]);
+  const getAllCompany = async () => {
+    try {
+      const res = await publicAxios.get("/api/v2/companies/getAll");
+      setAllCompany(res.data.data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  const getAllLiveJob = async () => {
+    try {
+      const res = await publicAxios.get("/api/v2/jobs/getLiveJobs");
+      setLiveJob(res.data.data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  const getAllNewJob = async () => {
+    try {
+      const res = await publicAxios.get("/api/v2/jobs/getNewJobs");
+      setNewJob(res.data.data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  const getAllCandidate = async () => {
+    try {
+      const res = await publicAxios.get("/api/v2/candidates/getAll");
+      setAllCandidate(res.data.data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  useEffect(() => {
+    getAllCompany()
+    getAllLiveJob()
+    getAllNewJob()
+    getAllCandidate()
+  },[])
   return (
     <>
       <Header></Header>
@@ -83,7 +128,7 @@ export default function Main() {
               </div>
               <div className="main--showInformation__liveJob--text">
                 <p className="main--showInformation__liveJob--text__number">
-                  <strong>1,75,324</strong>
+                  <strong>{allLiveJob.length}</strong>
                 </p>
                 <p className="main--showInformation__liveJob--text__name">
                   Live Jobs
@@ -96,7 +141,7 @@ export default function Main() {
               </div>
               <div className="main--showInformation__companies--text">
                 <p className="main--showInformation__companies--text__number">
-                  <strong>97,354</strong>
+                  <strong>{allCompany.length}</strong>
                 </p>
                 <p className="main--showInformation__companies--text__name">
                   Companies
@@ -109,7 +154,7 @@ export default function Main() {
               </div>
               <div className="main--showInformation__candicates--text">
                 <p className="main--showInformation__candicates--text__number">
-                  <strong>38,47,154</strong>
+                  <strong>{allCandidate.length}</strong>
                 </p>
                 <p className="main--showInformation__candicates--text__name">
                   Candicates
@@ -122,7 +167,7 @@ export default function Main() {
               </div>
               <div className="main--showInformation__newJobs--text">
                 <p className="main--showInformation__newJobs--text__number">
-                  <strong>7,532</strong>
+                  <strong>{allNewJob.length}</strong>
                 </p>
                 <p className="main--showInformation__newJobs--text__name">
                   New Jobs
@@ -142,17 +187,18 @@ export default function Main() {
             </div>
           </div>
           <div className="main__outStandingJob--listJob">
-            <div className="main__outStandingJob--listJob__item">
+            {allLiveJob.map((item) => (
+              <div className="main__outStandingJob--listJob__item" key={item.id}>
               <div className="main__outStandingJob--listJob__item--top">
                 <span className="main__outStandingJob--listJob__item--top__name">
-                  Techical Support Specialist
+                  {item.title}
                 </span>
                 <div className="main__outStandingJob--listJob__item--top__salary">
                   <div className="main__outStandingJob--listJob__item--top__salary__text">
-                    <p>Part-time</p>
+                    <p>{item.description}</p>
                   </div>
                   <span className="main__outStandingJob--listJob__item--top__salary__price">
-                    Salary: $20,000 - $25,000
+                    {item.salary}
                   </span>
                 </div>
               </div>
@@ -176,380 +222,8 @@ export default function Main() {
                 </div>
               </div>
             </div>
-            <div className="main__outStandingJob--listJob__item">
-              <div className="main__outStandingJob--listJob__item--top">
-                <span className="main__outStandingJob--listJob__item--top__name">
-                  Techical Support Specialist
-                </span>
-                <div className="main__outStandingJob--listJob__item--top__salary">
-                  <div className="main__outStandingJob--listJob__item--top__salary__text">
-                    <p>Part-time</p>
-                  </div>
-                  <span className="main__outStandingJob--listJob__item--top__salary__price">
-                    Salary: $20,000 - $25,000
-                  </span>
-                </div>
-              </div>
-              <div className="main__outStandingJob--listJob__item--bottom">
-                <div className="main__outStandingJob--listJob__item--bottom--left">
-                  <div className="main__outStandingJob--listJob__item--bottom__logo">
-                    <img src={LogoG} alt="" />
-                  </div>
-                  <div className="main__outStandingJob--listJob__item--bottom__nameLogo">
-                    <p className="main__outStandingJob--listJob__item--bottom__nameLogo__text">
-                      Google Inc.
-                    </p>
-                    <div className="main__outStandingJob--listJob__item--bottom__nameLogo__location">
-                      <img src={MapPin} alt="" />
-                      <p>Dhaka, Bangladesh</p>
-                    </div>
-                  </div>
-                </div>
-                <div className="main__outStandingJob--listJob__item--bottom__bookmark">
-                  <img src={BookmarkSimple} alt="" />
-                </div>
-              </div>
-            </div>
-            <div className="main__outStandingJob--listJob__item">
-              <div className="main__outStandingJob--listJob__item--top">
-                <span className="main__outStandingJob--listJob__item--top__name">
-                  Techical Support Specialist
-                </span>
-                <div className="main__outStandingJob--listJob__item--top__salary">
-                  <div className="main__outStandingJob--listJob__item--top__salary__text">
-                    <p>Part-time</p>
-                  </div>
-                  <span className="main__outStandingJob--listJob__item--top__salary__price">
-                    Salary: $20,000 - $25,000
-                  </span>
-                </div>
-              </div>
-              <div className="main__outStandingJob--listJob__item--bottom">
-                <div className="main__outStandingJob--listJob__item--bottom--left">
-                  <div className="main__outStandingJob--listJob__item--bottom__logo">
-                    <img src={LogoG} alt="" />
-                  </div>
-                  <div className="main__outStandingJob--listJob__item--bottom__nameLogo">
-                    <p className="main__outStandingJob--listJob__item--bottom__nameLogo__text">
-                      Google Inc.
-                    </p>
-                    <div className="main__outStandingJob--listJob__item--bottom__nameLogo__location">
-                      <img src={MapPin} alt="" />
-                      <p>Dhaka, Bangladesh</p>
-                    </div>
-                  </div>
-                </div>
-                <div className="main__outStandingJob--listJob__item--bottom__bookmark">
-                  <img src={BookmarkSimple} alt="" />
-                </div>
-              </div>
-            </div>
-            <div className="main__outStandingJob--listJob__item">
-              <div className="main__outStandingJob--listJob__item--top">
-                <span className="main__outStandingJob--listJob__item--top__name">
-                  Techical Support Specialist
-                </span>
-                <div className="main__outStandingJob--listJob__item--top__salary">
-                  <div className="main__outStandingJob--listJob__item--top__salary__text">
-                    <p>Part-time</p>
-                  </div>
-                  <span className="main__outStandingJob--listJob__item--top__salary__price">
-                    Salary: $20,000 - $25,000
-                  </span>
-                </div>
-              </div>
-              <div className="main__outStandingJob--listJob__item--bottom">
-                <div className="main__outStandingJob--listJob__item--bottom--left">
-                  <div className="main__outStandingJob--listJob__item--bottom__logo">
-                    <img src={LogoG} alt="" />
-                  </div>
-                  <div className="main__outStandingJob--listJob__item--bottom__nameLogo">
-                    <p className="main__outStandingJob--listJob__item--bottom__nameLogo__text">
-                      Google Inc.
-                    </p>
-                    <div className="main__outStandingJob--listJob__item--bottom__nameLogo__location">
-                      <img src={MapPin} alt="" />
-                      <p>Dhaka, Bangladesh</p>
-                    </div>
-                  </div>
-                </div>
-                <div className="main__outStandingJob--listJob__item--bottom__bookmark">
-                  <img src={BookmarkSimple} alt="" />
-                </div>
-              </div>
-            </div>
-            <div className="main__outStandingJob--listJob__item">
-              <div className="main__outStandingJob--listJob__item--top">
-                <span className="main__outStandingJob--listJob__item--top__name">
-                  Techical Support Specialist
-                </span>
-                <div className="main__outStandingJob--listJob__item--top__salary">
-                  <div className="main__outStandingJob--listJob__item--top__salary__text">
-                    <p>Part-time</p>
-                  </div>
-                  <span className="main__outStandingJob--listJob__item--top__salary__price">
-                    Salary: $20,000 - $25,000
-                  </span>
-                </div>
-              </div>
-              <div className="main__outStandingJob--listJob__item--bottom">
-                <div className="main__outStandingJob--listJob__item--bottom--left">
-                  <div className="main__outStandingJob--listJob__item--bottom__logo">
-                    <img src={LogoG} alt="" />
-                  </div>
-                  <div className="main__outStandingJob--listJob__item--bottom__nameLogo">
-                    <p className="main__outStandingJob--listJob__item--bottom__nameLogo__text">
-                      Google Inc.
-                    </p>
-                    <div className="main__outStandingJob--listJob__item--bottom__nameLogo__location">
-                      <img src={MapPin} alt="" />
-                      <p>Dhaka, Bangladesh</p>
-                    </div>
-                  </div>
-                </div>
-                <div className="main__outStandingJob--listJob__item--bottom__bookmark">
-                  <img src={BookmarkSimple} alt="" />
-                </div>
-              </div>
-            </div>
-            <div className="main__outStandingJob--listJob__item">
-              <div className="main__outStandingJob--listJob__item--top">
-                <span className="main__outStandingJob--listJob__item--top__name">
-                  Techical Support Specialist
-                </span>
-                <div className="main__outStandingJob--listJob__item--top__salary">
-                  <div className="main__outStandingJob--listJob__item--top__salary__text">
-                    <p>Part-time</p>
-                  </div>
-                  <span className="main__outStandingJob--listJob__item--top__salary__price">
-                    Salary: $20,000 - $25,000
-                  </span>
-                </div>
-              </div>
-              <div className="main__outStandingJob--listJob__item--bottom">
-                <div className="main__outStandingJob--listJob__item--bottom--left">
-                  <div className="main__outStandingJob--listJob__item--bottom__logo">
-                    <img src={LogoG} alt="" />
-                  </div>
-                  <div className="main__outStandingJob--listJob__item--bottom__nameLogo">
-                    <p className="main__outStandingJob--listJob__item--bottom__nameLogo__text">
-                      Google Inc.
-                    </p>
-                    <div className="main__outStandingJob--listJob__item--bottom__nameLogo__location">
-                      <img src={MapPin} alt="" />
-                      <p>Dhaka, Bangladesh</p>
-                    </div>
-                  </div>
-                </div>
-                <div className="main__outStandingJob--listJob__item--bottom__bookmark">
-                  <img src={BookmarkSimple} alt="" />
-                </div>
-              </div>
-            </div>
-            <div className="main__outStandingJob--listJob__item">
-              <div className="main__outStandingJob--listJob__item--top">
-                <span className="main__outStandingJob--listJob__item--top__name">
-                  Techical Support Specialist
-                </span>
-                <div className="main__outStandingJob--listJob__item--top__salary">
-                  <div className="main__outStandingJob--listJob__item--top__salary__text">
-                    <p>Part-time</p>
-                  </div>
-                  <span className="main__outStandingJob--listJob__item--top__salary__price">
-                    Salary: $20,000 - $25,000
-                  </span>
-                </div>
-              </div>
-              <div className="main__outStandingJob--listJob__item--bottom">
-                <div className="main__outStandingJob--listJob__item--bottom--left">
-                  <div className="main__outStandingJob--listJob__item--bottom__logo">
-                    <img src={LogoG} alt="" />
-                  </div>
-                  <div className="main__outStandingJob--listJob__item--bottom__nameLogo">
-                    <p className="main__outStandingJob--listJob__item--bottom__nameLogo__text">
-                      Google Inc.
-                    </p>
-                    <div className="main__outStandingJob--listJob__item--bottom__nameLogo__location">
-                      <img src={MapPin} alt="" />
-                      <p>Dhaka, Bangladesh</p>
-                    </div>
-                  </div>
-                </div>
-                <div className="main__outStandingJob--listJob__item--bottom__bookmark">
-                  <img src={BookmarkSimple} alt="" />
-                </div>
-              </div>
-            </div>
-            <div className="main__outStandingJob--listJob__item">
-              <div className="main__outStandingJob--listJob__item--top">
-                <span className="main__outStandingJob--listJob__item--top__name">
-                  Techical Support Specialist
-                </span>
-                <div className="main__outStandingJob--listJob__item--top__salary">
-                  <div className="main__outStandingJob--listJob__item--top__salary__text">
-                    <p>Part-time</p>
-                  </div>
-                  <span className="main__outStandingJob--listJob__item--top__salary__price">
-                    Salary: $20,000 - $25,000
-                  </span>
-                </div>
-              </div>
-              <div className="main__outStandingJob--listJob__item--bottom">
-                <div className="main__outStandingJob--listJob__item--bottom--left">
-                  <div className="main__outStandingJob--listJob__item--bottom__logo">
-                    <img src={LogoG} alt="" />
-                  </div>
-                  <div className="main__outStandingJob--listJob__item--bottom__nameLogo">
-                    <p className="main__outStandingJob--listJob__item--bottom__nameLogo__text">
-                      Google Inc.
-                    </p>
-                    <div className="main__outStandingJob--listJob__item--bottom__nameLogo__location">
-                      <img src={MapPin} alt="" />
-                      <p>Dhaka, Bangladesh</p>
-                    </div>
-                  </div>
-                </div>
-                <div className="main__outStandingJob--listJob__item--bottom__bookmark">
-                  <img src={BookmarkSimple} alt="" />
-                </div>
-              </div>
-            </div>
-            <div className="main__outStandingJob--listJob__item">
-              <div className="main__outStandingJob--listJob__item--top">
-                <span className="main__outStandingJob--listJob__item--top__name">
-                  Techical Support Specialist
-                </span>
-                <div className="main__outStandingJob--listJob__item--top__salary">
-                  <div className="main__outStandingJob--listJob__item--top__salary__text">
-                    <p>Part-time</p>
-                  </div>
-                  <span className="main__outStandingJob--listJob__item--top__salary__price">
-                    Salary: $20,000 - $25,000
-                  </span>
-                </div>
-              </div>
-              <div className="main__outStandingJob--listJob__item--bottom">
-                <div className="main__outStandingJob--listJob__item--bottom--left">
-                  <div className="main__outStandingJob--listJob__item--bottom__logo">
-                    <img src={LogoG} alt="" />
-                  </div>
-                  <div className="main__outStandingJob--listJob__item--bottom__nameLogo">
-                    <p className="main__outStandingJob--listJob__item--bottom__nameLogo__text">
-                      Google Inc.
-                    </p>
-                    <div className="main__outStandingJob--listJob__item--bottom__nameLogo__location">
-                      <img src={MapPin} alt="" />
-                      <p>Dhaka, Bangladesh</p>
-                    </div>
-                  </div>
-                </div>
-                <div className="main__outStandingJob--listJob__item--bottom__bookmark">
-                  <img src={BookmarkSimple} alt="" />
-                </div>
-              </div>
-            </div>
-            <div className="main__outStandingJob--listJob__item">
-              <div className="main__outStandingJob--listJob__item--top">
-                <span className="main__outStandingJob--listJob__item--top__name">
-                  Techical Support Specialist
-                </span>
-                <div className="main__outStandingJob--listJob__item--top__salary">
-                  <div className="main__outStandingJob--listJob__item--top__salary__text">
-                    <p>Part-time</p>
-                  </div>
-                  <span className="main__outStandingJob--listJob__item--top__salary__price">
-                    Salary: $20,000 - $25,000
-                  </span>
-                </div>
-              </div>
-              <div className="main__outStandingJob--listJob__item--bottom">
-                <div className="main__outStandingJob--listJob__item--bottom--left">
-                  <div className="main__outStandingJob--listJob__item--bottom__logo">
-                    <img src={LogoG} alt="" />
-                  </div>
-                  <div className="main__outStandingJob--listJob__item--bottom__nameLogo">
-                    <p className="main__outStandingJob--listJob__item--bottom__nameLogo__text">
-                      Google Inc.
-                    </p>
-                    <div className="main__outStandingJob--listJob__item--bottom__nameLogo__location">
-                      <img src={MapPin} alt="" />
-                      <p>Dhaka, Bangladesh</p>
-                    </div>
-                  </div>
-                </div>
-                <div className="main__outStandingJob--listJob__item--bottom__bookmark">
-                  <img src={BookmarkSimple} alt="" />
-                </div>
-              </div>
-            </div>
-            <div className="main__outStandingJob--listJob__item">
-              <div className="main__outStandingJob--listJob__item--top">
-                <span className="main__outStandingJob--listJob__item--top__name">
-                  Techical Support Specialist
-                </span>
-                <div className="main__outStandingJob--listJob__item--top__salary">
-                  <div className="main__outStandingJob--listJob__item--top__salary__text">
-                    <p>Part-time</p>
-                  </div>
-                  <span className="main__outStandingJob--listJob__item--top__salary__price">
-                    Salary: $20,000 - $25,000
-                  </span>
-                </div>
-              </div>
-              <div className="main__outStandingJob--listJob__item--bottom">
-                <div className="main__outStandingJob--listJob__item--bottom--left">
-                  <div className="main__outStandingJob--listJob__item--bottom__logo">
-                    <img src={LogoG} alt="" />
-                  </div>
-                  <div className="main__outStandingJob--listJob__item--bottom__nameLogo">
-                    <p className="main__outStandingJob--listJob__item--bottom__nameLogo__text">
-                      Google Inc.
-                    </p>
-                    <div className="main__outStandingJob--listJob__item--bottom__nameLogo__location">
-                      <img src={MapPin} alt="" />
-                      <p>Dhaka, Bangladesh</p>
-                    </div>
-                  </div>
-                </div>
-                <div className="main__outStandingJob--listJob__item--bottom__bookmark">
-                  <img src={BookmarkSimple} alt="" />
-                </div>
-              </div>
-            </div>
-            <div className="main__outStandingJob--listJob__item">
-              <div className="main__outStandingJob--listJob__item--top">
-                <span className="main__outStandingJob--listJob__item--top__name">
-                  Techical Support Specialist
-                </span>
-                <div className="main__outStandingJob--listJob__item--top__salary">
-                  <div className="main__outStandingJob--listJob__item--top__salary__text">
-                    <p>Part-time</p>
-                  </div>
-                  <span className="main__outStandingJob--listJob__item--top__salary__price">
-                    Salary: $20,000 - $25,000
-                  </span>
-                </div>
-              </div>
-              <div className="main__outStandingJob--listJob__item--bottom">
-                <div className="main__outStandingJob--listJob__item--bottom--left">
-                  <div className="main__outStandingJob--listJob__item--bottom__logo">
-                    <img src={LogoG} alt="" />
-                  </div>
-                  <div className="main__outStandingJob--listJob__item--bottom__nameLogo">
-                    <p className="main__outStandingJob--listJob__item--bottom__nameLogo__text">
-                      Google Inc.
-                    </p>
-                    <div className="main__outStandingJob--listJob__item--bottom__nameLogo__location">
-                      <img src={MapPin} alt="" />
-                      <p>Dhaka, Bangladesh</p>
-                    </div>
-                  </div>
-                </div>
-                <div className="main__outStandingJob--listJob__item--bottom__bookmark">
-                  <img src={BookmarkSimple} alt="" />
-                </div>
-              </div>
-            </div>
+            ))}
+            
           </div>
         </div>
         <div className="main__outStandingCandidate">
@@ -563,13 +237,14 @@ export default function Main() {
             </div>
           </div>
           <div className="main__outStandingCandidate--listCandidate">
-            <div className="main__outStandingCandidate--listCandidate__item">
+            {allCandidate.map((item) => (
+              <div className="main__outStandingCandidate--listCandidate__item" key={item.id}>
               <div className="main__outStandingCandidate--listCandidate__item__information">
                 <div className="main__outStandingCandidate--listCandidate__item__information--left">
                   <div className="main__outStandingCandidate--listCandidate__item__information--left__avatar"></div>
                   <div className="main__outStandingCandidate--listCandidate__item__information--left__name">
                     <div className="main__outStandingCandidate--listCandidate__item__information--left__name--top">
-                      Nguyen Van A
+                      {item.name}
                     </div>
                     <div className="main__outStandingCandidate--listCandidate__item__information--left__name--bottom">
                       <div className="main__outStandingCandidate--listCandidate__item__information--left__name--bottom__left">
@@ -613,406 +288,9 @@ export default function Main() {
                 <p>Ha Noi, Viet Nam</p>
               </div>
             </div>
-            <div className="main__outStandingCandidate--listCandidate__item">
-              <div className="main__outStandingCandidate--listCandidate__item__information">
-                <div className="main__outStandingCandidate--listCandidate__item__information--left">
-                  <div className="main__outStandingCandidate--listCandidate__item__information--left__avatar"></div>
-                  <div className="main__outStandingCandidate--listCandidate__item__information--left__name">
-                    <div className="main__outStandingCandidate--listCandidate__item__information--left__name--top">
-                      Nguyen Van A
-                    </div>
-                    <div className="main__outStandingCandidate--listCandidate__item__information--left__name--bottom">
-                      <div className="main__outStandingCandidate--listCandidate__item__information--left__name--bottom__left">
-                        Front end
-                      </div>
-                      <div className="main__outStandingCandidate--listCandidate__item__information--left__name--bottom__right">
-                        Fresher
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="main__outStandingCandidate--listCandidate__item__information--right">
-                  <img src={arrow} alt="" />
-                </div>
-              </div>
-              <div className="main__outStandingCandidate--listCandidate__item__technical">
-                <div className="main__outStandingCandidate--listCandidate__item__technical__title">
-                  Technical in use:
-                </div>
-                <div className="main__outStandingCandidate--listCandidate__item__technical__list">
-                  <div className="main__outStandingCandidate--listCandidate__item__technical__list__item">
-                    ReactJS
-                  </div>
-                  <div className="main__outStandingCandidate--listCandidate__item__technical__list__item">
-                    NodeJS
-                  </div>
-                </div>
-              </div>
-              <div className="main__outStandingCandidate--listCandidate__item__language">
-                <div className="main__outStandingCandidate--listCandidate__item__language__title">
-                  Foreign Language:
-                </div>
-                <div className="main__outStandingCandidate--listCandidate__item__language__list">
-                  <div className="main__outStandingCandidate--listCandidate__item__language__list__item">
-                    N2
-                  </div>
-                </div>
-              </div>
-              <div className="main__outStandingCandidate--listCandidate__item__local">
-                <img src={MapPin} alt="" />
-                <p>Ha Noi, Viet Nam</p>
-              </div>
-            </div>
-            <div className="main__outStandingCandidate--listCandidate__item">
-              <div className="main__outStandingCandidate--listCandidate__item__information">
-                <div className="main__outStandingCandidate--listCandidate__item__information--left">
-                  <div className="main__outStandingCandidate--listCandidate__item__information--left__avatar"></div>
-                  <div className="main__outStandingCandidate--listCandidate__item__information--left__name">
-                    <div className="main__outStandingCandidate--listCandidate__item__information--left__name--top">
-                      Nguyen Van A
-                    </div>
-                    <div className="main__outStandingCandidate--listCandidate__item__information--left__name--bottom">
-                      <div className="main__outStandingCandidate--listCandidate__item__information--left__name--bottom__left">
-                        Front end
-                      </div>
-                      <div className="main__outStandingCandidate--listCandidate__item__information--left__name--bottom__right">
-                        Fresher
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="main__outStandingCandidate--listCandidate__item__information--right">
-                  <img src={arrow} alt="" />
-                </div>
-              </div>
-              <div className="main__outStandingCandidate--listCandidate__item__technical">
-                <div className="main__outStandingCandidate--listCandidate__item__technical__title">
-                  Technical in use:
-                </div>
-                <div className="main__outStandingCandidate--listCandidate__item__technical__list">
-                  <div className="main__outStandingCandidate--listCandidate__item__technical__list__item">
-                    ReactJS
-                  </div>
-                  <div className="main__outStandingCandidate--listCandidate__item__technical__list__item">
-                    NodeJS
-                  </div>
-                </div>
-              </div>
-              <div className="main__outStandingCandidate--listCandidate__item__language">
-                <div className="main__outStandingCandidate--listCandidate__item__language__title">
-                  Foreign Language:
-                </div>
-                <div className="main__outStandingCandidate--listCandidate__item__language__list">
-                  <div className="main__outStandingCandidate--listCandidate__item__language__list__item">
-                    N2
-                  </div>
-                </div>
-              </div>
-              <div className="main__outStandingCandidate--listCandidate__item__local">
-                <img src={MapPin} alt="" />
-                <p>Ha Noi, Viet Nam</p>
-              </div>
-            </div>
-            <div className="main__outStandingCandidate--listCandidate__item">
-              <div className="main__outStandingCandidate--listCandidate__item__information">
-                <div className="main__outStandingCandidate--listCandidate__item__information--left">
-                  <div className="main__outStandingCandidate--listCandidate__item__information--left__avatar"></div>
-                  <div className="main__outStandingCandidate--listCandidate__item__information--left__name">
-                    <div className="main__outStandingCandidate--listCandidate__item__information--left__name--top">
-                      Nguyen Van A
-                    </div>
-                    <div className="main__outStandingCandidate--listCandidate__item__information--left__name--bottom">
-                      <div className="main__outStandingCandidate--listCandidate__item__information--left__name--bottom__left">
-                        Front end
-                      </div>
-                      <div className="main__outStandingCandidate--listCandidate__item__information--left__name--bottom__right">
-                        Fresher
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="main__outStandingCandidate--listCandidate__item__information--right">
-                  <img src={arrow} alt="" />
-                </div>
-              </div>
-              <div className="main__outStandingCandidate--listCandidate__item__technical">
-                <div className="main__outStandingCandidate--listCandidate__item__technical__title">
-                  Technical in use:
-                </div>
-                <div className="main__outStandingCandidate--listCandidate__item__technical__list">
-                  <div className="main__outStandingCandidate--listCandidate__item__technical__list__item">
-                    ReactJS
-                  </div>
-                  <div className="main__outStandingCandidate--listCandidate__item__technical__list__item">
-                    NodeJS
-                  </div>
-                </div>
-              </div>
-              <div className="main__outStandingCandidate--listCandidate__item__language">
-                <div className="main__outStandingCandidate--listCandidate__item__language__title">
-                  Foreign Language:
-                </div>
-                <div className="main__outStandingCandidate--listCandidate__item__language__list">
-                  <div className="main__outStandingCandidate--listCandidate__item__language__list__item">
-                    N2
-                  </div>
-                </div>
-              </div>
-              <div className="main__outStandingCandidate--listCandidate__item__local">
-                <img src={MapPin} alt="" />
-                <p>Ha Noi, Viet Nam</p>
-              </div>
-            </div>
-            <div className="main__outStandingCandidate--listCandidate__item">
-              <div className="main__outStandingCandidate--listCandidate__item__information">
-                <div className="main__outStandingCandidate--listCandidate__item__information--left">
-                  <div className="main__outStandingCandidate--listCandidate__item__information--left__avatar"></div>
-                  <div className="main__outStandingCandidate--listCandidate__item__information--left__name">
-                    <div className="main__outStandingCandidate--listCandidate__item__information--left__name--top">
-                      Nguyen Van A
-                    </div>
-                    <div className="main__outStandingCandidate--listCandidate__item__information--left__name--bottom">
-                      <div className="main__outStandingCandidate--listCandidate__item__information--left__name--bottom__left">
-                        Front end
-                      </div>
-                      <div className="main__outStandingCandidate--listCandidate__item__information--left__name--bottom__right">
-                        Fresher
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="main__outStandingCandidate--listCandidate__item__information--right">
-                  <img src={arrow} alt="" />
-                </div>
-              </div>
-              <div className="main__outStandingCandidate--listCandidate__item__technical">
-                <div className="main__outStandingCandidate--listCandidate__item__technical__title">
-                  Technical in use:
-                </div>
-                <div className="main__outStandingCandidate--listCandidate__item__technical__list">
-                  <div className="main__outStandingCandidate--listCandidate__item__technical__list__item">
-                    ReactJS
-                  </div>
-                  <div className="main__outStandingCandidate--listCandidate__item__technical__list__item">
-                    NodeJS
-                  </div>
-                </div>
-              </div>
-              <div className="main__outStandingCandidate--listCandidate__item__language">
-                <div className="main__outStandingCandidate--listCandidate__item__language__title">
-                  Foreign Language:
-                </div>
-                <div className="main__outStandingCandidate--listCandidate__item__language__list">
-                  <div className="main__outStandingCandidate--listCandidate__item__language__list__item">
-                    N2
-                  </div>
-                </div>
-              </div>
-              <div className="main__outStandingCandidate--listCandidate__item__local">
-                <img src={MapPin} alt="" />
-                <p>Ha Noi, Viet Nam</p>
-              </div>
-            </div>
-            <div className="main__outStandingCandidate--listCandidate__item">
-              <div className="main__outStandingCandidate--listCandidate__item__information">
-                <div className="main__outStandingCandidate--listCandidate__item__information--left">
-                  <div className="main__outStandingCandidate--listCandidate__item__information--left__avatar"></div>
-                  <div className="main__outStandingCandidate--listCandidate__item__information--left__name">
-                    <div className="main__outStandingCandidate--listCandidate__item__information--left__name--top">
-                      Nguyen Van A
-                    </div>
-                    <div className="main__outStandingCandidate--listCandidate__item__information--left__name--bottom">
-                      <div className="main__outStandingCandidate--listCandidate__item__information--left__name--bottom__left">
-                        Front end
-                      </div>
-                      <div className="main__outStandingCandidate--listCandidate__item__information--left__name--bottom__right">
-                        Fresher
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="main__outStandingCandidate--listCandidate__item__information--right">
-                  <img src={arrow} alt="" />
-                </div>
-              </div>
-              <div className="main__outStandingCandidate--listCandidate__item__technical">
-                <div className="main__outStandingCandidate--listCandidate__item__technical__title">
-                  Technical in use:
-                </div>
-                <div className="main__outStandingCandidate--listCandidate__item__technical__list">
-                  <div className="main__outStandingCandidate--listCandidate__item__technical__list__item">
-                    ReactJS
-                  </div>
-                  <div className="main__outStandingCandidate--listCandidate__item__technical__list__item">
-                    NodeJS
-                  </div>
-                </div>
-              </div>
-              <div className="main__outStandingCandidate--listCandidate__item__language">
-                <div className="main__outStandingCandidate--listCandidate__item__language__title">
-                  Foreign Language:
-                </div>
-                <div className="main__outStandingCandidate--listCandidate__item__language__list">
-                  <div className="main__outStandingCandidate--listCandidate__item__language__list__item">
-                    N2
-                  </div>
-                </div>
-              </div>
-              <div className="main__outStandingCandidate--listCandidate__item__local">
-                <img src={MapPin} alt="" />
-                <p>Ha Noi, Viet Nam</p>
-              </div>
-            </div>
-            <div className="main__outStandingCandidate--listCandidate__item">
-              <div className="main__outStandingCandidate--listCandidate__item__information">
-                <div className="main__outStandingCandidate--listCandidate__item__information--left">
-                  <div className="main__outStandingCandidate--listCandidate__item__information--left__avatar"></div>
-                  <div className="main__outStandingCandidate--listCandidate__item__information--left__name">
-                    <div className="main__outStandingCandidate--listCandidate__item__information--left__name--top">
-                      Nguyen Van A
-                    </div>
-                    <div className="main__outStandingCandidate--listCandidate__item__information--left__name--bottom">
-                      <div className="main__outStandingCandidate--listCandidate__item__information--left__name--bottom__left">
-                        Front end
-                      </div>
-                      <div className="main__outStandingCandidate--listCandidate__item__information--left__name--bottom__right">
-                        Fresher
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="main__outStandingCandidate--listCandidate__item__information--right">
-                  <img src={arrow} alt="" />
-                </div>
-              </div>
-              <div className="main__outStandingCandidate--listCandidate__item__technical">
-                <div className="main__outStandingCandidate--listCandidate__item__technical__title">
-                  Technical in use:
-                </div>
-                <div className="main__outStandingCandidate--listCandidate__item__technical__list">
-                  <div className="main__outStandingCandidate--listCandidate__item__technical__list__item">
-                    ReactJS
-                  </div>
-                  <div className="main__outStandingCandidate--listCandidate__item__technical__list__item">
-                    NodeJS
-                  </div>
-                </div>
-              </div>
-              <div className="main__outStandingCandidate--listCandidate__item__language">
-                <div className="main__outStandingCandidate--listCandidate__item__language__title">
-                  Foreign Language:
-                </div>
-                <div className="main__outStandingCandidate--listCandidate__item__language__list">
-                  <div className="main__outStandingCandidate--listCandidate__item__language__list__item">
-                    N2
-                  </div>
-                </div>
-              </div>
-              <div className="main__outStandingCandidate--listCandidate__item__local">
-                <img src={MapPin} alt="" />
-                <p>Ha Noi, Viet Nam</p>
-              </div>
-            </div>
-            <div className="main__outStandingCandidate--listCandidate__item">
-              <div className="main__outStandingCandidate--listCandidate__item__information">
-                <div className="main__outStandingCandidate--listCandidate__item__information--left">
-                  <div className="main__outStandingCandidate--listCandidate__item__information--left__avatar"></div>
-                  <div className="main__outStandingCandidate--listCandidate__item__information--left__name">
-                    <div className="main__outStandingCandidate--listCandidate__item__information--left__name--top">
-                      Nguyen Van A
-                    </div>
-                    <div className="main__outStandingCandidate--listCandidate__item__information--left__name--bottom">
-                      <div className="main__outStandingCandidate--listCandidate__item__information--left__name--bottom__left">
-                        Front end
-                      </div>
-                      <div className="main__outStandingCandidate--listCandidate__item__information--left__name--bottom__right">
-                        Fresher
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="main__outStandingCandidate--listCandidate__item__information--right">
-                  <img src={arrow} alt="" />
-                </div>
-              </div>
-              <div className="main__outStandingCandidate--listCandidate__item__technical">
-                <div className="main__outStandingCandidate--listCandidate__item__technical__title">
-                  Technical in use:
-                </div>
-                <div className="main__outStandingCandidate--listCandidate__item__technical__list">
-                  <div className="main__outStandingCandidate--listCandidate__item__technical__list__item">
-                    ReactJS
-                  </div>
-                  <div className="main__outStandingCandidate--listCandidate__item__technical__list__item">
-                    NodeJS
-                  </div>
-                </div>
-              </div>
-              <div className="main__outStandingCandidate--listCandidate__item__language">
-                <div className="main__outStandingCandidate--listCandidate__item__language__title">
-                  Foreign Language:
-                </div>
-                <div className="main__outStandingCandidate--listCandidate__item__language__list">
-                  <div className="main__outStandingCandidate--listCandidate__item__language__list__item">
-                    N2
-                  </div>
-                </div>
-              </div>
-              <div className="main__outStandingCandidate--listCandidate__item__local">
-                <img src={MapPin} alt="" />
-                <p>Ha Noi, Viet Nam</p>
-              </div>
-            </div>
-            <div className="main__outStandingCandidate--listCandidate__item">
-              <div className="main__outStandingCandidate--listCandidate__item__information">
-                <div className="main__outStandingCandidate--listCandidate__item__information--left">
-                  <div className="main__outStandingCandidate--listCandidate__item__information--left__avatar"></div>
-                  <div className="main__outStandingCandidate--listCandidate__item__information--left__name">
-                    <div className="main__outStandingCandidate--listCandidate__item__information--left__name--top">
-                      Nguyen Van A
-                    </div>
-                    <div className="main__outStandingCandidate--listCandidate__item__information--left__name--bottom">
-                      <div className="main__outStandingCandidate--listCandidate__item__information--left__name--bottom__left">
-                        Front end
-                      </div>
-                      <div className="main__outStandingCandidate--listCandidate__item__information--left__name--bottom__right">
-                        Fresher
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="main__outStandingCandidate--listCandidate__item__information--right">
-                  <img src={arrow} alt="" />
-                </div>
-              </div>
-              <div className="main__outStandingCandidate--listCandidate__item__technical">
-                <div className="main__outStandingCandidate--listCandidate__item__technical__title">
-                  Technical in use:
-                </div>
-                <div className="main__outStandingCandidate--listCandidate__item__technical__list">
-                  <div className="main__outStandingCandidate--listCandidate__item__technical__list__item">
-                    ReactJS
-                  </div>
-                  <div className="main__outStandingCandidate--listCandidate__item__technical__list__item">
-                    NodeJS
-                  </div>
-                </div>
-              </div>
-              <div className="main__outStandingCandidate--listCandidate__item__language">
-                <div className="main__outStandingCandidate--listCandidate__item__language__title">
-                  Foreign Language:
-                </div>
-                <div className="main__outStandingCandidate--listCandidate__item__language__list">
-                  <div className="main__outStandingCandidate--listCandidate__item__language__list__item">
-                    N2
-                  </div>
-                </div>
-              </div>
-              <div className="main__outStandingCandidate--listCandidate__item__local">
-                <img src={MapPin} alt="" />
-                <p>Ha Noi, Viet Nam</p>
-              </div>
-            </div>
+            ))}
+            
+            
           </div>
         </div>
         <div className="main__outStandingCompany">
@@ -1026,14 +304,15 @@ export default function Main() {
             </div>
           </div>
           <div className="main__outStandingCompany--listCompany">
-            <div className="main__outStandingCompany--listCompany__item">
+            {allCompany.map((item) => (
+              <div className="main__outStandingCompany--listCompany__item" key={item.id}>
               <div className="main__outStandingCompany--listCompany__item__top">
                 <div className="main__outStandingCompany--listCompany__item__top--logo">
                   <img src={global} alt="" />
                 </div>
                 <div className="main__outStandingCompany--listCompany__item__top--name">
                   <div className="main__outStandingCompany--listCompany__item__top--name--top">
-                    <span>Dribbble</span>
+                    <span>{item.name}</span>
                     <div className="main__outStandingCompany--listCompany__item__top--name--top__featured">
                       Featured
                     </div>
@@ -1050,126 +329,8 @@ export default function Main() {
                 Open Position (3)
               </div>
             </div>
-            <div className="main__outStandingCompany--listCompany__item">
-              <div className="main__outStandingCompany--listCompany__item__top">
-                <div className="main__outStandingCompany--listCompany__item__top--logo">
-                  <img src={global} alt="" />
-                </div>
-                <div className="main__outStandingCompany--listCompany__item__top--name">
-                  <div className="main__outStandingCompany--listCompany__item__top--name--top">
-                    <span>Dribbble</span>
-                    <div className="main__outStandingCompany--listCompany__item__top--name--top__featured">
-                      Featured
-                    </div>
-                  </div>
-                  <div className="main__outStandingCompany--listCompany__item__top--name--bottom">
-                    <img src={MapPin} alt="" />
-                    <p className="main__outStandingCompany--listCompany__item__top--name--bottom__location">
-                      Dhaka, Bangladesh
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div className="main__outStandingCompany--listCompany__item__bottom">
-                Open Position (3)
-              </div>
-            </div>
-            <div className="main__outStandingCompany--listCompany__item">
-              <div className="main__outStandingCompany--listCompany__item__top">
-                <div className="main__outStandingCompany--listCompany__item__top--logo">
-                  <img src={global} alt="" />
-                </div>
-                <div className="main__outStandingCompany--listCompany__item__top--name">
-                  <div className="main__outStandingCompany--listCompany__item__top--name--top">
-                    <span>Dribbble</span>
-                    <div className="main__outStandingCompany--listCompany__item__top--name--top__featured">
-                      Featured
-                    </div>
-                  </div>
-                  <div className="main__outStandingCompany--listCompany__item__top--name--bottom">
-                    <img src={MapPin} alt="" />
-                    <p className="main__outStandingCompany--listCompany__item__top--name--bottom__location">
-                      Dhaka, Bangladesh
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div className="main__outStandingCompany--listCompany__item__bottom">
-                Open Position (3)
-              </div>
-            </div>
-            <div className="main__outStandingCompany--listCompany__item">
-              <div className="main__outStandingCompany--listCompany__item__top">
-                <div className="main__outStandingCompany--listCompany__item__top--logo">
-                  <img src={global} alt="" />
-                </div>
-                <div className="main__outStandingCompany--listCompany__item__top--name">
-                  <div className="main__outStandingCompany--listCompany__item__top--name--top">
-                    <span>Dribbble</span>
-                    <div className="main__outStandingCompany--listCompany__item__top--name--top__featured">
-                      Featured
-                    </div>
-                  </div>
-                  <div className="main__outStandingCompany--listCompany__item__top--name--bottom">
-                    <img src={MapPin} alt="" />
-                    <p className="main__outStandingCompany--listCompany__item__top--name--bottom__location">
-                      Dhaka, Bangladesh
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div className="main__outStandingCompany--listCompany__item__bottom">
-                Open Position (3)
-              </div>
-            </div>
-            <div className="main__outStandingCompany--listCompany__item">
-              <div className="main__outStandingCompany--listCompany__item__top">
-                <div className="main__outStandingCompany--listCompany__item__top--logo">
-                  <img src={global} alt="" />
-                </div>
-                <div className="main__outStandingCompany--listCompany__item__top--name">
-                  <div className="main__outStandingCompany--listCompany__item__top--name--top">
-                    <span>Dribbble</span>
-                    <div className="main__outStandingCompany--listCompany__item__top--name--top__featured">
-                      Featured
-                    </div>
-                  </div>
-                  <div className="main__outStandingCompany--listCompany__item__top--name--bottom">
-                    <img src={MapPin} alt="" />
-                    <p className="main__outStandingCompany--listCompany__item__top--name--bottom__location">
-                      Dhaka, Bangladesh
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div className="main__outStandingCompany--listCompany__item__bottom">
-                Open Position (3)
-              </div>
-            </div>
-            <div className="main__outStandingCompany--listCompany__item">
-              <div className="main__outStandingCompany--listCompany__item__top">
-                <div className="main__outStandingCompany--listCompany__item__top--logo">
-                  <img src={global} alt="" />
-                </div>
-                <div className="main__outStandingCompany--listCompany__item__top--name">
-                  <div className="main__outStandingCompany--listCompany__item__top--name--top">
-                    <span>Dribbble</span>
-                    <div className="main__outStandingCompany--listCompany__item__top--name--top__featured">
-                      Featured
-                    </div>
-                  </div>
-                  <div className="main__outStandingCompany--listCompany__item__top--name--bottom">
-                    <img src={MapPin} alt="" />
-                    <p className="main__outStandingCompany--listCompany__item__top--name--bottom__location">
-                      Dhaka, Bangladesh
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div className="main__outStandingCompany--listCompany__item__bottom">
-                Open Position (3)
-              </div>
-            </div>
+            ))}
+            
           </div>
         </div>
         <div className="main__comment">

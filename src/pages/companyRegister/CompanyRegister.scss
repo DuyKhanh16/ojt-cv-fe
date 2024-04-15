@@ -8,6 +8,7 @@ body::-webkit-scrollbar {
   .logo {
     width: 200px;
     height: 67.6px;
+    margin-left: 2.8vw;
 
     img {
       width: 100%;
@@ -40,10 +41,10 @@ body::-webkit-scrollbar {
       }
 
       .company__register-form-input {
-        width: 100%;
+        width: 85%;
         height: 472.75px;
         margin-top: 0px;
-        .error{
+        .error {
           color: red;
           margin-top: 10px;
           margin-bottom: 10px;
@@ -64,11 +65,10 @@ body::-webkit-scrollbar {
         .company__register-input__email {
           width: 100%;
           height: 108.5px;
-          
         }
 
         .company__register-input__password {
-          margin-top: -20px;
+          margin-top: 0px;
           .company__register-input__password-wrapper {
             position: relative;
             .togglePasswordVisibility {
@@ -81,6 +81,7 @@ body::-webkit-scrollbar {
           }
         }
         .company__register-input__confirmPassword {
+          margin-top:20px;
           .company__register-confirmPassword-input-wrapper {
             position: relative;
             .togglePasswordVisibility {
@@ -117,7 +118,7 @@ body::-webkit-scrollbar {
     }
     .line {
       width: 1.45px;
-      height: 100%;
+      height: 60%;
       background: linear-gradient(
         to bottom,
         rgba(10, 3, 60, 0),
@@ -134,7 +135,7 @@ body::-webkit-scrollbar {
         width: 85%;
         height: 472.75px;
         margin-top: 60.43px;
-        .error{
+        .error {
           color: red;
           margin-top: 10px;
           margin-bottom: 10px;
@@ -150,6 +151,12 @@ body::-webkit-scrollbar {
           padding: 8px 25.42px;
           display: flex;
           align-items: center;
+        }
+        .company__register-input__address{
+          margin-top: 20px;
+        }
+        .company__register-input__phone {
+          margin-top: 20px;
         }
       }
     }
@@ -170,13 +177,13 @@ body::-webkit-scrollbar {
     color: #fff;
     border-radius: 5px;
     border: none;
-    margin-top: 37.06px;
     cursor: pointer;
     user-select: none;
     position: relative;
     isolation: isolate;
     overflow: hidden;
-
+    margin-top: -8vw;
+    margin-left: 50px;
     &:hover::before {
       left: auto;
       right: 0;
@@ -205,7 +212,7 @@ body::-webkit-scrollbar {
 
   /* footer register */
   .company__register-input__footer {
-    margin-top: 22.91px;
+    // margin-top: 22.91px;
     width: 100%;
     font-size: 14px;
     font-weight: 500;
@@ -213,7 +220,7 @@ body::-webkit-scrollbar {
     display: flex;
     flex-direction: column;
     align-items: center;
-
+    margin-left: 3vw;
     .company__register-input__footer--forgot {
       display: flex;
       cursor: pointer;
@@ -244,7 +251,7 @@ body::-webkit-scrollbar {
 /* Mobile */
 @media only screen and (max-width: 576px) {
   .company__register__container {
-    width: 100vw;
+    // width: 100vw;
     padding-top: 0px;
     display: flex;
     flex-direction: column;
@@ -259,9 +266,9 @@ body::-webkit-scrollbar {
       flex-direction: column;
       justify-content: center;
       align-items: center;
-     .company__register__form--left {
-        margin-top: 300px;
-        
+      .company__register__form--left {
+        width: 100%;
+        margin-top: 60vw;
         .company__register-form-content {
           font-size: 16px;
           line-height: 20px;
@@ -270,26 +277,29 @@ body::-webkit-scrollbar {
         }
         .company__register-form-input {
           margin-top: -50px;
-          margin-left: -30px;
-          .company__register-infor__Account {
-          font-size: 14px;
-          border-left: 5px solid var(--primary);
-          height: 20px;
+
+          margin-left: 10vw;
+          input {
+            width: 75vw;
           }
-      
+          .company__register-infor__Account {
+            font-size: 14px;
+            border-left: 5px solid var(--primary);
+            height: 20px;
+          }
         }
-     }
+      }
       .line {
         display: none;
       }
       .company__register__form--right {
         width: 100%;
-        margin-top: -150px;
-        margin-left: -30px;
+        margin-top: -220px;
+        margin-left: 20vw;
 
         .company__register-form-input {
           input {
-            width: 486.54px;
+            width: 75vw;
           }
           .company__register-infor__company {
             font-size: 14px;
@@ -297,28 +307,24 @@ body::-webkit-scrollbar {
             height: 20px;
           }
         }
-        
       }
     }
     .btn--registerCompany {
-      margin-top: 200px;
+      margin-top: 100px;
       margin-right: 350px;
       width: 300px;
     }
     .company__register-input__footer {
-      margin-right: -60px;
+      margin-right: -20vw;
     }
-    
   }
-  
 }
 
 /* Ipad */
-@media only screen and (min-width: 577px) and (max-width:769px) {
+@media only screen and (min-width: 577px) and (max-width: 769px) {
   .company__register__container {
     width: 100vw;
-    max-width: 768px;
-    padding-left: 0px;
+    padding-left: 0vw;
     padding-top: 0px;
     display: flex;
     flex-direction: column;
@@ -328,13 +334,14 @@ body::-webkit-scrollbar {
       margin-top: 0px;
     }
     .company__register {
-      width: 768px;
+      width: 100%;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-     .company__register__form--left {
+      .company__register__form--left {
         margin-top: 300px;
+        width: 100%;
         .company__register-form-content {
           font-size: 16px;
           line-height: 20px;
@@ -343,26 +350,28 @@ body::-webkit-scrollbar {
         }
         .company__register-form-input {
           margin-top: -50px;
-          margin-left: 0px;
-          .company__register-infor__Account {
-          font-size: 14px;
-          border-left: 5px solid var(--primary);
-          height: 20px;
+          margin-left: 20vw;
+          input {
+            width: 85vw;
           }
-      
+          .company__register-infor__Account {
+            font-size: 14px;
+            border-left: 5px solid var(--primary);
+            height: 20px;
+          }
         }
-     }
+      }
       .line {
         display: none;
       }
       .company__register__form--right {
         width: 768px;
         margin-top: -150px;
-        margin-left: 280px;
+        margin-left: 300px;
 
         .company__register-form-input {
           input {
-            width: 486.54px;
+            width: 85vw;
           }
           .company__register-infor__company {
             font-size: 14px;
@@ -370,19 +379,17 @@ body::-webkit-scrollbar {
             height: 20px;
           }
         }
-        
       }
     }
     .btn--registerCompany {
       margin-top: 200px;
-      margin-right: 460px;
+      margin-right: 360px;
       width: 300px;
     }
     .company__register-input__footer {
       width: 60%;
-      margin-left: 100px;
+      margin-left: 260px;
     }
-    
   }
 }
 
