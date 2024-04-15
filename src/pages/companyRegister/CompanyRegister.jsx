@@ -5,6 +5,7 @@ import logo from "../../assets/images/userLogin/logo-rikkei2.png";
 import eye from "../../assets/images/userLogin/eye (1) 1.png";
 import { Link, useNavigate } from "react-router-dom";
 import publicAxios from "../../config/pulic.axios";
+import { notification } from "antd";
 export default function () {
   const [NewCompany, setNewCompany] = useState({
     email: "",
@@ -89,7 +90,9 @@ export default function () {
       try {
         console.log(NewCompany, "11111");
         const res = await publicAxios.post("/api/v2/auth/register-company",NewCompany)
-        alert(res.data.message);
+        notification.success({
+          message: "Đăng ký thành công"
+        }, 1000);
         navigate("/login");
       } catch (error) {
         console.log(error);

@@ -6,6 +6,7 @@ import investment from "../../assets/images/userLogin/Investment data-rafiki 1.p
 import eye from "../../assets/images/userLogin/eye (1) 1.png";
 import { Await, Link, useNavigate } from "react-router-dom";
 import publicAxios from "../../config/pulic.axios";
+import { notification } from "antd";
 export default function UserLogin() {
   const [user, setUser] = useState({
     email: "",
@@ -51,24 +52,33 @@ export default function UserLogin() {
         
         if(res.data.data.role === 0 ){
           localStorage.setItem("token",JSON.stringify(res.data.data.token_access))
-          alert(res.data.message)
-          window.location.href = "/admin/home-admin"
+          notification.success({
+            message:res.data.message
+          })
+          navigate("/admin/home-admin")
         }
 
         if(res.data.data.role === 1){
           localStorage.setItem("token",JSON.stringify(res.data.data.token_access))
-          window.location.href = "/"
-          alert(res.data.message)
-
+          navigate("/")
+          notification.success({
+            message:res.data.message
+          })
         }
         if(res.data.data.role ===2){
           localStorage.setItem("token",JSON.stringify(res.data.data.token_access))
-          window.location.href = "/"
-          alert(res.data.message)
-
+          navigate("/company")
+          notification.success({
+            message:res.data.message
+          })
         }
       } catch (error) {
-        console.log(error);
+        console.log(error)
+        notification.error(
+          {
+            message:"Đăng nhập thất bại"
+          }
+        );
       }
     }
   }
