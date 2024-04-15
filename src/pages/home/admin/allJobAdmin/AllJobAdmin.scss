@@ -22,7 +22,7 @@
     margin-left: 3vw;
   }
   .allJobAdmin__container {
-    width: 100vw;
+    width: 100%;
     height: 100vh;
     .allJobAdmin__header {
       width: 100%;
@@ -44,8 +44,6 @@
     }
     .allJobAdmin__content {
       width: 100%;
-      padding: 24px 0px 24px 0px;
-      height: 400px;
       .allJobAdmin__content__headerTable {
         width: 100%;
         background-color: #f7f7f7;
@@ -54,7 +52,7 @@
         align-items: center;
         justify-content: space-around;
         .column {
-          width: 12%;
+          width: 10%;
           text-align: center;
           p {
             font-size: 14px;
@@ -64,10 +62,10 @@
       }
       .allJobAdmin__content__bodyTable {
         width: 100%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 1vw;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1vw;
         .allJobAdmin__content__bodyTable__item {
           display: flex;
           align-items: center;
@@ -75,10 +73,10 @@
           width: 100%;
           height: 4vw;
           .column {
-            width: 12%;
+            width: 10%;
             text-align: center;
             p {
-              font-size: 1vw;
+              font-size: 14px;
               font-weight: 600;
             }
             a {

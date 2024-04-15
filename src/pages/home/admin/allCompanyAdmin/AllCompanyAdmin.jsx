@@ -1,20 +1,14 @@
 import React from "react";
 import HeaderAdmin from "../../../../components/headerAdmin/HeaderAdmin";
-import FormSearch from "../../../../components/formSearch/FormSearch";
 import "./AllCompanyAdmin.scss";
+import AdminSearch from "../../../../components/adminSearch/AdminSearch";
 export default function AllCompanyAdmin() {
   return (
     <>
-      <HeaderAdmin></HeaderAdmin>
       <div className="allCompanyAdmin__formsearch">
-      <FormSearch></FormSearch>
+      <AdminSearch></AdminSearch>
       </div>
       <div className="allCompanyAdmin__container">
-        <div className="allCompanyAdmin__header">
-          <p>Trang chủ</p>
-          <p>/</p>
-          <p>Quản lý công ty</p>
-        </div>
         <div className="allCompanyAdmin__content">
           <div className="allCompanyAdmin__content__headerTable">
             <div className="allCompanyAdmin__content__headerTable__stt column">

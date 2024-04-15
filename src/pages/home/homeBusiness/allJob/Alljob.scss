@@ -17,6 +17,9 @@
     padding: 0;
     margin: 0;
   }
+  body::-webkit-scrollbar {
+    display: none;
+  }
   .alljob__formsearch {
     width: 100%;
     margin-left: 3vw;

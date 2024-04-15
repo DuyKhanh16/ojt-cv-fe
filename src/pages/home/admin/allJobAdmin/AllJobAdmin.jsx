@@ -1,20 +1,14 @@
 import React from "react";
 import HeaderAdmin from "../../../../components/headerAdmin/HeaderAdmin";
-import FormSearch from "../../../../components/formSearch/FormSearch";
 import "./AllJobAdmin.scss";
+import AdminSearch from "../../../../components/adminSearch/AdminSearch";
 export default function AllJobAdmin() {
   return (
     <>
-      <HeaderAdmin></HeaderAdmin>
       <div className="allJobAdmin__formsearch">
-        <FormSearch></FormSearch>
+        <AdminSearch></AdminSearch>
       </div>
       <div className="allJobAdmin__container">
-        <div className="allJobAdmin__header">
-          <p>Trang chủ</p>
-          <p>/</p>
-          <p>Quản lý việc làm</p>
-        </div>
         <div className="allJobAdmin__content">
           <div className="allJobAdmin__content__headerTable">
             <div className="allJobAdmin__content__headerTable__stt column">
@@ -26,11 +20,8 @@ export default function AllJobAdmin() {
             <div className="allJobAdmin__content__headerTable__nameCompany column">
               <p>Công ty</p>
             </div>
-            <div className="allJobAdmin__content__headerTable__email column">
-              <p>Email liên hệ</p>
-            </div>
             <div className="allJobAdmin__content__headerTable__time column">
-              <p>Thời hạn ứng tuyển</p>
+              <p>Thời hạn</p>
             </div>
             <div className="allJobAdmin__content__headerTable__salary column">
               <p>Khoảng lương</p>
@@ -53,9 +44,7 @@ export default function AllJobAdmin() {
               <div className="allJobAdmin__content__headerTable__nameCompany column">
                 <p>Rikkei Soft</p>
               </div>
-              <div className="allJobAdmin__content__headerTable__email column">
-                <p>Rikkei@gmail.com</p>
-              </div>
+             
               <div className="allJobAdmin__content__headerTable__time column">
                 <span class="material-symbols-outlined">calendar_month</span>
                 <p>12/12/2022</p>
@@ -94,9 +83,6 @@ export default function AllJobAdmin() {
               </div>
               <div className="allJobAdmin__content__headerTable__nameCompany column">
                 <p>Rikkei Soft</p>
-              </div>
-              <div className="allJobAdmin__content__headerTable__email column">
-                <p>Rikkei@gmail.com</p>
               </div>
               <div className="allJobAdmin__content__headerTable__time column">
                 <span class="material-symbols-outlined">calendar_month</span>
@@ -137,9 +123,7 @@ export default function AllJobAdmin() {
               <div className="allJobAdmin__content__headerTable__nameCompany column">
                 <p>Rikkei Soft</p>
               </div>
-              <div className="allJobAdmin__content__headerTable__email column">
-                <p>Rikkei@gmail.com</p>
-              </div>
+              
               <div className="allJobAdmin__content__headerTable__time column">
                 <span class="material-symbols-outlined">calendar_month</span>
                 <p>12/12/2022</p>

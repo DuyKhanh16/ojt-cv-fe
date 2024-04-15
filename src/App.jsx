@@ -17,26 +17,27 @@ import InformationComany from "./pages/home/homeUser/informationComany/Informati
 import UpdateInforBusiness from "./pages/home/homeBusiness/updateInforBusiness/UpdateInforBusiness";
 import AllCV from "./pages/home/homeUser/allCV/AllCV";
 import JobList from "./pages/home/homeUser/jobList/JobList";
-import HeaderAdmin from "./components/headerAdmin/HeaderAdmin";
-import AllUserAdmin from "./pages/home/admin/allUserAdmin/AllUserAdmin";
-import AllJobAdmin from "./pages/home/admin/allJobAdmin/AllJobAdmin";
-import AllCompanyAdmin from "./pages/home/admin/allCompanyAdmin/AllCompanyAdmin";
 import AllUserApply from "./pages/home/homeBusiness/allUserApply/AllUserApply";
 import Alljob from "./pages/home/homeBusiness/allJob/Alljob";
 import Cv4 from "./components/cv/cv4/Cv4";
 import HomeAdmin from "./pages/home/admin/homeAdmin/HomeAdmin";
+import AdminAllUser from './layouts/adminSideBar/AdminAllUser';
+import AdminAllJob from './layouts/adminSideBar/AdminAllJob';
+import AdminAllCompany from './layouts/adminSideBar/AdminAllCompany';
+import MainBusiness from "./pages/home/homeBusiness/mainBusiness/MainBusiness";
 
 
 export default function App() {
   return (
     <div>
       <Routes>
-      <Route path="/admin-alluser" element={<AllUserAdmin />} />
+      <Route path="/admin-alluser" element={<AdminAllUser />} />
       <Route path="/admin-home" element={<HomeAdmin />} />
-      <Route path="/admin-alljob" element={<AllJobAdmin />} />
-      <Route path="/admin-allcompany" element={<AllCompanyAdmin />} />
+      <Route path="/admin-alljob" element={<AdminAllJob />} />
+      <Route path="/admin-allcompany" element={<AdminAllCompany />} />
       <Route path="/company-alluserapply" element={<AllUserApply />} />
       <Route path="/company-alljob" element={<Alljob />} />
+      <Route path="/home-company" element={<MainBusiness />} />
         
         <Route path="/login" element={<UserLogin />} />
         <Route path="/register" element={<UserRegister />} />
