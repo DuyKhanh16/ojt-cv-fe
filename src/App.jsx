@@ -36,11 +36,17 @@ import {
 import AdminChart from "./pages/home/admin/adminChart/AdminChart";
 
 
+
 const router = createBrowserRouter([
+
           // trang chủ
           {
             path: "/",
             element: <Main />,
+          },
+          {
+            path: "/company",
+            element: <MainBusiness />,
           },
           {
             path: "/login",
@@ -96,10 +102,7 @@ const router = createBrowserRouter([
             path: "/company-addnewjob",
             element: <AddJob />,
 
-          },
-        
-
-        
+          },  
           {
             path: "/company-updatejob",
             element: <UpdateJobBusiness />,

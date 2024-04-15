@@ -107,12 +107,12 @@ const data = {
       },    
       title: {
         display: true,
-        text: 'Tông Số Học viên',
+        text: 'Tổng số học viên',
         font: {
           size: 20,
         },
         padding: {
-        //   top: 10,
+          top: 10,
           bottom: 30,
         },
       },
@@ -196,7 +196,7 @@ const data = {
         <div style={{ width: "35%" ,  backgroundColor: "white",
         height: "100%",
         padding: "20px",
-        borderRadius: "10px",   }}> <Doughnut data={data} options={options} />;</div>
+        borderRadius: "10px",   }}> <Doughnut data={data} options={options} /></div>
       </div>
     </div>
   );

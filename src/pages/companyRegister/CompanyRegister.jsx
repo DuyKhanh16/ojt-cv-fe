@@ -118,20 +118,6 @@ export default function () {
               <div className="company__register-infor__Account">
                 <p>Thông tin tài khoản</p>
               </div>
-              <div className="company__register-input__name">
-                <label htmlFor="">Họ tên</label>
-                <br />
-                <input
-                  onChange={(e) =>
-                    setNewCompany({ ...NewCompany, name: e.target.value })
-                  }
-                  name="name"
-                  value={NewCompany.name}
-                  type="text"
-                  placeholder="Nhập họ tên"
-                />
-                {errors.name && <div className="error">{errors.name}</div>}
-              </div>
               <div className="company__register-input__email">
                 <label htmlFor="">Email</label>
                 <br />
@@ -228,7 +214,7 @@ export default function () {
                 )}
               </div>
               <div className="company__register-input__address">
-                <label htmlFor="">Địa điểm làm việc</label>
+                <label htmlFor="">Địa chỉ công ty</label>
                 <br />
                 <input
                   name="address"
@@ -256,25 +242,6 @@ export default function () {
                   placeholder="12334444"
                 />
                 {errors.phone && <div className="error">{errors.phone}</div>}
-              </div>
-              <div className="company__register-input__emailCompany">
-                <label htmlFor="">Email công ty</label>
-                <br />
-                <input
-                  name="emailCompany"
-                  value={NewCompany.emailCompany}
-                  onChange={(e) =>
-                    setNewCompany({
-                      ...NewCompany,
-                      emailCompany: e.target.value,
-                    })
-                  }
-                  type="text"
-                  placeholder="company@gmail.com"
-                />
-                {errors.emailCompany && (
-                  <div className="error">{errors.emailCompany}</div>
-                )}
               </div>
             </div>
           </div>
