@@ -1,11 +1,9 @@
 import React from "react";
-import "./HomeAdmin.scss";
-import AllUserAdmin from "../allUserAdmin/AllUserAdmin";
-import AllJobAdmin from "../allJobAdmin/AllJobAdmin";
-import AllCompanyAdmin from "../allCompanyAdmin/AllCompanyAdmin";
-import FormSearch from "../../../../components/formSearch/FormSearch";
-import logo from "../../../../assets/images/logo/logo.png";
-import avatar from "../../../../assets/images/cv/ACg8ocILX9TfOIrNEplYDawUBSv1Rpw3rLnuugZCNRefPEMyjM6NXIV4=s96-c.jpg";
+import "./Admin.scss";
+import logo from "../../assets/images/logo/logo.png";
+import avatar from "../../assets/images/cv/ACg8ocILX9TfOIrNEplYDawUBSv1Rpw3rLnuugZCNRefPEMyjM6NXIV4=s96-c.jpg";
+import AllJobAdmin from "../../pages/home/admin/allJobAdmin/AllJobAdmin";
+import { NavLink } from "react-router-dom";
 export default function HomeAdmin() {
   const body = document.querySelector("body"),
     sidebar = body.querySelector(".fui-sidbar-navigiation nav"),
@@ -24,104 +22,9 @@ export default function HomeAdmin() {
         <div className="homeAdmin__header">
           <a className="logo" href="#">
             <img src={logo} alt="Fast UI" />
-            <span className="logo-name">RIKKEI</span>
           </a>
+          <span className="homeAdmin__header__title">Quản lý công việc</span>
           <ul className="menu-list">
-            {/* <li className="menu-item">
-              <a className="menu-link" href="#" title="Home">
-                Home
-              </a>
-            </li>
-            <li className="menu-item menu-sub">
-              <a className="menu-link" href="#" title="Dropdown">
-                Dropdown
-              </a>
-              <a className="menu-sub-btn-dropdown" href="#" title="dropdown">
-                <svg
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                  style={{ color: "#fff" }}
-                >
-                  <path
-                    fillRule="evenodd"
-                    clipRule="evenodd"
-                    fill="currentColor"
-                    d="M16.2071 9.79289C15.8166 9.40237 15.1834 9.40237 14.7929 9.79289L12 12.5858L9.20711 9.79289C8.81658 9.40237 8.18342 9.40237 7.79289 9.79289C7.40237 10.1834 7.40237 10.8166 7.79289 11.2071L11.2929 14.7071C11.6834 15.0976 12.3166 15.0976 12.7071 14.7071L16.2071 11.2071C16.5976 10.8166 16.5976 10.1834 16.2071 9.79289Z"
-                  ></path>
-                </svg>
-              </a>
-              <div className="fui-navbar-multi-level">
-                <ul className="menu-list">
-                  <li className="menu-item">
-                    <a className="menu-link" href="#" title="Dashboard">
-                      Dashboard
-                    </a>
-                  </li>
-                  <li className="menu-item menu-sub">
-                    <a className="menu-link" href="#" title="Dropdown">
-                      Dropdown
-                    </a>
-                    <a
-                      className="menu-sub-btn-dropdown"
-                      href="#"
-                      title="dropdown"
-                    >
-                      <svg
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        style={{ color: "#fff" }}
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          fill="currentColor"
-                          clipRule="evenodd"
-                          d="M16.2071 9.79289C15.8166 9.40237 15.1834 9.40237 14.7929 9.79289L12 12.5858L9.20711 9.79289C8.81658 9.40237 8.18342 9.40237 7.79289 9.79289C7.40237 10.1834 7.40237 10.8166 7.79289 11.2071L11.2929 14.7071C11.6834 15.0976 12.3166 15.0976 12.7071 14.7071L16.2071 11.2071C16.5976 10.8166 16.5976 10.1834 16.2071 9.79289Z"
-                        ></path>
-                      </svg>
-                    </a>
-                    <div className="fui-navbar-multi-level">
-                      <ul className="menu-list">
-                        <li className="menu-item">
-                          <a className="menu-link" href="#" title="Overview">
-                            Overview
-                          </a>
-                        </li>
-                        <li className="menu-item">
-                          <a
-                            className="menu-link"
-                            href="#"
-                            title="My downloads"
-                          >
-                            My downloads
-                          </a>
-                        </li>
-                      </ul>
-                    </div>
-                  </li>
-                  <li className="menu-item">
-                    <a className="menu-link" href="#" title="Earnings">
-                      Earnings
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </li>
-            <li className="menu-item">
-              <a className="menu-link" href="#" title="Services">
-                Services
-              </a>
-            </li>
-            <li className="menu-item">
-              <a className="menu-link" href="#" title="Pricing">
-                Pricing
-              </a>
-            </li> */}
             <li className="menu-item menu-sub">
               <a className="menu-link" href="#" title="Contact">
                 Admin
@@ -150,16 +53,6 @@ export default function HomeAdmin() {
                       Đăng xuất
                     </a>
                   </li>
-                  {/* <li className="menu-item">
-                    <a className="menu-link" href="#" title="Email">
-                      Email
-                    </a>
-                  </li>
-                  <li className="menu-item">
-                    <a className="menu-link" href="#" title="Phone">
-                      Phone
-                    </a>
-                  </li> */}
                 </ul>
               </div>
             </li>
@@ -279,17 +172,17 @@ export default function HomeAdmin() {
                       </a>
                     </li>
                     <li className="nav-link">
-                      <a href="#">
+                      <NavLink to={"/admin-allcompany"}>
                         <span className="icon">
                           <span class="material-symbols-outlined">
                             apartment
                           </span>
                         </span>
                         <span className="text nav-text">Công ty</span>
-                      </a>
+                      </NavLink>
                     </li>
                     <li className="nav-link">
-                      <a href="#">
+                      <NavLink to={"/admin-alluser"}>
                         <span className="icon">
                           <svg
                             width="24"
@@ -313,7 +206,7 @@ export default function HomeAdmin() {
                           </svg>
                         </span>
                         <span className="text nav-text">Người dùng</span>
-                      </a>
+                      </NavLink>
                     </li>
                     <li className="nav-link">
                       <a href="#">
@@ -359,12 +252,12 @@ export default function HomeAdmin() {
           <div
             className="homeAdmin__content-Right"
             style={{
-              marginLeft: toggleSidebar ? "0px" : "160px",
+              marginLeft: toggleSidebar ? "0px" : "100px",
               transition: "1s",
             }}
           >
             <div className="homeAdmin__content-Right__content">
-              <AllCompanyAdmin></AllCompanyAdmin>
+              <AllJobAdmin></AllJobAdmin>
             </div>
           </div>
         </div>
