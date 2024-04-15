@@ -133,7 +133,7 @@ export default function HomeAdmin() {
                   </li>
                   <ul className="menu-links">
                     <li className="nav-link">
-                      <a href="#">
+                      <NavLink to={"/admin"} style={{ textDecoration: "none" }}>
                         <span className="icon">
                           <svg
                             width="24"
@@ -169,7 +169,7 @@ export default function HomeAdmin() {
                           </svg>
                         </span>
                         <span className="text nav-text">Trang chủ</span>
-                      </a>
+                      </NavLink>
                     </li>
                     <li className="nav-link">
                       <NavLink to={'/admin-allcompany'}>
