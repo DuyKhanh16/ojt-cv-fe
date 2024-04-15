@@ -28,17 +28,17 @@ export default function Header() {
           <NavLink to="/user-jobList" className="navbar_item">
             Việc làm
           </NavLink>
-          {token ? (
+          {token?(
+            <>
+               <NavLink to={"/user-info"} className="navbar_item" >
+                CV của bạn
+              </NavLink>
+            </>
+          ) : (
             <>
               <span className="navbar_item" onClick={() => open()}>
                 CV của bạn
               </span>
-            </>
-          ) : (
-            <>
-              <NavLink to={"/user-cv"} className="navbar_item">
-                CV của bạn
-              </NavLink>
             </>
           )}
 
