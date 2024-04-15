@@ -30,15 +30,15 @@ export default function Header() {
           </NavLink>
           {token ? (
             <>
-              <span className="navbar_item" onClick={() => open()}>
+              <NavLink to={"/user-info"} className="navbar_item">
                 CV của bạn
-              </span>
+              </NavLink>
             </>
           ) : (
             <>
-              <NavLink to={"/user-cv"} className="navbar_item">
+              <span className="navbar_item" onClick={() => open()}>
                 CV của bạn
-              </NavLink>
+              </span>
             </>
           )}
 
