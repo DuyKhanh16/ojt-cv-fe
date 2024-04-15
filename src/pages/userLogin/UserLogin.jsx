@@ -59,6 +59,7 @@ export default function UserLogin() {
         }
 
         if(res.data.data.role === 1){
+
           localStorage.setItem("token",JSON.stringify(res.data.data.token))
           navigate("/")
           notification.success({
