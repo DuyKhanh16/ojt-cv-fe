@@ -46,8 +46,8 @@ export default function UserLogin() {
   const handlelogin = async () => {
     if(validate()) {
       try {
-        // console.log(user,"111")
-        // const res = await publicAxios.post("api/v2/auth/login",user)
+        console.log(user,"111")
+        const res = await publicAxios.post("api/v2/auth/login",user)
         
         if(res.data.data.role === 0 ){
           localStorage.setItem("token",JSON.stringify(res.data.data.token_access))
