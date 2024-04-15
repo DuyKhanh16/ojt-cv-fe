@@ -5,6 +5,8 @@ import logo from "../../assets/images/userLogin/logo-rikkei2.png";
 import investment from "../../assets/images/userLogin/Investment data-rafiki 1.png";
 import eye from "../../assets/images/userLogin/eye (1) 1.png";
 import { Link, useNavigate } from "react-router-dom";
+import publicAxios from "../../config/pulic.axios";
+import { notification } from "antd";
 
 
 export default function () {
@@ -64,14 +66,21 @@ export default function () {
   // HÀM ĐĂNG KÝ
   const addNewUser = async () => {
     if (validate()) {
-      // console.log(NewUser, "1");
+      console.log(NewUser, "1");
       try {
         const res = await publicAxios.post("/api/v2/auth/register-candidate", NewUser);
-        console.log(res);
-        alert(res.data.message)
-        navigate("/login")
+        console.log(res.data.message);
+        notification.success({
+          message: res.data.message,
+          duration: 2,
+        })
+        // navigate("/login")
       } catch (error) {
         console.log(error);
+        notification.error({
+          message: "Email đã tồn tại",
+          duration: 2,
+        });
       }
     }
   };

@@ -5,16 +5,15 @@ import logo from "../../assets/images/userLogin/logo-rikkei2.png";
 import eye from "../../assets/images/userLogin/eye (1) 1.png";
 import { Link, useNavigate } from "react-router-dom";
 import publicAxios from "../../config/pulic.axios";
+import { notification } from "antd";
 export default function () {
   const [NewCompany, setNewCompany] = useState({
-    name: "",
     email: "",
     password: "",
     confirmPassword: "",
-    nameCompany: "",
+    name: "",
     phone: "",
     address: "",
-    emailCompany: "",
   });
   const [errors, setErrors] = useState({});
   const [passwordShown, setPasswordShown] = useState(false);
@@ -42,7 +41,7 @@ export default function () {
   //  hàm validate các trường
   const validate = () => {
     let tempErrors = {};
-    tempErrors.name = NewCompany.name ? "" : "Tên không được để trống";
+    // tempErrors.name = NewCompany.name ? "" : "Tên không được để trống";
 
     tempErrors.email = NewCompany.email
       ? isEmailValid(NewCompany.email)
@@ -70,15 +69,15 @@ export default function () {
 
     tempErrors.address = NewCompany.address ? "" : "Không được để trống";
 
-    tempErrors.nameCompany = NewCompany.nameCompany
+    tempErrors.name = NewCompany.name
       ? ""
       : "Không được để trống";
 
-    tempErrors.emailCompany = NewCompany.emailCompany
-      ? isEmailValid(NewCompany.emailCompany)
-        ? ""
-        : "Email không hợp lệ"
-      : "Email không là này";
+    // tempErrors.emailCompany = NewCompany.emailCompany
+    //   ? isEmailValid(NewCompany.emailCompany)
+    //     ? ""
+    //     : "Email không hợp lệ"
+    //   : "Email không là này";
 
     setErrors(tempErrors);
     // Kiểm tra xem có lỗi nào không
@@ -90,8 +89,10 @@ export default function () {
     if (validate()) {
       try {
         console.log(NewCompany, "11111");
-        const res = await publicAxios.post("api/v2/auth/register-company",NewCompany)
-        alert(res.data.message);
+        const res = await publicAxios.post("/api/v2/auth/register-company",NewCompany)
+        notification.success({
+          message: "Đăng ký thành công"
+        }, 1000);
         navigate("/login");
       } catch (error) {
         console.log(error);
@@ -117,20 +118,6 @@ export default function () {
             <div className="company__register-form-input">
               <div className="company__register-infor__Account">
                 <p>Thông tin tài khoản</p>
-              </div>
-              <div className="company__register-input__name">
-                <label htmlFor="">Họ tên</label>
-                <br />
-                <input
-                  onChange={(e) =>
-                    setNewCompany({ ...NewCompany, name: e.target.value })
-                  }
-                  name="name"
-                  value={NewCompany.name}
-                  type="text"
-                  placeholder="Nhập họ tên"
-                />
-                {errors.name && <div className="error">{errors.name}</div>}
               </div>
               <div className="company__register-input__email">
                 <label htmlFor="">Email</label>
@@ -212,23 +199,23 @@ export default function () {
                 <label htmlFor="">Công ty</label>
                 <br />
                 <input
-                  name="nameCompany"
-                  value={NewCompany.nameCompany}
+                  name="name"
+                  value={NewCompany.name}
                   onChange={(e) =>
                     setNewCompany({
                       ...NewCompany,
-                      nameCompany: e.target.value,
+                      name: e.target.value,
                     })
                   }
                   type="text"
                   placeholder="Tên công ty"
                 />
-                {errors.nameCompany && (
-                  <div className="error">{errors.nameCompany}</div>
+                {errors.name && (
+                  <div className="error">{errors.name}</div>
                 )}
               </div>
               <div className="company__register-input__address">
-                <label htmlFor="">Địa điểm làm việc</label>
+                <label htmlFor="">Địa chỉ công ty</label>
                 <br />
                 <input
                   name="address"
@@ -256,25 +243,6 @@ export default function () {
                   placeholder="12334444"
                 />
                 {errors.phone && <div className="error">{errors.phone}</div>}
-              </div>
-              <div className="company__register-input__emailCompany">
-                <label htmlFor="">Email công ty</label>
-                <br />
-                <input
-                  name="emailCompany"
-                  value={NewCompany.emailCompany}
-                  onChange={(e) =>
-                    setNewCompany({
-                      ...NewCompany,
-                      emailCompany: e.target.value,
-                    })
-                  }
-                  type="text"
-                  placeholder="company@gmail.com"
-                />
-                {errors.emailCompany && (
-                  <div className="error">{errors.emailCompany}</div>
-                )}
               </div>
             </div>
           </div>

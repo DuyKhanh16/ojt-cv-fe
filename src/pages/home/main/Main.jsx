@@ -18,7 +18,10 @@ import arrowLeft from "../../../assets/images/main/fi_arrow-left.png";
 import Header from "../../../components/header/Header";
 import Footer from "../../../components/footer/Footer";
 import FormSearch from "../../../components/formSearch/FormSearch";
+import { notification } from "antd";
+
 export default function Main() {
+  
   return (
     <>
       <Header></Header>
