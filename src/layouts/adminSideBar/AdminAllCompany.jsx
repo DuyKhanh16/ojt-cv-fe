@@ -3,7 +3,7 @@ import "./Admin.scss";
 import logo from "../../assets/images/logo/logo.png";
 import avatar from "../../assets/images/cv/ACg8ocILX9TfOIrNEplYDawUBSv1Rpw3rLnuugZCNRefPEMyjM6NXIV4=s96-c.jpg";
 import AllCompanyAdmin from "../../pages/home/admin/allCompanyAdmin/AllCompanyAdmin";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 export default function HomeAdmin() {
   const body = document.querySelector("body"),
     sidebar = body.querySelector(".fui-sidbar-navigiation nav"),
@@ -133,7 +133,7 @@ export default function HomeAdmin() {
                   </li>
                   <ul className="menu-links">
                     <li className="nav-link">
-                      <a href="#">
+                      <Link to="/home-admin" >
                         <span className="icon">
                           <svg
                             width="24"
@@ -169,7 +169,7 @@ export default function HomeAdmin() {
                           </svg>
                         </span>
                         <span className="text nav-text">Trang chủ</span>
-                      </a>
+                      </Link>
                     </li>
                     <li className="nav-link">
                       <a href="#">
@@ -182,7 +182,7 @@ export default function HomeAdmin() {
                       </a>
                     </li>
                     <li className="nav-link">
-                      <NavLink to={"/admin-alluser"}>
+                      <Link to={"/all-users"}>
                         <span className="icon">
                           <svg
                             width="24"
@@ -206,15 +206,15 @@ export default function HomeAdmin() {
                           </svg>
                         </span>
                         <span className="text nav-text">Người dùng</span>
-                      </NavLink>
+                      </Link>
                     </li>
                     <li className="nav-link">
-                      <NavLink to={"/admin-alljob"}>
+                      <Link to={"/all-jobs"}>
                         <span className="icon">
                           <span class="material-symbols-outlined">work</span>
                         </span>
                         <span className="text nav-text">Việc làm</span>
-                      </NavLink>
+                      </Link>
                     </li>
                     <li className="nav-link">
                       <a href="#">

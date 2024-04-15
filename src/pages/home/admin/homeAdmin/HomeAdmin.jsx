@@ -243,7 +243,7 @@ export default function HomeAdmin() {
                   </li>
                   <ul className="menu-links">
                     <li className="nav-link">
-                      <a href="#">
+                      <Link to="/admin/home-admin">
                         <span className="icon">
                           <svg
                             width="24"
@@ -279,20 +279,21 @@ export default function HomeAdmin() {
                           </svg>
                         </span>
                         <span className="text nav-text">Trang chủ</span>
-                      </a>
+                      </Link>
                     </li>
+                    
                     <li className="nav-link">
-                      <a href="#">
+                      <Link to="/admin/all-companies">
                         <span className="icon">
                           <span class="material-symbols-outlined">
                             apartment
                           </span>
                         </span>
                         <span className="text nav-text">Công ty</span>
-                      </a>
+                      </Link>
                     </li>
                     <li className="nav-link">
-                      <a href="#">
+                      <Link to="/admin/all-users">
                         <span className="icon">
                           <svg
                             width="24"
@@ -316,15 +317,15 @@ export default function HomeAdmin() {
                           </svg>
                         </span>
                         <span className="text nav-text">Người dùng</span>
-                      </a>
+                      </Link>
                     </li>
                     <li className="nav-link">
-                      <a href="#">
+                      <Link  to="/admin/all-jobs">
                         <span className="icon">
                           <span class="material-symbols-outlined">work</span>
                         </span>
                         <span className="text nav-text">Việc làm</span>
-                      </a>
+                      </Link>
                     </li>
                     <li className="nav-link">
                       <a href="#">
@@ -408,8 +409,6 @@ export default function HomeAdmin() {
                         <span className="text nav-text">Light/Dark</span>
                         </Link>
                       </Link>
-                    </li>
-                    <li><Link to ="/login">Về trang chủ</Link>
                     </li>
                   </ul>
                 </div>
