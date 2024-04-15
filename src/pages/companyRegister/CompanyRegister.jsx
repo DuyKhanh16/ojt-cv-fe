@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../../utils/baseLogin&Register.scss";
 import "./CompanyRegister.scss";
 import logo from "../../assets/images/userLogin/logo-rikkei2.png";
@@ -6,6 +6,7 @@ import eye from "../../assets/images/userLogin/eye (1) 1.png";
 import { Link, useNavigate } from "react-router-dom";
 import publicAxios from "../../config/pulic.axios";
 import { notification } from "antd";
+import axios from "axios";
 export default function () {
   const [NewCompany, setNewCompany] = useState({
     email: "",
@@ -13,12 +14,56 @@ export default function () {
     confirmPassword: "",
     name: "",
     phone: "",
-    address: "",
   });
+  // tỉnh
+  const [dataCity, setDataCity] = useState([]);
+  const [dataDistrict, setDataDistrict] = useState([]);
+  const [dataWard, setDataWard] = useState([]);
+  const [city, setCity] = useState("");
+  const [district, setDistrict] = useState("");
+  const [ward, setWard] = useState("");
+  const [address, setAddress] = useState("");
+
   const [errors, setErrors] = useState({});
   const [passwordShown, setPasswordShown] = useState(false);
   const [confirmPasswordShown, setConfirmPasswordShown] = useState(false);
+
   const navigate = useNavigate();
+
+  // api thành phố
+  const handleGetDataCity = async () => {
+    let data = await axios.get(`https://vapi.vnappmob.com/api/province/`);
+    setDataCity(data.data.results);
+  };
+  useEffect(() => {
+    handleGetDataCity();
+  }, []);
+  const handleCity = async (e) => {
+    let idCity = e.target.value;
+
+    const nameCity = dataCity.find((item) => item.province_name === idCity);
+
+    const numberCity = nameCity.province_id;
+    let data = await axios.get(
+      `https://vapi.vnappmob.com/api/province/district/${numberCity}`
+    );
+    setCity(nameCity.province_name);
+    setDataDistrict(data.data.results);
+  };
+  const handleDistrict = async (e) => {
+    let idDistrict = e.target.value;
+    const nameDistrict = dataDistrict.find(
+      (item) => item.district_name == idDistrict
+    );
+    const districtsName = +nameDistrict.district_id;
+    let data = await axios.get(
+      `https://vapi.vnappmob.com/api/province/ward/${districtsName}`
+    );
+    setDistrict(nameDistrict.district_name);
+    setDataWard(data.data.results);
+  };
+  // console.log(city, district, ward,"các dữ liệu");
+
   // Hàm kiểm tra email hợp lệ
   const isEmailValid = (email) => {
     return /\S+@\S+\.\S+/.test(email);
@@ -67,11 +112,15 @@ export default function () {
         : "Số điện thoại không hợp lệ"
       : "Số điện thoại không được để trống";
 
-    tempErrors.address = NewCompany.address ? "" : "Không được để trống";
+    tempErrors.city = city ? "" : "Bạn chưa nhập Thành Phố";
 
-    tempErrors.name = NewCompany.name
-      ? ""
-      : "Không được để trống";
+    tempErrors.district = district ? "" : "Bạn chưa nhập Quận hoặc Huyện";
+
+    tempErrors.ward = ward ? "" : "Bạn chưa Nhập Phường Xã";
+
+    tempErrors.name = NewCompany.name ? "" : "Không được để trống";
+
+    tempErrors.address = address ? "" : "Không được để trống";
 
     // tempErrors.emailCompany = NewCompany.emailCompany
     //   ? isEmailValid(NewCompany.emailCompany)
@@ -88,11 +137,25 @@ export default function () {
   const handleRegister = async () => {
     if (validate()) {
       try {
-        console.log(NewCompany, "11111");
-        const res = await publicAxios.post("/api/v2/auth/register-company",NewCompany)
-        notification.success({
-          message: "Đăng ký thành công"
-        }, 1000);
+        // console.log(NewCompany, "11111");
+        const newCompany = {
+          name: NewCompany.name,
+          email: NewCompany.email,
+          password: NewCompany.password,
+          phone: NewCompany.phone,
+          address: `${address}-${ward}-${district}-${city}`,
+        }
+        console.log(newCompany,"123123");
+        const res = await publicAxios.post(
+          "/api/v2/auth/register-company",
+          newCompany
+        );
+        notification.success(
+          {
+            message: "Đăng ký thành công",
+          },
+          1000
+        );
         navigate("/login");
       } catch (error) {
         console.log(error);
@@ -100,6 +163,7 @@ export default function () {
     }
   };
 
+  //
   return (
     <>
       <div className="company__register__container">
@@ -125,14 +189,13 @@ export default function () {
                 <input
                   onChange={(e) =>
                     setNewCompany({ ...NewCompany, email: e.target.value })
-                  } 
+                  }
                   name="email"
                   value={NewCompany.email}
                   type="text"
                   placeholder="abc@gmail.com"
                 />
-                {errors.email && <div 
-                  className="error">{errors.email}</div>}
+                {errors.email && <div className="error">{errors.email}</div>}
               </div>
               <div className="company__register-input__password">
                 <label htmlFor="">Mật khẩu</label>
@@ -210,25 +273,86 @@ export default function () {
                   type="text"
                   placeholder="Tên công ty"
                 />
-                {errors.name && (
-                  <div className="error">{errors.name}</div>
-                )}
+                {errors.name && <div className="error">{errors.name}</div>}
               </div>
               <div className="company__register-input__address">
                 <label htmlFor="">Địa chỉ công ty</label>
                 <br />
+                <div style={{ display: "flex", gap: "10px" }}>
+                  <select
+                    style={{
+                      width: "10vw",
+                      fontSize: "14px",
+                      border: "1px solid #E7F0FA",
+                      borderRadius: "5px",
+                    }}
+                    onChange={handleCity}
+                    name=""
+                    id=""
+                  >
+                    <option value="">Chọn thành phố</option>
+                    {dataCity.map((item, index) => (
+                      <option key={index} value={item.code}>
+                        {item.province_name}
+                      </option>
+                    ))}
+                  </select>
+                  <select
+                    style={{
+                      width: "10vw",
+                      fontSize: "14px",
+                      height: "40px",
+                      border: "1px solid #E7F0FA",
+                      borderRadius: "5px",
+                    }}
+                    onChange={handleDistrict}
+                    name=""
+                    id=""
+                  >
+                    <option>Chọn Quận/Huyện</option>
+                    {dataDistrict.map((item, index) => (
+                      <option key={index} value={item.code}>
+                        {item.district_name}
+                      </option>
+                    ))}
+                  </select>
+                  <select
+                    style={{
+                      width: "10vw",
+                      fontSize: "14px",
+                      border: "1px solid #E7F0FA",
+                      borderRadius: "5px",
+                    }}
+                    onChange={(e) => setWard(e.target.value)}
+                    name=""
+                    id=""
+                  >
+                    <option value="">Chọn Phường/Xã</option>
+                    {dataWard.map((item, index) => (
+                      <option key={index}>{item.ward_name}</option>
+                    ))}
+                  </select>
+                </div>
+                <div style={{ display: "flex", gap: "10px" }}>
+                  {" "}
+                  {errors.city && <div className="error">{errors.city}</div>}
+                  {errors.district && (
+                    <div className="error">{errors.district}</div>
+                  )}
+                  {errors.ward && <div className="error">{errors.ward}</div>}
+                </div>
+              </div>
+              <div>
+                <label>Địa chỉ chi tiết</label>
+                <br></br>
                 <input
                   name="address"
-                  value={NewCompany.address}
-                  onChange={(e) =>
-                    setNewCompany({ ...NewCompany, address: e.target.value })
-                  }
+                  value={address}
+                  onChange={(e) => setAddress(e.target.value)}
                   type="text"
-                  placeholder="quận/huyện"
+                  placeholder="Địa chỉ chi tiết"
                 />
-                {errors.address && (
-                  <div className="error">{errors.address}</div>
-                )}
+                {errors.address && <div className="error">{errors.address}</div>}
               </div>
               <div className="company__register-input__phone">
                 <label htmlFor="">Số điện thoại liên hệ</label>

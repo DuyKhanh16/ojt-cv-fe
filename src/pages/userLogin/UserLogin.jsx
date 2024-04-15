@@ -51,7 +51,7 @@ export default function UserLogin() {
         const res = await publicAxios.post("api/v2/auth/login",user)
         
         if(res.data.data.role === 0 ){
-          localStorage.setItem("token",JSON.stringify(res.data.data.token_access))
+          localStorage.setItem("token",JSON.stringify(res.data.data.token))
           notification.success({
             message:res.data.message
           })
@@ -59,14 +59,14 @@ export default function UserLogin() {
         }
 
         if(res.data.data.role === 1){
-          localStorage.setItem("token",JSON.stringify(res.data.data.token_access))
+          localStorage.setItem("token",JSON.stringify(res.data.data.token))
           navigate("/")
           notification.success({
             message:res.data.message
           })
         }
         if(res.data.data.role ===2){
-          localStorage.setItem("token",JSON.stringify(res.data.data.token_access))
+          localStorage.setItem("token",JSON.stringify(res.data.data.token))
           navigate("/company")
           notification.success({
             message:res.data.message
