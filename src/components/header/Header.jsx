@@ -25,12 +25,24 @@ export default function Header() {
           <NavLink to="/" className="navbar_item">
             Trang chủ
           </NavLink>
-          <NavLink to="/user-jobList" className="navbar_item">
-            Việc làm
-          </NavLink>
+          
+          
           {token ? (
             <>
-              <NavLink to={"/user-info"} className="navbar_item">
+            <NavLink to="/candidate/jobList" className="navbar_item">
+            Việc làm
+          </NavLink>
+            </>
+          ) : (
+            <>
+             <span className="navbar_item"  onClick={() => open()}>
+            Việc làm
+          </span>
+            </>
+          )}
+          {token ? (
+            <>
+              <NavLink to={"/candidate/inforCV"} className="navbar_item">
                 CV của bạn
               </NavLink>
             </>

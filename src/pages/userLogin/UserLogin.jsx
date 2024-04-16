@@ -55,13 +55,13 @@ export default function UserLogin() {
           notification.success({
             message:res.data.message
           })
-          navigate("/admin/home-admin")
+          navigate("/admin")
         }
 
         if(res.data.data.role === 1){
           console.log(res.data.data.token)
           localStorage.setItem("token",JSON.stringify(res.data.data.token))
-          navigate("/")
+          navigate("/candidate")
           notification.success({
             message:res.data.message
           })

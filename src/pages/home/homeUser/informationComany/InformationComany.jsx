@@ -129,8 +129,6 @@ export default function InformationComany() {
   }, []);
   return (
     <>
-      <Header></Header>
-      <FormSearch></FormSearch>
       <div>
         <div className="user-ListJob-title">
           <p>
@@ -271,7 +269,6 @@ export default function InformationComany() {
         )
         })}
         </div>
-      <Footer></Footer>
     </>
   );
 }

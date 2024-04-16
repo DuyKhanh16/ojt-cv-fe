@@ -114,8 +114,6 @@ export default function UpdateInforBusiness() {
   ]);
   return (
     <>
-      <Header></Header>
-      <FormSearch></FormSearch>
       <div>
         <div className="user-ListJob-title">
           <p>
@@ -123,7 +121,7 @@ export default function UpdateInforBusiness() {
             tôi{' '}
           </p>
         </div>
-        <div className="user-companyView" style={{ marginBottom: '24px' }}>
+        <div className="user-companyView" style={{ marginBottom: '24px',width:"100vw",padding:"0 7vw" }}>
           <div className="user-companyView-info">
             <div className="user-companyView-info-company">
               <div className="user-companyView-info-company-logo">
@@ -168,7 +166,7 @@ export default function UpdateInforBusiness() {
             </div>
           </div>
         </div>
-        <div className='user-companyView-describeMap' style={{ display: 'flex', width: '1320px', margin: '0 auto' }}>
+        <div className='user-companyView-describeMap' style={{ display: 'flex', width: '1320px', margin: '0 auto',marginBottom: '100px' }}>
           <div className="user-companyView-describe">
             <p style={{ fontWeight: '500', fontSize: '18px', color: 'black' }}>
               Mô tả về công ty{' '}
@@ -199,22 +197,7 @@ export default function UpdateInforBusiness() {
                 marginTop: '100px',
               }}
             >
-              <p
-                style={{ fontWeight: '500', fontSize: '18px', color: 'black' }}
-              >
-                Việc làm đang mở
-              </p>
-              <button
-                style={{
-                  color: '#BC2228',
-                  width: '175px',
-                  height: '40px',
-                  border: '1px solid #BC2228',
-                  borderRadius: '4px',
-                }}
-              >
-                Thêm việc làm mới
-              </button>
+              
             </div>
           </div>
           <div className="user-companyView-orther">
@@ -273,139 +256,8 @@ export default function UpdateInforBusiness() {
           </div>
         </div>
       </div>
-      <div style={{ width: '760px', marginleft: '60px' }}>
-        {ListJob.map((job) => {
-          return (
-            <div key={job.Id} className="user-ListJob-job">
-              <p className="user-ListJob-job-title">{job.title}</p>
-              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <div className="user-ListJob-job-typeSalary">
-                  <p className="typeJob">{job.type}</p>
-                  <p>Salay:{job.salary}</p>
-                </div>
-                <div style={{ marginTop: '-50px' }}>
-                  <i
-                    style={{ color: '#BC2228' }}
-                    class="fa-regular fa-trash-can"
-                  ></i>
-                </div>
-              </div>
-              <div className="user-ListJob-job-info">
-                <div className="user-ListJob-job-infoCompany">
-                  <div className="user-ListJob-job-info-logo">
-                    <img width={48} src={job.logo} alt="logo" />
-                  </div>
-                  <div className="user-ListJob-job-info-company">
-                    <p>{job.companyName}</p>
-                    <p className="user-ListJob-job-info-location">
-                      <i class="fa-solid fa-location-dot"></i> {job.location}
-                    </p>
-                  </div>
-                </div>
-                <i
-                  style={{ marginTop: '20px', color: '#BC2228' }}
-                  class="fa-regular fa-pen-to-square"
-                ></i>
-              </div>
-            </div>
-          );
-        })}
-      </div>
-      <div
-        style={{
-          width: '100%',
-          height: '1px',
-          backgroundColor: 'rgba(128, 128, 128, 0.314)',
-          marginBottom: '100px',
-        }}
-      ></div>
-      <p
-        style={{
-          fontWeight: '400',
-          fontSize: '40px',
-          color: '#18191C',
-          marginLeft: '60px',
-          marginBottom: '50px',
-        }}
-      >
-        Ứng viên nổi bật
-      </p>
-      <div className='company-info-user-container'
-        style={{
-          width: '1320px',
-          margin: '0 auto',
-          display: 'flex',
-          justifyContent: 'space-between',
-          flexWrap: 'wrap',
-        }}
-      >
-        {ListUser.map((user) => {
-          return (
-            <div  className='company-info-user-detail'
-              key={user.id}
-              style={{
-                width: '425px',
-                height: '270px',
-                border: '2px solid #E7F0FA',
-                borderRadius: '8px',
-                padding: '20px',
-                marginBottom: '50px',
-                fontSize: '14px',
-                color:"#767F8C"
-              }}
-            >
-              <div className="company-info-user">
-                <div className="company-info-user-infor">
-                  <div>
-                    <img width={78} src={user.avarta} alt="" />
-                  </div>
-                  <div style={{marginTop: '11px'}}>
-                    <p className="company-info-user-infor-name">{user.name}</p>
-                    <p>
-                      <span className="company-info-user-field">
-                        {user.field}
-                      </span>{' '}
-                      <span className="company-info-user-type">
-                        {user.type}
-                      </span>
-                    </p>
-                  </div>
-                </div>
-                <div>
-                  <i
-                    style={{ color: '#BC2228',marginTop: '32px',fontSize: '18px' }}
-                    class="fa-solid fa-arrow-right"
-                  ></i>
-                </div>
-              </div >
-              <p style={{ marginTop: '20px' }}>
-                Technical in use:{' '}
-                {user.skill.map((skill, index) => {
-                  return (
-                    <span className="company-info-user-skill" key={index}>
-                      {skill}
-                    </span>
-                  );
-                })}
-              </p>
-              <p style={{ marginTop: '20px' }}>
-                Foreign Language:{' '}
-                {user.language.map((language, index) => {
-                  return (
-                    <span className="company-info-user-language" key={index}>
-                      {language}
-                    </span>
-                  );
-                })}
-              </p>
-              <p style={{ marginTop: '20px' }}>
-                <i class="fa-solid fa-location-dot"></i> {user.address}
-              </p>
-            </div>
-          );
-        })}
-      </div>
-      <Footer></Footer>
+      
+      
     </>
   );
 }

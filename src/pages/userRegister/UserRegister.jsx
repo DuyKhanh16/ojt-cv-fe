@@ -74,7 +74,7 @@ export default function () {
           message: res.data.message,
           duration: 2,
         })
-        // navigate("/login")
+        navigate("/login")
       } catch (error) {
         console.log(error);
         notification.error({
