@@ -10,9 +10,7 @@ const privateAxios = axios.create({
 });
 
 privateAxios.interceptors.request.use((config) => {
-
   const jwtTokent = JSON.parse(localStorage.getItem("token"));
-
 
   return {
     ...config,

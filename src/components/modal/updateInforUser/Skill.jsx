@@ -1,8 +1,21 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import './formModal.scss'
 import './Skill.scss'
 import gearshape from '../../../assets/images/main/gearshape.png'
+import privateAxios from '../../../config/private.axios';
 export default function Skill({isOpen,close}) {
+    const [user, setUser] = useState({});
+    useEffect(() => {
+      const getUser = privateAxios.get("api/v2/candidates/getInfor")
+      getUser.then((res) => {
+        console.log("API response data:", res.data.data)
+        setUser({...user,candidate_id:res.data.data.id});
+  
+      }) 
+    }, [])
+  const changeValue = (e) => {
+    setUser({...user,[e.target.name]:e.target.value})
+  }
   return (
     <>
     <div style={{display: isOpen?'block':'none'}}>
