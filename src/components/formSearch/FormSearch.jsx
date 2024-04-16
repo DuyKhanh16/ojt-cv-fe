@@ -63,6 +63,7 @@ export default function FormSearch() {
       <div
         onClick={() => {
           localStorage.removeItem("token");
+          localStorage.removeItem("role");
           navigate("/login");
         }}
         className="form__search--popover--logout"
