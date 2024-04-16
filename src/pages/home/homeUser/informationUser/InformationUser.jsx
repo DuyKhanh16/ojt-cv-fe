@@ -33,6 +33,7 @@ export default function InformationUserB() {
   const [openProject, setOpenProject] = useState(false);
   const [openUpdateUser, setOpenUpdateUser] = useState(false);
   const [user, setUser] = useState({});
+  const [flag, setFlag]= useState(0);
   const navigate = useNavigate();
   const open = () => {
     setIsOpen(!isOpen);
@@ -59,12 +60,12 @@ export default function InformationUserB() {
   console.log(user);
   useEffect(() => {
     getUser();
-  }, []);
+  }, [flag]);
   return (
     <>
       <AboutUser isOpen={openABout} close={close}></AboutUser>
       <Certificate isOpen={openCert} close={close}></Certificate>
-      <Education isOpen={openEdu} close={close}></Education>
+      <Education isOpen={openEdu} user={user} close={close}></Education>
       <Exp isOpen={openExp} close={close}></Exp>
       <ProjectUser isOpen={openProject} close={close}></ProjectUser>
       <UpdateInforUser
@@ -110,7 +111,9 @@ export default function InformationUserB() {
                 <img src={vetor} alt="" />
                 <p>Thêm giới thiệu bản thân</p>
               </div>
-              <div className="informationUser__contain__left__item">
+              <div className="informationUser__contain__left__item"
+              onClick={() => setOpenEdu(!openEdu)}
+              >
                 <img src={vetor} alt="" />
                 <p>Thêm học vấn</p>
               </div>
@@ -216,10 +219,6 @@ export default function InformationUserB() {
 
             <div className="informationUser__contain__right__item">
               <p>Giới thiệu Bản Thân</p>
-              <input
-                type="text"
-                placeholder="Giơí thiệu điểm mạnh của bản thân và kinh nghiệm của bạn "
-              />
               <img
                 style={{ cursor: "pointer" }}
                 src={vector2}
@@ -229,28 +228,112 @@ export default function InformationUserB() {
             </div>
             <div className="informationUser__contain__right__item">
               <p>Học Vấn</p>
-              <input
-                type="text"
-                placeholder="Giơí thiệu điểm mạnh của bản thân và kinh nghiệm của bạn "
+              <div className="informationUser__contain__right__item__miniitem">
+                <div className="informationUser__contain__right__item__miniitem__top">
+                <p className="informationUser__contain__right__item__miniitem__position"><strong>Công nghệ thông tin</strong></p>
+                <div className="informationUser__contain__right__item__miniitem__action">
+                <img
+                style={{ cursor: "pointer" }}
+                src={vector2}
+                alt=""
+                onClick={() => setOpenAbout(!openABout)}
               />
+                <span class="material-symbols-outlined">
+                delete
+                </span>
+                </div>
+                
+                </div>
+                <p className="informationUser__contain__right__item__miniitem__nameSchool">Đại học Bách Khoa</p>
+                <p className="informationUser__contain__right__item__miniitem__time">2015 - 2019</p>
+              </div>
+              <div className="informationUser__contain__right__item__miniitem">
+                <div className="informationUser__contain__right__item__miniitem__top">
+                <p className="informationUser__contain__right__item__miniitem__position"><strong>Công nghệ thông tin</strong></p>
+                <div className="informationUser__contain__right__item__miniitem__action">
+                <img
+                style={{ cursor: "pointer" }}
+                src={vector2}
+                alt=""
+                onClick={() => setOpenAbout(!openABout)}
+              />
+                <span class="material-symbols-outlined">
+                delete
+                </span>
+                </div>
+                
+                </div>
+                <p className="informationUser__contain__right__item__miniitem__nameSchool">Đại học Bách Khoa</p>
+                <p className="informationUser__contain__right__item__miniitem__time">2015 - 2019</p>
+              </div>
               <img src={vetor} alt="" onClick={() => setOpenEdu(!openEdu)} />
             </div>
 
             <div className="informationUser__contain__right__item">
               <p>Kinh Nghiệm Làm Việc</p>
-              <input
-                type="text"
-                placeholder="Giơí thiệu điểm mạnh của bản thân và kinh nghiệm của bạn "
+              <div className="informationUser__contain__right__item__miniitem">
+                <div className="informationUser__contain__right__item__miniitem__top">
+                <p className="informationUser__contain__right__item__miniitem__position"><strong>Công nghệ thông tin</strong></p>
+                <div className="informationUser__contain__right__item__miniitem__action">
+                <img
+                style={{ cursor: "pointer" }}
+                src={vector2}
+                alt=""
+                onClick={() => setOpenAbout(!openABout)}
               />
+                <span class="material-symbols-outlined">
+                delete
+                </span>
+                </div>
+                
+                </div>
+                <p className="informationUser__contain__right__item__miniitem__nameSchool">Đại học Bách Khoa</p>
+                <p className="informationUser__contain__right__item__miniitem__time">2015 - 2019</p>
+              </div>
+              <div className="informationUser__contain__right__item__miniitem">
+                <div className="informationUser__contain__right__item__miniitem__top">
+                <p className="informationUser__contain__right__item__miniitem__position"><strong>Công nghệ thông tin</strong></p>
+                <div className="informationUser__contain__right__item__miniitem__action">
+                <img
+                style={{ cursor: "pointer" }}
+                src={vector2}
+                alt=""
+                onClick={() => setOpenAbout(!openABout)}
+              />
+                <span class="material-symbols-outlined">
+                delete
+                </span>
+                </div>
+                
+                </div>
+                <p className="informationUser__contain__right__item__miniitem__nameSchool">Đại học Bách Khoa</p>
+                <p className="informationUser__contain__right__item__miniitem__time">2015 - 2019</p>
+              </div>
+              
               <img src={vetor} alt="" onClick={() => setOpenExp(!openExp)} />
             </div>
 
             <div className="informationUser__contain__right__item">
               <p>Dự Án Cá Nhân</p>
-              <input
-                type="text"
-                placeholder="Giơí thiệu điểm mạnh của bản thân và kinh nghiệm của bạn "
+              <div className="informationUser__contain__right__item__miniitem">
+                <div className="informationUser__contain__right__item__miniitem__top">
+                <p className="informationUser__contain__right__item__miniitem__position"><strong>Công nghệ thông tin</strong></p>
+                <div className="informationUser__contain__right__item__miniitem__action">
+                <img
+                style={{ cursor: "pointer" }}
+                src={vector2}
+                alt=""
+                onClick={() => setOpenAbout(!openABout)}
               />
+                <span class="material-symbols-outlined">
+                delete
+                </span>
+                </div>
+                
+                </div>
+                <p className="informationUser__contain__right__item__miniitem__nameSchool">Đại học Bách Khoa</p>
+                <p className="informationUser__contain__right__item__miniitem__time">2015 - 2019</p>
+              </div>
               <img
                 src={vetor}
                 alt=""
@@ -260,10 +343,25 @@ export default function InformationUserB() {
 
             <div className="informationUser__contain__right__item">
               <p>Chứng Chỉ</p>
-              <input
-                type="text"
-                placeholder="Giơí thiệu điểm mạnh của bản thân và kinh nghiệm của bạn "
+              <div className="informationUser__contain__right__item__miniitem">
+                <div className="informationUser__contain__right__item__miniitem__top">
+                <p className="informationUser__contain__right__item__miniitem__position"><strong>Công nghệ thông tin</strong></p>
+                <div className="informationUser__contain__right__item__miniitem__action">
+                <img
+                style={{ cursor: "pointer" }}
+                src={vector2}
+                alt=""
+                onClick={() => setOpenAbout(!openABout)}
               />
+                <span class="material-symbols-outlined">
+                delete
+                </span>
+                </div>
+                
+                </div>
+                <p className="informationUser__contain__right__item__miniitem__nameSchool">Đại học Bách Khoa</p>
+                <p className="informationUser__contain__right__item__miniitem__time">2015 - 2019</p>
+              </div>
               <img src={vetor} alt="" onClick={() => setOpenCert(!openCert)} />
             </div>
           </div>

@@ -2,7 +2,7 @@ import React from "react";
 import "./cv4.scss";
 export default function Cv4() {
   return (
-    <div style={{ width: "100vw" }}>
+    <div className="cv4">
     <div className="cv4_header">
       <div className="cv4_header--img">
         <img
