@@ -3,18 +3,20 @@ import FormSearch from "../../../../components/formSearch/FormSearch";
 import "./Alljob.scss";
 import HeaderCompany from "../../../../components/headerCompany/HeaderCompany";
 import down from '../../../../assets/images/fromsearch/Vector.png'
+import { useNavigate } from "react-router";
 export default function Alljob() {
+  const navigate = useNavigate();
+
   return (
     <>
-      <HeaderCompany></HeaderCompany>
-      <div className="alljob__formsearch">
-        <FormSearch></FormSearch>
-      </div>
       <div className="alljob__container">
         <div className="alljob__header">
-          <p>Trang chủ</p>
-          <p>/</p>
+          <p style={{cursor:"pointer"}}>Trang chủ /</p>
+          
           <p>Quản lý việc làm</p>
+        </div>
+        <div className="alljob__addjob" onClick={() => navigate("/company/addnewjob")}>
+            Thêm việc làm mới
         </div>
         <div className="alljob__content">
           <div className="alljob__content__headerTable">
@@ -70,7 +72,7 @@ export default function Alljob() {
                 <div className="alljob__content__bodyTable__item__action__delete btn">
                   <p>Xóa</p>
                 </div>
-                <div className="alljob__content__bodyTable__item__action__update btn">
+                <div className="alljob__content__bodyTable__item__action__update btn" onClick={()=>navigate("/company/updatejob")}>
                   <p>Sửa</p>
                 </div>
               </div>

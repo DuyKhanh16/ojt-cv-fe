@@ -10,19 +10,26 @@ body::-webkit-scrollbar {
     @media screen and (min-width: 576px) and (max-width: 768px) {
         width: 100vw!important;
         flex-direction: column;
+        margin-bottom: 2vw;
     }
     @media screen and (max-width: 576px) {
         flex-direction: column;
         width: 100vw!important;
+        margin-bottom: 2vw;
+
     }
     .company-info-user-detail{
         @media screen and (min-width: 576px) and (max-width: 768px) {
             width: 80vw!important; 
             margin: auto;
+        margin-bottom: 2vw;
+
         }
         @media screen and (max-width: 576px) {
             width: 80vw !important;
             margin: auto;
+        margin-bottom: 2vw;
+
             
         }
  
@@ -30,8 +37,10 @@ body::-webkit-scrollbar {
     height: 78px;;
        display: flex;
    justify-content: space-between;
+   
    .company-info-user-infor{
        display: flex;
+       
        .company-info-user-infor-name{
            font-size: 16px;
            
