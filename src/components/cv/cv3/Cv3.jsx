@@ -3,7 +3,7 @@ import "./Cv3.scss";
 
 export default function Cv3() {
   return (
-    <div style={{ width: "100vw" }}>
+    <div style={{ width: "70vw" }}>
       <div style={{ width: "100vw", height: "100px",backgroundColor:"BC2228" }} className="cv3_header"></div>
       <div className="cv3_body">
         <div className="cv3_body--info">
