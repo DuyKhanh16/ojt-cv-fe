@@ -3,7 +3,7 @@ import "./Cv3.scss";
 
 export default function Cv3() {
   return (
-    <div style={{ width: "70vw" }}>
+    <div className="cv3" style={{border : "10px solid #CED4DA",}} >
       <div style={{ width: "100vw", height: "100px",backgroundColor:"BC2228" }} className="cv3_header"></div>
       <div className="cv3_body">
         <div className="cv3_body--info">
@@ -12,7 +12,7 @@ export default function Cv3() {
             src="./src/assets/images/cv3/photo.jpg"
           ></img>
           <div style={{ marginTop: "30px" }}>
-            <h2>Thông tin</h2>
+            <h3>Thông tin</h3>
             <div className="cv3_body--info-contact">
               <div
                 style={{ display: "flex", alignItems: "center", gap: "10px" }}
@@ -52,7 +52,7 @@ export default function Cv3() {
             </div>
           </div>
           <div style={{ marginTop: "30px" }}>
-            <h2>Học vấn</h2>
+            <h3>Học vấn</h3>
             <div className="cv3_body--info-contact">
               <div
                 style={{ display: "flex", alignItems: "center", gap: "10px" }}
@@ -91,7 +91,7 @@ export default function Cv3() {
             </div>
           </div>
           <div style={{ marginTop: "30px" }}>
-            <h2>Chứng Chỉ</h2>
+            <h3>Bằng Cấp</h3>
             <div className="cv3_body--info-contact">
               <div
                 style={{ display: "flex", alignItems: "center", gap: "10px" }}
@@ -112,7 +112,7 @@ export default function Cv3() {
             </div>
           </div>
           <div style={{ marginTop: "30px" }}>
-            <h2>Kỹ năng</h2>
+            <h3>Kỹ năng</h3>
             <div className="cv3_body--info-contact">
               <div
                 style={{ display: "flex", alignItems: "center", gap: "10px" }}
@@ -168,7 +168,7 @@ export default function Cv3() {
             </div>
           </div>
           <div style={{ marginTop: "30px" }}>
-            <h2>Ngoại ngữ</h2>
+            <h3>Ngoại ngữ</h3>
             <div className="cv3_body--info-contact">
               <div
                 style={{ display: "flex", alignItems: "center", gap: "10px" }}
@@ -189,7 +189,7 @@ export default function Cv3() {
             </div>
           </div>
           <div style={{ marginTop: "30px" }}>
-            <h2>Kỹ Năng Mềm</h2>
+            <h3>Điểm mạnh</h3>
             <div className="cv3_body--info-contact">
               <div
                 style={{ display: "flex", alignItems: "center", gap: "10px" }}
