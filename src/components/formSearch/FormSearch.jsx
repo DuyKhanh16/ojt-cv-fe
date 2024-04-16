@@ -2,7 +2,10 @@ import React, { useEffect, useState } from "react";
 import "./Formsearch.scss";
 import logo from "../../assets/images/fromsearch/fi_search.png";
 import job from "../../assets/images/main/briefcase-duotone 1.png";
+import avatar from "../../assets/images/userLogin/logo-rikkei2.png";
 import user1 from "../../assets/images/main/users-duotone 1.png";
+import bell from "../../assets/images/fromsearch/bell.fill.png";
+import ouline from "../../assets/images/fromsearch/Outline.png";
 import { Button, Select, Input, Space, Popover } from "antd";
 import { MenuFoldOutlined } from "@ant-design/icons";
 import { Link, useNavigate } from "react-router-dom";
@@ -22,7 +25,7 @@ const options = [
 export default function FormSearch() {
   const [info,SetInfo] = useState({})
   const navigate = useNavigate();
-  const user = JSON.parse(localStorage.getItem("token"));
+  const token = JSON.parse(localStorage.getItem("token"));
 // khối của thằng poper
   const content = (
     <div className="form__search--popover">
@@ -66,7 +69,7 @@ export default function FormSearch() {
         <div className="form__search--image">
           <img
             className="form__search--image--logo"
-            src="./src/assets/images/userLogin/logo-rikkei2.png"
+            src={avatar}
           ></img>
         </div>
         <div className="form__search--input">
@@ -84,10 +87,10 @@ export default function FormSearch() {
         <div className="form__search--button">
           <div className="form__search--notifacation">
             {/* <img src="./src/assets/images/fromsearch/bell.fill.png"></img> */}
-            {0 ? (
+            {token ? (
               <img
                 className="form__search--notifacation-1"
-                src="./src/assets/images/fromsearch/bell.fill.png"
+                src={bell}
               ></img>
             ) : (
               <Button className="bnt-resgister">
@@ -100,11 +103,11 @@ export default function FormSearch() {
           </div>
           <div className="form__search--info">
             {/* <img src="./src/assets/images/fromsearch/Outline.png"></img> */}
-            {info ? (
+            {token ? (
               <Popover placement="bottom" content={content}>
                 <img
                   className="avatar"
-                  src="./src/assets/images/fromsearch/Outline.png"
+                  src={ouline}
                 ></img>
               </Popover>
             ) : (
@@ -116,7 +119,7 @@ export default function FormSearch() {
             )}
           </div>
           <div className="form__search--name"></div>
-          {info ? (
+          {token ? (
             <p>{info.name}</p>
           ) : (
             <Button className="bnt-1">

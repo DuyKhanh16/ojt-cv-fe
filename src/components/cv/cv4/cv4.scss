@@ -1,3 +1,9 @@
+.cv4{
+    background-color: white;
+    border: 10px solid #CED4DA;
+    
+}
+
 .cv4_header{
     width: 100%;
     height: 300px;
@@ -5,7 +11,10 @@
     padding: 20px;
     // align-items: center;
     // justify-content: center;
-    background-color: rgb(56,61,68);
+    background-color: #21D4FD;
+    background-image: linear-gradient(19deg, #21D4FD 0%, #B721FF 100%);
+    
+    
     color: #fff;
     .cv4_header--img{
         width: 20%;
@@ -190,7 +199,7 @@
         font-size: 18px;
         width: 70%;
         color: #52575e;
-        .cv3_body-Skill-content-item1-Excellent{
+        .cv4_body-Skill-content-item1-Excellent{
             font-size: 22px;
                 font-weight: 700;
                 color: black;
@@ -204,10 +213,10 @@
             display: flex;
             gap: 20px;
             font-size: 18px;
-            color: #52575e;
+            color: white;
             // margin-top: 10px;
            .cv4_body-Skill-content-item1-content-item{
-            background-color: rgb(163, 177, 52);
+            background-color: rgb(88, 39, 222);
             padding: 5px 15px;
             border-radius: 5px;
            }
@@ -226,11 +235,11 @@
             display: flex;
             gap: 20px;
             font-size: 18px;
-            color: #52575e;
+            color: white;
             margin-left: -35px;
             // margin-top: 10px;
            .cv4_body-Skill-content-item2-content-item{
-            background-color: rgb(163, 177, 52);
+            background-color: rgb(88, 39, 222);
             padding: 5px 15px;
             border-radius: 5px;
            }
@@ -249,11 +258,11 @@
             display: flex;
             gap: 20px;
             font-size: 18px;
-            color: #52575e;
+            color: white;
             margin-left: 15px;
             // margin-top: 10px;
            .cv4_body-Skill-content-item3-content-item{
-            background-color: rgb(163, 177, 52);
+            background-color: rgb(88, 39, 222);
             padding: 5px 15px;
             border-radius: 5px;
            }
