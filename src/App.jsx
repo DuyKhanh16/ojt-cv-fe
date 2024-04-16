@@ -62,7 +62,7 @@ const router = createBrowserRouter([
           },
           // trang quản trị admin
           {
-            path: "admin",
+            path: "/admin",
             element: <HomeAdmin />, // Component layout chung cho admin
             children: [
               {
