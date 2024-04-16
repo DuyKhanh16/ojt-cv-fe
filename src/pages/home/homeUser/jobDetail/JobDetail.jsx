@@ -2,6 +2,20 @@ import React from "react";
 import Header from "../../../../components/header/Header";
 import FormSearch from "../../../../components/formSearch/FormSearch";
 import Footer from "../../../../components/footer/Footer";
+// import Bookmark from "../../../../assets/images/jobDetail/BookmarkSimple.png";
+import bookmark from "../../../../assets/images/JobDetails/BookmarkSimple.png";
+import arrow from "../../../../assets/images/JobDetails/fi_arrow-right.png";
+import avatar from "../../../../assets/images/JobDetails/Rectangle 43.png";
+import MapTrifold from "../../../../assets/images/JobDetails/MapTrifold.png";
+import CalendarBlank from "../../../../assets/images/JobDetails/CalendarBlank.png";
+import Socialbutton from "../../../../assets/images/JobDetails/Social button.png";
+import Socialbutton1 from "../../../../assets/images/JobDetails/Social button (1).png";
+import Socialbutton2 from "../../../../assets/images/JobDetails/Social button (2).png";
+import Socialbutton3 from "../../../../assets/images/JobDetails/Social button (3).png";
+import Socialbutton4 from "../../../../assets/images/JobDetails/Social button (4).png";
+import Logo from "../../../../assets/images/JobDetails/Employers Logo.png";
+import mapin from "../../../../assets/images/JobDetails/MapPin.png";
+import arowRight from "../../../../assets/images/JobDetails/arrow.right.png";
 import "./JobDetail.scss";
 
 export default function JobDetail() {
@@ -17,7 +31,7 @@ export default function JobDetail() {
           <div className="job__detail--company1">
             <div className="job__detail--company--Logo1">
               <div className="job__detail--company--Logo11">
-                <img src="./src/assets/images/jobDetails/Rectangle 43.png"></img>
+                <img src={avatar}></img>
               </div>
               <div className="job__detail--company--Logo--name1">
                 <h2>Senior Ux Designer</h2>
@@ -59,12 +73,12 @@ export default function JobDetail() {
               <button className="job__detail--company--apply--bookmark1">
                 <img
                   style={{ marginLeft: "10px" }}
-                  src="./src/assets/images/jobDetails/BookmarkSimple.png"
+                  src={bookmark}
                 ></img>
               </button>
               <button className="job__detail--company--apply--apply11">
                 <p>Ứng tuyển </p>
-                <img src="./src/assets/images/jobDetails/fi_arrow-right.png"></img>
+                <img src={arrow}></img>
               </button>
             </div>
           </div>
@@ -215,7 +229,7 @@ export default function JobDetail() {
                 <div style={{ textAlign: "center" }}>
                   <img
                     style={{ marginLeft: "40px", marginBottom: "10px" }}
-                    src="./src/assets/images/jobDetails/MapTrifold.png"
+                    src={MapTrifold}
                   ></img>
                   <h3>Job Location</h3>
                   <p style={{ color: "gray", fontSize: "14px" }}>
@@ -236,7 +250,7 @@ export default function JobDetail() {
                     >
                       <img
                         style={{ marginRight: "10px", marginBottom: "10px" }}
-                        src="./src/assets/images/jobDetails/CalendarBlank.png"
+                        src={CalendarBlank}
                       ></img>
                       <p style={{ color: "gray", fontSize: "18px" }}>
                         Job Posted
@@ -246,7 +260,7 @@ export default function JobDetail() {
                     <div style={{ width: "146px", height: "70px" }}>
                       <img
                         style={{ marginRight: "10px", marginBottom: "10px" }}
-                        src="./src/assets/images/jobDetails/Timer.png"
+                        src={CalendarBlank}
                       ></img>
                       <p style={{ color: "gray", fontSize: "18px" }}>
                         Job Posted
@@ -256,7 +270,7 @@ export default function JobDetail() {
                     <div style={{ width: "146px", height: "70px" }}>
                       <img
                         style={{ marginRight: "10px", marginBottom: "10px" }}
-                        src="./src/assets/images/jobDetails/Stack.png"
+                        src={CalendarBlank}
                       ></img>
                       <p style={{ color: "gray", fontSize: "18px" }}>
                         Job Posted
@@ -266,7 +280,7 @@ export default function JobDetail() {
                     <div style={{ width: "146px", height: "70px" }}>
                       <img
                         style={{ marginRight: "10px", marginBottom: "10px" }}
-                        src="./src/assets/images/jobDetails/Wallet.png"
+                        src={CalendarBlank}
                       ></img>
                       <p style={{ color: "gray", fontSize: "18px" }}>
                         Job Posted
@@ -276,7 +290,7 @@ export default function JobDetail() {
                     <div style={{ width: "146px", height: "70px" }}>
                       <img
                         style={{ marginRight: "10px", marginBottom: "10px" }}
-                        src="./src/assets/images/jobDetails/briefcase.png"
+                        src={CalendarBlank}
                       ></img>
                       <p style={{ color: "gray", fontSize: "18px" }}>
                         Job Posted
@@ -291,11 +305,11 @@ export default function JobDetail() {
                 <div className="line1">
                   <h3 style={{ marginBottom: "10px" }}>Share thit Job :</h3>
                   <div style={{ display: "flex", gap: "10px" }}>
-                    <img src="./src/assets/images/jobDetails/Social button.png"></img>
-                    <img src="./src/assets/images/jobDetails/Social button (1).png"></img>
-                    <img src="./src/assets/images/jobDetails/Social button (2).png"></img>
-                    <img src="./src/assets/images/jobDetails/Social button (3).png"></img>
-                    <img src="./src/assets/images/jobDetails/Social button (4).png"></img>
+                    <img src={Socialbutton}></img>
+                    <img src={Socialbutton1}></img>
+                    <img src={Socialbutton2}></img>
+                    <img src={Socialbutton3}></img>
+                    <img src={Socialbutton4}></img>
                   </div>
                 </div>
               </div>
@@ -305,6 +319,7 @@ export default function JobDetail() {
         <div className="job__detail--Relatedjob1">
           <h1>Related job</h1>
           <div className="job__detail--Relatedjob--content1">
+          
             <div className="job__detail--Relatedjob--content--item1">
               <div>
                 <h3 style={{ marginBottom: "10px" }}>Techical Suport</h3>
@@ -335,7 +350,7 @@ export default function JobDetail() {
                 }}
               >
                 <div style={{ display: "flex", gap: "10px" }}>
-                  <img src="./src/assets/images/jobDetails/Employers Logo.png"></img>
+                  <img src={Logo}></img>
                   <div>
                     <p>Google Lnc</p>
                     <div
@@ -345,266 +360,267 @@ export default function JobDetail() {
                         marginTop: "10px",
                       }}
                     >
-                      <img src="./src/assets/images/jobDetails/MapPin.png"></img>
+                      <img src={mapin}></img>
                       <p style={{ color: "gray" }}>Hồ CHÍ MINH</p>
                     </div>
                   </div>
                 </div>
                 <div>
-                  <img src="./src/assets/images/jobDetails/BookmarkSimple.png"></img>
+                  <img src={arowRight}></img>
                 </div>
               </div>
             </div>
             <div className="job__detail--Relatedjob--content--item1">
-              <div>
-                <h3 style={{ marginBottom: "10px" }}>Techical Suport</h3>
-                <div style={{ display: "flex", gap: "10px" }}>
+            <div>
+              <h3 style={{ marginBottom: "10px" }}>Techical Suport</h3>
+              <div style={{ display: "flex", gap: "10px" }}>
+                <div
+                  style={{
+                    color: "gray",
+                    backgroundColor: "#E7F6EA",
+                    width: "80px",
+                    height: "20px",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    borderRadius: "3px",
+                  }}
+                >
+                  Part-Time
+                </div>
+                <div>Salary : $10k - $15k</div>
+              </div>
+            </div>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                marginTop: "15px",
+              }}
+            >
+              <div style={{ display: "flex", gap: "10px" }}>
+                <img src={Logo}></img>
+                <div>
+                  <p>Google Lnc</p>
                   <div
                     style={{
-                      color: "gray",
-                      backgroundColor: "#E7F6EA",
-                      width: "80px",
-                      height: "20px",
                       display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      borderRadius: "3px",
+                      gap: "10px",
+                      marginTop: "10px",
                     }}
                   >
-                    Part-Time
+                    <img src={mapin}></img>
+                    <p style={{ color: "gray" }}>Hồ CHÍ MINH</p>
                   </div>
-                  <div>Salary : $10k - $15k</div>
                 </div>
               </div>
+              <div>
+                <img src={arowRight}></img>
+              </div>
+            </div>
+          </div>
+          <div className="job__detail--Relatedjob--content--item1">
+          <div>
+            <h3 style={{ marginBottom: "10px" }}>Techical Suport</h3>
+            <div style={{ display: "flex", gap: "10px" }}>
               <div
                 style={{
+                  color: "gray",
+                  backgroundColor: "#E7F6EA",
+                  width: "80px",
+                  height: "20px",
                   display: "flex",
-                  justifyContent: "space-between",
+                  justifyContent: "center",
                   alignItems: "center",
-                  marginTop: "15px",
+                  borderRadius: "3px",
                 }}
               >
-                <div style={{ display: "flex", gap: "10px" }}>
-                  <img src="./src/assets/images/jobDetails/Employers Logo.png"></img>
-                  <div>
-                    <p>Google Lnc</p>
-                    <div
-                      style={{
-                        display: "flex",
-                        gap: "10px",
-                        marginTop: "10px",
-                      }}
-                    >
-                      <img src="./src/assets/images/jobDetails/MapPin.png"></img>
-                      <p style={{ color: "gray" }}>Hồ CHÍ MINH</p>
-                    </div>
-                  </div>
-                </div>
-                <div>
-                  <img src="./src/assets/images/jobDetails/BookmarkSimple.png"></img>
+                Part-Time
+              </div>
+              <div>Salary : $10k - $15k</div>
+            </div>
+          </div>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              marginTop: "15px",
+            }}
+          >
+            <div style={{ display: "flex", gap: "10px" }}>
+              <img src={Logo}></img>
+              <div>
+                <p>Google Lnc</p>
+                <div
+                  style={{
+                    display: "flex",
+                    gap: "10px",
+                    marginTop: "10px",
+                  }}
+                >
+                  <img src={mapin}></img>
+                  <p style={{ color: "gray" }}>Hồ CHÍ MINH</p>
                 </div>
               </div>
             </div>
-            <div className="job__detail--Relatedjob--content--item1">
-              <div>
-                <h3 style={{ marginBottom: "10px" }}>Techical Suport</h3>
-                <div style={{ display: "flex", gap: "10px" }}>
-                  <div
-                    style={{
-                      color: "gray",
-                      backgroundColor: "#E7F6EA",
-                      width: "80px",
-                      height: "20px",
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      borderRadius: "3px",
-                    }}
-                  >
-                    Part-Time
-                  </div>
-                  <div>Salary : $10k - $15k</div>
-                </div>
-              </div>
+            <div>
+              <img src={arowRight}></img>
+            </div>
+          </div>
+        </div>
+        <div className="job__detail--Relatedjob--content--item1">
+        <div>
+          <h3 style={{ marginBottom: "10px" }}>Techical Suport</h3>
+          <div style={{ display: "flex", gap: "10px" }}>
+            <div
+              style={{
+                color: "gray",
+                backgroundColor: "#E7F6EA",
+                width: "80px",
+                height: "20px",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                borderRadius: "3px",
+              }}
+            >
+              Part-Time
+            </div>
+            <div>Salary : $10k - $15k</div>
+          </div>
+        </div>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            marginTop: "15px",
+          }}
+        >
+          <div style={{ display: "flex", gap: "10px" }}>
+            <img src={Logo}></img>
+            <div>
+              <p>Google Lnc</p>
               <div
                 style={{
                   display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  marginTop: "15px",
+                  gap: "10px",
+                  marginTop: "10px",
                 }}
               >
-                <div style={{ display: "flex", gap: "10px" }}>
-                  <img src="./src/assets/images/jobDetails/Employers Logo.png"></img>
-                  <div>
-                    <p>Google Lnc</p>
-                    <div
-                      style={{
-                        display: "flex",
-                        gap: "10px",
-                        marginTop: "10px",
-                      }}
-                    >
-                      <img src="./src/assets/images/jobDetails/MapPin.png"></img>
-                      <p style={{ color: "gray" }}>Hồ CHÍ MINH</p>
-                    </div>
-                  </div>
-                </div>
-                <div>
-                  <img src="./src/assets/images/jobDetails/BookmarkSimple.png"></img>
-                </div>
+                <img src={mapin}></img>
+                <p style={{ color: "gray" }}>Hồ CHÍ MINH</p>
               </div>
             </div>
-            <div className="job__detail--Relatedjob--content--item1">
-              <div>
-                <h3 style={{ marginBottom: "10px" }}>Techical Suport</h3>
-                <div style={{ display: "flex", gap: "10px" }}>
-                  <div
-                    style={{
-                      color: "gray",
-                      backgroundColor: "#E7F6EA",
-                      width: "80px",
-                      height: "20px",
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      borderRadius: "3px",
-                    }}
-                  >
-                    Part-Time
-                  </div>
-                  <div>Salary : $10k - $15k</div>
-                </div>
-              </div>
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  marginTop: "15px",
-                }}
-              >
-                <div style={{ display: "flex", gap: "10px" }}>
-                  <img src="./src/assets/images/jobDetails/Employers Logo.png"></img>
-                  <div>
-                    <p>Google Lnc</p>
-                    <div
-                      style={{
-                        display: "flex",
-                        gap: "10px",
-                        marginTop: "10px",
-                      }}
-                    >
-                      <img src="./src/assets/images/jobDetails/MapPin.png"></img>
-                      <p style={{ color: "gray" }}>Hồ CHÍ MINH</p>
-                    </div>
-                  </div>
-                </div>
-                <div>
-                  <img src="./src/assets/images/jobDetails/BookmarkSimple.png"></img>
-                </div>
-              </div>
+          </div>
+          <div>
+            <img src={arowRight}></img>
+          </div>
+        </div>
+      </div>
+      <div className="job__detail--Relatedjob--content--item1">
+      <div>
+        <h3 style={{ marginBottom: "10px" }}>Techical Suport</h3>
+        <div style={{ display: "flex", gap: "10px" }}>
+          <div
+            style={{
+              color: "gray",
+              backgroundColor: "#E7F6EA",
+              width: "80px",
+              height: "20px",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              borderRadius: "3px",
+            }}
+          >
+            Part-Time
+          </div>
+          <div>Salary : $10k - $15k</div>
+        </div>
+      </div>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          marginTop: "15px",
+        }}
+      >
+        <div style={{ display: "flex", gap: "10px" }}>
+          <img src={Logo}></img>
+          <div>
+            <p>Google Lnc</p>
+            <div
+              style={{
+                display: "flex",
+                gap: "10px",
+                marginTop: "10px",
+              }}
+            >
+              <img src={mapin}></img>
+              <p style={{ color: "gray" }}>Hồ CHÍ MINH</p>
             </div>
-            <div className="job__detail--Relatedjob--content--item1">
-              <div>
-                <h3 style={{ marginBottom: "10px" }}>Techical Suport</h3>
-                <div style={{ display: "flex", gap: "10px" }}>
-                  <div
-                    style={{
-                      color: "gray",
-                      backgroundColor: "#E7F6EA",
-                      width: "80px",
-                      height: "20px",
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      borderRadius: "3px",
-                    }}
-                  >
-                    Part-Time
-                  </div>
-                  <div>Salary : $10k - $15k</div>
-                </div>
-              </div>
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  marginTop: "15px",
-                }}
-              >
-                <div style={{ display: "flex", gap: "10px" }}>
-                  <img src="./src/assets/images/jobDetails/Employers Logo.png"></img>
-                  <div>
-                    <p>Google Lnc</p>
-                    <div
-                      style={{
-                        display: "flex",
-                        gap: "10px",
-                        marginTop: "10px",
-                      }}
-                    >
-                      <img src="./src/assets/images/jobDetails/MapPin.png"></img>
-                      <p style={{ color: "gray" }}>Hồ CHÍ MINH</p>
-                    </div>
-                  </div>
-                </div>
-                <div>
-                  <img src="./src/assets/images/jobDetails/BookmarkSimple.png"></img>
-                </div>
-              </div>
-            </div>
-            <div className="job__detail--Relatedjob--content--item1">
-              <div>
-                <h3 style={{ marginBottom: "10px" }}>Techical Suport</h3>
-                <div style={{ display: "flex", gap: "10px" }}>
-                  <div
-                    style={{
-                      color: "gray",
-                      backgroundColor: "#E7F6EA",
-                      width: "80px",
-                      height: "20px",
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      borderRadius: "3px",
-                    }}
-                  >
-                    Part-Time
-                  </div>
-                  <div>Salary : $10k - $15k</div>
-                </div>
-              </div>
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  marginTop: "15px",
-                }}
-              >
-                <div style={{ display: "flex", gap: "10px" }}>
-                  <img src="./src/assets/images/jobDetails/Employers Logo.png"></img>
-                  <div>
-                    <p>Google Lnc</p>
-                    <div
-                      style={{
-                        display: "flex",
-                        gap: "10px",
-                        marginTop: "10px",
-                      }}
-                    >
-                      <img src="./src/assets/images/jobDetails/MapPin.png"></img>
-                      <p style={{ color: "gray" }}>Hồ CHÍ MINH</p>
-                    </div>
-                  </div>
-                </div>
-                <div>
-                  <img src="./src/assets/images/jobDetails/BookmarkSimple.png"></img>
-                </div>
-              </div>
-            </div>
+          </div>
+        </div>
+        <div>
+          <img src={arowRight}></img>
+        </div>
+      </div>
+    </div>
+    <div className="job__detail--Relatedjob--content--item1">
+    <div>
+      <h3 style={{ marginBottom: "10px" }}>Techical Suport</h3>
+      <div style={{ display: "flex", gap: "10px" }}>
+        <div
+          style={{
+            color: "gray",
+            backgroundColor: "#E7F6EA",
+            width: "80px",
+            height: "20px",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            borderRadius: "3px",
+          }}
+        >
+          Part-Time
+        </div>
+        <div>Salary : $10k - $15k</div>
+      </div>
+    </div>
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+        marginTop: "15px",
+      }}
+    >
+      <div style={{ display: "flex", gap: "10px" }}>
+        <img src={Logo}></img>
+        <div>
+          <p>Google Lnc</p>
+          <div
+            style={{
+              display: "flex",
+              gap: "10px",
+              marginTop: "10px",
+            }}
+          >
+            <img src={mapin}></img>
+            <p style={{ color: "gray" }}>Hồ CHÍ MINH</p>
+          </div>
+        </div>
+      </div>
+      <div>
+        <img src={arowRight}></img>
+      </div>
+    </div>
+  </div>
+            
           </div>
         </div>
       </div>
