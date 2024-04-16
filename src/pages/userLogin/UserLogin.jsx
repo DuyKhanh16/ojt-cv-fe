@@ -59,7 +59,7 @@ export default function UserLogin() {
         }
 
         if(res.data.data.role === 1){
-          console.log(res.data.data.token)
+
           localStorage.setItem("token",JSON.stringify(res.data.data.token))
           navigate("/candidate")
           notification.success({

@@ -69,7 +69,7 @@ export default function () {
       console.log(NewUser, "1");
       try {
         const res = await publicAxios.post("/api/v2/auth/register-candidate", NewUser);
-        console.log(res.data.message);
+        // console.log(res.data.message);
         notification.success({
           message: res.data.message,
           duration: 2,
