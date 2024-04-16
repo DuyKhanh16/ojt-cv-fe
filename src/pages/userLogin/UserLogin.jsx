@@ -52,6 +52,7 @@ export default function UserLogin() {
         
         if(res.data.data.role === 0 ){
           localStorage.setItem("token",JSON.stringify(res.data.data.token))
+          localStorage.setItem("role",JSON.stringify(res.data.data.role))
           notification.success({
             message:res.data.message
           })
@@ -61,6 +62,8 @@ export default function UserLogin() {
         if(res.data.data.role === 1){
 
           localStorage.setItem("token",JSON.stringify(res.data.data.token))
+          localStorage.setItem("role",JSON.stringify(res.data.data.role))
+
           navigate("/candidate")
           notification.success({
             message:res.data.message
@@ -68,6 +71,8 @@ export default function UserLogin() {
         }
         if(res.data.data.role ===2){
           localStorage.setItem("token",JSON.stringify(res.data.data.token))
+          localStorage.setItem("role",JSON.stringify(res.data.data.role))
+
           navigate("/company")
           notification.success({
             message:res.data.message
