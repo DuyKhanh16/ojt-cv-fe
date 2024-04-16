@@ -14,8 +14,8 @@ import MapPin from "../../../../assets/images/main/MapPin.png";
 export default function MainBusiness() {
   return (
     <>
-      <HeaderCompany></HeaderCompany>
-      <FormSearch></FormSearch>
+      // <HeaderCompany></HeaderCompany>
+      // <FormSearch></FormSearch>
       <div className="mainBusiness__container">
         <div className="mainBusiness__introduce">
           <div className="mainBusiness--searchJob">
