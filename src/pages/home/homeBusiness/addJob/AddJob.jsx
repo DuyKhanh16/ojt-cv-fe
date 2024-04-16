@@ -1,14 +1,15 @@
 import React from "react";
 import "./AddJob.scss";
+import { useNavigate } from "react-router";
 export default function AddJob() {
+  const navigate = useNavigate();
   return (
     <>
       <div className="addJob__container">
         <div className="addJob__nav">
-          <p className="addJob__nav__home">Trang chủ /</p>
-          <p className="addJob__nav__inforCompany">Thông tin doanh nghiệp / </p>
-          <p className="addJob__nav__myCompany">Doanh nghiệp của tôi /</p>
-          <p className="addJob__nav__addNewJob">Thêm việc làm mới</p>
+          <p className="addJob__nav__home" style={{cursor:"pointer"}}>Trang chủ/</p>
+          <p className="addJob__nav__inforCompany" onClick={()=>navigate("/company/alljob")} style={{cursor:"pointer",marginLeft:"10px"}}>Quản lý việc làm/ </p>
+          <p className="addJob__nav__addNewJob" style={{cursor:"pointer",marginLeft:"10px"}}>Thêm việc làm mới</p>
         </div>
         <div className="addJob__body">
           <h4>Thêm việc làm mới</h4>

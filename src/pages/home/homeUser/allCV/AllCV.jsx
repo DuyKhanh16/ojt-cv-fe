@@ -1,13 +1,54 @@
 import React from 'react'
 import './AllCV.scss'
-import cv1 from '../../../../assets/images/cv/cv1.png'
-import cv2 from '../../../../assets/images/cv/cv2.png'
-import cv3 from '../../../../assets/images/cv/cv3.png'
-import cv4 from '../../../../assets/images/cv/cv4.png'
+import cv1img from '../../../../assets/images/cv/cv1.png'
+import cv2img from '../../../../assets/images/cv/cv2.png'
+import cv3img from '../../../../assets/images/cv/cv3.png'
+import cv4img from '../../../../assets/images/cv/cv4.png'
 import CV2 from '../../../../components/cv/cv2/CV2'
 import CV1 from '../../../../components/cv/cv1/CV1'
 import CV3 from '../../../../components/cv/cv3/Cv3'
+import CV4 from '../../../../components/cv/cv4/Cv4'
+import { useNavigate } from 'react-router'
 export default function AllCV() {
+  const [cv1, setCv1] = React.useState(true);
+  const [cv2, setCv2] = React.useState(false);
+  const [cv3, setCv3] = React.useState(false);
+  const [cv4, setCv4] = React.useState(false);
+  const choose = (index) => {
+     const ar = document.getElementsByClassName('allCV__content--left__list__item')[index].classList.add('cv1')
+   for (let i = 0; i < 4; i++) {
+    if( i !== index){
+      document.getElementsByClassName('allCV__content--left__list__item')[i].classList.remove('cv1')
+    }
+    if(i == index){
+      if(index == 0){
+        setCv1(true);
+        setCv2(false);
+        setCv3(false);
+        setCv4(false);
+      }
+      if(index == 1){
+        setCv1(false);
+        setCv2(true);
+        setCv3(false);
+        setCv4(false);
+      }
+      if(index == 2){
+        setCv1(false);
+        setCv2(false);
+        setCv3(true);
+        setCv4(false);
+      }
+      if(index == 3){
+        setCv1(false);
+        setCv2(false);
+        setCv3(false);
+        setCv4(true);
+      }
+    }
+   }
+  }
+  const navigate = useNavigate();
   return (
     <>
     <div className='allCV__container'>
@@ -16,7 +57,7 @@ export default function AllCV() {
         <span class="material-symbols-outlined">
           chevron_left
         </span>
-        <p>Trở lại cập nhật hồ sơ</p>
+        <p onClick={()=>navigate('/candidate/inforCV')}>Trở lại cập nhật hồ sơ</p>
         </div>
         <div className='allCV__header--mid'>
           <p><strong>Mẫu CV</strong></p>
@@ -32,32 +73,52 @@ export default function AllCV() {
       <div className='allCV__content'>
         <div className='allCV__content--left'>
           <div className='allCV__content--left__list'>
-            <div className='allCV__content--left__list__item cv1'>
+            <div className='allCV__content--left__list__item cv1'  onClick={()=>choose(0)}>
               <div className='allCV__content--left__item--img'>
-              <img src={cv1} alt="" />
+              <img src={cv1img} alt="" />
               </div>
-              <div className='allCV__content--left__item--choose'>
+              
+              <div className='allCV__content--left__item--choose cvnone' >
                 <span class="material-symbols-outlined">
                 done
                 </span>
               </div>
+
               <span>CV 1</span>
             </div>
-            <div className='allCV__content--left__list__item cv2'>
+            <div className='allCV__content--left__list__item ' onClick={()=>choose(1)}>
               <div className='allCV__content--left__item--img'>
-              <img src={cv2} alt="" />
+              <img src={cv2img} alt="" />
+              </div>
+
+              <div className='allCV__content--left__item--choose cvnone' >
+                <span class="material-symbols-outlined">
+                done
+                </span>
               </div>
               <span>CV 2</span>
             </div>
-            <div className='allCV__content--left__list__item cv3'>
+            <div className='allCV__content--left__list__item ' onClick={()=>choose(2)}>
               <div className='allCV__content--left__item--img'>
-              <img src={cv3} alt="" />
+              <img src={cv3img} alt="" />
+              </div>
+
+              <div className='allCV__content--left__item--choose cvnone' >
+                <span class="material-symbols-outlined">
+                done
+                </span>
               </div>
               <span>CV 3</span>
             </div>
-            <div className='allCV__content--left__list__item cv4'>
+            <div className='allCV__content--left__list__item ' onClick={()=>choose(3)}>
               <div className='allCV__content--left__item--img'>
-              <img src={cv4} alt="" />
+              <img src={cv4img} alt="" />
+              </div>
+
+              <div className='allCV__content--left__item--choose cvnone' >
+                <span class="material-symbols-outlined">
+                done
+                </span>
               </div>
               <span>CV 4</span>
             </div>
@@ -65,8 +126,17 @@ export default function AllCV() {
           
         </div>
         <div className='allCV__content--right'>
-              <div>
+              <div style={{display:cv1?'block':'none'}}>
+                <CV1></CV1>
+              </div>
+              <div style={{display:cv2?'block':'none'}}>
                 <CV2></CV2>
+              </div>
+              <div style={{display:cv3?'block':'none'}}>
+                <CV3></CV3>
+              </div>
+              <div style={{display:cv4?'block':'none'}}>
+                <CV4></CV4>
               </div>
               <div className='allCV__content--right__export'>
                 <div className='allCV__content--right__export--context'>

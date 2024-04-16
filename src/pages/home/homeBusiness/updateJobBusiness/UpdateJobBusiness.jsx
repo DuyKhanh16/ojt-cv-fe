@@ -24,8 +24,6 @@ export default function UpdateJobBusiness() {
   };
   return (
     <div>
-      <Header></Header>
-      <FormSearch></FormSearch>
       <div className="job__detail--container">
         <div className="job__detail--title" style={{ color: "#767F8C" }}>
           <p>Trang chủ / </p> <p>Việc làm / </p> <p>Graphics Designer /</p>{" "}
@@ -920,7 +918,6 @@ export default function UpdateJobBusiness() {
             </div>
           </div>
         </div>
-        <Footer></Footer>
       </div>
     </div>
   );

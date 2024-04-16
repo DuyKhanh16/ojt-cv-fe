@@ -6,10 +6,6 @@ import Footer from "../../../../components/footer/Footer";
 export default function AllUserApply() {
   return (
     <>
-      <HeaderCompany></HeaderCompany>
-      <div className="allUserApply__formsearch">
-      <FormSearch></FormSearch>
-      </div>
       <div className="allUserApply__container">
         <div className="allUserApply__header">
           <p>Trang chủ</p>

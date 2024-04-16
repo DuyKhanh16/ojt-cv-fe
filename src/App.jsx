@@ -13,17 +13,12 @@ import InformationComany from "./pages/home/homeUser/informationComany/Informati
 import UpdateInforBusiness from "./pages/home/homeBusiness/updateInforBusiness/UpdateInforBusiness";
 import AllCV from "./pages/home/homeUser/allCV/AllCV";
 import JobList from "./pages/home/homeUser/jobList/JobList";
-
 import AllUserAdmin from "./pages/home/admin/allUserAdmin/AllUserAdmin";
 import AllJobAdmin from "./pages/home/admin/allJobAdmin/AllJobAdmin";
 import AllCompanyAdmin from "./pages/home/admin/allCompanyAdmin/AllCompanyAdmin";
-
 import AllUserApply from "./pages/home/homeBusiness/allUserApply/AllUserApply";
 import Alljob from "./pages/home/homeBusiness/allJob/Alljob";
 import HomeAdmin from "./pages/home/admin/homeAdmin/HomeAdmin";
-import AdminAllUser from './layouts/adminSideBar/AdminAllUser';
-import AdminAllJob from './layouts/adminSideBar/AdminAllJob';
-import AdminAllCompany from './layouts/adminSideBar/AdminAllCompany';
 import MainBusiness from "./pages/home/homeBusiness/mainBusiness/MainBusiness";
 
 import {
@@ -34,112 +29,140 @@ import {
   useNavigation,
 } from "react-router-dom";
 import AdminChart from "./pages/home/admin/adminChart/AdminChart";
-
-
+import Router from "./layouts/router/Router";
+import CompanyRoute from "./layouts/companyRoute/CompanyRoute";
 
 const router = createBrowserRouter([
+  /* source chung */
+  {
+    path: "/",
+    element: <Router />,
+    children: [
+      {
+        path: "",
+        element: <Main />,}
+    ]
+  },
+  {
+    path: "/login",
+    element: <UserLogin />,
+  },
+  {
+    path: "/user-register",
+    element: <UserRegister />,
+  },
+  {
+    path: "/company-register",
+    element: <CompanyRegister />,
+  },
+  {
+    path: "/allCV",
+    element: <AllCV></AllCV>,
+  },
+ 
+  /* het source chung */
 
-          // trang chủ
-          {
-            path: "/",
-            element: <Main />,
-          },
-          {
-            path: "/company",
-            element: <MainBusiness />,
-          },
-          {
-            path: "/login",
-            element: <UserLogin />,
-          },
-          {
-            path: "/user-register",
-            element: <UserRegister />,
-          },
-          {
-            path: "/company-register",
-            element: <CompanyRegister />,
-          },
-          // trang quản trị admin
-          {
-            path: "/admin",
-            element: <HomeAdmin />, // Component layout chung cho admin
-            children: [
-              {
-                path: "all-users",
-                element: <AllUserAdmin />,
-              },
-              {
-                path: "home-admin",
-                element: <AdminChart />,
-              },
-              {
-                path: "all-jobs",
-                element: <AllJobAdmin />,
-              },
-              {
-                path: "all-companies",
-                element: <AllCompanyAdmin />,
-              },
-              // ... thêm các route con khác dành cho admin ở đây
-            ],
-          },
-          // các đường link của company
+  /* candidate */
+  
+  {
+    path: "/candidate",
+    element: <Router />,
+    children: [
+      {
+        path: "",  // Correct way to specify a nested route
+        element: <Main />
+      },
+      {
+        path: "jobList",
+        element: <JobList></JobList>,
+      },
+      {
+        path: "jobDetail/:id",
+        element: <JobDetail></JobDetail>,
+      },
+      {
+        path: "inforCV",
+        element: <InformationUserB></InformationUserB>,
+      },
+      
+      {
+        path: "companyDetail",
+        element: <InformationComany></InformationComany>,
+      },
+      {
+        path: "candidate-outstanding",
+        element: <InformationUser></InformationUser>,
+      },
+      
+    ]
+  },
+  
+  /* het candidate */
 
-          {
-            path: "/company-alluserapply",
-            element: <AllUserApply />,
-          },
-          {
-            path: "/company-alljob",
-            element: <Alljob />,
-          },
-          {
-            path: "/company-infouser-outstanding",
-            element: <InformationUser />,
-          },
-          {
-            path: "/company-addnewjob",
-            element: <AddJob />,
+  /* company */
+  {
+    path: "/company",
+    element: <CompanyRoute></CompanyRoute>,
+    children: [
+      {
+        path: "",
+        element: <MainBusiness />,
+      },
+      {
+        path: "alluserapply",
+        element: <AllUserApply />,
+      },
+      {
+        path: "alljob",
+        element: <Alljob />,
+      },
+      {
+        path: "candidate-outstanding",
+        element: <InformationUser />,
+      },
+      {
+        path: "addnewjob",
+        element: <AddJob />,
+      },
+      {
+        path: "updatejob",
+        element: <UpdateJobBusiness />,
+      },
+      {
+        path: "updateinforCompany",
+        element: <UpdateInforBusiness />,
+      },
+    ],
+  },
 
-          },  
-          {
-            path: "/company-updatejob",
-            element: <UpdateJobBusiness />,
-          },
-          {
-            path: "/company-updateinfor",
-            element: <UpdateInforBusiness />,
-          },
-          // các đường link của user
-          {
-            path: "/user-listcompany",
-            element: <ListCompany />,
-          },
-          {
-            path: "/user-companyview",
-            element: <InformationComany />,
-          },
-          {
-            path: "/user-info",
-            element: <InformationUserB />,
-          },
-          {
-            path: "/company-job-detail",
-            element: <JobDetail />,
-          },
-          {
-            path: "/user-createcv",
-            element: <AllCV />,
-          },
-        
-          {
-            path: "/user-jobList",
-            element: <JobList />,
-          },
-        ]);
+  /* het company */
+
+  /* admin */
+  {
+    path: "/admin",
+    element: <HomeAdmin />,
+    children: [
+      {
+        path: "users",
+        element: <AllUserAdmin />,
+      },
+      {
+        path: "",
+        element: <AdminChart />,
+      },
+      {
+        path: "jobs",
+        element: <AllJobAdmin />,
+      },
+      {
+        path: "companies",
+        element: <AllCompanyAdmin />,
+      },
+    ],
+  },
+  /* het admin */
+]);
 
 export default function App() {
   return <RouterProvider router={router} fallbackElement={<p>Loading...</p>} />;
-  
 }
