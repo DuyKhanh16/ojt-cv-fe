@@ -47,9 +47,14 @@ export default function FormSearch() {
   );
 
   // hàm lấy thông tin người dùng
-  const getInfo = async () => {
-    const res = await privateAxios.get("api/v2/candidates/getInfor");
-    SetInfo(res.data.data)
+  const getInfo = () => {
+  
+    const res1 =  privateAxios.get("api/v2/candidates/getInfor");
+    res1.then((res) => {
+      SetInfo(res.data.data)
+    })
+
+    
   }
   useEffect(() => {
     getInfo()
@@ -79,7 +84,7 @@ export default function FormSearch() {
         <div className="form__search--button">
           <div className="form__search--notifacation">
             {/* <img src="./src/assets/images/fromsearch/bell.fill.png"></img> */}
-            {user ? (
+            {info ? (
               <img
                 className="form__search--notifacation-1"
                 src="./src/assets/images/fromsearch/bell.fill.png"
@@ -95,7 +100,7 @@ export default function FormSearch() {
           </div>
           <div className="form__search--info">
             {/* <img src="./src/assets/images/fromsearch/Outline.png"></img> */}
-            {user ? (
+            {info ? (
               <Popover placement="bottom" content={content}>
                 <img
                   className="avatar"
@@ -111,8 +116,8 @@ export default function FormSearch() {
             )}
           </div>
           <div className="form__search--name"></div>
-          {user ? (
-            <p>Nguyễn Minh Dương</p>
+          {info ? (
+            <p>{info.name}</p>
           ) : (
             <Button className="bnt-1">
               {" "}
