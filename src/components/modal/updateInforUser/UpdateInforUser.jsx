@@ -5,8 +5,10 @@ import logo from '../../../assets/images/main/logo.png'
 import sua from '../../../assets/images/main/sualogo.png'
 import deletea from '../../../assets/images/main/delete.png'
 import privateAxios from '../../../config/private.axios'
+import { message, notification } from 'antd'
 export default function UpdateInforUser({isOpen,close}) {
      const [user, setUser] = useState({});
+      const [flag, setFlag]= useState(0);
      const [userUpdate, setUserUpdate] = useState({
        name: '',
        birthday: '',
@@ -16,11 +18,9 @@ export default function UpdateInforUser({isOpen,close}) {
        position: '',
        link_git: ''
      });
-   
      const getUser = () => {
        privateAxios.get("api/v2/candidates/getInfor")
          .then((res) => {
-           console.log("API response data:", res.data.data);
            setUser(res.data.data);
            setUserUpdate({
              name: res.data.data.name,
@@ -36,32 +36,33 @@ export default function UpdateInforUser({isOpen,close}) {
            console.error("Error:", error);
          });
      };
-   
-     useEffect(() => {
-       getUser();
-     }, []);
-   
      const getChange = (e) => {
        setUserUpdate({ ...userUpdate, [e.target.name]: e.target.value });
      };
-     console.log(userUpdate);
      const updateInfor = async () => {
       await privateAxios
          .patch(`/api/v2/candidates/updateInfoCandidate`,userUpdate)
          .then((res) => {
-           console.log("API response data:", res);
+           setUserUpdate(res)
+           notification.success({
+            message:"Cập nhật thông tin thành công"
+           });
+           setFlag(flag + 1);
          })
          .catch((error) => {
            console.error("Error:", error);
          });
        close();
      }
+     useEffect(() => {
+      getUser();
+    }, [flag]);
   return (
     <>
     <div style={{display: isOpen?'block':'none'}}>
          <div className="format1 updateInforUser"  >
         <div className="updateInforUser__contain">
-          <p>Cập nhập thông tin cá nhân</p>
+          <p>Cập nhật thông tin cá nhân</p>
           <img src={logo} alt="" />
           <div style={{display:'flex',gap:'50px'}} >
             <button style={{display:'flex',alignItems:'center',gap:'10px',backgroundColor:'transparent',border:'none',fontSize:'20px',color:'black'}}>
@@ -99,14 +100,6 @@ export default function UpdateInforUser({isOpen,close}) {
                 name='address'
                 type="text" placeholder='ABCde'/>
            </div>
-           {/* <div className='inforUserItem'>
-                <label htmlFor="">Email </label>
-                <input 
-                onChange={getChange} 
-                value={userUpdate?.email}
-                name='email'
-                type="text" placeholder='ABCde'/>
-           </div> */}
            <div className='inforUserItem'>
                 <label htmlFor="">SĐT </label>
                 <input onChange={getChange}
@@ -120,7 +113,7 @@ export default function UpdateInforUser({isOpen,close}) {
                 onChange={getChange}
                 value={userUpdate?.birthday}
                 name='birthday'
-                 type="text" placeholder='ABCde'/>
+                 type="date" placeholder='ABCde'/>
            </div>
            <div className='inforUserItem'>
                 <label htmlFor="">Giới tính </label>
