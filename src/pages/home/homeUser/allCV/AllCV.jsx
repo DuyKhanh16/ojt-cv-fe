@@ -66,7 +66,7 @@ export default function AllCV() {
         </div>
         <div className='allCV__content--right'>
               <div>
-                <CV3></CV3>
+                <CV2></CV2>
               </div>
               <div className='allCV__content--right__export'>
                 <div className='allCV__content--right__export--context'>
