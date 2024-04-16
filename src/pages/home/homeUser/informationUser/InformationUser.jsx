@@ -44,10 +44,16 @@ export default function InformationUserB() {
     setOpenProject(false);
     setOpenUpdateUser(false);
   };
-  const getUser = async () => {
+  const getUser = () => {
     console.log("first");
-    const res = await privateAxios.get("api/v2/candidates/getInfor");
-    setUser(res.data.data);
+    privateAxios.get("api/v2/candidates/getInfor")
+      .then((res) => {
+        console.log("API response data:", res.data.data);
+        setUser(res.data.data);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
   };
   console.log(user);
   useEffect(() => {
@@ -60,7 +66,11 @@ export default function InformationUserB() {
       <Education isOpen={openEdu} close={close}></Education>
       <Exp isOpen={openExp} close={close}></Exp>
       <ProjectUser isOpen={openProject} close={close}></ProjectUser>
-      <UpdateInforUser isOpen={openUpdateUser} close={close}></UpdateInforUser>
+      <UpdateInforUser
+        isOpen={openUpdateUser}
+        close={close}
+        user={user}
+      ></UpdateInforUser>
       <Skill></Skill>
       <Confirm></Confirm>
       <Header></Header>
@@ -94,7 +104,10 @@ export default function InformationUserB() {
               className="informationUser__contain__left__list"
               style={{ height: isOpen ? "380px" : "0px" }}
             >
-              <div className="informationUser__contain__left__item" onClick={()=>setOpenAbout(!openABout)}>
+              <div
+                className="informationUser__contain__left__item"
+                onClick={() => setOpenAbout(!openABout)}
+              >
                 <img src={vetor} alt="" />
                 <p>Thêm giới thiệu bản thân</p>
               </div>
@@ -114,7 +127,6 @@ export default function InformationUserB() {
                 <img src={vetor} alt="" />
                 <p>Thêm chứng chỉ</p>
               </div>
-              
             </div>
             <div className="informationUser__contain__left__updateCV">
               <img src={cv1} alt="" />
@@ -156,7 +168,9 @@ export default function InformationUserB() {
                         {" "}
                         <img src={cake} alt="" />
                       </span>
-                      01/01/2000
+                      {user?.birthday
+                        ? user?.birthday
+                        : "Cập nhật thêm ngày sinh"}
                     </p>
                     <p>
                       <span>
@@ -171,21 +185,23 @@ export default function InformationUserB() {
                       <span>
                         <img src={phone} alt="" />
                       </span>
-                      {user?.phone ? user?.phone : "Cập nhật thêm số điện thoại"}
-
+                      {user?.phone
+                        ? user?.phone
+                        : "Cập nhật thêm số điện thoại"}
                     </p>
                     <p>
                       <span>
                         <img src={userIcon} alt="" />
                       </span>
                       {user?.gender ? user?.gender : "Cập nhật thêm giới tính"}
-
                     </p>
                     <p>
                       <span>
                         <img src={world} alt="" />
                       </span>
-                      {user?.link_git ? user?.link_git : "Cập nhật thêm link github"}
+                      {user?.link_git
+                        ? user?.link_git
+                        : "Cập nhật thêm link github"}
                     </p>
                   </div>
                 </div>
@@ -201,32 +217,56 @@ export default function InformationUserB() {
 
             <div className="informationUser__contain__right__item">
               <p>Giới thiệu Bản Thân</p>
-              <input type="text" placeholder='Giơí thiệu điểm mạnh của bản thân và kinh nghiệm của bạn '/>
-              <img style={{cursor:"pointer"}} src={vector2} alt="" onClick={()=>setOpenAbout(!openABout)}/>
+              <input
+                type="text"
+                placeholder="Giơí thiệu điểm mạnh của bản thân và kinh nghiệm của bạn "
+              />
+              <img
+                style={{ cursor: "pointer" }}
+                src={vector2}
+                alt=""
+                onClick={() => setOpenAbout(!openABout)}
+              />
             </div>
 
             <div className="informationUser__contain__right__item">
               <p>Học Vấn</p>
-              <input type="text" placeholder='Giơí thiệu điểm mạnh của bản thân và kinh nghiệm của bạn '/>
-              <img src={vetor} alt="" onClick={()=>setOpenEdu(!openEdu)}/>
+              <input
+                type="text"
+                placeholder="Giơí thiệu điểm mạnh của bản thân và kinh nghiệm của bạn "
+              />
+              <img src={vetor} alt="" onClick={() => setOpenEdu(!openEdu)} />
             </div>
 
             <div className="informationUser__contain__right__item">
               <p>Kinh Nghiệm Làm Việc</p>
-              <input type="text" placeholder='Giơí thiệu điểm mạnh của bản thân và kinh nghiệm của bạn '/>
-              <img src={vetor} alt="" onClick={()=>setOpenExp(!openExp)} />
+              <input
+                type="text"
+                placeholder="Giơí thiệu điểm mạnh của bản thân và kinh nghiệm của bạn "
+              />
+              <img src={vetor} alt="" onClick={() => setOpenExp(!openExp)} />
             </div>
 
             <div className="informationUser__contain__right__item">
               <p>Dự Án Cá Nhân</p>
-              <input type="text" placeholder='Giơí thiệu điểm mạnh của bản thân và kinh nghiệm của bạn '/>
-              <img src={vetor} alt="" onClick={()=>setOpenProject(!openProject)} />
+              <input
+                type="text"
+                placeholder="Giơí thiệu điểm mạnh của bản thân và kinh nghiệm của bạn "
+              />
+              <img
+                src={vetor}
+                alt=""
+                onClick={() => setOpenProject(!openProject)}
+              />
             </div>
 
             <div className="informationUser__contain__right__item">
               <p>Chứng Chỉ</p>
-              <input type="text" placeholder='Giơí thiệu điểm mạnh của bản thân và kinh nghiệm của bạn '/>
-              <img src={vetor} alt="" onClick={()=>setOpenCert(!openCert)}/>
+              <input
+                type="text"
+                placeholder="Giơí thiệu điểm mạnh của bản thân và kinh nghiệm của bạn "
+              />
+              <img src={vetor} alt="" onClick={() => setOpenCert(!openCert)} />
             </div>
           </div>
         </div>
