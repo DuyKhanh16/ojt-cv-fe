@@ -33,7 +33,12 @@ export default function InformationUserB() {
   const [openProject, setOpenProject] = useState(false);
   const [openUpdateUser, setOpenUpdateUser] = useState(false);
   const [user, setUser] = useState({});
-  const [flag, setFlag]= useState(0);
+  const [flag, setFlag] = useState(0);
+  const [checkAboutMe, setCheckAboutMe] = useState(false);
+  const [checkEducation, setCheckEducation] = useState(false);
+  const [checkExp, setCheckExp] = useState(false);
+  const [checkJob, setCheckJob] = useState(false);
+  const [checkCerti, setCheckCerti] = useState(false);
   const navigate = useNavigate();
   const open = () => {
     setIsOpen(!isOpen);
@@ -48,9 +53,15 @@ export default function InformationUserB() {
   };
   const getUser = () => {
     console.log("first");
-    privateAxios.get("api/v2/candidates/getInfor")
+    privateAxios
+      .get("api/v2/candidates/getInfor")
       .then((res) => {
         console.log("API response data:", res.data.data);
+        if (res.data.data.aboutme) {
+          setCheckAboutMe(true)
+        } else {
+          setCheckAboutMe(false)
+        }
         setUser(res.data.data);
       })
       .catch((error) => {
@@ -68,11 +79,7 @@ export default function InformationUserB() {
       <Education isOpen={openEdu} user={user} close={close}></Education>
       <Exp isOpen={openExp} close={close}></Exp>
       <ProjectUser isOpen={openProject} close={close}></ProjectUser>
-      <UpdateInforUser
-        isOpen={openUpdateUser}
-        close={close}
-        user={user}
-      ></UpdateInforUser>
+      <UpdateInforUser isOpen={openUpdateUser} close={close}></UpdateInforUser>
       <Skill></Skill>
       <Confirm></Confirm>
       <UpdateInforUser></UpdateInforUser>
@@ -105,29 +112,92 @@ export default function InformationUserB() {
               style={{ height: isOpen ? "380px" : "0px" }}
             >
               <div
+                className="informationUser__contain__left__item "
+              >
+                {checkAboutMe ? (
+                  <span
+                  style={{ color: "green" }}
+                  class="material-symbols-outlined"
+                >
+                  check_circle
+                </span>
+                ) : (
+                  
+                  <img src={vetor} alt=""  onClick={() => setOpenAbout(!openABout)} />
+                )}
+
+                <p style={{ color: checkAboutMe ? "green" : "red" }}>
+                  Thêm giới thiệu bản thân
+                </p>
+              </div>
+              <div
                 className="informationUser__contain__left__item"
-                onClick={() => setOpenAbout(!openABout)}
+                onClick={() => setOpenEdu(!openEdu)}
+            
               >
-                <img src={vetor} alt="" />
-                <p>Thêm giới thiệu bản thân</p>
+                {checkEducation ? (
+                  <span
+                  style={{ color: "green" }}
+                  class="material-symbols-outlined"
+                >
+                  check_circle
+                </span>
+                ) : (
+                  <img src={vetor} alt="" />
+                  
+                )}
+                <p style={{ color: checkEducation ? "green" : "red" }}>Thêm học vấn</p>
               </div>
-              <div className="informationUser__contain__left__item"
-              onClick={() => setOpenEdu(!openEdu)}
+              <div
+                className="informationUser__contain__left__item"
+                
               >
-                <img src={vetor} alt="" />
-                <p>Thêm học vấn</p>
+                {checkExp ? (
+                   <span
+                   style={{ color: "green" }}
+                   class="material-symbols-outlined"
+                 >
+                   check_circle
+                 </span>
+                  
+                ) : (
+                  <img onClick={() => setOpenExp(!openExp)} src={vetor} alt="" />
+                )}
+                <p style={{ color: checkExp ? "green" : "red" }}>Thêm kinh nghiệm làm việc</p>
               </div>
-              <div className="informationUser__contain__left__item">
-                <img src={vetor} alt="" />
-                <p>Thêm kinh nghiệm làm việc</p>
+              <div
+                className="informationUser__contain__left__item"
+                
+              >
+                {checkJob ? (
+                  <span
+                    style={{ color: "green" }}
+                    class="material-symbols-outlined"
+                  >
+                    check_circle
+                  </span>
+                ) : (
+                  <img onClick={() => setOpenProject(!openProject)} src={vetor} alt="" />
+                  
+                )}
+                <p style={{ color: checkJob ? "green" : "red" }}>Thêm dự án cá nhân</p>
               </div>
-              <div className="informationUser__contain__left__item">
-                <img src={vetor} alt="" />
-                <p>Thêm dự án cá nhân</p>
-              </div>
-              <div className="informationUser__contain__left__item">
-                <img src={vetor} alt="" />
-                <p>Thêm chứng chỉ</p>
+              <div
+                className="informationUser__contain__left__item"
+               
+              >
+                {checkCerti ? (
+                  <span
+                  style={{ color: "green" }}
+                  class="material-symbols-outlined"
+                >
+                  check_circle
+                </span>
+                ) : (
+                  <img  onClick={() => setOpenCert(!openCert)} src={vetor} alt="" />
+                  
+                )}
+                <p style={{ color: checkCerti ? "green" : "red" }}>Thêm chứng chỉ</p>
               </div>
             </div>
             <div className="informationUser__contain__left__updateCV">
@@ -137,7 +207,7 @@ export default function InformationUserB() {
               </p>
             </div>
             <div className="informationUser__contain__left__button">
-              <button onClick={()=> navigate("/allCV")}>Xem Và Tải CV</button>
+              <button onClick={() => navigate("/allCV")}>Xem Và Tải CV</button>
             </div>
           </div>
 
@@ -217,122 +287,152 @@ export default function InformationUserB() {
               </div>
             </div>
 
-            <div className="informationUser__contain__right__item">
-              <p>Giới thiệu Bản Thân</p>
+            <div
+              className="informationUser__contain__right__item aboutMeInfor"
+              style={{ display: checkAboutMe ? "block" : "none" }}
+            >
+              <p>Giới Thiệu Bản Thân</p>
+             
               <img
                 style={{ cursor: "pointer" }}
                 src={vector2}
                 alt=""
                 onClick={() => setOpenAbout(!openABout)}
               />
-            </div>
-            <div className="informationUser__contain__right__item">
-              <p>Học Vấn</p>
-              <div className="informationUser__contain__right__item__miniitem">
-                <div className="informationUser__contain__right__item__miniitem__top">
-                <p className="informationUser__contain__right__item__miniitem__position"><strong>Công nghệ thông tin</strong></p>
-                <div className="informationUser__contain__right__item__miniitem__action">
-                <img
-                style={{ cursor: "pointer" }}
-                src={vector2}
-                alt=""
-                onClick={() => setOpenAbout(!openABout)}
-              />
-                <span class="material-symbols-outlined">
-                delete
-                </span>
-                </div>
-                
-                </div>
-                <p className="informationUser__contain__right__item__miniitem__nameSchool">Đại học Bách Khoa</p>
-                <p className="informationUser__contain__right__item__miniitem__time">2015 - 2019</p>
+               <div className="informationUser__contain__right__item__contentInfor" style={{height:"auto",borderTop:"1px solid #CCCCCC",marginTop:"20px",paddingTop:"20px"}}>
+                <p style={{fontSize:"20px",fontWeight:"400"}} >Nội dung
+                  
+                </p>
               </div>
-              <div className="informationUser__contain__right__item__miniitem">
+            </div>
+            <div className="informationUser__contain__right__item"
+            style={{ display: checkEducation ? "block" : "none" }}
+            >
+              <p>Học Vấn</p>
+              <div className="informationUser__contain__right__item__miniitem"
+              style={{ display: checkExp ? "block" : "none" }}
+              >
                 <div className="informationUser__contain__right__item__miniitem__top">
-                <p className="informationUser__contain__right__item__miniitem__position"><strong>Công nghệ thông tin</strong></p>
-                <div className="informationUser__contain__right__item__miniitem__action">
-                <img
-                style={{ cursor: "pointer" }}
-                src={vector2}
-                alt=""
-                onClick={() => setOpenAbout(!openABout)}
-              />
-                <span class="material-symbols-outlined">
-                delete
-                </span>
+                  <p className="informationUser__contain__right__item__miniitem__position">
+                    <strong>Công nghệ thông tin</strong>
+                  </p>
+                  <div className="informationUser__contain__right__item__miniitem__action">
+                    <img
+                      style={{ cursor: "pointer" }}
+                      src={vector2}
+                      alt=""
+                      onClick={() => setOpenAbout(!openABout)}
+                    />
+                    <span class="material-symbols-outlined">delete</span>
+                  </div>
                 </div>
-                
+                <p className="informationUser__contain__right__item__miniitem__nameSchool">
+                  Đại học Bách Khoa
+                </p>
+                <p className="informationUser__contain__right__item__miniitem__time">
+                  2015 - 2019
+                </p>
+              </div>
+              <div className="informationUser__contain__right__item__miniitem"
+              style={{ display: checkJob ? "block" : "none" }}
+              >
+                <div className="informationUser__contain__right__item__miniitem__top">
+                  <p className="informationUser__contain__right__item__miniitem__position">
+                    <strong>Công nghệ thông tin</strong>
+                  </p>
+                  <div className="informationUser__contain__right__item__miniitem__action">
+                    <img
+                      style={{ cursor: "pointer" }}
+                      src={vector2}
+                      alt=""
+                      onClick={() => setOpenAbout(!openABout)}
+                    />
+                    <span class="material-symbols-outlined">delete</span>
+                  </div>
                 </div>
-                <p className="informationUser__contain__right__item__miniitem__nameSchool">Đại học Bách Khoa</p>
-                <p className="informationUser__contain__right__item__miniitem__time">2015 - 2019</p>
+                <p className="informationUser__contain__right__item__miniitem__nameSchool">
+                  Đại học Bách Khoa
+                </p>
+                <p className="informationUser__contain__right__item__miniitem__time">
+                  2015 - 2019
+                </p>
               </div>
               <img src={vetor} alt="" onClick={() => setOpenEdu(!openEdu)} />
             </div>
 
-            <div className="informationUser__contain__right__item">
+            <div className="informationUser__contain__right__item" style={{ display: checkExp ? "block" : "none" }}>
               <p>Kinh Nghiệm Làm Việc</p>
               <div className="informationUser__contain__right__item__miniitem">
                 <div className="informationUser__contain__right__item__miniitem__top">
-                <p className="informationUser__contain__right__item__miniitem__position"><strong>Công nghệ thông tin</strong></p>
-                <div className="informationUser__contain__right__item__miniitem__action">
-                <img
-                style={{ cursor: "pointer" }}
-                src={vector2}
-                alt=""
-                onClick={() => setOpenAbout(!openABout)}
-              />
-                <span class="material-symbols-outlined">
-                delete
-                </span>
+                  <p className="informationUser__contain__right__item__miniitem__position">
+                    <strong>Công nghệ thông tin</strong>
+                  </p>
+                  <div className="informationUser__contain__right__item__miniitem__action">
+                    <img
+                      style={{ cursor: "pointer" }}
+                      src={vector2}
+                      alt=""
+                      onClick={() => setOpenAbout(!openABout)}
+                    />
+                    <span class="material-symbols-outlined">delete</span>
+                  </div>
                 </div>
-                
-                </div>
-                <p className="informationUser__contain__right__item__miniitem__nameSchool">Đại học Bách Khoa</p>
-                <p className="informationUser__contain__right__item__miniitem__time">2015 - 2019</p>
+                <p className="informationUser__contain__right__item__miniitem__nameSchool">
+                  Đại học Bách Khoa
+                </p>
+                <p className="informationUser__contain__right__item__miniitem__time">
+                  2015 - 2019
+                </p>
               </div>
               <div className="informationUser__contain__right__item__miniitem">
                 <div className="informationUser__contain__right__item__miniitem__top">
-                <p className="informationUser__contain__right__item__miniitem__position"><strong>Công nghệ thông tin</strong></p>
-                <div className="informationUser__contain__right__item__miniitem__action">
-                <img
-                style={{ cursor: "pointer" }}
-                src={vector2}
-                alt=""
-                onClick={() => setOpenAbout(!openABout)}
-              />
-                <span class="material-symbols-outlined">
-                delete
-                </span>
+                  <p className="informationUser__contain__right__item__miniitem__position">
+                    <strong>Công nghệ thông tin</strong>
+                  </p>
+                  <div className="informationUser__contain__right__item__miniitem__action">
+                    <img
+                      style={{ cursor: "pointer" }}
+                      src={vector2}
+                      alt=""
+                      onClick={() => setOpenAbout(!openABout)}
+                    />
+                    <span class="material-symbols-outlined">delete</span>
+                  </div>
                 </div>
-                
-                </div>
-                <p className="informationUser__contain__right__item__miniitem__nameSchool">Đại học Bách Khoa</p>
-                <p className="informationUser__contain__right__item__miniitem__time">2015 - 2019</p>
+                <p className="informationUser__contain__right__item__miniitem__nameSchool">
+                  Đại học Bách Khoa
+                </p>
+                <p className="informationUser__contain__right__item__miniitem__time">
+                  2015 - 2019
+                </p>
               </div>
-              
+
               <img src={vetor} alt="" onClick={() => setOpenExp(!openExp)} />
             </div>
 
-            <div className="informationUser__contain__right__item">
+            <div className="informationUser__contain__right__item" style={{ display: checkJob ? "block" : "none" }}>
               <p>Dự Án Cá Nhân</p>
               <div className="informationUser__contain__right__item__miniitem">
                 <div className="informationUser__contain__right__item__miniitem__top">
-                <p className="informationUser__contain__right__item__miniitem__position"><strong>Công nghệ thông tin</strong></p>
-                <div className="informationUser__contain__right__item__miniitem__action">
-                <img
-                style={{ cursor: "pointer" }}
-                src={vector2}
-                alt=""
-                onClick={() => setOpenAbout(!openABout)}
-              />
-                <span class="material-symbols-outlined">
-                delete
-                </span>
+                  <p className="informationUser__contain__right__item__miniitem__position">
+                    <strong>Công nghệ thông tin</strong>
+                  </p>
+                  <div className="informationUser__contain__right__item__miniitem__action">
+                    <img
+                      style={{ cursor: "pointer" }}
+                      src={vector2}
+                      alt=""
+                      onClick={() => setOpenAbout(!openABout)}
+                    />
+                    <span class="material-symbols-outlined">delete</span>
+                  </div>
                 </div>
-                
-                </div>
-                <p className="informationUser__contain__right__item__miniitem__nameSchool">Đại học Bách Khoa</p>
-                <p className="informationUser__contain__right__item__miniitem__time">2015 - 2019</p>
+                <p className="informationUser__contain__right__item__miniitem__nameSchool">
+                  Đại học Bách Khoa
+                </p>
+                <p className="informationUser__contain__right__item__miniitem__time">
+                  2015 - 2019
+                </p>
               </div>
               <img
                 src={vetor}
@@ -341,26 +441,29 @@ export default function InformationUserB() {
               />
             </div>
 
-            <div className="informationUser__contain__right__item">
+            <div className="informationUser__contain__right__item" style={{ display: checkCerti ? "block" : "none" }}>
               <p>Chứng Chỉ</p>
               <div className="informationUser__contain__right__item__miniitem">
                 <div className="informationUser__contain__right__item__miniitem__top">
-                <p className="informationUser__contain__right__item__miniitem__position"><strong>Công nghệ thông tin</strong></p>
-                <div className="informationUser__contain__right__item__miniitem__action">
-                <img
-                style={{ cursor: "pointer" }}
-                src={vector2}
-                alt=""
-                onClick={() => setOpenAbout(!openABout)}
-              />
-                <span class="material-symbols-outlined">
-                delete
-                </span>
+                  <p className="informationUser__contain__right__item__miniitem__position">
+                    <strong>Công nghệ thông tin</strong>
+                  </p>
+                  <div className="informationUser__contain__right__item__miniitem__action">
+                    <img
+                      style={{ cursor: "pointer" }}
+                      src={vector2}
+                      alt=""
+                      onClick={() => setOpenAbout(!openABout)}
+                    />
+                    <span class="material-symbols-outlined">delete</span>
+                  </div>
                 </div>
-                
-                </div>
-                <p className="informationUser__contain__right__item__miniitem__nameSchool">Đại học Bách Khoa</p>
-                <p className="informationUser__contain__right__item__miniitem__time">2015 - 2019</p>
+                <p className="informationUser__contain__right__item__miniitem__nameSchool">
+                  Đại học Bách Khoa
+                </p>
+                <p className="informationUser__contain__right__item__miniitem__time">
+                  2015 - 2019
+                </p>
               </div>
               <img src={vetor} alt="" onClick={() => setOpenCert(!openCert)} />
             </div>

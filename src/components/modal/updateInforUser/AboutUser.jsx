@@ -45,8 +45,7 @@ export default function AboutUser({isOpen,close}) {
         </div>
         
       </div>
-    </div>
-      
+      </div>
     </>
   )
 }
