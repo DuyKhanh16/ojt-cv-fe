@@ -70,7 +70,6 @@ export default function InformationUserB() {
       <UpdateInforUser
         isOpen={openUpdateUser}
         close={close}
-        user={user}
       ></UpdateInforUser>
       <Skill></Skill>
       <Confirm></Confirm>

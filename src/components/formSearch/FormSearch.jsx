@@ -120,7 +120,7 @@ export default function FormSearch() {
           </div>
           <div className="form__search--name"></div>
           {token ? (
-            <p>{info.name}</p>
+            <p>{info?.name}</p>
           ) : (
             <Button className="bnt-1">
               {" "}
