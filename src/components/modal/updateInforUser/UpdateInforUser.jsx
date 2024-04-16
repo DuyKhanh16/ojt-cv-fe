@@ -1,10 +1,61 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import './formModal.scss'
 import './UpdateInforUser.scss'
 import logo from '../../../assets/images/main/logo.png'
 import sua from '../../../assets/images/main/sualogo.png'
 import deletea from '../../../assets/images/main/delete.png'
+import privateAxios from '../../../config/private.axios'
 export default function UpdateInforUser({isOpen,close}) {
+     const [user, setUser] = useState({});
+     const [userUpdate, setUserUpdate] = useState({
+       name: '',
+       birthday: '',
+       gender: '',
+       phone: '',
+       address: '',
+       position: '',
+       link_git: ''
+     });
+   
+     const getUser = () => {
+       privateAxios.get("api/v2/candidates/getInfor")
+         .then((res) => {
+           console.log("API response data:", res.data.data);
+           setUser(res.data.data);
+           setUserUpdate({
+             name: res.data.data.name,
+             address: res.data.data.address,
+             phone: res.data.data.phone,
+             gender: res.data.data.gender,
+             link_git: res.data.data.link_git,
+             birthday: res.data.data.birthday,
+             position: res.data.data.position
+           });
+         })
+         .catch((error) => {
+           console.error("Error:", error);
+         });
+     };
+   
+     useEffect(() => {
+       getUser();
+     }, []);
+   
+     const getChange = (e) => {
+       setUserUpdate({ ...userUpdate, [e.target.name]: e.target.value });
+     };
+     console.log(userUpdate);
+     const updateInfor = async () => {
+      await privateAxios
+         .patch(`/api/v2/candidates/updateInfoCandidate`,userUpdate)
+         .then((res) => {
+           console.log("API response data:", res);
+         })
+         .catch((error) => {
+           console.error("Error:", error);
+         });
+       close();
+     }
   return (
     <>
     <div style={{display: isOpen?'block':'none'}}>
@@ -26,39 +77,70 @@ export default function UpdateInforUser({isOpen,close}) {
         <div className="updateInforUser__table aboutUser inforUserUpdate">
            <div className='inforUserItem'>
                 <label htmlFor="">Họ và tên </label>
-                <input type="text" placeholder='ABCde'/>
+                <input 
+                onChange={getChange} 
+                value={userUpdate?.name}
+                name='name'
+                type="text" placeholder='ABCde'/>
            </div>
            <div className='inforUserItem'>
-                <label htmlFor="">Chức danh </label>
-                <input type="text" placeholder='ABCde'/>
+                <label htmlFor="">Chuyên môn </label>
+                <input 
+                onChange={getChange} 
+                value={userUpdate?.position}
+                name='position'
+                type="text" placeholder='ABCde'/>
            </div>
            <div className='inforUserItem'>
                 <label htmlFor="">Địa chỉ </label>
-                <input type="text" placeholder='ABCde'/>
+                <input 
+                onChange={getChange} 
+                value={userUpdate?.address}
+                name='address'
+                type="text" placeholder='ABCde'/>
            </div>
-           <div className='inforUserItem'>
+           {/* <div className='inforUserItem'>
                 <label htmlFor="">Email </label>
-                <input type="text" placeholder='ABCde'/>
-           </div>
+                <input 
+                onChange={getChange} 
+                value={userUpdate?.email}
+                name='email'
+                type="text" placeholder='ABCde'/>
+           </div> */}
            <div className='inforUserItem'>
                 <label htmlFor="">SĐT </label>
-                <input type="text" placeholder='ABCde'/>
+                <input onChange={getChange}
+                value={userUpdate?.phone}
+                name='phone' 
+                type="text" placeholder='ABCde'/>
            </div>
            <div className='inforUserItem'>
                 <label htmlFor="">DOB </label>
-                <input type="text" placeholder='ABCde'/>
+                <input 
+                onChange={getChange}
+                value={userUpdate?.birthday}
+                name='birthday'
+                 type="text" placeholder='ABCde'/>
            </div>
            <div className='inforUserItem'>
                 <label htmlFor="">Giới tính </label>
-                <input type="text" placeholder='ABCde'/>
+                <input 
+                onChange={getChange} 
+                value={userUpdate?.gender}
+                name='gender'
+                type="text" placeholder='ABCde'/>
            </div>
            <div className='inforUserItem'>
-                <label htmlFor="">Trang cá nhân </label>
-                <input type="text" placeholder='ABCde'/>
+                <label htmlFor="">Trang github </label>
+                <input 
+                onChange={getChange}
+                value={userUpdate?.link_git}
+                name='link_git'
+                type="text" placeholder='ABCde'/>
            </div>
         </div>
         <div className="updateInforUser__button">
-          <button>Cập nhập</button>
+          <button onClick={updateInfor}>Cập nhật</button>
           <button className='updateInforUser__button__cancel' onClick={()=>close()}>Hủy Bỏ</button>
         </div>
         </div>
