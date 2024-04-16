@@ -17,13 +17,13 @@ export default function HeaderCompany() {
           <span class="material-symbols-outlined " >menu</span>
           </div>
         <div className="headerCompany__navbar" style={{ height:isOpen?"300px ":"0px" }}>
-          <NavLink to="/" className="navbar_item">
+          <NavLink to="/company" className="navbar_item">
             Trang chủ
           </NavLink>
-          <NavLink to="/" className="navbar_item">
+          <NavLink to="/company/alluserapply" className="navbar_item">
             Quản lý ứng viên
           </NavLink>
-          <NavLink to="/" className="navbar_item">
+          <NavLink to="/company/alljob" className="navbar_item">
             Quản lý việc làm
           </NavLink>
         </div>
