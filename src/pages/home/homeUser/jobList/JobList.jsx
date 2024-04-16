@@ -5,6 +5,7 @@ import './jobList.scss'
 import Header from '../../../../components/header/Header';
 import FormSearch from '../../../../components/formSearch/FormSearch';
 import Footer from '../../../../components/footer/Footer';
+import { useNavigate } from 'react-router';
 
 export default function JobList() {
   const [ListCity, setListCity] = React.useState([]);
@@ -73,6 +74,7 @@ export default function JobList() {
       companyName:"Google"
     },
   ]);
+  const navigate = useNavigate();
   async function getListCity() {
     try {
       const result = await axios.get("https://vapi.vnappmob.com/api/province/");
@@ -86,8 +88,6 @@ export default function JobList() {
   }, [])
   return (
     <>
-    <Header></Header>
-    <FormSearch></FormSearch>
     <div className='user-ListJob'>
       <div className='user-ListJob-title'>
         <p><span>Trang chủ /</span> Việc làm</p>
@@ -115,7 +115,7 @@ export default function JobList() {
       </div>
       <div className='user-ListJob-jobRender'>
         {ListJob.map((job) => {
-          return( <div key={job.Id} className='user-ListJob-job'>
+          return( <div key={job.Id} className='user-ListJob-job' onClick={() => navigate(`/candidate/jobDetail/${job.Id}`)}>
             <p className='user-ListJob-job-title'>{job.title}</p>
             <div className='user-ListJob-job-typeSalary'>
               <p className='typeJob'>{job.type}</p> 
@@ -138,7 +138,6 @@ export default function JobList() {
           })}
       </div>
     </div>
-    <Footer></Footer>
     </>
   )
 }

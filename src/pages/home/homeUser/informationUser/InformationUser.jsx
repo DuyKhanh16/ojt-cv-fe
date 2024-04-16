@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./InformationUser.scss";
 import Header from "../../../../components/header/Header";
 import Footer from "../../../../components/footer/Footer";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import vetor from "../../../../assets/images/main/Vector.png";
 import vector1 from "../../../../assets/images/main/Vector1.png";
 import cv1 from "../../../../assets/images/main/cv1.png";
@@ -33,6 +33,7 @@ export default function InformationUserB() {
   const [openProject, setOpenProject] = useState(false);
   const [openUpdateUser, setOpenUpdateUser] = useState(false);
   const [user, setUser] = useState({});
+  const navigate = useNavigate();
   const open = () => {
     setIsOpen(!isOpen);
   };
@@ -73,8 +74,6 @@ export default function InformationUserB() {
       ></UpdateInforUser>
       <Skill></Skill>
       <Confirm></Confirm>
-      <Header></Header>
-      <FormSearch></FormSearch>
       <UpdateInforUser></UpdateInforUser>
       <div className="informationUser">
         <div className="informationUser__navbar2">
@@ -135,7 +134,7 @@ export default function InformationUserB() {
               </p>
             </div>
             <div className="informationUser__contain__left__button">
-              <button>Xem Và Tải CV</button>
+              <button onClick={()=> navigate("/allCV")}>Xem Và Tải CV</button>
             </div>
           </div>
 
@@ -228,7 +227,6 @@ export default function InformationUserB() {
                 onClick={() => setOpenAbout(!openABout)}
               />
             </div>
-
             <div className="informationUser__contain__right__item">
               <p>Học Vấn</p>
               <input
@@ -271,7 +269,6 @@ export default function InformationUserB() {
           </div>
         </div>
       </div>
-      <Footer></Footer>
     </>
   );
 }

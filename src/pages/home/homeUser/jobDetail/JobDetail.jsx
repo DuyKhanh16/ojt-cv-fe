@@ -7,8 +7,7 @@ import "./JobDetail.scss";
 export default function JobDetail() {
   return (
     <div>
-      <Header></Header>
-      <FormSearch></FormSearch>
+      
       <div className="job__detail--container1">
         <div className="job__detail--title1" style={{ color: "#767F8C" }}>
           <p>Trang chủ / </p> <p>Việc làm / </p> <p>Graphics Designer /</p>{" "}
@@ -608,7 +607,6 @@ export default function JobDetail() {
             </div>
           </div>
         </div>
-        <Footer></Footer>
       </div>
       </div>
   );
