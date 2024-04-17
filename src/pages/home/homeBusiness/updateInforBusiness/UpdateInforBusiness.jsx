@@ -8,6 +8,8 @@ import { Button, Modal, notification } from "antd";
 import axios from "axios";
 import privateAxios from "../../../../config/private.axios";
 import publicAxios from "../../../../config/pulic.axios";
+import CkEditorComponent from "../../../../config/CkEditorComponent";
+import logo from "../../../../assets/images/main/Software code testing-pana 1.png";
 
 export default function UpdateInforBusiness() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -64,24 +66,25 @@ export default function UpdateInforBusiness() {
   const getinfoCompany = () => {
     const res2 = privateAxios.get("api/v2/companies/getInfor");
     res2.then((res) => {
+      console.log(res)
       setInfoCompany(res.data.data);
       const companyData = res.data.data;
       // console.log(companyData,"dữ liệu");
       setUpdateCompany({
         // Giữ lại các giá trị hiện tại của updateCompany
-        name: companyData.name,
-        size: companyData.size,
-        link_facebook: companyData.link_facebook,
-        website: companyData.website,
-        description: companyData.description,
-        email: companyData.account_company_id.email,
-        phone: companyData.phone,
-        photo: companyData.logo,
-        typeCompany_id: companyData.typeCompany_id.id,
-        policy: companyData.policy,
+        name: companyData?.name,
+        size: companyData?.size,
+        link_facebook: companyData?.link_facebook,
+        website: companyData?.website,
+        description: companyData?.description,
+        email: companyData?.account_company_id.email,
+        phone: companyData?.phone,
+        photo: companyData?.logo,
+        typeCompany_id: companyData?.typeCompany_id.id,
+        policy: companyData?.policy,
       });
-      setListBrand(companyData.address_company);
-      Settycompany(companyData.typeCompany_id.name);
+      setListBrand(companyData?.address_company);
+      Settycompany(companyData?.typeCompany_id.name);
     });
   };
   //  lấy các type company
@@ -146,7 +149,6 @@ export default function UpdateInforBusiness() {
   // viêt các hàm
   //  hàm validate thêm địa chỉ công ty
 
-
   // modal 1
   const showModal = () => {
     setIsModalOpen(true);
@@ -167,13 +169,13 @@ export default function UpdateInforBusiness() {
       errors.phone = "Số điện thoại không được để trống";
       hasError = true;
     }
-    if (updateCompany.size.trim() === "") {
-      errors.size = "Số lượng nhân viên không được để trống";
-      hasError = true;
-    } else if (!/^\d+$/.test(updateCompany.size.trim())) {
-      errors.size = "Số lượng nhân viên chỉ được nhập số";
-      hasError = true;
-    }
+    // if (updateCompany.size.trim() === "") {
+    //   errors.size = "Số lượng nhân viên không được để trống";
+    //   hasError = true;
+    // } else if (!/^\d+$/.test(updateCompany.size.trim())) {
+    //   errors.size = "Số lượng nhân viên chỉ được nhập số";
+    //   hasError = true;
+    // }
 
     // Nếu có lỗi, cập nhật state để hiển thị thông báo lỗi
     if (hasError) {
@@ -243,37 +245,36 @@ export default function UpdateInforBusiness() {
     setIsModalOpen2(true);
   };
 
-  const handleOk2 = async () => { 
+  const handleOk2 = async () => {
     // console.log(address);
-    if(address===""){
+    if (address === "") {
       notification.error({
-        message:"Hãy điền đủ thông tin"
-        ,duration:2
-      })
-      return
+        message: "Hãy điền đủ thông tin",
+        duration: 2,
+      });
+      return;
     }
-      try {
-        const newAdress = {
-          address: `${address} - ${ward} - ${district} - ${city}`,
-        };
-        const res = await axios.post(
-          `http://localhost:3000/api/v2/companies/create-address/${infoCompany.id}`,
-          newAdress
-        );
-        notification.success({
-          message: "Thêm Địa chỉ thành công",
-          duration: 2,
-        });
-        setIsModalOpen2(false);
-        setCity("");
-        setDistrict("");
-        setWard("");
-        setAddress("");
-        SetFlag(!flag);
-      } catch (error) {
-        console.log(error);
-      }
-    
+    try {
+      const newAdress = {
+        address: `${address} - ${ward} - ${district} - ${city}`,
+      };
+      const res = await axios.post(
+        `http://localhost:3000/api/v2/companies/create-address/${infoCompany.id}`,
+        newAdress
+      );
+      notification.success({
+        message: "Thêm Địa chỉ thành công",
+        duration: 2,
+      });
+      setIsModalOpen2(false);
+      setCity("");
+      setDistrict("");
+      setWard("");
+      setAddress("");
+      SetFlag(!flag);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleCancel2 = () => {
@@ -303,9 +304,30 @@ export default function UpdateInforBusiness() {
       }
     }
   };
+
+  // ckeditor
+  const [text, setText] = useState("");
+  const handleTakeValue = (value) => {
+    setText(value);
+  };
+  console.log(infoCompany)
   return (
     <>
-      <div>
+    
+      <div style={{display:(infoCompany?.logo == null || infoCompany.website==null || infoCompany.description==null || infoCompany.size==null ? 'block' : 'none')}} >
+        <div style={{alignItems:"center"}}>
+          <img src={logo}></img>
+          <h3>
+            Chao mung {infoCompany?.name}, Ban hay cap nhat thong tin cua minh
+          </h3>
+          <div className="user-companyView-info-feature">
+          <button onClick={showModal}>Chỉnh sửa</button>
+        </div>
+         
+        </div>
+      </div>
+      
+      <div style={{display:(infoCompany?.logo == null || infoCompany.website==null || infoCompany.description==null || infoCompany.size==null ? 'none' : 'block')}} >
         <div className="user-ListJob-title">
           <p>
             <span>Trang chủ / Thông tin doanh nghiệp /</span> Doanh nghiệp của
@@ -323,13 +345,13 @@ export default function UpdateInforBusiness() {
                   style={{ borderRadius: "50%" }}
                   width={96}
                   height={96}
-                  src={infoCompany.logo}
+                  src={infoCompany?.logo}
                 />
               </div>
               <div style={{ marginLeft: "24px" }}>
                 <p className="user-companyView-info-company-name">
                   {/* name */}
-                  {infoCompany.name}
+                  {infoCompany?.name}
                 </p>
                 <p style={{ fontSize: "14px", color: "#5E6670" }}>
                   <span>
@@ -338,7 +360,7 @@ export default function UpdateInforBusiness() {
                       class="fa-solid fa-user"
                     ></i>{" "}
                     {/* số lượng nhân viên */}
-                    {infoCompany.size} Người
+                    {infoCompany?.size} Người
                   </span>{" "}
                   <span style={{ marginLeft: "32px" }}>
                     {" "}
@@ -360,7 +382,7 @@ export default function UpdateInforBusiness() {
                 </p>
                 <p className="user-companyView-info-company-web">
                   {/* {companyDetail.web}  */}
-                  {infoCompany.website}
+                  {infoCompany?.website}
                 </p>
               </div>
             </div>
@@ -377,7 +399,7 @@ export default function UpdateInforBusiness() {
             width={600}
           >
             <div className="company__register-input__address">
-              <label htmlFor="">Địa chỉ công ty</label>
+        <label htmlFor="">Địa chỉ công ty</label>
               <br />
               <div style={{ display: "flex", gap: "10px" }}>
                 <select
@@ -450,7 +472,7 @@ export default function UpdateInforBusiness() {
                     height: "40px",
                     border: "1px solid #E7F0FA",
                     borderRadius: "5px",
-                  }}
+            }}
                   type="text"
                 ></input>
                 {errors.address && <div className="error">{errors.address}</div>}
@@ -532,7 +554,7 @@ export default function UpdateInforBusiness() {
                         ...updateCompany,
                         phone: e.target.value,
                       })
-                    }
+              }
                     value={updateCompany.phone}
                     name="phone"
                     type="text"
@@ -612,7 +634,7 @@ export default function UpdateInforBusiness() {
             <p>Mô tả Doanh nghiệp</p>
             <textarea
               onChange={(e) =>
-                setUpdateCompany({
+          setUpdateCompany({
                   ...updateCompany,
                   description: e.target.value,
                 })
@@ -650,12 +672,17 @@ export default function UpdateInforBusiness() {
                   class="fa-regular fa-pen-to-square"
                 ></i>
               </span>
+              <CkEditorComponent getValue={handleTakeValue} />
+              <div
+                  className="bg-white p-5"
+                  dangerouslySetInnerHTML={{ __html: text }}
+                />
             </p>
-            {infoCompany.description}
+            {infoCompany?.description}
             <p style={{ fontWeight: "500", fontSize: "18px", color: "black" }}>
               Chính sách
             </p>
-            {infoCompany.policy}
+            {infoCompany?.policy}
             <div
               style={{
                 width: "100%",
@@ -688,10 +715,10 @@ export default function UpdateInforBusiness() {
                     paddingRight: "10px",
                   }}
                 >
-                  <i style={{ color: "#BC2228" }} class="fa-solid fa-plus"></i>
+            <i style={{ color: "#BC2228" }} class="fa-solid fa-plus"></i>
                 </div>
               </div>
-              {listBrand.map((item) => (
+              {listBrand?.map((item) => (
                 <div
                   style={{ display: "flex", alignItems: "center" }}
                   className="container"
@@ -766,7 +793,7 @@ export default function UpdateInforBusiness() {
                 </p>
                 <p>
                   <i class="fa-regular fa-envelope"></i>
-                </p>
+          </p>
               </div>
             </div>
           </div>
