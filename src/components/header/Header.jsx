@@ -40,7 +40,7 @@ export default function Header() {
           )}
           {token ? (
             <>
-              <NavLink to={"/candidate/inforCV"} className="navbar_item">
+              <NavLink to={"/candidate/inforcv"} className="navbar_item">
                 CV của bạn
               </NavLink>
             </>
