@@ -20,7 +20,6 @@ import AllUserApply from "./pages/home/homeBusiness/allUserApply/AllUserApply";
 import Alljob from "./pages/home/homeBusiness/allJob/Alljob";
 import HomeAdmin from "./pages/home/admin/homeAdmin/HomeAdmin";
 import MainBusiness from "./pages/home/homeBusiness/mainBusiness/MainBusiness";
-
 import {
   Outlet,
   Link,
@@ -31,6 +30,7 @@ import {
 import AdminChart from "./pages/home/admin/adminChart/AdminChart";
 import Router from "./layouts/router/Router";
 import CompanyRoute from "./layouts/companyRoute/CompanyRoute";
+import ApplyJob from "./pages/home/homeUser/applyJob/ApplyJob";
 
 const router = createBrowserRouter([
   /* source chung */
@@ -40,8 +40,9 @@ const router = createBrowserRouter([
     children: [
       {
         path: "",
-        element: <Main />,}
-    ]
+        element: <Main />,
+      },
+    ],
   },
   {
     path: "/login",
@@ -56,47 +57,50 @@ const router = createBrowserRouter([
     element: <CompanyRegister />,
   },
   {
-    path: "/allCV",
+    path: "/allcv",
     element: <AllCV></AllCV>,
   },
- 
+
   /* het source chung */
 
   /* candidate */
-  
+
   {
     path: "/candidate",
     element: <Router />,
     children: [
       {
-        path: "",  // Correct way to specify a nested route
-        element: <Main />
+        path: "", // Correct way to specify a nested route
+        element: <Main />,
       },
       {
-        path: "jobList",
+        path: "job-list",
         element: <JobList></JobList>,
       },
       {
-        path: "jobDetail/:id",
+        path: "job-detail/:id",
         element: <JobDetail></JobDetail>,
       },
       {
-        path: "inforCV",
+        path: "inforcv",
         element: <InformationUserB></InformationUserB>,
       },
-      
+
       {
-        path: "companyDetail",
+        path: "company-detail",
         element: <InformationComany></InformationComany>,
       },
       {
         path: "candidate-outstanding",
         element: <InformationUser></InformationUser>,
       },
-      
-    ]
+      {
+        path:"apply-job",
+        element: <ApplyJob></ApplyJob>,
+      }
+    ],
   },
-  
+
   /* het candidate */
 
   /* company */
@@ -129,7 +133,7 @@ const router = createBrowserRouter([
         element: <UpdateJobBusiness />,
       },
       {
-        path: "updateinforCompany",
+        path: "update-infor-company",
         element: <UpdateInforBusiness />,
       },
     ],

@@ -176,6 +176,50 @@
             
             
           }
+          .alljob__content__bodyTable__item__description {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            .alljob__content__bodyTable__item__description__showbtn {
+              width: 60%;
+              height: 40px;
+              background-color: #1dc071;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              font-size: 1vw;
+              font-weight: 500;
+              line-height: 30px;
+              color: #fff;
+              border-radius: 5px;
+              border: none;
+              cursor: pointer;
+              user-select: none;
+              position: relative;
+              isolation: isolate;
+              overflow: hidden;
+              &:hover::before {
+                left: auto;
+                right: 0;
+                width: 100%;
+              }
+              &::before {
+                content: "";
+                position: absolute;
+                left: 0;
+                right: auto;
+                top: 0;
+                height: 100%;
+                width: 0;
+                background-color: #fff;
+                opacity: 0.1;
+                z-index: -1;
+                transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+              }
+            }
+              
+          
+          }
           .alljob__content__bodyTable__item__action {
             display: flex;
             gap: 1vw;

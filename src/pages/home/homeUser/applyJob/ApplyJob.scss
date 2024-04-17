@@ -1,0 +1,201 @@
+body::-webkit-scrollbar {
+  display: none;
+}
+body {
+  font-family: "Cabin", sans-serif;
+  font-size: 30px;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+.applyJob__container {
+  width: 100vw;
+  height: auto;
+  
+  .applyJob__bg {
+    width: 100%;
+    overflow: hidden;
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    background-color: #f7f7f7;
+    z-index: -1;
+  }
+  .applyJob__bg::before {
+    content: " ";
+    width: 120vw;
+    position: absolute;
+    left: -12%;
+    top: 12vw;
+    height: 400px;
+    background: linear-gradient(270.08deg, #54151C 7.4%, #121212 54.81%);
+    border-radius: 0 0 70% 50%;
+  }
+  .applyJob__content {
+    margin: 10vw auto;
+    width: 60%;
+    background-color: #f7f7f7;
+    height: 800px;
+    box-shadow: 0px 4px 20px rgba(0,0,0,.06);
+    border-radius: 8px;
+    padding: 32px !important;
+    background-color: #fff !important;
+    display: flex;
+    flex-direction: column;
+    gap: 1vw;
+    h2 {
+      margin-bottom: 24px !important;
+      font-size: 1.8vw;
+      font-weight: 900;
+    }
+    .applyJob__content__input {
+      width: 100%;
+      height: 8vh;
+      input {
+        width: 100%;
+        height: 80%;
+        padding: 2vw;
+        font-size: 1.2vw;
+        border-radius: 5px;
+      border-color: #0ab305;
+      box-shadow: 0 0 0 0.1rem rgba(10,179,5,.25);
+      }
+    }
+    .applyJob__content__inputImage {
+      width: 100%;
+      height: 40vh;
+      margin-top: 2vw;
+      .applyJob__content__inputImage__text {
+        font-size: 1.5vw;
+        font-weight: 700;
+      }
+      .applyJob__content__inputImage__image {
+        width: 100%;
+        height: 40%;
+        margin-top: 20px;
+        background-color: #FFF5F5;
+        border: 0.5px solid red;
+        padding: 1vw;
+        border-radius: 5px;
+        .applyJob__content__inputImage__image--top {
+          width: 100%;
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          .applyJob__content__inputImage__image--top__circle {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            padding: 5px;
+            border: 2px solid red;
+            background-color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            .applyJob__content__inputImage__image--top__circle--inner {
+              background-color: red;
+              width:8px;
+              height: 8px;
+              border-radius: 50%;
+            }
+          }
+          .applyJob__content__inputImage__image--top__text {
+            p {
+              font-size: 18px;
+              font-weight: 500;
+            }
+           
+          }
+        }
+        .applyJob__content__inputImage__image--middle {
+          width: 70%;
+          margin-left: 2vw;
+          margin-top: 10px;
+          height: 30px;
+          font-size: 16px;
+          input {
+            height: 100%;
+          }
+
+        }
+        .applyJob__content__inputImage__image--bottom {
+          font-size: 14px;
+          color: rgb(187, 187, 187);
+          margin-left: 2vw;
+
+        }
+      }
+      .applyJob__content__inputImage__skill {
+        width: 100%;
+        height: auto;
+        margin-top: 20px;
+        .applyJob__content__inputImage__skill__text {
+          font-size: 1.5vw;
+          font-weight: 700;
+        }
+        .applyJob__content__inputImage__skill__textbot {
+          font-size: 1.2vw;
+          font-weight: 700;
+          color: rgb(91, 89, 89);
+  
+        }
+        .applyJob__content__inputImage__skill__textarea {
+          width: 100%;
+          height: auto;
+          border: 0.5px solid #0ab305;
+          margin-top: 10px;
+          padding: 1vw;
+          font-size: 18px;
+          resize: "none",
+        }
+        .applyJob__content__inputImage__skill__textunder {
+          font-size: 18px;
+          color: rgb(134, 132, 132);
+          
+        }
+      }
+    }
+    .applyJob__content__button {
+      width: 100%;
+      height: 60px;
+      background-color: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      font-weight: 900;
+      line-height: 30px;
+      color: #fff;
+      border-radius: 5px;
+      border: none;
+      margin-top: 140px;
+      cursor: pointer;
+      user-select: none;
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+
+      &:hover::before {
+        left: auto;
+        right: 0;
+        width: 100%;
+      }
+
+      &::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: auto;
+        top: 0;
+        height: 100%;
+        width: 0;
+        background-color: #fff;
+        opacity: 0.1;
+        z-index: -1;
+        transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+      }
+    }
+    
+  }
+}

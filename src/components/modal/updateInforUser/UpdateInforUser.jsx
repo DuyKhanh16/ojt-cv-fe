@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { memo, useEffect, useState } from 'react'
 import './formModal.scss'
 import './UpdateInforUser.scss'
 import logo from '../../../assets/images/main/logo.png'
@@ -6,7 +6,7 @@ import sua from '../../../assets/images/main/sualogo.png'
 import deletea from '../../../assets/images/main/delete.png'
 import privateAxios from '../../../config/private.axios'
 import { message, notification } from 'antd'
-export default function UpdateInforUser({isOpen,close}) {
+ function UpdateInforUser({isOpen,close}) {
      const [user, setUser] = useState({});
       const [flag, setFlag]= useState(0);
      const [userUpdate, setUserUpdate] = useState({
@@ -144,3 +144,4 @@ export default function UpdateInforUser({isOpen,close}) {
     </>
   )
 }
+export default memo(UpdateInforUser)

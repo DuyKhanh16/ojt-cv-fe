@@ -1,214 +1,756 @@
-import React from 'react';
-import Header from '../../../../components/header/Header';
-import FormSearch from '../../../../components/formSearch/FormSearch';
-import Footer from '../../../../components/footer/Footer';
-import map from '../../../../assets/images/map.jpeg';
-import './updateInfoBusinis.scss';
+import React, { useEffect, useState } from "react";
+import Header from "../../../../components/header/Header";
+import FormSearch from "../../../../components/formSearch/FormSearch";
+import Footer from "../../../../components/footer/Footer";
+import map from "../../../../assets/images/map.jpeg";
+import "./updateInfoBusinis.scss";
+import { Button, Modal, notification } from "antd";
+import axios from "axios";
+import privateAxios from "../../../../config/private.axios";
+import publicAxios from "../../../../config/pulic.axios";
+import CkEditorComponent from "../../../../config/CkEditorComponent";
+import logo from "../../../../assets/images/main/Software code testing-pana 1.png";
 
 export default function UpdateInforBusiness() {
-  const [companyDetail, setCompanyDetail] = React.useState({
-    nameCompany: 'FPT Software',
-    address:
-      'Đường D1, Khu Công Nghệ Cao, Phường Tân Phú, Quận 9, Thành phố Hồ Chí Minh',
-    logo: 'https://upload.wikimedia.org/wikipedia/commons/2/29/FPT_Software_Logo.png',
-    describe: [
-      'Velstar is a Shopify Plus agency, and we partner with brands to help them grow, we also do the same with our people!',
-      "Here at Velstar, we don't just make websites, we create exceptional digital experiences that consumers love. Our team of designers, developers, strategists, and creators work together to push brands to the next level. From Platform Migration, User Experience & User Interface Design, to Digital Marketing, we have a proven track record in delivering outstanding eCommerce solutions and driving sales for our clients.",
-      'The role will involve translating project specifications into clean, test-driven, easily maintainable code. You will work with the Project and Development teams as well as with the Technical Director, adhering closely to project plans and delivering work that meets functional & non-functional requirements. You will have the opportunity to create new, innovative, secure and scalable features for our clients on the Shopify platform',
-      "Want to work with us? You're in good company!",
-    ],
-    policy: [
-      'Great troubleshooting and analytical skills combined with the desire to tackle challenges head-on',
-      '3+ years of experience in back-end development working either with multiple smaller projects simultaneously or large-scale applications',
-      'Experience with HTML, JavaScript, CSS, PHP, Symphony and/or Laravel',
-      'Working regularly with APIs and Web Services (REST, GrapthQL, SOAP, etc)',
-      'Have experience/awareness in Agile application development, commercial off-the-shelf software, middleware, servers and storage, and database management.',
-      'Familiarity with version control and project management systems (e.g., Github, Jira)',
-      'Great troubleshooting and analytical skills combined with the desire to tackle challenges head-on',
-      'Ambitious and hungry to grow your career in a fast-growing agency',
-    ],
-    web: 'https://fptsoftware.com/',
-    typeCompany: 'OutSource',
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpen2, setIsModalOpen2] = useState(false);
+  const [flag, SetFlag] = useState(false);
+  const [showIcons, setShowIcons] = useState(false);
+  const [preview, setPreview] = useState(undefined);
+  const [selectedMedia, setSelectedMedia] = useState(null);
+  const [errors, setErrors] = useState({});
+
+  // api tỉnh
+
+  // tỉnh
+  const [dataCity, setDataCity] = useState([]);
+  const [dataDistrict, setDataDistrict] = useState([]);
+  const [dataWard, setDataWard] = useState([]);
+  const [city, setCity] = useState("");
+  const [district, setDistrict] = useState("");
+  const [ward, setWard] = useState("");
+  const [address, setAddress] = useState("");
+  // console.log(address)
+
+  const [infoCompany, setInfoCompany] = useState({});
+  const [listBrand, setListBrand] = useState([]);
+  const [listTypeCompany, setListTypeCompany] = useState([]);
+  const [typecompany, Settycompany] = useState("");
+  const [updateCompany, setUpdateCompany] = useState({
+    name: "",
+    phone: "",
+    email: "",
+    size: "",
+    photo: "",
+    link_facebook: "",
+    website: "",
+    description: "",
+    typeCompany_id: "",
+    policy: "",
   });
-  const [ListJob, setListJob] = React.useState([
-    {
-      Id: 1,
-      title: 'Fresher Java Developer',
-      type: 'Full-time',
-      salary: '2000$',
-      location: 'HCM, TP. HCM',
-      logo: 'https://cdn.pixabay.com/photo/2017/01/19/09/11/logo-google-1991840_1280.png',
-      companyName: 'Google',
-    },
-    {
-      Id: 2,
-      title: 'Fresher Java Developer',
-      type: 'Full-time',
-      salary: '2000$',
-      location: 'HCM, TP. HCM',
-      logo: 'https://cdn.pixabay.com/photo/2017/01/19/09/11/logo-google-1991840_1280.png',
-      companyName: 'Google',
-    },
-    {
-      Id: 3,
-      title: 'Fresher Java Developer',
-      type: 'Full-time',
-      salary: '2000$',
-      location: 'HCM, TP. HCM',
-      logo: 'https://cdn.pixabay.com/photo/2017/01/19/09/11/logo-google-1991840_1280.png',
-      companyName: 'Google',
-    },
-    {
-      Id: 4,
-      title: 'Fresher Java Developer',
-      type: 'Full-time',
-      salary: '2000$',
-      location: 'HCM, TP. HCM',
-      logo: 'https://cdn.pixabay.com/photo/2017/01/19/09/11/logo-google-1991840_1280.png',
-      companyName: 'Google',
-    },
-    {
-      Id: 5,
-      title: 'Fresher Java Developer',
-      type: 'Full-time',
-      salary: '2000$',
-      location: 'HCM, TP. HCM',
-      logo: 'https://cdn.pixabay.com/photo/2017/01/19/09/11/logo-google-1991840_1280.png',
-      companyName: 'Google',
-    },
-  ]);
-  const [ListUser, setListUser] = React.useState([
-    {
-      id: 1,
-      name: 'Nguyen Van A',
-      avarta:
-        'https://img.freepik.com/premium-vector/man-character_665280-46970.jpg',
-      type: 'Fresher',
-      field: 'Front-end',
-      skill: ['ReactJs', 'NodeJs'],
-      language: ['N2', 'Ielts 7.0'],
-      address: 'Ha Noi,Viet Nam',
-    },
-    {
-      id: 2,
-      name: 'Nguyen Van A',
-      avarta:
-        'https://img.freepik.com/premium-vector/man-character_665280-46970.jpg',
-      type: 'Fresher',
-      field: 'Front-end',
-      skill: ['ReactJs', 'NodeJs'],
-      language: ['N2', 'Ielts 7.0'],
-      address: 'Ha Noi,Viet Nam',
-    },
-    {
-      id: 3,
-      name: 'Nguyen Van A',
-      avarta:
-        'https://img.freepik.com/premium-vector/man-character_665280-46970.jpg',
-      type: 'Fresher',
-      field: 'Front-end',
-      skill: ['ReactJs', 'NodeJs'],
-      language: ['N2', 'Ielts 7.0'],
-      address: 'Ha Noi,Viet Nam',
-    },
-  ]);
+
+  const [errorMessages, setErrorMessages] = useState({
+    name: "",
+    phone: "",
+    email: "",
+    size: "",
+    photo: "",
+    link_facebook: "",
+    website: "",
+    description: "",
+    typeCompany_id: "",
+    policy: "",
+  });
+
+  // lấy thông tin company
+  const getinfoCompany = () => {
+    const res2 = privateAxios.get("api/v2/companies/getInfor");
+    res2.then((res) => {
+      console.log(res)
+      setInfoCompany(res.data.data);
+      const companyData = res.data.data;
+      // console.log(companyData,"dữ liệu");
+      setUpdateCompany({
+        // Giữ lại các giá trị hiện tại của updateCompany
+        name: companyData?.name,
+        size: companyData?.size,
+        link_facebook: companyData?.link_facebook,
+        website: companyData?.website,
+        description: companyData?.description,
+        email: companyData?.account_company_id.email,
+        phone: companyData?.phone,
+        photo: companyData?.logo,
+        typeCompany_id: companyData?.typeCompany_id.id,
+        policy: companyData?.policy,
+      });
+      setListBrand(companyData?.address_company);
+      Settycompany(companyData?.typeCompany_id.name);
+    });
+  };
+  //  lấy các type company
+  const getTypeCompany = () => {
+    const res = publicAxios.get("api/v2/typecompany/all");
+    res.then((res) => {
+      setListTypeCompany(res.data.data);
+    });
+  };
+
+  useEffect(() => {
+    getinfoCompany();
+    getTypeCompany();
+  }, [flag]);
+
+  // console.log(listBrand, "123123");
+
+  // api thành phố
+  const handleGetDataCity = async () => {
+    let data = await axios.get(`https://vapi.vnappmob.com/api/province/`);
+    // console.log(data.data.results);
+    setDataCity(data.data.results);
+  };
+  useEffect(() => {
+    handleGetDataCity();
+  }, []);
+  const handleCity = async (e) => {
+    let idCity = e.target.value;
+
+    const nameCity = dataCity.find((item) => item.province_name === idCity);
+
+    const numberCity = nameCity.province_id;
+    let data = await axios.get(
+      `https://vapi.vnappmob.com/api/province/district/${numberCity}`
+    );
+    setCity(nameCity.province_name);
+    setDataDistrict(data.data.results);
+  };
+  const handleDistrict = async (e) => {
+    let idDistrict = e.target.value;
+    const nameDistrict = dataDistrict.find(
+      (item) => item.district_name == idDistrict
+    );
+    const districtsName = +nameDistrict.district_id;
+    let data = await axios.get(
+      `https://vapi.vnappmob.com/api/province/ward/${districtsName}`
+    );
+    setDistrict(nameDistrict.district_name);
+    setDataWard(data.data.results);
+  };
+
+  // phần thêm ảnh
+  const handleAddMedia = (event) => {
+    setSelectedMedia(event.target.files[0]);
+    const file = event.target.files[0];
+    const reader = new FileReader();
+    reader.onload = function (event) {
+      setPreview(event.target?.result);
+    };
+    reader.readAsDataURL(file);
+  };
+  // viêt các hàm
+  //  hàm validate thêm địa chỉ công ty
+
+  // modal 1
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleOk = async () => {
+    const errors = {};
+    let hasError = false;
+    if (!updateCompany.name.trim()) {
+      errors.name = "Tên doanh nghiệp không được để trống";
+      hasError = true;
+    }
+    if (!updateCompany.email.trim()) {
+      errors.email = "Email không được để trống";
+      hasError = true;
+    }
+    if (!updateCompany.phone.trim()) {
+      errors.phone = "Số điện thoại không được để trống";
+      hasError = true;
+    }
+    // if (updateCompany.size.trim() === "") {
+    //   errors.size = "Số lượng nhân viên không được để trống";
+    //   hasError = true;
+    // } else if (!/^\d+$/.test(updateCompany.size.trim())) {
+    //   errors.size = "Số lượng nhân viên chỉ được nhập số";
+    //   hasError = true;
+    // }
+
+    // Nếu có lỗi, cập nhật state để hiển thị thông báo lỗi
+    if (hasError) {
+      setErrorMessages(errors);
+      return;
+    }
+
+    if (selectedMedia) {
+      const formData = new FormData();
+      formData.append("file", selectedMedia);
+      formData.append("upload_preset", "my-project-md3");
+      const [uploadMedia] = await Promise.all([
+        axios.post(
+          "https://api.cloudinary.com/v1_1/dzprh8cvv/image/upload",
+          formData
+        ),
+      ]);
+      const media = uploadMedia.data.secure_url;
+      const updateCompany1 = {
+        ...updateCompany,
+        photo: media,
+      };
+      // console.log(media)
+      // console.log(updateCompany1)
+      try {
+        const res = await axios.patch(
+          `http://localhost:3000/api/v2/companies/update-info/${infoCompany.id}`,
+          updateCompany1
+        );
+        notification.success({
+          message: "Cập nhật thành công",
+          duration: 2,
+        });
+        let hasError = false;
+        setIsModalOpen(false);
+
+        SetFlag(!flag);
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      try {
+        const res = await axios.patch(
+          `http://localhost:3000/api/v2/companies/update-info/${infoCompany.id}`,
+          updateCompany
+        );
+        notification.success({
+          message: "Cập nhật thành công",
+          duration: 2,
+        });
+        let hasError = false;
+        setIsModalOpen(false);
+
+        SetFlag(!flag);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
+
+  // modal 2
+  const showModal2 = () => {
+    setIsModalOpen2(true);
+  };
+
+  const handleOk2 = async () => {
+    // console.log(address);
+    if (address === "") {
+      notification.error({
+        message: "Hãy điền đủ thông tin",
+        duration: 2,
+      });
+      return;
+    }
+    try {
+      const newAdress = {
+        address: `${address} - ${ward} - ${district} - ${city}`,
+      };
+      const res = await axios.post(
+        `http://localhost:3000/api/v2/companies/create-address/${infoCompany.id}`,
+        newAdress
+      );
+      notification.success({
+        message: "Thêm Địa chỉ thành công",
+        duration: 2,
+      });
+      setIsModalOpen2(false);
+      setCity("");
+      setDistrict("");
+      setWard("");
+      setAddress("");
+      SetFlag(!flag);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleCancel2 = () => {
+    setIsModalOpen2(false);
+  };
+
+  // xoá 1 địa chỉ  chi nhánh công ty
+  const handleDelete = async (item) => {
+    if (item.status === 1) {
+      notification.error({
+        message: "Địa điểm đang được sử dụng, vui lòng chọn địa điểm khác",
+      });
+      return;
+    } else {
+      try {
+        await axios.delete(
+          `http://localhost:3000/api/v2/companies/delete-address-company/${item.id}`
+        );
+        SetFlag(!flag);
+        notification.success({
+          message: "Đã xóa địa chỉ thành công",
+          placement: "topRight",
+          duration: 2,
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
+
+  // ckeditor
+  const [text, setText] = useState("");
+  const handleTakeValue = (value) => {
+    setText(value);
+  };
+  console.log(infoCompany)
   return (
     <>
-      <div>
+    
+      <div style={{display:(infoCompany?.logo == null || infoCompany.website==null || infoCompany.description==null || infoCompany.size==null ? 'block' : 'none')}} >
+        <div style={{alignItems:"center"}}>
+          <img src={logo}></img>
+          <h3>
+            Chao mung {infoCompany?.name}, Ban hay cap nhat thong tin cua minh
+          </h3>
+          <div className="user-companyView-info-feature">
+          <button onClick={showModal}>Chỉnh sửa</button>
+        </div>
+         
+        </div>
+      </div>
+      
+      <div style={{display:(infoCompany?.logo == null || infoCompany.website==null || infoCompany.description==null || infoCompany.size==null ? 'none' : 'block')}} >
         <div className="user-ListJob-title">
           <p>
             <span>Trang chủ / Thông tin doanh nghiệp /</span> Doanh nghiệp của
-            tôi{' '}
+            tôi{" "}
           </p>
         </div>
-        <div className="user-companyView" style={{ marginBottom: '24px',width:"100vw",padding:"0 7vw" }}>
+        <div
+          className="user-companyView"
+          style={{ marginBottom: "24px", width: "100vw", padding: "0 7vw" }}
+        >
           <div className="user-companyView-info">
             <div className="user-companyView-info-company">
               <div className="user-companyView-info-company-logo">
-                <img width={96} src={companyDetail.logo} />
+                <img
+                  style={{ borderRadius: "50%" }}
+                  width={96}
+                  height={96}
+                  src={infoCompany?.logo}
+                />
               </div>
-              <div style={{ marginLeft: '24px' }}>
+              <div style={{ marginLeft: "24px" }}>
                 <p className="user-companyView-info-company-name">
-                  {companyDetail.nameCompany}
+                  {/* name */}
+                  {infoCompany?.name}
                 </p>
-                <p style={{ fontSize: '14px', color: '#5E6670' }}>
+                <p style={{ fontSize: "14px", color: "#5E6670" }}>
                   <span>
                     <i
-                      style={{ color: 'black', marginRight: '8px' }}
+                      style={{ color: "black", marginRight: "8px" }}
                       class="fa-solid fa-user"
-                    ></i>{' '}
-                    200-550 nhân viên
-                  </span>{' '}
-                  <span style={{ marginLeft: '32px' }}>
-                    {' '}
+                    ></i>{" "}
+                    {/* số lượng nhân viên */}
+                    {infoCompany?.size} Người
+                  </span>{" "}
+                  <span style={{ marginLeft: "32px" }}>
+                    {" "}
                     <i
-                      style={{ color: 'red', marginRight: '8px' }}
+                      style={{ color: "red", marginRight: "8px" }}
                       class="fa-solid fa-heart"
-                    ></i>{' '}
+                    ></i>{" "}
                     100 người theo dõi
                   </span>
                 </p>
-                <p style={{ marginLeft: '24px' }}>
+                <p style={{ marginLeft: "24px" }}>
                   <span className="user-companyView-info-company-type">
-                    {companyDetail.typeCompany}
-                  </span>{' '}
+                    {/*   {companyDetail.typeCompany} */}
+                    {typecompany}
+                  </span>{" "}
                   <span className="user-companyView-info-company-verified">
                     verified
                   </span>
                 </p>
                 <p className="user-companyView-info-company-web">
-                  {companyDetail.web}
+                  {/* {companyDetail.web}  */}
+                  {infoCompany?.website}
                 </p>
               </div>
             </div>
             <div className="user-companyView-info-feature">
-              <button>Chỉnh sửa</button>
+              <button onClick={showModal}>Chỉnh sửa</button>
             </div>
           </div>
+          {/* modal thêm dia chỉ */}
+          <Modal
+            onOk={handleOk2}
+            onCancel={handleCancel2}
+            title="Thêm địa chỉ công ty"
+            open={isModalOpen2}
+            width={600}
+          >
+            <div className="company__register-input__address">
+        <label htmlFor="">Địa chỉ công ty</label>
+              <br />
+              <div style={{ display: "flex", gap: "10px" }}>
+                <select
+                  style={{
+                    width: "10vw",
+                    fontSize: "14px",
+                    border: "1px solid #E7F0FA",
+                    borderRadius: "5px",
+                  }}
+                  onChange={handleCity}
+                  name=""
+                  id=""
+                >
+                  <option value="">Chọn thành phố</option>
+                  {dataCity.map((item, index) => (
+                    <option key={index} value={item.code}>
+                      {item.province_name}
+                    </option>
+                  ))}
+                </select>
+                <select
+                  style={{
+                    width: "10vw",
+                    fontSize: "14px",
+                    height: "40px",
+                    border: "1px solid #E7F0FA",
+                    borderRadius: "5px",
+                  }}
+                  onChange={handleDistrict}
+                  name=""
+                  id=""
+                >
+                  <option>Chọn Quận/Huyện</option>
+                  {dataDistrict.map((item, index) => (
+                    <option key={index} value={item.code}>
+                      {item.district_name}
+                    </option>
+                  ))}
+                </select>
+                <select
+                  style={{
+                    width: "10vw",
+                    fontSize: "14px",
+                    border: "1px solid #E7F0FA",
+                    borderRadius: "5px",
+                  }}
+                  onChange={(e) => setWard(e.target.value)}
+                  name=""
+                  id=""
+                >
+                  <option value="">Chọn Phường/Xã</option>
+                  {dataWard.map((item, index) => (
+                    <option key={index}>{item.ward_name}</option>
+                  ))}
+                </select>
+                {errors.city && <div className="error">{errors.city}</div>}
+                {errors.district && (
+                  <div className="error">{errors.district}</div>
+                )}
+                {errors.ward && <div className="error">{errors.ward}</div>}
+        
+              </div>
+              <div style={{ marginTop: "20px" }}>
+                <label style={{ fontSize: "14px" }}>Địa chỉ chi tiết</label>
+                <br></br>
+                <input
+                  onChange={(e) => setAddress(e.target.value)}
+                  style={{
+                    width: "100%",
+                    height: "40px",
+                    border: "1px solid #E7F0FA",
+                    borderRadius: "5px",
+            }}
+                  type="text"
+                ></input>
+                {errors.address && <div className="error">{errors.address}</div>}
+         
+              </div>
+            </div>
+          </Modal>
+          {/* modal cập nhật thông tin company */}
+          <Modal
+            className="modal-updateInforUser"
+            title="Chỉnh sửa Thông Tin Doanh Nghiệp"
+            open={isModalOpen}
+            onOk={handleOk}
+            onCancel={handleCancel}
+            width={800}
+          >
+            <p>Tên doanh nghiệp</p>
+            <input
+              onChange={(e) =>
+                setUpdateCompany({ ...updateCompany, name: e.target.value })
+              }
+              name="name"
+              value={updateCompany.name}
+              type="text"
+            ></input>
+            {errorMessages.name && (
+              <p style={{ color: "red" }}>{errorMessages.name}</p>
+            )}
+
+            <div
+              style={{
+                display: "flex",
+                width: "100%",
+              }}
+            >
+              <div>
+                {" "}
+                <p>Ảnh đại diện</p>
+                <div style={{ display: "flex" }}>
+                  <input
+                    style={{
+                      width: "20%",
+                      border: "none",
+                      height: "100px",
+                      padding: "0 10px",
+                      borderRadius: "5px",
+                      color: "white",
+                    }}
+                    className="input-choose-file"
+                    onChange={handleAddMedia}
+                    type="file"
+                  ></input>
+                  <img src={preview ? preview : updateCompany.photo}></img>
+                </div>
+              </div>
+              <div style={{ width: "60%", marginLeft: "-150px" }}>
+                <div>
+                  <p>Email</p>{" "}
+                  <input
+                    onChange={(e) =>
+                      setUpdateCompany({
+                        ...updateCompany,
+                        email: e.target.value,
+                      })
+                    }
+                    value={updateCompany.email}
+                    name="email"
+                    type="text"
+                  ></input>
+                  {errorMessages.email && (
+                    <p style={{ color: "red" }}>{errorMessages.email}</p>
+                  )}
+                </div>
+                <div>
+                  <p>Số điện thoại</p>{" "}
+                  <input
+                    onChange={(e) =>
+                      setUpdateCompany({
+                        ...updateCompany,
+                        phone: e.target.value,
+                      })
+              }
+                    value={updateCompany.phone}
+                    name="phone"
+                    type="text"
+                  ></input>
+                  {errorMessages.phone && (
+                    <p style={{ color: "red" }}>{errorMessages.phone}</p>
+                  )}
+                </div>
+              </div>
+            </div>
+            <div>
+              <p>Link Facebook</p>
+              <input
+                onChange={(e) =>
+                  setUpdateCompany({
+                    ...updateCompany,
+                    link_facebook: e.target.value,
+                  })
+                }
+                value={updateCompany.link_facebook}
+                name="link_facebook"
+                type="text"
+              ></input>
+              <p>Link Website</p>
+              <input
+                onChange={(e) =>
+                  setUpdateCompany({
+                    ...updateCompany,
+                    website: e.target.value,
+                  })
+                }
+                value={updateCompany.website}
+                name="website"
+                type="text"
+              ></input>
+            </div>
+            <div style={{ display: "flex", gap: "75px" }}>
+              <div style={{ width: "45%" }}>
+                <p>Type Company</p>{" "}
+                <select
+                  onChange={(e) =>
+                    setUpdateCompany({
+                      ...updateCompany,
+                      typeCompany_id: e.target.value,
+                    })
+                  }
+                  value={updateCompany.typeCompany_id}
+                  style={{
+                    width: "100%",
+                    height: "40px",
+                    borderRadius: "5px",
+                  }}
+                  type="text"
+                >
+                  <option>Mời Bạn chọn</option>
+                  {listTypeCompany.map((item, index) => (
+                    <option value={item.id} key={index}>
+                      {item.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div style={{ width: "45%" }}>
+                <p>Số lượng nhân viên</p>
+                <input
+                  onChange={(e) =>
+                    setUpdateCompany({ ...updateCompany, size: e.target.value })
+                  }
+                  value={updateCompany.size}
+                  name="size"
+                ></input>
+                {errorMessages.size && (
+                  <p style={{ color: "red" }}>{errorMessages.size}</p>
+                )}
+              </div>
+            </div>
+            <p>Mô tả Doanh nghiệp</p>
+            <textarea
+              onChange={(e) =>
+          setUpdateCompany({
+                  ...updateCompany,
+                  description: e.target.value,
+                })
+              }
+              value={updateCompany.description}
+              name="description"
+              type="text"
+            ></textarea>
+            <p>Chính sách</p>
+            <textarea
+              onChange={(e) =>
+                setUpdateCompany({ ...updateCompany, policy: e.target.value })
+              }
+              value={updateCompany.policy}
+              name="policy"
+              type="text"
+            ></textarea>
+          </Modal>
         </div>
-        <div className='user-companyView-describeMap' style={{ display: 'flex', width: '1320px', margin: '0 auto',marginBottom: '100px' }}>
+        <div
+          className="user-companyView-describeMap"
+          style={{
+            display: "flex",
+            width: "1320px",
+            margin: "0 auto",
+            marginBottom: "100px",
+          }}
+        >
           <div className="user-companyView-describe">
-            <p style={{ fontWeight: '500', fontSize: '18px', color: 'black' }}>
-              Mô tả về công ty{' '}
+            <p style={{ fontWeight: "500", fontSize: "18px", color: "black" }}>
+              Mô tả về công ty{" "}
               <span>
                 <i
-                  style={{ color: 'red', marginLeft: '8px' }}
+                  style={{ color: "red", marginLeft: "8px" }}
                   class="fa-regular fa-pen-to-square"
                 ></i>
               </span>
+              <CkEditorComponent getValue={handleTakeValue} />
+              <div
+                  className="bg-white p-5"
+                  dangerouslySetInnerHTML={{ __html: text }}
+                />
             </p>
-            {companyDetail.describe.map((item, index) => {
-              return (
-                <p style={{ marginBottom: '16px' }} key={index}>
-                  {item}
-                </p>
-              );
-            })}
-            <p style={{ fontWeight: '500', fontSize: '18px', color: 'black' }}>
+            {infoCompany?.description}
+            <p style={{ fontWeight: "500", fontSize: "18px", color: "black" }}>
               Chính sách
             </p>
-            {companyDetail.policy.map((item, index) => {
-              return <li key={index}>{item}</li>;
-            })}
+            {infoCompany?.policy}
             <div
               style={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                marginTop: '100px',
+                width: "100%",
+                height: "1px",
+                backgroundColor: "#E7F0FA",
+                marginTop: "10px",
               }}
-            >
-              
-            </div>
+            ></div>
           </div>
           <div className="user-companyView-orther">
-            <div className="user-companyView-orther-local">
-              <p className="user-companyView-orther-title">
-                {' '}
-                <i class="fa-regular fa-compass"></i> Địa chỉ công ty
-              </p>
-              <p className="user-companyView-orther-address">
-                {companyDetail.address}
-              </p>
+            <div
+              style={{ height: "auto" }}
+              className="user-companyView-orther-local"
+            >
+              <div style={{ display: "flex" }}>
+                <p
+                  style={{ display: "flex", alignItems: "center", gap: "5px" }}
+                  className="user-companyView-orther-title"
+                >
+                  {" "}
+                  <i class="fa-regular fa-compass"></i> Địa chỉ công ty
+                </p>
+                <div
+                  onClick={showModal2}
+                  style={{
+                    marginLeft: "0px",
+                    cursor: "pointer",
+                    color: "blue",
+                    fontSize: "16px",
+                    paddingRight: "10px",
+                  }}
+                >
+            <i style={{ color: "#BC2228" }} class="fa-solid fa-plus"></i>
+                </div>
+              </div>
+              {listBrand?.map((item) => (
+                <div
+                  style={{ display: "flex", alignItems: "center" }}
+                  className="container"
+                  onMouseEnter={() => setShowIcons(true)}
+                  onMouseLeave={() => setShowIcons(false)}
+                >
+                  <p
+                    style={{ padding: "5px 0" }}
+                    className="user-companyView-orther-address"
+                  >
+                    {item.address}
+                  </p>
+
+                  {showIcons && (
+                    <>
+                      <i
+                        onClick={() => handleDelete(item)}
+                        style={{
+                          color: "red",
+                          fontSize: "16px",
+                          paddingRight: "20px",
+                        }}
+                        className="far fa-trash-alt"
+                      ></i>
+                      <i
+                        style={{ color: "red", fontSize: "16px" }}
+                        className="far fa-pen-to-square"
+                      ></i>
+                    </>
+                  )}
+                </div>
+              ))}
             </div>
             <div className="user-companyView-orther-map">
               <p>
@@ -216,27 +758,28 @@ export default function UpdateInforBusiness() {
               </p>
               <img src={map} alt="" />
             </div>
-            <div className='user-companyView-orther-social-container'
+            <div
+              className="user-companyView-orther-social-container"
               style={{
-                padding: '32px',
-                width: '100%',
-                height: '140px',
-                border: '2px solid #E7F0FA',
-                borderRadius: '8px',
+                padding: "32px",
+                width: "100%",
+                height: "140px",
+                border: "2px solid #E7F0FA",
+                borderRadius: "8px",
               }}
             >
               <p
                 style={{
-                  fontWeight: '500',
-                  height: '28px',
-                  fontSize: '18px',
-                  color: 'black',
+                  fontWeight: "500",
+                  height: "28px",
+                  fontSize: "18px",
+                  color: "black",
                 }}
               >
                 chia sẻ thông tin công ty đến mọi người:
               </p>
               <div className="user-companyView-orther-social">
-                <p style={{ width: '150px', height: '40px' }}>
+                <p style={{ width: "150px", height: "40px" }}>
                   <i class="fa-solid fa-link"></i> Coppy links
                 </p>
                 <p>
@@ -250,14 +793,12 @@ export default function UpdateInforBusiness() {
                 </p>
                 <p>
                   <i class="fa-regular fa-envelope"></i>
-                </p>
+          </p>
               </div>
             </div>
           </div>
         </div>
       </div>
-      
-      
     </>
   );
 }

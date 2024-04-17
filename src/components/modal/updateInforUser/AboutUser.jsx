@@ -1,16 +1,16 @@
-import React, { useState } from 'react'
+import React, { useState ,memo} from 'react'
 import './AboutUser.scss'
 import "./formModal.scss"
 import privateAxios from '../../../config/private.axios'
 import { notification } from 'antd'
-export default function AboutUser({isOpen,close}) {
+function AboutUser({isOpen,close,aboutme}) {
+  
   const [aboutUser, setAboutUser] = useState({
-    aboutMe: ''
+    aboutMe: aboutme
   })
   const getChange = (e) => {
     setAboutUser({ ...aboutUser, [e.target.name]: e.target.value });
   }
-  console.log(aboutUser)
   const handleUpdate = async ()=> {
       await privateAxios
       .patch(`/api/v2/candidates/updateAboutMe`,aboutUser)
@@ -35,7 +35,7 @@ export default function AboutUser({isOpen,close}) {
         <div className="updateInforUser__table aboutUser">
             <label htmlFor="">Mô tả bản thân</label>
             <textarea 
-            value={aboutUser.aboutMe}
+            value={aboutUser.aboutMe }
             onChange={getChange} name="aboutMe" id="" cols="45" rows="5" placeholder='Giới thiệu kinh nghiệm bản thân'></textarea>
         </div>
         <div className="updateInforUser__button">
@@ -45,8 +45,8 @@ export default function AboutUser({isOpen,close}) {
         </div>
         
       </div>
-    </div>
-      
+      </div>
     </>
   )
 }
+export default  memo(AboutUser)
