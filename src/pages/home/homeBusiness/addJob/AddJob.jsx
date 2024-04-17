@@ -4,20 +4,32 @@ import { useNavigate } from "react-router";
 import privateAxios from "../../../../config/private.axios";
 export default function AddJob() {
   const navigate = useNavigate();
-  const [infoCompany,SetInfoCompany] = useState()
+  const [infoCompany,SetInfoCompany] = useState();
+  const [addressCompany,setAdressCompany] = useState([]);
+  const [newJob,setNewJob] = useState({
+    title:"",
+    description:"",
+    requirements:"",
+    salary:"",
+    expire_at:"",
+    address_company_id:'',
+    typejob_id:'',
+    leveljob_id:"",
+  });
 
   // lấy thông tin nguồi dùng
   const getInfo = () => {
     const res = privateAxios.get("api/v2/companies/getInfor")
     res.then((res) =>{
       SetInfoCompany(res.data.data)
+      setAdressCompany(res.data.data.address_company)
     })
   }
 
   useEffect(() =>{
     getInfo()
   },[])
-// console.log(infoCompany,"1221312")
+// console.log(addressCompany,"1221312")
   return (
     <>
       <div className="addJob__container">
@@ -33,21 +45,32 @@ export default function AddJob() {
               <label htmlFor="">Tên công việc</label>
               <br />
               <input
+              value={newJob.title}
+              name="title"
                 type="Nhập tên công việc"
                 className="addJob__body__form__nameJob--text"
                 placeholder="Nhập tên việc"
               />
             </div>
             <div className="addJob__body__form__Fusion">
-              <div className="addJob__body__form__location">
+              <div className="addJob__body__form__time">
                 <label htmlFor="">Địa điểm</label> <br />
-                <input type="text" placeholder="Hà Nội" />
+                <select name="" id="">
+                <option value="">Chọn</option>
+                {addressCompany.map((item, index) => (
+                  <option key={index} value={item.id}>
+                    {item.address}
+                  </option>
+                ))}
+              </select>
               </div>
               <div className="addJob__body__form__time">
                 <label htmlFor="">Thời gian</label> <br />
-                <select name="" id="">
+                <select  name="" id="">
                   <option value="">Chọn</option>
-                  <option value="">Part-time</option>
+                  <option
+                  
+                   value="">Part-time</option>
                   <option value="">Full-time</option>
                 </select>
               </div>
