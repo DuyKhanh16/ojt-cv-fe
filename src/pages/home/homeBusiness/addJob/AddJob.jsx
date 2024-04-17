@@ -1,8 +1,23 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./AddJob.scss";
 import { useNavigate } from "react-router";
+import privateAxios from "../../../../config/private.axios";
 export default function AddJob() {
   const navigate = useNavigate();
+  const [infoCompany,SetInfoCompany] = useState()
+
+  // lấy thông tin nguồi dùng
+  const getInfo = () => {
+    const res = privateAxios.get("api/v2/companies/getInfor")
+    res.then((res) =>{
+      SetInfoCompany(res.data.data)
+    })
+  }
+
+  useEffect(() =>{
+    getInfo()
+  },[])
+// console.log(infoCompany,"1221312")
   return (
     <>
       <div className="addJob__container">

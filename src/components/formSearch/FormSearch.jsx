@@ -75,15 +75,23 @@ export default function FormSearch() {
   );
   // hàm lấy thông tin người dùng
   const getInfo = () => {
-    const res1 = privateAxios.get("api/v2/candidates/getInfor");
-    res1.then((res) => {
-      SetInfo(res.data.data);
-    });
+    if(role === 1){
+      const res1 = privateAxios.get("api/v2/candidates/getInfor");
+      res1.then((res) => {
+        SetInfo(res.data.data);
+      });
+    }
+    if(role === 2){
+      const res2 = privateAxios.get("api/v2/companies/getInfor");
+      res2.then((res) => {
+        SetInfo(res.data.data);
+      });
+    }
   };
   useEffect(() => {
     getInfo();
   }, []);
-  // console.log(info.account_candidate_id.role,"123");
+  // console.log(info,"123");
   return (
     <div className="form__search">
       <div className="form__search--content">
