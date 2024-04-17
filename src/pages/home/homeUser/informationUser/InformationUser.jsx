@@ -362,7 +362,7 @@ export default function InformationUserB() {
             certificate?.length > 0 ? (
               <>
                 <div className="informationUser__contain__left__button">
-                  <button onClick={() => navigate("/allCV")}>
+                  <button onClick={() => navigate("/allcv")}>
                     Xem Và Tải CV
                   </button>
                 </div>

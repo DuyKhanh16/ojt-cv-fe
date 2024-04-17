@@ -118,7 +118,7 @@ export default function FormSearch() {
             ) : (
               <Button className="bnt-resgister">
                 {" "}
-                <Link to="/Login">
+                <Link to="/login">
                   <span>Đăng Nhập</span>
                 </Link>
               </Button>
