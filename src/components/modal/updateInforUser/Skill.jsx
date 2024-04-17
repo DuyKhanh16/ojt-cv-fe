@@ -73,7 +73,7 @@ export default function Skill({isOpen,close}) {
         </div>
 
         <div className="updateInforUser__button ">
-          <button>Cập nhập</button>
+          <button>Cập nhật</button>
           <button className='updateInforUser__button__cancel' onClick={()=>close()}>Hủy Bỏ</button>
         </div>
         </div>

@@ -1,19 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import React, { memo, useEffect, useState } from 'react'
 import './formModal.scss'
 import './Certificate.scss'
 import { notification } from 'antd';
 import privateAxios from '../../../config/private.axios';
-export default function ProjectUser({isOpen,close}) {
+ function ProjectUser({isOpen,close}) {
 
   const [user, setUser] = useState({});
-  useEffect(() => {
-    const getUser = privateAxios.get("api/v2/candidates/getInfor")
-    getUser.then((res) => {
-      console.log("API response data:", res.data.data)
-      setUser({...user,candidate_id:res.data.data.id});
 
-    }) 
-  }, [])
 const changeValue = (e) => {
   setUser({...user,[e.target.name]:e.target.value})
 }
@@ -66,7 +59,7 @@ const updateProject = async () => {
             </div>
         </div>
         <div className="updateInforUser__button">
-          <button onClick={updateProject}>Cập nhập</button>
+          <button onClick={updateProject}>Cập nhật</button>
           <button className='updateInforUser__button__cancel' onClick={()=>close()}>Hủy Bỏ</button>
         </div>
         </div> 
@@ -76,3 +69,4 @@ const updateProject = async () => {
     </>
   )
 }
+export default memo(ProjectUser)

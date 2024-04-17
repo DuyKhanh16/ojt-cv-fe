@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React, { memo, useEffect, useState } from 'react'
 import './formModal.scss'
 import './Certificate.scss'
 import privateAxios from '../../../config/private.axios';
 import { notification } from 'antd';
-export default function Exp({isOpen,close}) {
+ function Exp({isOpen,close,exp}) {
+  console.log(exp)
   const [user, setUser] = useState({});
   useEffect(() => {
     const getUser = privateAxios.get("api/v2/candidates/getInfor")
@@ -13,11 +14,11 @@ export default function Exp({isOpen,close}) {
 
     }) 
   }, [])
+  
 const changeValue = (e) => {
   setUser({...user,[e.target.name]:e.target.value})
 }
 const updateExp = async () => {
-  console.log(user)
   try {
     const create = await privateAxios.post(`api/v2/candidate/createExperience`,user)
     notification.success({
@@ -65,7 +66,7 @@ const updateExp = async () => {
             </div>
         </div>
         <div className="updateInforUser__button">
-          <button onClick={updateExp}>Cập nhập</button>
+          <button onClick={updateExp}>Cập nhật</button>
           <button className='updateInforUser__button__cancel' onClick={()=>close()}>Hủy Bỏ</button>
         </div>
         </div> 
@@ -75,3 +76,4 @@ const updateExp = async () => {
     </>
   )
 }
+export default memo(Exp)

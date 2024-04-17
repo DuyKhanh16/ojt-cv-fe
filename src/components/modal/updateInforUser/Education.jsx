@@ -1,11 +1,14 @@
-import React, { useEffect, useState } from 'react'
+import React, { memo, useEffect, useState } from 'react'
 import './formModal.scss'
 import './Certificate.scss'
 import privateAxios from '../../../config/private.axios'
 import { notification } from 'antd';
 
-export default function Education({isOpen,close}) {
+ function Education({isOpen,close,edu}) {
   const [user, setUser] = useState({});
+  const [itemUpdate, setItemUpdate] = useState({});
+  console.log(edu)
+
   useEffect(() => {
     const getUser = privateAxios.get("api/v2/candidates/getInfor")
     getUser.then((res) => {
@@ -17,8 +20,20 @@ export default function Education({isOpen,close}) {
 const changeValue = (e) => {
   setUser({...user,[e.target.name]:e.target.value})
 }
-  const updateEducatrion = async () => {
-    console.log(user)
+const updateEducatrion = async () => {
+  if (edu?.id) {
+    try {
+      const update = await privateAxios.patch(`api/v2/candidate/updateEducation/${edu.id}`,user)
+      notification.success({
+        message: update.data.message,
+      })
+      close()
+    } catch (error) {
+      notification.error({
+        message: error.response.data.message,
+      })
+    }
+  } else {
     try {
       const create = await privateAxios.post(`api/v2/candidate/createEducation`,user)
       notification.success({
@@ -30,8 +45,13 @@ const changeValue = (e) => {
         message: error.response.data.message,
       })
     }
-   
   }
+    console.log(user)
+   
+}
+// update
+// tim kiem edu theo id 
+
   return (
     <>
     <div style={{display:isOpen?'block':'none'}}>
@@ -41,33 +61,43 @@ const changeValue = (e) => {
         <div className="updateInforUser__table certificate">
             <div>
               <p>Trường</p>
-              <input type="text" placeholder='ABCde' name='name_education' onChange={(e)=>changeValue(e)}/>
+              <input 
+              value={user.name_education || edu.name_education}
+              type="text" placeholder='ABCde' name='name_education' onChange={(e)=>changeValue(e)}/>
             </div>
             <div>
               <p>Ngành Học</p>
-              <input type="text" placeholder='ABCde'  name='major' onChange={(e)=>changeValue(e)}/>
+              <input 
+              value={user.major || edu.major}
+              type="text" placeholder='ABCde'  name='major' onChange={(e)=>changeValue(e)}/>
             </div>
 
             <div className='certificateTime'>
               <p>Thời gian học tập</p>
               <div className='timeSame'>
                 <label htmlFor="">Start Date</label>
-                <input type="date" className='date' name='start_at' onChange={(e)=>changeValue(e)}/>
+                <input 
+                value={user.start_at || edu.start_at}
+                type="date" className='date' name='start_at' onChange={(e)=>changeValue(e)}/>
               </div>
               <p>To</p>
               <div className='timeSame'>
                 <label htmlFor="">End Date</label>
-                <input type="date" className='date' name='end_at' onChange={(e)=>changeValue(e)}/>
+                <input 
+                value={user.end_at || edu.end_at}
+                type="date" className='date' name='end_at' onChange={(e)=>changeValue(e)}/>
               </div>
             </div>
 
             <div>
               <p>Thông tin thêm</p>
-              <textarea name="" id="" cols="30" rows="10" placeholder='ABCde' onChange={(e)=>setUser({...user,info:e.target.value})}></textarea>
+              <textarea 
+              value={user.info || edu.info}
+              name="info" id="" cols="30" rows="10" placeholder='ABCde' onChange={(e)=>setUser({...user,info:e.target.value})}></textarea>
             </div>
         </div>
         <div className="updateInforUser__button">
-          <button onClick={updateEducatrion}>Cập nhập</button>
+          <button onClick={updateEducatrion}>Cập nhật</button>
           <button className='updateInforUser__button__cancel' onClick={()=>close()}>Hủy Bỏ</button>
         </div>
         </div> 
@@ -77,3 +107,4 @@ const changeValue = (e) => {
     </>
   )
 }
+export default memo(Education)
