@@ -57,7 +57,7 @@ export default function AllCV() {
         <span class="material-symbols-outlined">
           chevron_left
         </span>
-        <p onClick={()=>navigate('/candidate/inforCV')}>Trở lại cập nhật hồ sơ</p>
+        <p onClick={()=>navigate('/candidate/inforcv')}>Trở lại cập nhật hồ sơ</p>
         </div>
         <div className='allCV__header--mid'>
           <p><strong>Mẫu CV</strong></p>
