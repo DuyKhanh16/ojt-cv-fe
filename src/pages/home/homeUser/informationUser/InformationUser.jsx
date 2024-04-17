@@ -57,6 +57,7 @@ export default function InformationUserB() {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+ 
   const open = () => {
     setIsOpen(!isOpen);
   };
@@ -73,13 +74,30 @@ export default function InformationUserB() {
     setOpenProject(false);
     setOpenUpdateUser(false);
     setOpenConfirm(false);
+    setFlag(flag + 1);
   },[dispatch]);
+
+  useEffect(() => {
+    dispatch(candidateAsync());
+    dispatch(educationAsync());
+    dispatch(expAsync());
+    dispatch(projectAsync());
+    dispatch(certificateAsync());
+  },[dispatch]);
+ 
   /* Candidate */
   const user = useSelector((state) => state.candidate.data);
   const exp = useSelector((state) => state.exp.data);
-  const userMemo = useMemo(() => {
-    return user
-  },[dispatch]);
+  const project = useSelector((state) => state.project.data);
+  const education = useSelector((state) => state.education.data);
+  const certificate = useSelector((state) => state.certificate.data);
+  useEffect(() => {
+    checkAboutmeF();
+    checkEdu();
+    checkExpF();
+    checkProjectF();
+    checkCertiF();
+  },[user,exp,project,education,certificate]);
   const checkAboutmeF = () => {
     if (user.aboutme != "") {
       setCheckAboutMe(true);
@@ -89,9 +107,7 @@ export default function InformationUserB() {
   };
   /* het Candidate */
   /* enducation */
-  const education = useSelector((state) => state.education.data);
   const checkEdu = () => {
-    console.log("11111111111111111111")
     if (education.length > 0) {
       setCheckEducation(true);
     } else {
@@ -148,9 +164,7 @@ export default function InformationUserB() {
   }
   
   /* het kinh nghiem */
-
   /* project */
-  const project = useSelector((state) => state.project.data);
   const checkProjectF = () => {
     if (project.length > 0) {
       setCheckJob(true);
@@ -174,7 +188,6 @@ export default function InformationUserB() {
   /* het project */
 
   /* cert */
-  const certificate = useSelector((state) => state.certificate.data);
   const checkCertiF = () => {
     if (certificate.length > 0) {
       setCheckCerti(true);
@@ -199,26 +212,13 @@ export default function InformationUserB() {
 
   /* het cert */
   console.log("data",user)
-  useEffect(() => {
-    checkAboutmeF();
-    checkEdu();
-    checkExpF();
-    checkProjectF();
-    checkCertiF();
-  }, []);
-  useEffect(() => {
-    dispatch(candidateAsync());
-    dispatch(educationAsync());
-    dispatch(expAsync());
-    dispatch(projectAsync());
-    dispatch(certificateAsync());
-  },[dispatch])
+  
   return (
     <>
       <AboutUser isOpen={openABout} close={close} aboutme={user?.aboutme}></AboutUser>
       <Certificate isOpen={openCert} close={close} certificate={itemCertificateUpdate}></Certificate>
       <Education isOpen={openEdu} user={user} close={close} edu={itemEduUpdate}></Education>
-      <Exp isOpenP={openExp} close={close} exp={itemExpUpdate} userE= {userMemo}></Exp>
+      <Exp isOpenP={openExp} close={close} exp={itemExpUpdate} userE= {user}></Exp>
       <ProjectUser isOpen={openProject} close={close} project={itemProjectUpdate}></ProjectUser>
       <UpdateInforUser isOpen={openUpdateUser} close={close}></UpdateInforUser>
       <Skill></Skill>
@@ -383,7 +383,7 @@ export default function InformationUserB() {
               </div>
 
               <div className="informationUser__infor">
-                <p>{user.name}</p>
+                <p>{user?.name}</p>
                 <p
                   style={{
                     fontSize: "14px",

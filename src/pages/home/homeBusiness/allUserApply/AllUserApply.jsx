@@ -12,7 +12,9 @@ export default function AllUserApply() {
           <p>/</p>
           <p>Quản lý ứng viên</p>
         </div>
+
         <div className="allUserApply__content">
+
           <div className="allUserApply__content__headerTable">
             <div className="allUserApply__content__headerTable__stt column">
               <p>STT</p>
@@ -33,7 +35,9 @@ export default function AllUserApply() {
               <p>Thông tin CV</p>
             </div>
           </div>
+
           <div className="allUserApply__content__bodyTable">
+            
             <div className="allUserApply__content__bodyTable__item">
               <div className="allUserApply__content__bodyTable__item__stt column">
                 <p>1</p>
@@ -56,6 +60,7 @@ export default function AllUserApply() {
                 <p>Hoang_Fresher_JV_CV</p>
               </div>
             </div>
+
             <div className="allUserApply__content__bodyTable__item">
               <div className="allUserApply__content__bodyTable__item__stt column">
                 <p>2</p>
@@ -78,6 +83,7 @@ export default function AllUserApply() {
                 <p>Hoang_Fresher_JV_CV</p>
               </div>
             </div>
+
             <div className="allUserApply__content__bodyTable__item">
               <div className="allUserApply__content__bodyTable__item__stt column">
                 <p>3</p>
@@ -103,7 +109,7 @@ export default function AllUserApply() {
            
           </div>
         </div>
-        <Footer></Footer>
+
       </div>
     </>
   );
