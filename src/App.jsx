@@ -31,6 +31,7 @@ import AdminChart from "./pages/home/admin/adminChart/AdminChart";
 import Router from "./layouts/router/Router";
 import CompanyRoute from "./layouts/companyRoute/CompanyRoute";
 import ApplyJob from "./pages/home/homeUser/applyJob/ApplyJob";
+import CV1 from "./components/cv/cv1/CV1";
 
 const router = createBrowserRouter([
   /* source chung */
@@ -43,6 +44,10 @@ const router = createBrowserRouter([
         element: <Main />,
       },
     ],
+  },
+  {
+    path:"/testCV1",
+    element:<CV1></CV1>
   },
   {
     path: "/login",

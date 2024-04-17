@@ -1,7 +1,7 @@
 import React from 'react'
 import './AllCV.scss'
-import cv1img from '../../../../assets/images/cv/cv1.png'
-import cv2img from '../../../../assets/images/cv/cv2.png'
+import cv1img from '../../../../assets/images/cv/Screenshot 2024-04-18 001050.png'
+import cv2img from '../../../../assets/images/cv/Screenshot 2024-04-18 001006.png'
 import cv3img from '../../../../assets/images/cv/cv3.png'
 import cv4img from '../../../../assets/images/cv/cv4.png'
 import CV2 from '../../../../components/cv/cv2/CV2'
@@ -84,7 +84,7 @@ export default function AllCV() {
                 </span>
               </div>
 
-              <span>CV 1</span>
+              <span>Mẫu 1</span>
             </div>
             <div className='allCV__content--left__list__item ' onClick={()=>choose(1)}>
               <div className='allCV__content--left__item--img'>
@@ -96,7 +96,7 @@ export default function AllCV() {
                 done
                 </span>
               </div>
-              <span>CV 2</span>
+              <span>Mẫu 2</span>
             </div>
             <div className='allCV__content--left__list__item ' onClick={()=>choose(2)}>
               <div className='allCV__content--left__item--img'>
@@ -108,7 +108,7 @@ export default function AllCV() {
                 done
                 </span>
               </div>
-              <span>CV 3</span>
+              <span>Mẫu 3</span>
             </div>
             <div className='allCV__content--left__list__item ' onClick={()=>choose(3)}>
               <div className='allCV__content--left__item--img'>
@@ -120,7 +120,7 @@ export default function AllCV() {
                 done
                 </span>
               </div>
-              <span>CV 4</span>
+              <span>Mẫu 4</span>
             </div>
           </div>
           
