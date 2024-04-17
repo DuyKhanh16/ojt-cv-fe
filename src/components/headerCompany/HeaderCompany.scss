@@ -44,16 +44,14 @@ body::-webkit-scrollbar {
     }
     .headerCompany__contact{
         height: 24px;
-        width: 20%;
+        width: 25%;
         display: flex;
         align-items: center;
-        justify-content: space-between;
         .headerCompany__contact__phone{
             width: 50%;   
             height: 24px;
             display: flex;
             align-items: center;
-            justify-content: space-between;
             p{
                 font-size: 16px;
                 line-height: 20px;
@@ -71,8 +69,8 @@ body::-webkit-scrollbar {
             height: 24px;
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            gap: 8px;
+            justify-content: space-evenly;
+            gap: 2px;
             img{
                 width: 24px;
                 height: 16px;
