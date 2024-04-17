@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import "./InformationUser.scss";
 import Header from "../../../../components/header/Header";
 import Footer from "../../../../components/footer/Footer";
@@ -23,7 +24,7 @@ import UpdateInforUser from "../../../../components/modal/updateInforUser/Update
 import FormSearch from "../../../../components/formSearch/FormSearch";
 import Confirm from "../../../../components/confirm/Confirm";
 import privateAxios from "../../../../config/private.axios";
-
+import { candidateAsync } from "../../../../redux/reduce/candidateReducer";
 export default function InformationUserB() {
   const [isOpen, setIsOpen] = useState(true);
   const [openABout, setOpenAbout] = useState(false);
@@ -32,7 +33,7 @@ export default function InformationUserB() {
   const [openExp, setOpenExp] = useState(false);
   const [openProject, setOpenProject] = useState(false);
   const [openUpdateUser, setOpenUpdateUser] = useState(false);
-  const [user, setUser] = useState({});
+  // const [user, setUser] = useState({});
   const [flag, setFlag] = useState(0);
   const [checkAboutMe, setCheckAboutMe] = useState(false);
   const [checkEducation, setCheckEducation] = useState(false);
@@ -40,10 +41,13 @@ export default function InformationUserB() {
   const [checkJob, setCheckJob] = useState(false);
   const [checkCerti, setCheckCerti] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.candidate);
   const open = () => {
     setIsOpen(!isOpen);
   };
   const close = () => {
+    dispatch(candidateAsync());
     setOpenAbout(false);
     setOpenEdu(false);
     setOpenCert(false);
@@ -51,27 +55,28 @@ export default function InformationUserB() {
     setOpenProject(false);
     setOpenUpdateUser(false);
   };
-  const getUser = () => {
-    console.log("first");
-    privateAxios
-      .get("api/v2/candidates/getInfor")
-      .then((res) => {
-        console.log("API response data:", res.data.data);
-        if (res.data.data.aboutme) {
-          setCheckAboutMe(true)
-        } else {
-          setCheckAboutMe(false)
-        }
-        setUser(res.data.data);
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
-  };
+  // const getUser = () => {
+  //   console.log("first");
+  //   privateAxios
+  //     .get("api/v2/candidates/getInfor")
+  //     .then((res) => {
+  //       console.log("API response data:", res.data.data);
+  //       if (res.data.data.aboutme) {
+  //         setCheckAboutMe(true)
+  //       } else {
+  //         setCheckAboutMe(false)
+  //       }
+  //       setUser(res.data.data);
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error:", error);
+  //     });
+  // };
   console.log(user);
   useEffect(() => {
-    getUser();
-  }, [flag]);
+    // getUser();
+    dispatch(candidateAsync());
+  }, [dispatch]);
   return (
     <>
       <AboutUser isOpen={openABout} close={close}></AboutUser>
@@ -79,7 +84,7 @@ export default function InformationUserB() {
       <Education isOpen={openEdu} user={user} close={close}></Education>
       <Exp isOpen={openExp} close={close}></Exp>
       <ProjectUser isOpen={openProject} close={close}></ProjectUser>
-      <UpdateInforUser isOpen={openUpdateUser} close={close}></UpdateInforUser>
+      <UpdateInforUser isOpen={openUpdateUser} close={close}  ></UpdateInforUser>
       <Skill></Skill>
       <Confirm></Confirm>
       <UpdateInforUser></UpdateInforUser>
@@ -218,7 +223,7 @@ export default function InformationUserB() {
               </div>
 
               <div className="informationUser__infor">
-                <p>{user.name}</p>
+                <p>{user.data.name}</p>
                 <p
                   style={{
                     fontSize: "14px",
