@@ -323,13 +323,13 @@ export default function UpdateInforBusiness() {
                   style={{ borderRadius: "50%" }}
                   width={96}
                   height={96}
-                  src={infoCompany.logo}
+                  src={infoCompany?.logo}
                 />
               </div>
               <div style={{ marginLeft: "24px" }}>
                 <p className="user-companyView-info-company-name">
                   {/* name */}
-                  {infoCompany.name}
+                  {infoCompany?.name}
                 </p>
                 <p style={{ fontSize: "14px", color: "#5E6670" }}>
                   <span>
@@ -338,7 +338,7 @@ export default function UpdateInforBusiness() {
                       class="fa-solid fa-user"
                     ></i>{" "}
                     {/* số lượng nhân viên */}
-                    {infoCompany.size} Người
+                    {infoCompany?.size} Người
                   </span>{" "}
                   <span style={{ marginLeft: "32px" }}>
                     {" "}
@@ -360,7 +360,7 @@ export default function UpdateInforBusiness() {
                 </p>
                 <p className="user-companyView-info-company-web">
                   {/* {companyDetail.web}  */}
-                  {infoCompany.website}
+                  {infoCompany?.website}
                 </p>
               </div>
             </div>
@@ -651,11 +651,11 @@ export default function UpdateInforBusiness() {
                 ></i>
               </span>
             </p>
-            {infoCompany.description}
+            {infoCompany?.description}
             <p style={{ fontWeight: "500", fontSize: "18px", color: "black" }}>
               Chính sách
             </p>
-            {infoCompany.policy}
+            {infoCompany?.policy}
             <div
               style={{
                 width: "100%",
