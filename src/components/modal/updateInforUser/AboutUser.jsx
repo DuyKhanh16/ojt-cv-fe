@@ -11,7 +11,6 @@ function AboutUser({isOpen,close,aboutme}) {
   const getChange = (e) => {
     setAboutUser({ ...aboutUser, [e.target.name]: e.target.value });
   }
-  console.log("22222222222222222222222",aboutUser)
   const handleUpdate = async ()=> {
       await privateAxios
       .patch(`/api/v2/candidates/updateAboutMe`,aboutUser)

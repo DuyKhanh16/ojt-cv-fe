@@ -6,7 +6,21 @@ import { notification } from 'antd'
 
   console.log(value)
   const confirm = async  ()=>{
-    if (value.table === "experience") {  
+    if (value.table === "exp") {  
+      await privateAxios
+      .delete(`/api/v2/candidate/deleteExperience/${value.id}`)
+      .then((res)=>{
+        console.log("API response data:", res);
+        notification.success({
+          message:res.data.message
+        })
+      })
+      .catch((error) => {
+        notification.error({
+          message: error.response.data.message,
+        })
+      })
+      close();
     } else if (value.table === "education") {
       await privateAxios
       .delete(`/api/v2/candidate/deleteEducation/${value.id}`)
@@ -21,13 +35,38 @@ import { notification } from 'antd'
           message: error.response.data.message,
         })
       })
-      close();
-
-      
+      close();      
     } else if (value.table === "project") {
+      await privateAxios
+      .delete(`api/v2/candidate/deleteProject/${value.id}`)
+      .then((res)=>{
+        console.log("API response data:", res);
+        notification.success({
+          message:res.data.message
+        })
+      })
+      .catch((error) => {
+        notification.error({
+          message: error.response.data.message,
+        })
+      })
+      close();
       
-    } else if (value.table === "certificate") {
-      
+    } else if (value.table === "certificate") { 
+      await privateAxios
+      .delete(`api/v2/candidate/deleteCertificate/${value.id}`)
+      .then((res)=>{
+        console.log("API response data:", res);
+        notification.success({
+          message:res.data.message
+        })
+      })
+      .catch((error) => {
+        notification.error({
+          message: error.response.data.message,
+        })
+      })
+      close();
     }
     
 

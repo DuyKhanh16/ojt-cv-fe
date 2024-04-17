@@ -51,6 +51,8 @@ export default function InformationUserB() {
   const [itemEduUpdate, setItemEduUpdate] = useState({});
   const [itemDelete, setItemDelete] = useState({});
   const [itemExpUpdate, setItemExpUpdate] = useState({});
+  const [itemProjectUpdate, setItemProjectUpdate] = useState({});
+  const [itemCertificateUpdate, setItemCertificateUpdate] = useState({});
   // het bien hung
 
   const dispatch = useDispatch();
@@ -96,10 +98,19 @@ export default function InformationUserB() {
       setCheckEducation(false);
     }
   };
+  const creatEdu = () => {
+    setOpenEdu(true);
+    setItemEduUpdate({
+      status:"creat"
+     })
+  }
   // sua edu
   const updateEdu = (item) => {
     setOpenEdu(true);
-   setItemEduUpdate(item)
+   setItemEduUpdate({
+    item: item,
+    status:"update"
+   })
   }
   const handleDelete = async (id,table) => {
     setOpenConfirm(true);
@@ -121,9 +132,21 @@ export default function InformationUserB() {
   };
   // sua kinh nghiem
   const updateExp = (item) => {
-    setOpenExp(true);
-    // setItemExpUpdate(item);
+    if(item){
+      setOpenExp(true);
+    }
+    setItemExpUpdate({
+      item: item,
+      status:"update"
+    });
   }
+  const creatExp = async () => {
+    setOpenExp(true);
+    setItemExpUpdate({
+      status:"creat"
+     })
+  }
+  
   /* het kinh nghiem */
 
   /* project */
@@ -136,8 +159,17 @@ export default function InformationUserB() {
     }
   };
   const updateProject = (item) => {
-    // setOpenProject(true);
-    // setItemProjectUpdate(item);
+    setOpenProject(true);
+    setItemProjectUpdate({
+      item: item,
+      status:"update"
+    });
+  }
+  const creatProject = () => {
+    setOpenProject(true);
+    setItemProjectUpdate({
+      status:"creat"
+     })
   }
   /* het project */
 
@@ -150,6 +182,21 @@ export default function InformationUserB() {
       setCheckCerti(false);
     }
   };
+
+  const updateCertificate = (item) => {
+    setOpenCert(true);
+    setItemCertificateUpdate({
+      item: item,
+      status:"update"
+    });
+  }
+  const creatCerti = ()=> {
+    setOpenCert(true);
+    setItemCertificateUpdate({
+      status:"creat"
+     })
+  }
+
   /* het cert */
   console.log("data",user)
   useEffect(() => {
@@ -169,10 +216,10 @@ export default function InformationUserB() {
   return (
     <>
       <AboutUser isOpen={openABout} close={close} aboutme={user?.aboutme}></AboutUser>
-      <Certificate isOpen={openCert} close={close}></Certificate>
+      <Certificate isOpen={openCert} close={close} certificate={itemCertificateUpdate}></Certificate>
       <Education isOpen={openEdu} user={user} close={close} edu={itemEduUpdate}></Education>
-      <Exp isOpen={openExp} close={close} exp={itemExpUpdate} userE= {userMemo}></Exp>
-      <ProjectUser isOpen={openProject} close={close}></ProjectUser>
+      <Exp isOpenP={openExp} close={close} exp={itemExpUpdate} userE= {userMemo}></Exp>
+      <ProjectUser isOpen={openProject} close={close} project={itemProjectUpdate}></ProjectUser>
       <UpdateInforUser isOpen={openUpdateUser} close={close}></UpdateInforUser>
       <Skill></Skill>
       <Confirm isOpen={openConfirm} close={close} value = {itemDelete}></Confirm>
@@ -235,7 +282,7 @@ export default function InformationUserB() {
                   </span>
                 ) : (
                   <img
-                    onClick={() => setOpenEdu(!openEdu)}
+                    onClick={creatEdu}
                     src={vetor}
                     alt=""
                   />
@@ -254,7 +301,7 @@ export default function InformationUserB() {
                   </span>
                 ) : (
                   <img
-                    onClick={() => setOpenExp(!openExp)}
+                    onClick={creatExp}
                     src={vetor}
                     alt=""
                   />
@@ -273,7 +320,7 @@ export default function InformationUserB() {
                   </span>
                 ) : (
                   <img
-                    onClick={() => setOpenProject(!openProject)}
+                    onClick={creatProject}
                     src={vetor}
                     alt=""
                   />
@@ -292,7 +339,7 @@ export default function InformationUserB() {
                   </span>
                 ) : (
                   <img
-                    onClick={() => setOpenCert(!openCert)}
+                    onClick={creatCerti}
                     src={vetor}
                     alt=""
                   />
@@ -477,7 +524,7 @@ export default function InformationUserB() {
                 </div>
               ))}
 
-              <img src={vetor} alt="" onClick={() => setOpenEdu(!openEdu)} />
+              <img src={vetor} alt="" onClick={creatEdu} />
             </div>
 
             <div
@@ -492,20 +539,22 @@ export default function InformationUserB() {
                 >
                   <div className="informationUser__contain__right__item__miniitem__top">
                     <p className="informationUser__contain__right__item__miniitem__position">
-                      <strong>{item.company}</strong>
+                      <strong>{item.position}</strong>
                     </p>
                     <div className="informationUser__contain__right__item__miniitem__action">
                       <img
                         style={{ cursor: "pointer" }}
                         src={vector2}
                         alt=""
-                        onClick={updateExp(item)}
+                        onClick={()=>updateExp(item)}
+                       
+
                       />
-                      <span class="material-symbols-outlined" >delete</span>
+                      <span class="material-symbols-outlined" onClick={() => handleDelete(item.id, "exp")}>delete</span>
                     </div>
                   </div>
                   <p className="informationUser__contain__right__item__miniitem__nameSchool">
-                    {item.info}
+                    {item.company}
                   </p>
                   <p className="informationUser__contain__right__item__miniitem__time">
                     {item.start_at} đến {item.end_at}
@@ -513,7 +562,7 @@ export default function InformationUserB() {
                 </div>
               ))}
 
-              <img src={vetor} alt="" onClick={() => setOpenExp(!openExp)} />
+              <img src={vetor} alt="" onClick={creatExp} />
             </div>
 
             <div
@@ -535,9 +584,11 @@ export default function InformationUserB() {
                         style={{ cursor: "pointer" }}
                         src={vector2}
                         alt=""
-                        onClick={updateProject(item)}
+                        onClick={()=>updateProject(item)}
                       />
-                      <span class="material-symbols-outlined">delete</span>
+                      <span class="material-symbols-outlined"
+                       onClick={() => handleDelete(item.id,"project")}
+                       >delete</span>
                     </div>
                   </div>
                   <p className="informationUser__contain__right__item__miniitem__nameSchool">
@@ -551,7 +602,7 @@ export default function InformationUserB() {
               <img
                 src={vetor}
                 alt=""
-                onClick={() => setOpenProject(!openProject)}
+                onClick={creatProject}
               />
             </div>
 
@@ -574,9 +625,9 @@ export default function InformationUserB() {
                         style={{ cursor: "pointer" }}
                         src={vector2}
                         alt=""
-                        onClick={() => setOpenCert(!openCert)}
+                        onClick={()=>updateCertificate(item)}
                       />
-                      <span class="material-symbols-outlined">delete</span>
+                      <span class="material-symbols-outlined" onClick={() => handleDelete(item.id,"certificate")}>delete</span>
                     </div>
                   </div>
                   <p className="informationUser__contain__right__item__miniitem__nameSchool">
@@ -587,7 +638,7 @@ export default function InformationUserB() {
                   </p>
                 </div>
               ))}
-              <img src={vetor} alt="" onClick={() => setOpenCert(!openCert)} />
+              <img src={vetor} alt="" onClick={creatCerti} />
             </div>
           </div>
         </div>
