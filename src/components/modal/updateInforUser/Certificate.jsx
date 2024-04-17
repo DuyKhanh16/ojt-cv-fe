@@ -1,19 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import React, { memo, useEffect, useState } from 'react'
 import './formModal.scss'
 import './Certificate.scss'
 import privateAxios from '../../../config/private.axios';
 import { notification } from 'antd';
 
-export default function Certificate({isOpen,close}) {
+ function Certificate({isOpen,close}) {
   const [user, setUser] = useState({});
-  useEffect(() => {
-    const getUser = privateAxios.get("api/v2/candidates/getInfor")
-    getUser.then((res) => {
-      console.log("API response data:", res.data.data)
-      setUser({...user,candidate_id:res.data.data.id});
-
-    }) 
-  }, [])
+ 
 const changeValue = (e) => {
   setUser({...user,[e.target.name]:e.target.value})
 }
@@ -66,7 +59,7 @@ const updateCertificate = async () => {
             </div>
         </div>
         <div className="updateInforUser__button">
-          <button onClick={updateCertificate}>Cập nhập</button>
+          <button onClick={updateCertificate}>Cập nhật</button>
           <button className='updateInforUser__button__cancel' onClick={()=>close()}>Hủy Bỏ</button>
         </div>
         </div> 
@@ -76,3 +69,4 @@ const updateCertificate = async () => {
     </>
   )
 }
+export default memo(Certificate)
