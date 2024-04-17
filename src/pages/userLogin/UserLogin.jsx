@@ -24,6 +24,7 @@ export default function UserLogin() {
   const togglePasswordVisibility = () => {
     setPasswordShown(!passwordShown);
   };
+  // hàm validate
   const validate = () => {
     let tempErrors = {};
     tempErrors.email = user.email
