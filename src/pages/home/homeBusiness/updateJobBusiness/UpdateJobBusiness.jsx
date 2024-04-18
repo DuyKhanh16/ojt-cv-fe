@@ -453,7 +453,7 @@ export default function UpdateJobBusiness() {
                       <p style={{ color: "gray", fontSize: "18px" }}>
                         Job Posted
                       </p>
-                      <span>{job.created_at}</span>
+                      <span>{job.created_at.toString().split('T')[0]}</span>
                     </div>
                     <div className="item">
                       <img style={{ marginRight: "10px" }} src={time2}></img>
