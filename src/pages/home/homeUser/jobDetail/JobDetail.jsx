@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Header from "../../../../components/header/Header";
 import FormSearch from "../../../../components/formSearch/FormSearch";
 import Footer from "../../../../components/footer/Footer";
@@ -17,15 +17,34 @@ import Logo from "../../../../assets/images/JobDetails/Employers Logo.png";
 import mapin from "../../../../assets/images/JobDetails/MapPin.png";
 import arowRight from "../../../../assets/images/JobDetails/arrow.right.png";
 import "./JobDetail.scss";
+import { useParams } from "react-router";
+import privateAxios from "../../../../config/private.axios";
 
 export default function JobDetail() {
+  const {id} = useParams();
+  const [infor, setInfor] = React.useState([]);
+  // lay het thong tin cua jobdetail
+  const inforJobDetail = async () => {
+    await privateAxios
+    .get(`/api/v2/jobs/detail/${id}`)
+    .then((res) => {
+      console.log(res.data.data);
+      setInfor(res.data.data);
+    })
+    .catch((error) => {
+      console.log(error);
+    })
+  }
+  useEffect(() => {
+    inforJobDetail();
+  },[])
+  console.log(id)
   return (
     <div>
-      
       <div className="job__detail--container1">
         <div className="job__detail--title1" style={{ color: "#767F8C" }}>
-          <p>Trang chủ / </p> <p>Việc làm / </p> <p>Graphics Designer /</p>{" "}
-          <p style={{ color: "#18191C" }}>Job A Details</p>{" "}
+          <p>Trang chủ / </p> <p>Việc làm / </p>
+          <p style={{ color: "#18191C" }}>{infor?.title}</p>{" "}
         </div>
         <div className="job__detail--content1">
           <div className="job__detail--company1">
@@ -34,9 +53,9 @@ export default function JobDetail() {
                 <img src={avatar}></img>
               </div>
               <div className="job__detail--company--Logo--name1">
-                <h2>Senior Ux Designer</h2>
+                <h2>{infor?.title}</h2>
                 <div className="job__detail--company--Logo--name--address1">
-                  <div className="adress">at FPT Software</div>
+                  <div className="adress">tại {}</div>
                   <div
                     className="hinhthuc1"
                     style={{
