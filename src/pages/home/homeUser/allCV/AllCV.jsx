@@ -69,6 +69,7 @@ export default function AllCV() {
   const exportCV = useReactToPrint({
     content: () => pdf.current,
     documentTitle: 'CV',
+    
     onAfterPrint: () => notification.success({message: 'Xuất file thành công'}),
   })
   useEffect(() => {

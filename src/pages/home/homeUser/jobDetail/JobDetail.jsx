@@ -28,35 +28,31 @@ export default function JobDetail() {
   const [isOpen, setIsOpen] = React.useState(false);
   const [infor, setInfor] = React.useState({});
   const [company, setCompany] = React.useState({});
-  const [addressCompany, setAddressCompany] = React.useState({});
-  const [levelJob, setLevelJob] = React.useState([]);
-  const [levelJobDetail, setLevelJobDetail] = React.useState({});
-  const [typeJob, setTypeJob] = React.useState([]);
-  const [typeJobDetail, setTypeJobDetail] = React.useState({});
   const [position, setPosition] = React.useState("");
 
   const navigate = useNavigate();
   // lay het thong tin cua jobdetail
   const inforJobDetail = async () => {
+    
     await privateAxios
       .get(`/api/v2/jobs/detail/${id}`)
       .then((res) => {
         console.log(res.data.data);
         setInfor(res.data.data);
-        setCompany(res.data.data.company);
-        setAddressCompany(res.data.data.address_company);
-        setLevelJob(res.data.data.levers_jobs);
-        setTypeJob(res.data.data.types_jobs);
-        setLevelJobDetail(levelJob[0]?.leveljob);
-        setTypeJobDetail(typeJob[0]?.typejob);
-        setPosition(res.data.data.title);
       })
       .catch((error) => {
         console.log(error);
       });
   };
   useEffect(() => {
-    inforJobDetail();
+   const result = privateAxios.get(`/api/v2/jobs/detail/${id}`)
+      result.then((res) => {
+        console.log(res.data.data);
+        setInfor(res.data.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }, []);
   console.log(id);
   return (
@@ -68,7 +64,7 @@ export default function JobDetail() {
             </span>
           Quay lại
         </button>
-        <ApplyJob company={company} position={position} id={id}></ApplyJob>
+        <ApplyJob company={infor?.company} position={infor?.title} id={id}></ApplyJob>
         
       </div>
       
@@ -86,13 +82,13 @@ export default function JobDetail() {
               >
                 <img
                   style={{ width: "100%", height: "100%", borderRadius: "5px" }}
-                  src={company?.logo}
+                  src={infor?.company?.logo}
                 ></img>
               </div>
               <div className="job__detail--company--Logo--name1">
-                <h2>{infor?.title}</h2>
+                <h2>{infor?.company?.name}</h2>
                 <div className="job__detail--company--Logo--name--address1">
-                  <div className="adress">tại {company?.name}</div>
+                  <div className="adress">tại {infor?.address_company?.address}</div>
                   <div
                     className="hinhthuc1"
                     style={{
@@ -106,7 +102,7 @@ export default function JobDetail() {
                       height: "28px",
                     }}
                   >
-                    {levelJobDetail?.name}
+                    {infor?.title?infor.levers_jobs[0].leveljob.name:""}
                   </div>
                   <div
                     style={{
@@ -123,7 +119,7 @@ export default function JobDetail() {
                       padding: "3px 10x 3px 10px",
                     }}
                   >
-                    {typeJobDetail?.name}
+                    {infor.title?infor.types_jobs[0].typejob.name:""}
                   </div>
                 </div>
               </div>
@@ -238,7 +234,7 @@ export default function JobDetail() {
                   </div>
 
                   <p style={{ color: "gray", fontSize: "14px" }}>
-                    {addressCompany?.address}
+                    {infor?.address_company?.address}
                   </p>
                 </div>
               </div>
