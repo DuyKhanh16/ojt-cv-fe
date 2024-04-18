@@ -8,7 +8,7 @@ import { Button, Modal, notification } from "antd";
 import axios from "axios";
 import privateAxios from "../../../../config/private.axios";
 import publicAxios from "../../../../config/pulic.axios";
-import CkEditorComponent from "../../../../config/CkEditorComponent";
+// import CkEditorComponent from "../../../../config/CkEditorComponent";
 import logo from "../../../../assets/images/main/Software code testing-pana 1.png";
 
 export default function UpdateInforBusiness() {
@@ -675,7 +675,7 @@ export default function UpdateInforBusiness() {
                   class="fa-regular fa-pen-to-square"
                 ></i>
               </span>
-              <CkEditorComponent getValue={handleTakeValue} />
+            
               <div
                   className="bg-white p-5"
                   dangerouslySetInnerHTML={{ __html: text }}

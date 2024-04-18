@@ -21,14 +21,17 @@ export default function AddJob() {
     leveljob_id: "",
   });
 
-  // lấy thông tin nguồi dùng
+  // lấy thông tin company
   const getInfo = () => {
     const res = privateAxios.get("api/v2/companies/getInfor");
     res.then((res) => {
       SetInfoCompany(res.data.data);
+      // console.log(res);
       setAdressCompany(res.data.data.address_company);
     });
   };
+
+  // console.log(infoCompany, "infoCompany");
   //  hàm lấy các type job
   const getTypeJob = () => {
     const res = axios.get("http://localhost:3000/api/v2/typejob/getall");
