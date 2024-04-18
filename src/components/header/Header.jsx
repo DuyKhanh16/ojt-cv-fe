@@ -27,7 +27,7 @@ export default function Header() {
           </NavLink>
           {token ? (
             <>
-            <NavLink to="/candidate/jobList" className="navbar_item">
+            <NavLink to="/candidate/job-list" className="navbar_item">
             Việc làm
           </NavLink>
             </>

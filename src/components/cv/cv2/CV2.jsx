@@ -12,6 +12,7 @@ export default function CV2() {
   const [education, setEducation] = React.useState([]);
   const [exp, setExp] = React.useState([]);
   const [project, setProject] = React.useState([]);
+  const [aboutMe, setAboutMe] = React.useState("");
   const [certificate, setCertificate] = React.useState([]);
   const getInforCV = async () => {
     await privateAxios
@@ -23,6 +24,7 @@ export default function CV2() {
       setEducation(res.data.data.education_candidate);
       setExp(res.data.data.experience_candidate);
       setProject(res.data.data.project_candidate);
+      setAboutMe(res.data.data.aboutme);
       setCertificate(res.data.data.certificate_candidate);
     })
     .catch((error) => {
@@ -143,7 +145,7 @@ export default function CV2() {
                 Giới thiệu thông tin
               </p>
               <div className="CV2__content--right__introduce__content">
-              Xin chào, tôi là Hòa, năm nay tôi 26 tuổi. Tôi đã có kinh nghiệm làm tại công ty ABC và làm freelancer cho nhiều dự án về game, du lịch, bất động sản, chứng khoán… Điều tôi đang tìm kiếm đó là môi trường làm việc ổn định, chuyên nghiệp để phát huy hết khả năng của mình.
+              {aboutMe}
               </div>
             </div>
             <div className="CV2__content--right__experience">

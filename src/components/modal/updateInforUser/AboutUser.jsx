@@ -4,7 +4,7 @@ import "./formModal.scss"
 import privateAxios from '../../../config/private.axios'
 import { notification } from 'antd'
 function AboutUser({isOpen,close,aboutme}) {
-  
+  console.log(aboutme)
   const [aboutUser, setAboutUser] = useState({
     aboutMe: aboutme
   })
@@ -35,7 +35,7 @@ function AboutUser({isOpen,close,aboutme}) {
         <div className="updateInforUser__table aboutUser">
             <label htmlFor="">Mô tả bản thân</label>
             <textarea 
-            value={aboutUser.aboutMe }
+            value={aboutUser.aboutMe||"" }
             onChange={getChange} name="aboutMe" id="" cols="45" rows="5" placeholder='Giới thiệu kinh nghiệm bản thân'></textarea>
         </div>
         <div className="updateInforUser__button">

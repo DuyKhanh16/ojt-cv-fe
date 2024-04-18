@@ -6,13 +6,15 @@ import emailicon from "../../../assets/images/cv/email.svg";
 import dateicon from "../../../assets/images/cv/date.svg";
 import addressicon from "../../../assets/images/cv/address.svg";
 import privateAxios from '../../../config/private.axios'
-export default function CV1() {
+export default function CV1({item}) {
+  console.log("item",item)
   const [inforCV, setInforCV] = React.useState({});
   const [email, setEmail] = React.useState("");
   const [education, setEducation] = React.useState([]);
   const [exp, setExp] = React.useState([]);
   const [project, setProject] = React.useState([]);
   const [certificate, setCertificate] = React.useState([]);
+  const [aboutMe, setAboutMe] = React.useState("");c
   const getInforCV = async () => {
     await privateAxios
     .get("api/v2/candidates/getAllInformation")
@@ -24,6 +26,7 @@ export default function CV1() {
       setExp(res.data.data.experience_candidate);
       setProject(res.data.data.project_candidate);
       setCertificate(res.data.data.certificate_candidate);
+      setAboutMe(res.data.data.aboutme);
     })
     .catch((error) => {
       console.error("Error:", error);
@@ -130,7 +133,7 @@ export default function CV1() {
                 Giới thiệu thông tin
               </p>
               <div className="CV1__content--right__introduce__content">
-              Xin chào, tôi là Hòa, năm nay tôi 26 tuổi. Tôi đã có kinh nghiệm làm tại công ty ABC và làm freelancer cho nhiều dự án về game, du lịch, bất động sản, chứng khoán… Điều tôi đang tìm kiếm đó là môi trường làm việc ổn định, chuyên nghiệp để phát huy hết khả năng của mình.
+              {aboutMe}
               </div>
             </div>
             <div className="CV1__content--right__experience">
