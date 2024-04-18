@@ -139,7 +139,7 @@ export default function AddJob() {
               <div className="addJob__body__form__time">
                 <label htmlFor="">Cấp bậc tuyển dụng</label> <br />
                 <select
-                onChange={(e) => setNewJob({ ...newJob, typejob_id: e.target.value })}
+                onChange={(e) => setNewJob({ ...newJob, leveljob_id: e.target.value })}
                 value={newJob.leveljob_id} name="leveljob_id" id="">
                   <option value="">Chọn</option>
                   {LevelJob.map((item, index) => (
@@ -182,7 +182,7 @@ export default function AddJob() {
                   <label htmlFor="">Thời gian làm việc</label>
                   <br />
                   <select 
-                  onChange={(e) => setNewJob({ ...newJob, leveljob_id: e.target.value })}
+                  onChange={(e) => setNewJob({ ...newJob, typejob_id: e.target.value })}
                   value={newJob.typejob_id}
                   name="typejob_id" id="">
                     <option value="">Chọn</option>
