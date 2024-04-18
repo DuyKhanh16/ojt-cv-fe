@@ -3,34 +3,22 @@ import "./formModal.scss";
 import "./Certificate.scss";
 import privateAxios from "../../../config/private.axios";
 import { notification } from "antd";
-function Exp({ isOpenP, close, exp, userE }) {
+import { useSelector } from "react-redux";
+function Exp({ isOpenP, close, exp }) {
   console.log(exp);
+  const usera = useSelector((state) => state.candidate.data);
   const [user, setUser] = useState({
-    // company:exp?.company,
-    // position:exp?.position,
-    // start_at:exp?.start_at,
-    // end_at:exp?.end_at,
-    // info:exp?.info,
   });
-  console.log(user);
   useEffect(() => {
-    const getUser = privateAxios.get("api/v2/candidates/getInfor");
-    getUser.then((res) => {
-      console.log("API response data:", res.data.data);
-      setUser({ ...user, candidate_id: res.data.data.id });
-    });
-  }, []);
+    setUser({ ...user,candidate_id:usera.id});
+  },[usera])
+  console.log(usera);
+ 
 
   const changeValue = (e) => {
+    console.log(user);
     setUser({ ...user, [e.target.name]: e.target.value });
   };
-  useEffect(() => {
-    const getUser = privateAxios.get("api/v2/candidates/getInfor");
-    getUser.then((res) => {
-      console.log("API response data:", res.data.data);
-      setUser({ ...user, candidate_id: res.data.data.id });
-    });
-  }, []);
   const updateExp = async () => {
     if (exp.status == "update") {
       try {
@@ -67,13 +55,7 @@ function Exp({ isOpenP, close, exp, userE }) {
     }
   };
   const closeModal = () => {
-    setUser({
-      position: "",
-      company: "",
-      start_at: "",
-      end_at: "",
-      info: "",
-    });
+    setUser({});
     close();
   };
   return (
