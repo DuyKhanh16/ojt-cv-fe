@@ -31,6 +31,7 @@ export default function Main() {
   const getAllCompany = async () => {
     try {
       const res = await publicAxios.get("/api/v2/companies/getAll");
+      console.log(res.data.data);
       setAllCompany(res.data.data);
     } catch (error) {
       console.log(error);
@@ -39,6 +40,7 @@ export default function Main() {
   const getAllLiveJob = async () => {
     try {
       const res = await publicAxios.get("/api/v2/jobs/getLiveJobs");
+      console.log(res.data.data);
       setLiveJob(res.data.data);
     } catch (error) {
       console.log(error);
@@ -55,6 +57,7 @@ export default function Main() {
   const getAllCandidate = async () => {
     try {
       const res = await publicAxios.get("/api/v2/candidates/getAll");
+      console.log(res.data.data);
       setAllCandidate(res.data.data);
     } catch (error) {
       console.log(error);
@@ -198,7 +201,7 @@ export default function Main() {
                   </span>
                   <div className="main__outStandingJob--listJob__item--top__salary">
                     <div className="main__outStandingJob--listJob__item--top__salary__text">
-                      <p>{item.description}</p>
+                      <p>{item?.types_jobs[0].typejob.name}</p>
                     </div>
                     <span className="main__outStandingJob--listJob__item--top__salary__price">
                       {item.salary}
@@ -208,15 +211,15 @@ export default function Main() {
                 <div className="main__outStandingJob--listJob__item--bottom">
                   <div className="main__outStandingJob--listJob__item--bottom--left">
                     <div className="main__outStandingJob--listJob__item--bottom__logo">
-                      <img src={LogoG} alt="" />
+                      <img src={item?.company.logo} alt="" />
                     </div>
                     <div className="main__outStandingJob--listJob__item--bottom__nameLogo">
                       <p className="main__outStandingJob--listJob__item--bottom__nameLogo__text">
-                        Google Inc.
+                        {item?.company.name}
                       </p>
                       <div className="main__outStandingJob--listJob__item--bottom__nameLogo__location">
                         <img src={MapPin} alt="" />
-                        <p>Dhaka, Bangladesh</p>
+                        <p>{item?.address_company.address}</p>
                       </div>
                     </div>
                   </div>
@@ -253,7 +256,7 @@ export default function Main() {
                       </div>
                       <div className="main__outStandingCandidate--listCandidate__item__information--left__name--bottom">
                         <div className="main__outStandingCandidate--listCandidate__item__information--left__name--bottom__left">
-                          Front end
+                          {item?.position}
                         </div>
                         <div className="main__outStandingCandidate--listCandidate__item__information--left__name--bottom__right">
                           Fresher
@@ -284,13 +287,13 @@ export default function Main() {
                   </div>
                   <div className="main__outStandingCandidate--listCandidate__item__language__list">
                     <div className="main__outStandingCandidate--listCandidate__item__language__list__item">
-                      N2
+                      {item?.certificate_candidate[0].name}{item?.certificate_candidate[0].info}
                     </div>
                   </div>
                 </div>
                 <div className="main__outStandingCandidate--listCandidate__item__local">
                   <img src={MapPin} alt="" />
-                  <p>Ha Noi, Viet Nam</p>
+                  <p>{item?.address}</p>
                 </div>
               </div>
             ))}
@@ -320,13 +323,13 @@ export default function Main() {
                     <div className="main__outStandingCompany--listCompany__item__top--name--top">
                       <span>{item.name}</span>
                       <div className="main__outStandingCompany--listCompany__item__top--name--top__featured">
-                        Featured
+                        {item?.typeCompany_id.name}
                       </div>
                     </div>
                     <div className="main__outStandingCompany--listCompany__item__top--name--bottom">
                       <img src={MapPin} alt="" />
                       <p className="main__outStandingCompany--listCompany__item__top--name--bottom__location">
-                        Dhaka, Bangladesh
+                        {item?.address_company[0].address}
                       </p>
                     </div>
                   </div>

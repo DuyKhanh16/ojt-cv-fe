@@ -236,10 +236,17 @@ body {
 
             .user-ListJob-job-infoCompany {
                 display: flex;
+                
 
                 .user-ListJob-job-info-logo {
                     width: 48px;
                     height: 48px;
+                    overflow: hidden;
+                    img{
+                        width: 48px;
+                        height: 48px;
+
+                    }
 
                 }
 
