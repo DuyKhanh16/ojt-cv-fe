@@ -54,12 +54,13 @@ export default function Main() {
   };
   const getAllCandidate = async () => {
     try {
-      const res = await publicAxios.get("/api/v2/candidates/getAll");
-      setAllCandidate(res.data.data);
+      const res = await publicAxios.get("api/v2/candidates/getAll");
+      console.log(res);
     } catch (error) {
       console.log(error);
     }
   };
+  console.log(allCandidate);
   useEffect(() => {
     getAllCompany();
     getAllLiveJob();
@@ -181,7 +182,10 @@ export default function Main() {
             <span className="main__outStandingJob--header__title">
               Công việc nổi bật
             </span>
-            <div className="main__outStandingJob--header__view" onClick={()=> navigate("/candidate/jobList")}>
+            <div
+              className="main__outStandingJob--header__view"
+              onClick={() => navigate("/candidate/jobList")}
+            >
               <p>Xem thêm</p>
               <img src={arrow} alt="" />
             </div>
