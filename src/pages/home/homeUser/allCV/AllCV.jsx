@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import './AllCV.scss'
 import cv1img from '../../../../assets/images/cv/Screenshot 2024-04-18 001050.png'
 import cv2img from '../../../../assets/images/cv/Screenshot 2024-04-18 001006.png'
@@ -10,6 +10,8 @@ import CV3 from '../../../../components/cv/cv3/Cv3'
 import CV4 from '../../../../components/cv/cv4/Cv4'
 import { useNavigate } from 'react-router'
 import privateAxios from '../../../../config/private.axios'
+import {useReactToPrint} from 'react-to-print'
+import { notification } from 'antd'
 export default function AllCV() {
   const [cv1, setCv1] = React.useState(true);
   const [cv2, setCv2] = React.useState(false);
@@ -62,6 +64,13 @@ export default function AllCV() {
       console.error("Error:", error);
     })
   }
+
+  const pdf = useRef()
+  const exportCV = useReactToPrint({
+    content: () => pdf.current,
+    documentTitle: 'CV',
+    onAfterPrint: () => notification.success({message: 'Xuất file thành công'}),
+  })
   useEffect(() => {
     getInforCV()
   },[])
@@ -142,7 +151,8 @@ export default function AllCV() {
           
         </div>
         <div className='allCV__content--right'>
-              <div style={{display:cv1?'block':'none'}}>
+          <div ref={pdf}>
+          <div style={{display:cv1?'block':'none'}}>
                 <CV1 item = {infor}></CV1>
               </div>
               <div style={{display:cv2?'block':'none'}}>
@@ -154,11 +164,13 @@ export default function AllCV() {
               <div style={{display:cv4?'block':'none'}}>
                 <CV4></CV4>
               </div>
+          </div>
+              
               <div className='allCV__content--right__export'>
                 <div className='allCV__content--right__export--context'>
                   Upgrade profile to "Excellent" to unlock Download CV
                 </div>
-                 <div className='allCV__content--right__export--btn'>
+                 <div className='allCV__content--right__export--btn' onClick={exportCV}>
                  <span class="material-symbols-outlined">
                   download
                   </span>
