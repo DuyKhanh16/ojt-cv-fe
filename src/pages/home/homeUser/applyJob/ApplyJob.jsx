@@ -5,10 +5,12 @@ import { doc, updateDoc } from "firebase/firestore";
 import { getFirestore } from "firebase/firestore";
 import { storage } from "../../../../config/firebase";
 import { ref, getDownloadURL, uploadBytesResumable, uploadBytes } from "firebase/storage";
+import { useNavigate } from 'react-router';
 const db = getFirestore(app);
 const collectionRef = doc(db, "doc", "doc1");
 
 export default function ApplyJob() {
+  const navigate = useNavigate();
   const changeImage = (e) => {
     let file = e.target.files[0];
     const imageRef = ref(storage, `images/${file.name}`); 
@@ -25,7 +27,12 @@ export default function ApplyJob() {
     <>
     <div className='applyJob__container'>
         <div className='applyJob__bg'>
-
+        </div>
+        <div className='applyJob__back' onClick={() => navigate()} >
+            <span class="material-symbols-outlined">
+            arrow_back
+            </span>
+            <p>Quay lại</p>
         </div>
         <div className='applyJob__content'>
             <h2>Công ty TNHH Rikkei tuyển dụng vị trí JS FullStack</h2>
