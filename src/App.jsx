@@ -86,6 +86,7 @@ const router = createBrowserRouter([
         path: "job-detail/:id",
         element: <JobDetail></JobDetail>,
       },
+
       {
         path: "inforcv",
         element: <InformationUserB></InformationUserB>,
@@ -98,10 +99,6 @@ const router = createBrowserRouter([
       {
         path: "candidate-outstanding",
         element: <InformationUser></InformationUser>,
-      },
-      {
-        path:"apply-job",
-        element: <ApplyJob></ApplyJob>,
       }
     ],
   },
