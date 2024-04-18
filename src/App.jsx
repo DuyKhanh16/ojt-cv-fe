@@ -65,7 +65,7 @@ const router = createBrowserRouter([
     path: "/allcv",
     element: <AllCV></AllCV>,
   },
-
+  
   /* het source chung */
 
   /* candidate */
