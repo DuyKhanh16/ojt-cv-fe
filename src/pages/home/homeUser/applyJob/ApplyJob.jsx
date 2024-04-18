@@ -1,6 +1,26 @@
 import React from 'react'
 import './ApplyJob.scss'
+import { app } from "../../../../config/firebase";
+import { doc, updateDoc } from "firebase/firestore";
+import { getFirestore } from "firebase/firestore";
+import { storage } from "../../../../config/firebase";
+import { ref, getDownloadURL, uploadBytesResumable, uploadBytes } from "firebase/storage";
+const db = getFirestore(app);
+const collectionRef = doc(db, "doc", "doc1");
+
 export default function ApplyJob() {
+  const changeImage = (e) => {
+    let file = e.target.files[0];
+    const imageRef = ref(storage, `images/${file.name}`); 
+    uploadBytes(imageRef, file).then((snapshot) => {
+      getDownloadURL(snapshot.ref).then((url) => {
+        console.log(url);
+        // setUrlImage(url); 
+      });
+    }).catch((error) => {
+      console.error("Upload error:", error); 
+    });
+  };
   return (
     <>
     <div className='applyJob__container'>
@@ -26,7 +46,13 @@ export default function ApplyJob() {
 
                 </div>
                 <div className='applyJob__content__inputImage__image--middle'>
-                    <input type="file" />
+                    <input 
+                     type="file"
+                     // name="img"
+                     onChange={changeImage}
+                     // value={product.name}
+                     autoFocus
+                     />
                 </div>
                 <div className='applyJob__content__inputImage__image--bottom'>
                     <p>We accept .doc .docx, .pdf files, no password protected, up to 3MB</p>

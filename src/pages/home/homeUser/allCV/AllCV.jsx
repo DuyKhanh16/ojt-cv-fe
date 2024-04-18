@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import './AllCV.scss'
 import cv1img from '../../../../assets/images/cv/Screenshot 2024-04-18 001050.png'
 import cv2img from '../../../../assets/images/cv/Screenshot 2024-04-18 001006.png'
@@ -9,11 +9,13 @@ import CV1 from '../../../../components/cv/cv1/CV1'
 import CV3 from '../../../../components/cv/cv3/Cv3'
 import CV4 from '../../../../components/cv/cv4/Cv4'
 import { useNavigate } from 'react-router'
+import privateAxios from '../../../../config/private.axios'
 export default function AllCV() {
   const [cv1, setCv1] = React.useState(true);
   const [cv2, setCv2] = React.useState(false);
   const [cv3, setCv3] = React.useState(false);
   const [cv4, setCv4] = React.useState(false);
+  const [infor, setInfor] = React.useState({});
   const choose = (index) => {
      const ar = document.getElementsByClassName('allCV__content--left__list__item')[index].classList.add('cv1')
    for (let i = 0; i < 4; i++) {
@@ -49,6 +51,20 @@ export default function AllCV() {
    }
   }
   const navigate = useNavigate();
+  const getInforCV = async () => {
+    await privateAxios
+    .get("api/v2/candidates/getAllInformation")
+    .then((res) => {
+      setInfor(res.data.data);
+      console.log(infor)
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    })
+  }
+  useEffect(() => {
+    getInforCV()
+  },[])
   return (
     <>
     <div className='allCV__container'>
@@ -127,10 +143,10 @@ export default function AllCV() {
         </div>
         <div className='allCV__content--right'>
               <div style={{display:cv1?'block':'none'}}>
-                <CV1></CV1>
+                <CV1 item = {infor}></CV1>
               </div>
               <div style={{display:cv2?'block':'none'}}>
-                <CV2></CV2>
+                <CV2 item = {infor}></CV2>
               </div>
               <div style={{display:cv3?'block':'none'}}>
                 <CV3></CV3>
