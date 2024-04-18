@@ -66,25 +66,28 @@ export default function UpdateInforBusiness() {
   const getinfoCompany = () => {
     const res2 = privateAxios.get("api/v2/companies/getInfor");
     res2.then((res) => {
-      console.log(res)
+      // console.log(res)
       setInfoCompany(res.data.data);
       const companyData = res.data.data;
-      // console.log(companyData,"dữ liệu");
+      // console.log(companyData.address_company,"dữ liệu");
       setUpdateCompany({
         // Giữ lại các giá trị hiện tại của updateCompany
-        name: companyData?.name,
-        size: companyData?.size,
-        link_facebook: companyData?.link_facebook,
-        website: companyData?.website,
+        name: companyData.name,
+        size: companyData.size,
+        link_facebook: companyData.link_facebook,
+        website: companyData.website,
         description: companyData?.description,
-        email: companyData?.account_company_id.email,
-        phone: companyData?.phone,
-        photo: companyData?.logo,
-        typeCompany_id: companyData?.typeCompany_id.id,
-        policy: companyData?.policy,
+        email: companyData.account_company_id.email,
+        phone: companyData.phone,
+        photo: companyData.logo,
+        typeCompany_id: companyData.typeCompany_id.id,
+        policy: companyData.policy,
       });
-      setListBrand(companyData?.address_company);
-      Settycompany(companyData?.typeCompany_id.name);
+      setListBrand(companyData.address_company);
+      Settycompany(companyData.typeCompany_id.name);
+
+     
+      // console.log(listBrand,"2")
     });
   };
   //  lấy các type company
@@ -100,7 +103,7 @@ export default function UpdateInforBusiness() {
     getTypeCompany();
   }, [flag]);
 
-  // console.log(listBrand, "123123");
+  console.log(updateCompany, "123123");
 
   // api thành phố
   const handleGetDataCity = async () => {
@@ -718,7 +721,7 @@ export default function UpdateInforBusiness() {
             <i style={{ color: "#BC2228" }} class="fa-solid fa-plus"></i>
                 </div>
               </div>
-              {listBrand?.map((item) => (
+              {listBrand.map((item) => (
                 <div
                   style={{ display: "flex", alignItems: "center" }}
                   className="container"
