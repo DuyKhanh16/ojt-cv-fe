@@ -76,9 +76,7 @@ export default function AllUserApply() {
               <div className="allUserApply__content__headerTable__name column">
                 <p>Họ và tên</p>
               </div>
-              <div className="allUserApply__content__headerTable__email column">
-                <p>Email</p>
-              </div>
+             
               <div className="allUserApply__content__headerTable__job column">
                 <p>Công việc ứng tuyển</p>
               </div>
@@ -100,9 +98,7 @@ export default function AllUserApply() {
                   <div className="allUserApply__content__bodyTable__item__name column">
                     <p>{item?.job_candidates[0].candidate_id?.name}</p>
                   </div>
-                  <div className="allUserApply__content__bodyTable__item__email column">
-                    <p>{item?.job_candidates[0].candidate_id?.account_candidate_id.email}</p>
-                  </div>
+                 
                   <div className="allUserApply__content__bodyTable__item__job column">
                     <p>{item?.title}</p>
                   </div>
