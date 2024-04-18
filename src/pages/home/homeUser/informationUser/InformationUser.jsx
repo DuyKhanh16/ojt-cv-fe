@@ -140,7 +140,7 @@ export default function InformationUserB() {
   /* kinh nghiem */
   const checkExpF = () => {
     if (exp.length > 0) {
-      console.log("11", exp);
+      // console.log("11", exp);
       setCheckExp(true);
     } else {
       setCheckExp(false);

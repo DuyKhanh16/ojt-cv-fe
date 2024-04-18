@@ -3,23 +3,19 @@ import "./formModal.scss";
 import "./Certificate.scss";
 import privateAxios from "../../../config/private.axios";
 import { notification } from "antd";
+import { useSelector } from "react-redux";
 
 function Certificate({ isOpen, close, certificate }) {
+
   const [user, setUser] = useState({
-    // name:certificate?.name,
-    // organization:certificate?.organization,
-    // info:certificate?.info,
-    // start_at:certificate?.start_at,
-    // end_at:certificate?.end_at,
   });
+  const usera = useSelector((state) => state.candidate.data);
   console.log(certificate);
   useEffect(() => {
-    const getUser = privateAxios.get("api/v2/candidates/getInfor");
-    getUser.then((res) => {
-      console.log("API response data:", res.data.data);
-      setUser({ ...user, candidate_id: res.data.data.id });
-    });
-  }, []);
+    setUser({ ...user,candidate_id:usera.id});
+  },[usera])
+  console.log(usera);
+  
   const changeValue = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
