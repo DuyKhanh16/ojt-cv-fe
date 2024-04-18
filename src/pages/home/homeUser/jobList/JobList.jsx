@@ -65,6 +65,7 @@ export default function JobList() {
       <div className='user-ListJob-jobRender'>
         {ListJob.map((job) => {
           return( <div key={job.id} className='user-ListJob-job' style={{cursor:"pointer"}} onClick={() => navigate(`/candidate/job-detail/${job.id}`)}>
+
             <p className='user-ListJob-job-title'>{job.title}</p>
             <div className='user-ListJob-job-typeSalary'>
               <p className='typeJob'>{job.type}</p> 
