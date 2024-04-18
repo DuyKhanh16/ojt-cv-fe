@@ -7,6 +7,7 @@ import { useNavigate } from "react-router";
 import privateAxios from "../../../../config/private.axios";
 import { notification,Switch } from "antd";
 import axios from "axios";
+
 // import { Switch } from 'antd';
 export default function Alljob() {
   const navigate = useNavigate();
@@ -72,10 +73,12 @@ export default function Alljob() {
   // hàm xoá công việc
 
   const handleDelete = async (id) => {
+    // console.log(id)
   if(confirm("Bạn có muốn xóa")){
     try {
-      // const res = await privateAxios.delete(`api/v2/jobs/delete/${id}`);
+      const res = await privateAxios.delete(`api/v2/jobs/delete/${id}`);
       notification.success({ message: "Đã xóa thành công" });
+      setflag(!flag)
     } catch (error) {
       console.log(error);
     }
@@ -128,8 +131,8 @@ export default function Alljob() {
               <div className="alljob__content__bodyTable__item__name column">
                 <p>{item.title}</p>
               </div>
-              <div style={{width:"500px"}} className="alljob__content__bodyTable__item__time column">
-                <p>{item.created_at}</p>
+              <div style={{width:"auto"}} className="alljob__content__bodyTable__item__time column">
+                <p>{item.created_at.toString().slice(0, 10)}</p>
                 <p>-</p>
                 <p>{item.expire_at}</p>
               </div>
@@ -157,8 +160,10 @@ export default function Alljob() {
                 </div>
               </div>
               <div className="alljob__content__bodyTable__item__action column">
-                <div className="alljob__content__bodyTable__item__action__delete btn">
-                  <p onClick={handleDelete}>Xóa</p>
+                <div 
+                onClick={() => handleDelete(item.id)}
+                className="alljob__content__bodyTable__item__action__delete btn">
+                  <p >Xóa</p>
                 </div>
               
               </div>
