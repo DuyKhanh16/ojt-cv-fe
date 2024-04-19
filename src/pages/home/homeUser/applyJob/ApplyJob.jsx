@@ -42,13 +42,12 @@ export default function ApplyJob({position,company,id}) {
   const user = useSelector((state) => state.candidate.data);
 
   const getChange = (e) => {
-    const { name, value } = e.target;
-    setInfor({ ...infor, [name]: value });
+    setInfor({ ...infor, [e.target.name]: e.target.value });
   }
 
 
 
-  const sendInfor = async () => {
+  const sendInfor = () => {
     setInfor({...infor,cv_url:urlImage,candidate_id:user?.account_candidate_id.id,job_id:id});
   }
   console.log(infor)
@@ -88,9 +87,8 @@ export default function ApplyJob({position,company,id}) {
                 <div className='applyJob__content__inputImage__image--middle'>
                     <input 
                      type="file"
-                     // name="img"
+                     name="cv_url"
                      onChange={changeImage}
-                     value={infor.cv_url}
                      autoFocus
                      />
                 </div>

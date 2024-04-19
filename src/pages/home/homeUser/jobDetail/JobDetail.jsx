@@ -136,78 +136,21 @@ export default function JobDetail() {
           </div>
           <div className="job__detail--description1">
             <div className="job__detail--description--title1">
-              <h2>Job Description</h2>
+              <h2>Mô tả công việc</h2>
               <p>{infor?.description}</p>
-              <h2>Requirements</h2>
+              <h2>Yêu cầu</h2>
               <p>{infor?.requirements}</p>
-              {/* <h2>Desirable</h2>
-              <ul>
-                <li>
-                  {" "}
-                  Trong bài văn, Thảo viết: “Máy quay dường như đang chậm lại,
-                  từng cảnh từng nét hiện lên rõ ràng. Tôi thấy thầy đang lụi
-                  hụi trồng rau, chăm sóc con chó lông trắng đen già khụ, thấy
-                  cả chúng tôi ngày đó,{" "}
-                </li>
-                <li>
-                  Trong bài văn, Thảo viết: “Máy quay dường như đang chậm lại,
-                  từng cảnh từng nét hiện lên rõ ràng.
-                </li>
-                <li>
-                  trong những ngày vất vả nhưng yên bình. Tôi nghĩ, có lẽ đó là
-                  những ngày hạnh phúc và vui vẻ nhất tôi từng có. Sau này, khi
-                  bước đi trên đường đời chông gai, có thể sẽ chẳng còn ai chỉ
-                  bảo, dạy dỗ tôi tận tình như thầy đã từng, có thể sẽ chẳng có
-                  ai lo tôi{" "}
-                </li>
-              </ul> */}
-              {/* <h2>Benefits</h2>
-              <ul>
-                <li>
-                  {" "}
-                  Trong bài văn, Thảo viết: “Máy quay dường như đang chậm lại,
-                  từng cảnh từng nét hiện lên rõ ràng. Tôi thấy thầy đang lụi
-                  hụi trồng rau, chăm sóc con chó lông trắng đen già khụ, thấy
-                  cả chúng tôi ngày đó,{" "}
-                </li>
-                <li>
-                  Trong bài văn, Thảo viết: “Máy quay dường như đang chậm lại,
-                  từng cảnh từng nét hiện lên rõ ràng.
-                </li>
-                <li>
-                  trong những ngày vất vả nhưng yên bình. Tôi nghĩ, có lẽ đó là
-                  những ngày hạnh phúc và vui vẻ nhất tôi từng có. Sau này, khi
-                  bước đi trên đường đời chông gai, có thể sẽ chẳng còn ai chỉ
-                  bảo, dạy dỗ tôi tận tình như thầy đã từng, có thể sẽ chẳng có
-                  ai lo tôi{" "}
-                </li>
-                <li>
-                  Trong bài văn, Thảo viết: “Máy quay dường như đang chậm lại,
-                  từng cảnh từng nét hiện lên rõ ràng.
-                </li>
-                <li>
-                  Trong bài văn, Thảo viết: “Máy quay dường như đang chậm lại,
-                  từng cảnh từng nét hiện lên rõ ràng.
-                </li>
-                <li>
-                  Trong bài văn, Thảo viết: “Máy quay dường như đang chậm lại,
-                  từng cảnh từng nét hiện lên rõ ràng.
-                </li>
-                <li>
-                  Trong bài văn, Thảo viết: “Máy quay dường như đang chậm lại,
-                  từng cảnh từng nét hiện lên rõ ràng.
-                </li>
-              </ul> */}
+              
             </div>
             <div>
               <div className="job__detail--description--details1">
                 <div style={{ textAlign: "center" }}>
-                  <h3 style={{ marginBottom: "10px" }}>Salary (Usd)</h3>
+                  <h3 style={{ marginBottom: "10px" }}>Mức lương (đồng)</h3>
                   <p style={{ color: "#0BA02C", fontSize: "18px" }}>
                     {infor?.salary}
                   </p>
                   <p style={{ color: "gray", fontSize: "14px" }}>
-                    Yearly Salary
+                    Một tháng
                   </p>
                 </div>
                 <div
@@ -227,10 +170,10 @@ export default function JobDetail() {
                     }}
                   >
                     <img
-                      style={{ marginLeft: "40px", marginBottom: "10px" }}
+                      style={{ marginLeft: "0px", marginBottom: "10px" }}
                       src={MapTrifold}
                     ></img>
-                    <h3>Job Location</h3>
+                    <h3>Địa chỉ làm việc</h3>
                   </div>
 
                   <p style={{ color: "gray", fontSize: "14px" }}>
@@ -240,7 +183,7 @@ export default function JobDetail() {
               </div>
               <div className="job__detail--description--overview1">
                 <div className="line1">
-                  <h3 style={{ marginBottom: "10px" }}>Job Overview</h3>
+                  <h3 style={{ marginBottom: "10px" }}>Thời gian</h3>
                   <div style={{ display: "flex", flexWrap: "wrap" }}>
                     <div
                       style={{
@@ -254,7 +197,7 @@ export default function JobDetail() {
                         src={CalendarBlank}
                       ></img>
                       <p style={{ color: "gray", fontSize: "18px" }}>
-                        Job Posted
+                        Khởi tạo
                       </p>
                       <div class="date">{infor?.created_at}</div>
                     </div>
@@ -263,7 +206,7 @@ export default function JobDetail() {
                         style={{ marginRight: "10px", marginBottom: "10px" }}
                         src={CalendarBlank}
                       ></img>
-                      <p style={{ color: "gray", fontSize: "18px" }}>Job End</p>
+                      <p style={{ color: "gray", fontSize: "18px" }}>Kết thúc</p>
                       <div class="date">{infor?.expire_at}</div>
                     </div>
                   </div>
@@ -272,7 +215,7 @@ export default function JobDetail() {
               </div>
               <div className="job__detail--description--Share1">
                 <div className="line1">
-                  <h3 style={{ marginBottom: "10px" }}>Share thit Job :</h3>
+                  <h3 style={{ marginBottom: "10px" }}>Chia sẻ công việc :</h3>
                   <div style={{ display: "flex", gap: "10px" }}>
                     <img src={Socialbutton}></img>
                     <img src={Socialbutton1}></img>
