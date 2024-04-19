@@ -37,7 +37,7 @@ export default function FormSearch() {
       </div>
       <div className="form__search--popover--info">
         <img src={user1}></img>
-        <p>Thông tin cá nhân</p>
+        <p onClick={() => navigate("/candidate/user-detail")}>Thông tin cá nhân</p>
       </div>
       <div
         onClick={() => {
