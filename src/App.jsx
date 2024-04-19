@@ -34,6 +34,10 @@ import ApplyJob from "./pages/home/homeUser/applyJob/ApplyJob";
 import CV1 from "./components/cv/cv1/CV1";
 import UpdateInfoFistTime from "./pages/home/homeBusiness/CompanyUpdateInfoFirstTime/UpdateInfoFistTime";
 import UserDetail from "./pages/home/homeUser/userDetail/UserDetail";
+import SearchAll from "./pages/home/searchAll/SearchAll";
+import SearchJob from "./pages/home/searchAll/SearchJob";
+import SearchCandidate from "./pages/home/searchAll/SearchCandidate";
+import SearchCompany from "./pages/home/searchAll/SearchCompany";
 
 const router = createBrowserRouter([
   /* source chung */
@@ -46,6 +50,25 @@ const router = createBrowserRouter([
         element: <Main />,
       },
     ],
+  },
+  {
+    path:'/searchAll',
+    element:<SearchAll></SearchAll>,
+    children:[
+      {
+        path:"searchJob",
+        element:<SearchJob></SearchJob>
+      },
+      {
+        path:"searchCandidate",
+        element:<SearchCandidate></SearchCandidate>
+      },
+      {
+        path:"searchCompany",
+        element:<SearchCompany></SearchCompany>
+      }
+    ]
+
   },
   {
     path:"/testCV1",
