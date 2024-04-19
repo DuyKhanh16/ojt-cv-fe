@@ -3,7 +3,10 @@ import "./UserDetail.scss";
 import cv from "../../../../assets/images/informationUser/cv 1.png";
 import emailicon from "../../../../assets/images/informationUser/emailicon.png";
 import fbicon from "../../../../assets/images/informationUser/fbicon.png";
+import arrow from "../../../../assets/images/main/fi_arrow-right.png";
 import heart from "../../../../assets/images/informationUser/heart.png";
+import BookmarkSimple from "../../../../assets/images/main/BookmarkSimple.png";
+import MapPin from "../../../../assets/images/main/MapPin.png";
 import LinkSimple from "../../../../assets/images/informationUser/LinkSimple.png";
 import location from "../../../../assets/images/informationUser/location.circle.png";
 import logoFPT from "../../../../assets/images/informationUser/logoFPT.png";
@@ -16,6 +19,7 @@ import privateAxios from "../../../../config/private.axios";
 import { useNavigate } from "react-router";
 export default function UserDetail() {
   const [infor, setInfor] = React.useState({});
+  const [allJob, setAllJob] = React.useState([]);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((state) => state.candidate.data);
@@ -33,9 +37,22 @@ export default function UserDetail() {
   };
   console.log(user);
   console.log(infor);
+  const allJobApply = async () => {
+    await privateAxios
+    .get("api/v2/jobs/getJobAppliedCandidates")
+    .then((res) => {
+      console.log(res.data.data);
+      setAllJob(res.data.data);
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    })
+  }
+  console.log(allJob)
   useEffect(() => {
     dispatch(candidateAsync());
     getInforCV();
+    allJobApply();
   }, [dispatch]);
   return (
     <>
@@ -227,6 +244,62 @@ export default function UserDetail() {
             </div>
           </div>
         </div>
+        <div className="userDetail__outStandingJob">
+        <div className="userDetail__outStandingJob--header">
+            <span className="userDetail__outStandingJob--header__title">
+              Công việc đã ứng tuyển
+            </span>
+            <div
+              className="userDetail__outStandingJob--header__view"
+              onClick={() => navigate("/candidate/job-list")}
+            >
+              <p></p>
+              
+            </div>
+          </div>
+        <div className="userDetail__outStandingJob--listJob">
+            {allJob?.map((item) => (
+              <div
+                className="userDetail__outStandingJob--listJob__item"
+                key={item.id}
+              >
+                <div className="userDetail__outStandingJob--listJob__item--top">
+                  <span className="userDetail__outStandingJob--listJob__item--top__name">
+                    {item?.job_id?.title}
+                  </span>
+                  <div className="userDetail__outStandingJob--listJob__item--top__salary">
+                    <div className="userDetail__outStandingJob--listJob__item--top__salary__text">
+                      <p>{item?.job_id?.types_jobs[0].typejob.name}</p>
+                    </div>
+                    <span className="userDetail__outStandingJob--listJob__item--top__salary__price">
+                      {item?.job_id?.salary}
+                    </span>
+                  </div>
+                </div>
+                <div className="userDetail__outStandingJob--listJob__item--bottom">
+                  <div className="userDetail__outStandingJob--listJob__item--bottom--left">
+                    <div className="userDetail__outStandingJob--listJob__item--bottom__logo">
+                      <img src={item?.job_id?.company?.logo} alt="" />
+                    </div>
+                    <div className="userDetail__outStandingJob--listJob__item--bottom__nameLogo">
+                      <p className="userDetail__outStandingJob--listJob__item--bottom__nameLogo__text">
+                        {item?.job_id?.company?.name}
+                      </p>
+                      <div className="userDetail__outStandingJob--listJob__item--bottom__nameLogo__location">
+                        <img src={MapPin} alt="" />
+                        <p>{item?.job_id?.company?.address_company[0]?.address}</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="userDetail__outStandingJob--listJob__item--bottom__bookmark">
+                    <img src={BookmarkSimple} alt="" />
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+        
       </div>
     </>
   );
