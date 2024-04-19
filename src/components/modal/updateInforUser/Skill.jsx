@@ -3,16 +3,15 @@ import './formModal.scss'
 import './Skill.scss'
 import gearshape from '../../../assets/images/main/gearshape.png'
 import privateAxios from '../../../config/private.axios';
+import { useSelector } from 'react-redux';
 export default function Skill({isOpen,close}) {
-    const [user, setUser] = useState({});
-    useEffect(() => {
-      const getUser = privateAxios.get("api/v2/candidates/getInfor")
-      getUser.then((res) => {
-        console.log("API response data:", res.data.data)
-        setUser({...user,candidate_id:res.data.data.id});
-  
-      }) 
-    }, [])
+  const usera = useSelector((state) => state.candidate.data);
+  const [user, setUser] = useState({
+  });
+  useEffect(() => {
+    setUser({ ...user,candidate_id:usera.id});
+  },[usera])
+  console.log(usera);
   const changeValue = (e) => {
     setUser({...user,[e.target.name]:e.target.value})
   }

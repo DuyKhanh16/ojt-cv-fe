@@ -256,7 +256,6 @@ export default function HomeAdmin() {
                         <span className="text nav-text" style={{fontSize:"1.4vw"}} onClick={handleLogout}>Đăng xuất</span>
                       </a>
                     </li>
-                    
                   </ul>
                 </div>
               </div>

@@ -3,22 +3,15 @@ import "./formModal.scss";
 import "./Certificate.scss";
 import { notification } from "antd";
 import privateAxios from "../../../config/private.axios";
+import { useSelector } from "react-redux";
 function ProjectUser({ isOpen, close, project }) {
+  const usera = useSelector((state) => state.candidate.data);
   const [user, setUser] = useState({
-    // name:project?.name,
-    // info:project?.info,
-    // link:project?.link,
-    // start_at:project?.start_at,
-    // end_at:project?.end_at,
   });
-  console.log(project);
   useEffect(() => {
-    const getUser = privateAxios.get("api/v2/candidates/getInfor");
-    getUser.then((res) => {
-      console.log("API response data:", res.data.data);
-      setUser({ ...user, candidate_id: res.data.data.id });
-    });
-  }, []);
+    setUser({ ...user,candidate_id:usera.id});
+  },[usera])
+  console.log(usera);
   const changeValue = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };

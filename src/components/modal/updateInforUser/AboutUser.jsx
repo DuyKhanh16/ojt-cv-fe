@@ -1,12 +1,21 @@
-import React, { useState ,memo} from 'react'
+import React, { useState ,memo, useEffect} from 'react'
 import './AboutUser.scss'
 import "./formModal.scss"
 import privateAxios from '../../../config/private.axios'
 import { notification } from 'antd'
-function AboutUser({isOpen,close,aboutme}) {
-  
+import { useDispatch, useSelector } from 'react-redux'
+import { candidateAsync } from '../../../redux/reduce/candidateReduce'
+function AboutUser({isOpen,close,item}) {
+  console.log(item)
+
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.candidate.data);
+  useEffect(() => {
+    dispatch(candidateAsync());
+  },[dispatch]);
+console.log(user)
   const [aboutUser, setAboutUser] = useState({
-    aboutMe: aboutme
+    aboutMe: user?.aboutme,
   })
   const getChange = (e) => {
     setAboutUser({ ...aboutUser, [e.target.name]: e.target.value });
@@ -17,7 +26,7 @@ function AboutUser({isOpen,close,aboutme}) {
       .then((res)=>{
         console.log("API response data:", res);
         close();
-        setAboutUser("")
+        // setAboutUser("")
         notification.success({
           message:"Thêm thông tin thành công"
         })
@@ -35,7 +44,7 @@ function AboutUser({isOpen,close,aboutme}) {
         <div className="updateInforUser__table aboutUser">
             <label htmlFor="">Mô tả bản thân</label>
             <textarea 
-            value={aboutUser.aboutMe }
+            value={aboutUser.aboutMe || ""}
             onChange={getChange} name="aboutMe" id="" cols="45" rows="5" placeholder='Giới thiệu kinh nghiệm bản thân'></textarea>
         </div>
         <div className="updateInforUser__button">

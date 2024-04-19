@@ -3,19 +3,16 @@ import './formModal.scss'
 import './Certificate.scss'
 import privateAxios from '../../../config/private.axios'
 import { notification } from 'antd';
+import { useSelector } from 'react-redux';
 
  function Education({isOpen,close,edu}) {
-  const [user, setUser] = useState({});
-  const [itemUpdate, setItemUpdate] = useState({});
-  console.log(edu)
-
-  useEffect(() => {
-    const getUser = privateAxios.get("api/v2/candidates/getInfor")
-    getUser.then((res) => {
-      console.log("API response data:", res.data.data.id)
-      setUser({...user,candidate_id:res.data.data.id});
-    }) 
-  }, [edu])
+  const usera = useSelector((state) => state.candidate.data);
+ const [user, setUser] = useState({
+ });
+ useEffect(() => {
+   setUser({ ...user,candidate_id:usera.id});
+ },[usera])
+ console.log(usera);
 const changeValue = (e) => {
   setUser({...user,[e.target.name]:e.target.value})
 }

@@ -1,7 +1,26 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./AllUserAdmin.scss";
 import AdminSearch from "../../../../components/adminSearch/AdminSearch";
+import { useNavigate } from "react-router";
+import publicAxios from "../../../../config/pulic.axios";
 export default function AllUserAdmin() {
+  const [allCandidate, setAllCandidate] = useState([]);
+  const navigate = useNavigate();
+  
+
+  const getAllCandidate = async () => {
+    try {
+      const res = await publicAxios.get("/api/v2/candidates/getAll");
+      console.log(res.data.data);
+      setAllCandidate(res.data.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  console.log(allCandidate)
+  useEffect(() => {
+    getAllCandidate();
+  }, []);
   return (
     <>
       <div className="allUserAdmin__container">
@@ -27,87 +46,39 @@ export default function AllUserAdmin() {
             </div>
           </div>
           <div className="allUserAdmin__content__bodyTable">
-            <div className="allUserAdmin__content__bodyTable__item">
-              <div className="allUserAdmin__content__bodyTable__item__stt column">
-                <p>1</p>
+            {allCandidate.map((item, index) => {
+              return (
+                <div className="allUserAdmin__content__bodyTable__item" key={item.id}>
+                <div className="allUserAdmin__content__bodyTable__item__stt column">
+                  <p>{index+1}</p>
+                </div>
+                <div className="allUserAdmin__content__bodyTable__item__name column">
+                  <p>{item.name}</p>
+                </div>
+                <div className="allUserAdmin__content__bodyTable__item__email column">
+                  <p>{item.account_candidate_id.email}</p>
+                </div>
+                <div className="allUserAdmin__content__bodyTable__item__active column">
+                  <label class="allUserAdmin__content__bodyTable__item__active__btn">
+                    <input
+                      type="checkbox"
+                      id="toggle-input"
+                      class="toggle-input"
+                    />
+                    <div class="toggle-bar">
+                      <div class="toggle-spin"></div>
+                    </div>
+                    
+                  </label>
+                </div>
+                <div className="allUserAdmin__content__bodyTable__item__description column">
+                  <p>Xem</p>
+                </div>
               </div>
-              <div className="allUserAdmin__content__bodyTable__item__name column">
-                <p>Trần Văn Hoàng</p>
-              </div>
-              <div className="allUserAdmin__content__bodyTable__item__email column">
-                <p>abc@gmail.com</p>
-              </div>
-              <div className="allUserAdmin__content__bodyTable__item__active column">
-                <label class="allUserAdmin__content__bodyTable__item__active__btn">
-                  <input
-                    type="checkbox"
-                    id="toggle-input"
-                    class="toggle-input"
-                  />
-                  <div class="toggle-bar">
-                    <div class="toggle-spin"></div>
-                  </div>
-                  
-                </label>
-              </div>
-              <div className="allUserAdmin__content__bodyTable__item__description column">
-                <p>Xem</p>
-              </div>
-            </div>
-            <div className="allUserAdmin__content__bodyTable__item">
-              <div className="allUserAdmin__content__bodyTable__item__stt column">
-                <p>2</p>
-              </div>
-              <div className="allUserAdmin__content__bodyTable__item__name column">
-                <p>Trần Văn Hoàng</p>
-              </div>
-              <div className="allUserAdmin__content__bodyTable__item__email column">
-                <p>abc@gmail.com</p>
-              </div>
-              <div className="allUserAdmin__content__bodyTable__item__active column">
-                <label class="allUserAdmin__content__bodyTable__item__active__btn">
-                  <input
-                    type="checkbox"
-                    id="toggle-input"
-                    class="toggle-input"
-                  />
-                  <div class="toggle-bar">
-                    <div class="toggle-spin"></div>
-                  </div>
-                  
-                </label>
-              </div>
-              <div className="allUserAdmin__content__bodyTable__item__description column">
-                <p>Xem</p>
-              </div>
-            </div>
-            <div className="allUserAdmin__content__bodyTable__item">
-              <div className="allUserAdmin__content__bodyTable__item__stt column">
-                <p>3</p>
-              </div>
-              <div className="allUserAdmin__content__bodyTable__item__name column">
-                <p>Trần Văn Hoàng</p>
-              </div>
-              <div className="allUserAdmin__content__bodyTable__item__email column">
-                <p>abc@gmail.com</p>
-              </div>
-              <div className="allUserAdmin__content__bodyTable__item__active column">
-                <label class="allUserAdmin__content__bodyTable__item__active__btn">
-                  <input
-                    type="checkbox"
-                    id="toggle-input"
-                    class="toggle-input"
-                  />
-                  <div class="toggle-bar">
-                    <div class="toggle-spin"></div>
-                  </div>
-                  
-                </label>
-              </div>
-              <div className="allUserAdmin__content__bodyTable__item__description column">
-                <p>Xem</p>
-              </div>
-            </div>
+              )
+            })}
+           
+            
           </div>
         </div>
       </div>

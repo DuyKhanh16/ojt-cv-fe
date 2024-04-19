@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./MainBusiness.scss";
 import HeaderCompany from "../../../../components/headerCompany/HeaderCompany";
 import FormSearch from "../../../../components/formSearch/FormSearch";
@@ -10,8 +10,57 @@ import buildings from "../../../../assets/images/main/buildings-duotone 1.png";
 import users from "../../../../assets/images/main/users-duotone 1.png";
 import arrow from "../../../../assets/images/main/fi_arrow-right.png";
 import MapPin from "../../../../assets/images/main/MapPin.png";
+import publicAxios from "../../../../config/pulic.axios";
+import { useNavigate } from "react-router";
 
 export default function MainBusiness() {
+  const [allCompany, setAllCompany] = useState([]);
+  const [allLiveJob, setLiveJob] = useState([]);
+  const [allNewJob, setNewJob] = useState([]);
+  const [allCandidate, setAllCandidate] = useState([]);
+  const navigate = useNavigate();
+  const getAllCompany = async () => {
+    try {
+      const res = await publicAxios.get("/api/v2/companies/getAll");
+      console.log(res.data.data);
+      setAllCompany(res.data.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const getAllLiveJob = async () => {
+    try {
+      const res = await publicAxios.get("/api/v2/jobs/getLiveJobs");
+      console.log(res.data.data);
+      setLiveJob(res.data.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const getAllNewJob = async () => {
+    try {
+      const res = await publicAxios.get("/api/v2/jobs/getNewJobs");
+      setNewJob(res.data.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const getAllCandidate = async () => {
+    try {
+      const res = await publicAxios.get("/api/v2/candidates/getAll");
+      console.log(res.data.data);
+      setAllCandidate(res.data.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  console.log(allCandidate);
+  useEffect(() => {
+    getAllCompany();
+    getAllLiveJob();
+    getAllNewJob();
+    getAllCandidate();
+  }, []);
   return (
     <>
       <div className="mainBusiness__container">
@@ -74,7 +123,7 @@ export default function MainBusiness() {
               </div>
               <div className="mainBusiness--showInformation__liveJob--text">
                 <p className="mainBusiness--showInformation__liveJob--text__number">
-                  <strong>1,75,324</strong>
+                  <strong>{allLiveJob.length}</strong>
                 </p>
                 <p className="mainBusiness--showInformation__liveJob--text__name">
                   Live Jobs
@@ -87,7 +136,7 @@ export default function MainBusiness() {
               </div>
               <div className="mainBusiness--showInformation__companies--text">
                 <p className="mainBusiness--showInformation__companies--text__number">
-                  <strong>97,354</strong>
+                  <strong>{allCompany.length}</strong>
                 </p>
                 <p className="mainBusiness--showInformation__companies--text__name">
                   Companies
@@ -100,7 +149,7 @@ export default function MainBusiness() {
               </div>
               <div className="mainBusiness--showInformation__candicates--text">
                 <p className="mainBusiness--showInformation__candicates--text__number">
-                  <strong>38,47,154</strong>
+                  <strong>{allCandidate.length}</strong>
                 </p>
                 <p className="mainBusiness--showInformation__candicates--text__name">
                   Candicates
@@ -113,7 +162,7 @@ export default function MainBusiness() {
               </div>
               <div className="mainBusiness--showInformation__newJobs--text">
                 <p className="mainBusiness--showInformation__newJobs--text__number">
-                  <strong>7,532</strong>
+                  <strong>{allNewJob.length}</strong>
                 </p>
                 <p className="mainBusiness--showInformation__newJobs--text__name">
                   New Jobs
@@ -133,456 +182,62 @@ export default function MainBusiness() {
             </div>
           </div>
           <div className="mainBusiness__outStandingCandidate--listCandidate">
-            <div className="mainBusiness__outStandingCandidate--listCandidate__item">
-              <div className="mainBusiness__outStandingCandidate--listCandidate__item__information">
-                <div className="mainBusiness__outStandingCandidate--listCandidate__item__information--left">
-                  <div className="mainBusiness__outStandingCandidate--listCandidate__item__information--left__avatar"></div>
-                  <div className="mainBusiness__outStandingCandidate--listCandidate__item__information--left__name">
-                    <div className="mainBusiness__outStandingCandidate--listCandidate__item__information--left__name--top">
-                      Nguyen Van A
-                    </div>
-                    <div className="mainBusiness__outStandingCandidate--listCandidate__item__information--left__name--bottom">
-                      <div className="mainBusiness__outStandingCandidate--listCandidate__item__information--left__name--bottom__left">
-                        Front end
+            {allCandidate.map((item) => (
+              <div
+                className="mainBusiness__outStandingCandidate--listCandidate__item"
+                key={item.id}
+              >
+                <div className="mainBusiness__outStandingCandidate--listCandidate__item__information">
+                  <div className="mainBusiness__outStandingCandidate--listCandidate__item__information--left">
+                    <div className="mainBusiness__outStandingCandidate--listCandidate__item__information--left__avatar"></div>
+                    <div className="mainBusiness__outStandingCandidate--listCandidate__item__information--left__name">
+                      <div className="mainBusiness__outStandingCandidate--listCandidate__item__information--left__name--top">
+                        {item.name}
                       </div>
-                      <div className="mainBusiness__outStandingCandidate--listCandidate__item__information--left__name--bottom__right">
-                        Fresher
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="mainBusiness__outStandingCandidate--listCandidate__item__information--right">
-                  <img src={arrow} alt="" />
-                </div>
-              </div>
-              <div className="mainBusiness__outStandingCandidate--listCandidate__item__technical">
-                <div className="mainBusiness__outStandingCandidate--listCandidate__item__technical__title">
-                  Technical in use:
-                </div>
-                <div className="mainBusiness__outStandingCandidate--listCandidate__item__technical__list">
-                  <div className="mainBusiness__outStandingCandidate--listCandidate__item__technical__list__item">
-                    ReactJS
-                  </div>
-                  <div className="mainBusiness__outStandingCandidate--listCandidate__item__technical__list__item">
-                    NodeJS
-                  </div>
-                </div>
-              </div>
-              <div className="mainBusiness__outStandingCandidate--listCandidate__item__language">
-                <div className="mainBusiness__outStandingCandidate--listCandidate__item__language__title">
-                  Foreign Language:
-                </div>
-                <div className="mainBusiness__outStandingCandidate--listCandidate__item__language__list">
-                  <div className="mainBusiness__outStandingCandidate--listCandidate__item__language__list__item">
-                    N2
-                  </div>
-                </div>
-              </div>
-              <div className="mainBusiness__outStandingCandidate--listCandidate__item__local">
-                <img src={MapPin} alt="" />
-                <p>Ha Noi, Viet Nam</p>
-              </div>
-            </div>
-            <div className="mainBusiness__outStandingCandidate--listCandidate__item">
-              <div className="mainBusiness__outStandingCandidate--listCandidate__item__information">
-                <div className="mainBusiness__outStandingCandidate--listCandidate__item__information--left">
-                  <div className="mainBusiness__outStandingCandidate--listCandidate__item__information--left__avatar"></div>
-                  <div className="mainBusiness__outStandingCandidate--listCandidate__item__information--left__name">
-                    <div className="mainBusiness__outStandingCandidate--listCandidate__item__information--left__name--top">
-                      Nguyen Van A
-                    </div>
-                    <div className="mainBusiness__outStandingCandidate--listCandidate__item__information--left__name--bottom">
-                      <div className="mainBusiness__outStandingCandidate--listCandidate__item__information--left__name--bottom__left">
-                        Front end
-                      </div>
-                      <div className="mainBusiness__outStandingCandidate--listCandidate__item__information--left__name--bottom__right">
-                        Fresher
+                      <div className="mainBusiness__outStandingCandidate--listCandidate__item__information--left__name--bottom">
+                        <div className="mainBusiness__outStandingCandidate--listCandidate__item__information--left__name--bottom__left">
+                          {item?.position}
+                        </div>
+                        <div className="mainBusiness__outStandingCandidate--listCandidate__item__information--left__name--bottom__right">
+                          Fresher
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-                <div className="mainBusiness__outStandingCandidate--listCandidate__item__information--right">
-                  <img src={arrow} alt="" />
-                </div>
-              </div>
-              <div className="mainBusiness__outStandingCandidate--listCandidate__item__technical">
-                <div className="mainBusiness__outStandingCandidate--listCandidate__item__technical__title">
-                  Technical in use:
-                </div>
-                <div className="mainBusiness__outStandingCandidate--listCandidate__item__technical__list">
-                  <div className="mainBusiness__outStandingCandidate--listCandidate__item__technical__list__item">
-                    ReactJS
-                  </div>
-                  <div className="mainBusiness__outStandingCandidate--listCandidate__item__technical__list__item">
-                    NodeJS
+                  <div className="mainBusiness__outStandingCandidate--listCandidate__item__information--right">
+                    <img src={arrow} alt="" />
                   </div>
                 </div>
-              </div>
-              <div className="mainBusiness__outStandingCandidate--listCandidate__item__language">
-                <div className="mainBusiness__outStandingCandidate--listCandidate__item__language__title">
-                  Foreign Language:
-                </div>
-                <div className="mainBusiness__outStandingCandidate--listCandidate__item__language__list">
-                  <div className="mainBusiness__outStandingCandidate--listCandidate__item__language__list__item">
-                    N2
+                <div className="mainBusiness__outStandingCandidate--listCandidate__item__technical">
+                  <div className="mainBusiness__outStandingCandidate--listCandidate__item__technical__title">
+                    Technical in use:
                   </div>
-                </div>
-              </div>
-              <div className="mainBusiness__outStandingCandidate--listCandidate__item__local">
-                <img src={MapPin} alt="" />
-                <p>Ha Noi, Viet Nam</p>
-              </div>
-            </div>
-            <div className="mainBusiness__outStandingCandidate--listCandidate__item">
-              <div className="mainBusiness__outStandingCandidate--listCandidate__item__information">
-                <div className="mainBusiness__outStandingCandidate--listCandidate__item__information--left">
-                  <div className="mainBusiness__outStandingCandidate--listCandidate__item__information--left__avatar"></div>
-                  <div className="mainBusiness__outStandingCandidate--listCandidate__item__information--left__name">
-                    <div className="mainBusiness__outStandingCandidate--listCandidate__item__information--left__name--top">
-                      Nguyen Van A
+                  <div className="mainBusiness__outStandingCandidate--listCandidate__item__technical__list">
+                    <div className="mainBusiness__outStandingCandidate--listCandidate__item__technical__list__item">
+                      ReactJS
                     </div>
-                    <div className="mainBusiness__outStandingCandidate--listCandidate__item__information--left__name--bottom">
-                      <div className="mainBusiness__outStandingCandidate--listCandidate__item__information--left__name--bottom__left">
-                        Front end
-                      </div>
-                      <div className="mainBusiness__outStandingCandidate--listCandidate__item__information--left__name--bottom__right">
-                        Fresher
-                      </div>
+                    <div className="mainBusiness__outStandingCandidate--listCandidate__item__technical__list__item">
+                      NodeJS
                     </div>
                   </div>
                 </div>
-                <div className="mainBusiness__outStandingCandidate--listCandidate__item__information--right">
-                  <img src={arrow} alt="" />
-                </div>
-              </div>
-              <div className="mainBusiness__outStandingCandidate--listCandidate__item__technical">
-                <div className="mainBusiness__outStandingCandidate--listCandidate__item__technical__title">
-                  Technical in use:
-                </div>
-                <div className="mainBusiness__outStandingCandidate--listCandidate__item__technical__list">
-                  <div className="mainBusiness__outStandingCandidate--listCandidate__item__technical__list__item">
-                    ReactJS
+                <div className="mainBusiness__outStandingCandidate--listCandidate__item__language">
+                  <div className="mainBusiness__outStandingCandidate--listCandidate__item__language__title">
+                    Foreign Language:
                   </div>
-                  <div className="mainBusiness__outStandingCandidate--listCandidate__item__technical__list__item">
-                    NodeJS
-                  </div>
-                </div>
-              </div>
-              <div className="mainBusiness__outStandingCandidate--listCandidate__item__language">
-                <div className="mainBusiness__outStandingCandidate--listCandidate__item__language__title">
-                  Foreign Language:
-                </div>
-                <div className="mainBusiness__outStandingCandidate--listCandidate__item__language__list">
-                  <div className="mainBusiness__outStandingCandidate--listCandidate__item__language__list__item">
-                    N2
-                  </div>
-                </div>
-              </div>
-              <div className="mainBusiness__outStandingCandidate--listCandidate__item__local">
-                <img src={MapPin} alt="" />
-                <p>Ha Noi, Viet Nam</p>
-              </div>
-            </div>
-            <div className="mainBusiness__outStandingCandidate--listCandidate__item">
-              <div className="mainBusiness__outStandingCandidate--listCandidate__item__information">
-                <div className="mainBusiness__outStandingCandidate--listCandidate__item__information--left">
-                  <div className="mainBusiness__outStandingCandidate--listCandidate__item__information--left__avatar"></div>
-                  <div className="mainBusiness__outStandingCandidate--listCandidate__item__information--left__name">
-                    <div className="mainBusiness__outStandingCandidate--listCandidate__item__information--left__name--top">
-                      Nguyen Van A
-                    </div>
-                    <div className="mainBusiness__outStandingCandidate--listCandidate__item__information--left__name--bottom">
-                      <div className="mainBusiness__outStandingCandidate--listCandidate__item__information--left__name--bottom__left">
-                        Front end
-                      </div>
-                      <div className="mainBusiness__outStandingCandidate--listCandidate__item__information--left__name--bottom__right">
-                        Fresher
-                      </div>
+                  <div className="mainBusiness__outStandingCandidate--listCandidate__item__language__list">
+                    <div className="mainBusiness__outStandingCandidate--listCandidate__item__language__list__item">
+                      {item?.certificate_candidate[0].name}
+                      {item?.certificate_candidate[0].info}
                     </div>
                   </div>
                 </div>
-                <div className="mainBusiness__outStandingCandidate--listCandidate__item__information--right">
-                  <img src={arrow} alt="" />
+                <div className="mainBusiness__outStandingCandidate--listCandidate__item__local">
+                  <img src={MapPin} alt="" />
+                  <p>{item?.address}</p>
                 </div>
               </div>
-              <div className="mainBusiness__outStandingCandidate--listCandidate__item__technical">
-                <div className="mainBusiness__outStandingCandidate--listCandidate__item__technical__title">
-                  Technical in use:
-                </div>
-                <div className="mainBusiness__outStandingCandidate--listCandidate__item__technical__list">
-                  <div className="mainBusiness__outStandingCandidate--listCandidate__item__technical__list__item">
-                    ReactJS
-                  </div>
-                  <div className="mainBusiness__outStandingCandidate--listCandidate__item__technical__list__item">
-                    NodeJS
-                  </div>
-                </div>
-              </div>
-              <div className="mainBusiness__outStandingCandidate--listCandidate__item__language">
-                <div className="mainBusiness__outStandingCandidate--listCandidate__item__language__title">
-                  Foreign Language:
-                </div>
-                <div className="mainBusiness__outStandingCandidate--listCandidate__item__language__list">
-                  <div className="mainBusiness__outStandingCandidate--listCandidate__item__language__list__item">
-                    N2
-                  </div>
-                </div>
-              </div>
-              <div className="mainBusiness__outStandingCandidate--listCandidate__item__local">
-                <img src={MapPin} alt="" />
-                <p>Ha Noi, Viet Nam</p>
-              </div>
-            </div>
-            <div className="mainBusiness__outStandingCandidate--listCandidate__item">
-              <div className="mainBusiness__outStandingCandidate--listCandidate__item__information">
-                <div className="mainBusiness__outStandingCandidate--listCandidate__item__information--left">
-                  <div className="mainBusiness__outStandingCandidate--listCandidate__item__information--left__avatar"></div>
-                  <div className="mainBusiness__outStandingCandidate--listCandidate__item__information--left__name">
-                    <div className="mainBusiness__outStandingCandidate--listCandidate__item__information--left__name--top">
-                      Nguyen Van A
-                    </div>
-                    <div className="mainBusiness__outStandingCandidate--listCandidate__item__information--left__name--bottom">
-                      <div className="mainBusiness__outStandingCandidate--listCandidate__item__information--left__name--bottom__left">
-                        Front end
-                      </div>
-                      <div className="mainBusiness__outStandingCandidate--listCandidate__item__information--left__name--bottom__right">
-                        Fresher
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="mainBusiness__outStandingCandidate--listCandidate__item__information--right">
-                  <img src={arrow} alt="" />
-                </div>
-              </div>
-              <div className="mainBusiness__outStandingCandidate--listCandidate__item__technical">
-                <div className="mainBusiness__outStandingCandidate--listCandidate__item__technical__title">
-                  Technical in use:
-                </div>
-                <div className="mainBusiness__outStandingCandidate--listCandidate__item__technical__list">
-                  <div className="mainBusiness__outStandingCandidate--listCandidate__item__technical__list__item">
-                    ReactJS
-                  </div>
-                  <div className="mainBusiness__outStandingCandidate--listCandidate__item__technical__list__item">
-                    NodeJS
-                  </div>
-                </div>
-              </div>
-              <div className="mainBusiness__outStandingCandidate--listCandidate__item__language">
-                <div className="mainBusiness__outStandingCandidate--listCandidate__item__language__title">
-                  Foreign Language:
-                </div>
-                <div className="mainBusiness__outStandingCandidate--listCandidate__item__language__list">
-                  <div className="mainBusiness__outStandingCandidate--listCandidate__item__language__list__item">
-                    N2
-                  </div>
-                </div>
-              </div>
-              <div className="mainBusiness__outStandingCandidate--listCandidate__item__local">
-                <img src={MapPin} alt="" />
-                <p>Ha Noi, Viet Nam</p>
-              </div>
-            </div>
-            <div className="mainBusiness__outStandingCandidate--listCandidate__item">
-              <div className="mainBusiness__outStandingCandidate--listCandidate__item__information">
-                <div className="mainBusiness__outStandingCandidate--listCandidate__item__information--left">
-                  <div className="mainBusiness__outStandingCandidate--listCandidate__item__information--left__avatar"></div>
-                  <div className="mainBusiness__outStandingCandidate--listCandidate__item__information--left__name">
-                    <div className="mainBusiness__outStandingCandidate--listCandidate__item__information--left__name--top">
-                      Nguyen Van A
-                    </div>
-                    <div className="mainBusiness__outStandingCandidate--listCandidate__item__information--left__name--bottom">
-                      <div className="mainBusiness__outStandingCandidate--listCandidate__item__information--left__name--bottom__left">
-                        Front end
-                      </div>
-                      <div className="mainBusiness__outStandingCandidate--listCandidate__item__information--left__name--bottom__right">
-                        Fresher
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="mainBusiness__outStandingCandidate--listCandidate__item__information--right">
-                  <img src={arrow} alt="" />
-                </div>
-              </div>
-              <div className="mainBusiness__outStandingCandidate--listCandidate__item__technical">
-                <div className="mainBusiness__outStandingCandidate--listCandidate__item__technical__title">
-                  Technical in use:
-                </div>
-                <div className="mainBusiness__outStandingCandidate--listCandidate__item__technical__list">
-                  <div className="mainBusiness__outStandingCandidate--listCandidate__item__technical__list__item">
-                    ReactJS
-                  </div>
-                  <div className="mainBusiness__outStandingCandidate--listCandidate__item__technical__list__item">
-                    NodeJS
-                  </div>
-                </div>
-              </div>
-              <div className="mainBusiness__outStandingCandidate--listCandidate__item__language">
-                <div className="mainBusiness__outStandingCandidate--listCandidate__item__language__title">
-                  Foreign Language:
-                </div>
-                <div className="mainBusiness__outStandingCandidate--listCandidate__item__language__list">
-                  <div className="mainBusiness__outStandingCandidate--listCandidate__item__language__list__item">
-                    N2
-                  </div>
-                </div>
-              </div>
-              <div className="mainBusiness__outStandingCandidate--listCandidate__item__local">
-                <img src={MapPin} alt="" />
-                <p>Ha Noi, Viet Nam</p>
-              </div>
-            </div>
-            <div className="mainBusiness__outStandingCandidate--listCandidate__item">
-              <div className="mainBusiness__outStandingCandidate--listCandidate__item__information">
-                <div className="mainBusiness__outStandingCandidate--listCandidate__item__information--left">
-                  <div className="mainBusiness__outStandingCandidate--listCandidate__item__information--left__avatar"></div>
-                  <div className="mainBusiness__outStandingCandidate--listCandidate__item__information--left__name">
-                    <div className="mainBusiness__outStandingCandidate--listCandidate__item__information--left__name--top">
-                      Nguyen Van A
-                    </div>
-                    <div className="mainBusiness__outStandingCandidate--listCandidate__item__information--left__name--bottom">
-                      <div className="mainBusiness__outStandingCandidate--listCandidate__item__information--left__name--bottom__left">
-                        Front end
-                      </div>
-                      <div className="mainBusiness__outStandingCandidate--listCandidate__item__information--left__name--bottom__right">
-                        Fresher
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="mainBusiness__outStandingCandidate--listCandidate__item__information--right">
-                  <img src={arrow} alt="" />
-                </div>
-              </div>
-              <div className="mainBusiness__outStandingCandidate--listCandidate__item__technical">
-                <div className="mainBusiness__outStandingCandidate--listCandidate__item__technical__title">
-                  Technical in use:
-                </div>
-                <div className="mainBusiness__outStandingCandidate--listCandidate__item__technical__list">
-                  <div className="mainBusiness__outStandingCandidate--listCandidate__item__technical__list__item">
-                    ReactJS
-                  </div>
-                  <div className="mainBusiness__outStandingCandidate--listCandidate__item__technical__list__item">
-                    NodeJS
-                  </div>
-                </div>
-              </div>
-              <div className="mainBusiness__outStandingCandidate--listCandidate__item__language">
-                <div className="mainBusiness__outStandingCandidate--listCandidate__item__language__title">
-                  Foreign Language:
-                </div>
-                <div className="mainBusiness__outStandingCandidate--listCandidate__item__language__list">
-                  <div className="mainBusiness__outStandingCandidate--listCandidate__item__language__list__item">
-                    N2
-                  </div>
-                </div>
-              </div>
-              <div className="mainBusiness__outStandingCandidate--listCandidate__item__local">
-                <img src={MapPin} alt="" />
-                <p>Ha Noi, Viet Nam</p>
-              </div>
-            </div>
-            <div className="mainBusiness__outStandingCandidate--listCandidate__item">
-              <div className="mainBusiness__outStandingCandidate--listCandidate__item__information">
-                <div className="mainBusiness__outStandingCandidate--listCandidate__item__information--left">
-                  <div className="mainBusiness__outStandingCandidate--listCandidate__item__information--left__avatar"></div>
-                  <div className="mainBusiness__outStandingCandidate--listCandidate__item__information--left__name">
-                    <div className="mainBusiness__outStandingCandidate--listCandidate__item__information--left__name--top">
-                      Nguyen Van A
-                    </div>
-                    <div className="mainBusiness__outStandingCandidate--listCandidate__item__information--left__name--bottom">
-                      <div className="mainBusiness__outStandingCandidate--listCandidate__item__information--left__name--bottom__left">
-                        Front end
-                      </div>
-                      <div className="mainBusiness__outStandingCandidate--listCandidate__item__information--left__name--bottom__right">
-                        Fresher
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="mainBusiness__outStandingCandidate--listCandidate__item__information--right">
-                  <img src={arrow} alt="" />
-                </div>
-              </div>
-              <div className="mainBusiness__outStandingCandidate--listCandidate__item__technical">
-                <div className="mainBusiness__outStandingCandidate--listCandidate__item__technical__title">
-                  Technical in use:
-                </div>
-                <div className="mainBusiness__outStandingCandidate--listCandidate__item__technical__list">
-                  <div className="mainBusiness__outStandingCandidate--listCandidate__item__technical__list__item">
-                    ReactJS
-                  </div>
-                  <div className="mainBusiness__outStandingCandidate--listCandidate__item__technical__list__item">
-                    NodeJS
-                  </div>
-                </div>
-              </div>
-              <div className="mainBusiness__outStandingCandidate--listCandidate__item__language">
-                <div className="mainBusiness__outStandingCandidate--listCandidate__item__language__title">
-                  Foreign Language:
-                </div>
-                <div className="mainBusiness__outStandingCandidate--listCandidate__item__language__list">
-                  <div className="mainBusiness__outStandingCandidate--listCandidate__item__language__list__item">
-                    N2
-                  </div>
-                </div>
-              </div>
-              <div className="mainBusiness__outStandingCandidate--listCandidate__item__local">
-                <img src={MapPin} alt="" />
-                <p>Ha Noi, Viet Nam</p>
-              </div>
-            </div>
-            <div className="mainBusiness__outStandingCandidate--listCandidate__item">
-              <div className="mainBusiness__outStandingCandidate--listCandidate__item__information">
-                <div className="mainBusiness__outStandingCandidate--listCandidate__item__information--left">
-                  <div className="mainBusiness__outStandingCandidate--listCandidate__item__information--left__avatar"></div>
-                  <div className="mainBusiness__outStandingCandidate--listCandidate__item__information--left__name">
-                    <div className="mainBusiness__outStandingCandidate--listCandidate__item__information--left__name--top">
-                      Nguyen Van A
-                    </div>
-                    <div className="mainBusiness__outStandingCandidate--listCandidate__item__information--left__name--bottom">
-                      <div className="mainBusiness__outStandingCandidate--listCandidate__item__information--left__name--bottom__left">
-                        Front end
-                      </div>
-                      <div className="mainBusiness__outStandingCandidate--listCandidate__item__information--left__name--bottom__right">
-                        Fresher
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="mainBusiness__outStandingCandidate--listCandidate__item__information--right">
-                  <img src={arrow} alt="" />
-                </div>
-              </div>
-              <div className="mainBusiness__outStandingCandidate--listCandidate__item__technical">
-                <div className="mainBusiness__outStandingCandidate--listCandidate__item__technical__title">
-                  Technical in use:
-                </div>
-                <div className="mainBusiness__outStandingCandidate--listCandidate__item__technical__list">
-                  <div className="mainBusiness__outStandingCandidate--listCandidate__item__technical__list__item">
-                    ReactJS
-                  </div>
-                  <div className="mainBusiness__outStandingCandidate--listCandidate__item__technical__list__item">
-                    NodeJS
-                  </div>
-                </div>
-              </div>
-              <div className="mainBusiness__outStandingCandidate--listCandidate__item__language">
-                <div className="mainBusiness__outStandingCandidate--listCandidate__item__language__title">
-                  Foreign Language:
-                </div>
-                <div className="mainBusiness__outStandingCandidate--listCandidate__item__language__list">
-                  <div className="mainBusiness__outStandingCandidate--listCandidate__item__language__list__item">
-                    N2
-                  </div>
-                </div>
-              </div>
-              <div className="mainBusiness__outStandingCandidate--listCandidate__item__local">
-                <img src={MapPin} alt="" />
-                <p>Ha Noi, Viet Nam</p>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </div>

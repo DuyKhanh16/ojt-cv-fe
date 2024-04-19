@@ -31,6 +31,9 @@ import AdminChart from "./pages/home/admin/adminChart/AdminChart";
 import Router from "./layouts/router/Router";
 import CompanyRoute from "./layouts/companyRoute/CompanyRoute";
 import ApplyJob from "./pages/home/homeUser/applyJob/ApplyJob";
+import CV1 from "./components/cv/cv1/CV1";
+import UpdateInfoFistTime from "./pages/home/homeBusiness/CompanyUpdateInfoFirstTime/UpdateInfoFistTime";
+import UserDetail from "./pages/home/homeUser/userDetail/UserDetail";
 
 const router = createBrowserRouter([
   /* source chung */
@@ -43,6 +46,10 @@ const router = createBrowserRouter([
         element: <Main />,
       },
     ],
+  },
+  {
+    path:"/testCV1",
+    element:<CV1></CV1>
   },
   {
     path: "/login",
@@ -60,7 +67,7 @@ const router = createBrowserRouter([
     path: "/allcv",
     element: <AllCV></AllCV>,
   },
-
+  
   /* het source chung */
 
   /* candidate */
@@ -74,6 +81,10 @@ const router = createBrowserRouter([
         element: <Main />,
       },
       {
+        path:"user-detail",
+        element:<UserDetail></UserDetail>
+      },
+      {
         path: "job-list",
         element: <JobList></JobList>,
       },
@@ -81,6 +92,7 @@ const router = createBrowserRouter([
         path: "job-detail/:id",
         element: <JobDetail></JobDetail>,
       },
+
       {
         path: "inforcv",
         element: <InformationUserB></InformationUserB>,
@@ -93,10 +105,6 @@ const router = createBrowserRouter([
       {
         path: "candidate-outstanding",
         element: <InformationUser></InformationUser>,
-      },
-      {
-        path:"apply-job",
-        element: <ApplyJob></ApplyJob>,
       }
     ],
   },
@@ -129,12 +137,17 @@ const router = createBrowserRouter([
         element: <AddJob />,
       },
       {
-        path: "updatejob",
+        path: "updatejob/:id",
         element: <UpdateJobBusiness />,
       },
       {
         path: "update-infor-company",
         element: <UpdateInforBusiness />,
+      },
+
+      {
+        path: "updateinforthefirst",
+        element: <UpdateInfoFistTime />,
       },
     ],
   },

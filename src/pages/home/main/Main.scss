@@ -440,11 +440,13 @@ body::-webkit-scrollbar {
               width: 48px;
               height: 48px;
               background-color: rgba(237, 239, 245, 1);
-              padding: 12px;
+              // padding: 12px;
               border-radius: 4px;
+              overflow: hidden;
+              margin-top: 0.3rem;
               img {
-                width: 24px;
-                height: 24px;
+                width: 48px;
+                height: 48px;
               }
             }
             .main__outStandingJob--listJob__item--bottom__nameLogo {
@@ -550,7 +552,7 @@ body::-webkit-scrollbar {
                 display: flex;
                 gap: 8px;
                 .main__outStandingCandidate--listCandidate__item__information--left__name--bottom__left {
-                  width: 92px;
+                  width: auto;
                   height: 28px;
                   background-color: rgba(11, 160, 44, 1);
                   border-radius: 3px;
@@ -629,7 +631,7 @@ body::-webkit-scrollbar {
             display: flex;
             gap: 8px;
             .main__outStandingCandidate--listCandidate__item__language__list__item {
-              width: 33px;
+              width: auto;
               height: 20px;
               background-color: rgba(252, 225, 209, 1);
               border-radius: 3px;
