@@ -5,7 +5,6 @@ import AllJobAdmin from "../allJobAdmin/AllJobAdmin";
 import AllCompanyAdmin from "../allCompanyAdmin/AllCompanyAdmin";
 import FormSearch from "../../../../components/formSearch/FormSearch";
 import logo from "../../../../assets/images/logo/logo.png";
-
 import avatar from '../../../../assets/images/cv/ACg8ocILX9TfOIrNEplYDawUBSv1Rpw3rLnuugZCNRefPEMyjM6NXIV4=s96-c.jpg'
 import { Link, useNavigate } from "react-router-dom";
 import { Outlet } from "react-router-dom";
