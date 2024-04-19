@@ -28,35 +28,31 @@ export default function JobDetail() {
   const [isOpen, setIsOpen] = React.useState(false);
   const [infor, setInfor] = React.useState({});
   const [company, setCompany] = React.useState({});
-  const [addressCompany, setAddressCompany] = React.useState({});
-  const [levelJob, setLevelJob] = React.useState([]);
-  const [levelJobDetail, setLevelJobDetail] = React.useState({});
-  const [typeJob, setTypeJob] = React.useState([]);
-  const [typeJobDetail, setTypeJobDetail] = React.useState({});
   const [position, setPosition] = React.useState("");
 
   const navigate = useNavigate();
   // lay het thong tin cua jobdetail
   const inforJobDetail = async () => {
+    
     await privateAxios
       .get(`/api/v2/jobs/detail/${id}`)
       .then((res) => {
         console.log(res.data.data);
         setInfor(res.data.data);
-        setCompany(res.data.data.company);
-        setAddressCompany(res.data.data.address_company);
-        setLevelJob(res.data.data.levers_jobs);
-        setTypeJob(res.data.data.types_jobs);
-        setLevelJobDetail(levelJob[0]?.leveljob);
-        setTypeJobDetail(typeJob[0]?.typejob);
-        setPosition(res.data.data.title);
       })
       .catch((error) => {
         console.log(error);
       });
   };
   useEffect(() => {
-    inforJobDetail();
+   const result = privateAxios.get(`/api/v2/jobs/detail/${id}`)
+      result.then((res) => {
+        console.log(res.data.data);
+        setInfor(res.data.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }, []);
   console.log(id);
   return (
@@ -68,7 +64,7 @@ export default function JobDetail() {
             </span>
           Quay lại
         </button>
-        <ApplyJob company={company} position={position} id={id}></ApplyJob>
+        <ApplyJob company={infor?.company} position={infor?.title} id={id}></ApplyJob>
         
       </div>
       
@@ -86,13 +82,13 @@ export default function JobDetail() {
               >
                 <img
                   style={{ width: "100%", height: "100%", borderRadius: "5px" }}
-                  src={company?.logo}
+                  src={infor?.company?.logo}
                 ></img>
               </div>
               <div className="job__detail--company--Logo--name1">
-                <h2>{infor?.title}</h2>
+                <h2>{infor?.company?.name}</h2>
                 <div className="job__detail--company--Logo--name--address1">
-                  <div className="adress">tại {company?.name}</div>
+                  <div className="adress">tại {infor?.address_company?.address}</div>
                   <div
                     className="hinhthuc1"
                     style={{
@@ -106,7 +102,7 @@ export default function JobDetail() {
                       height: "28px",
                     }}
                   >
-                    {levelJobDetail?.name}
+                    {infor?.title?infor.levers_jobs[0].leveljob.name:""}
                   </div>
                   <div
                     style={{
@@ -123,7 +119,7 @@ export default function JobDetail() {
                       padding: "3px 10x 3px 10px",
                     }}
                   >
-                    {typeJobDetail?.name}
+                    {infor.title?infor.types_jobs[0].typejob.name:""}
                   </div>
                 </div>
               </div>
@@ -140,78 +136,21 @@ export default function JobDetail() {
           </div>
           <div className="job__detail--description1">
             <div className="job__detail--description--title1">
-              <h2>Job Description</h2>
+              <h2>Mô tả công việc</h2>
               <p>{infor?.description}</p>
-              <h2>Requirements</h2>
+              <h2>Yêu cầu</h2>
               <p>{infor?.requirements}</p>
-              {/* <h2>Desirable</h2>
-              <ul>
-                <li>
-                  {" "}
-                  Trong bài văn, Thảo viết: “Máy quay dường như đang chậm lại,
-                  từng cảnh từng nét hiện lên rõ ràng. Tôi thấy thầy đang lụi
-                  hụi trồng rau, chăm sóc con chó lông trắng đen già khụ, thấy
-                  cả chúng tôi ngày đó,{" "}
-                </li>
-                <li>
-                  Trong bài văn, Thảo viết: “Máy quay dường như đang chậm lại,
-                  từng cảnh từng nét hiện lên rõ ràng.
-                </li>
-                <li>
-                  trong những ngày vất vả nhưng yên bình. Tôi nghĩ, có lẽ đó là
-                  những ngày hạnh phúc và vui vẻ nhất tôi từng có. Sau này, khi
-                  bước đi trên đường đời chông gai, có thể sẽ chẳng còn ai chỉ
-                  bảo, dạy dỗ tôi tận tình như thầy đã từng, có thể sẽ chẳng có
-                  ai lo tôi{" "}
-                </li>
-              </ul> */}
-              {/* <h2>Benefits</h2>
-              <ul>
-                <li>
-                  {" "}
-                  Trong bài văn, Thảo viết: “Máy quay dường như đang chậm lại,
-                  từng cảnh từng nét hiện lên rõ ràng. Tôi thấy thầy đang lụi
-                  hụi trồng rau, chăm sóc con chó lông trắng đen già khụ, thấy
-                  cả chúng tôi ngày đó,{" "}
-                </li>
-                <li>
-                  Trong bài văn, Thảo viết: “Máy quay dường như đang chậm lại,
-                  từng cảnh từng nét hiện lên rõ ràng.
-                </li>
-                <li>
-                  trong những ngày vất vả nhưng yên bình. Tôi nghĩ, có lẽ đó là
-                  những ngày hạnh phúc và vui vẻ nhất tôi từng có. Sau này, khi
-                  bước đi trên đường đời chông gai, có thể sẽ chẳng còn ai chỉ
-                  bảo, dạy dỗ tôi tận tình như thầy đã từng, có thể sẽ chẳng có
-                  ai lo tôi{" "}
-                </li>
-                <li>
-                  Trong bài văn, Thảo viết: “Máy quay dường như đang chậm lại,
-                  từng cảnh từng nét hiện lên rõ ràng.
-                </li>
-                <li>
-                  Trong bài văn, Thảo viết: “Máy quay dường như đang chậm lại,
-                  từng cảnh từng nét hiện lên rõ ràng.
-                </li>
-                <li>
-                  Trong bài văn, Thảo viết: “Máy quay dường như đang chậm lại,
-                  từng cảnh từng nét hiện lên rõ ràng.
-                </li>
-                <li>
-                  Trong bài văn, Thảo viết: “Máy quay dường như đang chậm lại,
-                  từng cảnh từng nét hiện lên rõ ràng.
-                </li>
-              </ul> */}
+              
             </div>
             <div>
               <div className="job__detail--description--details1">
                 <div style={{ textAlign: "center" }}>
-                  <h3 style={{ marginBottom: "10px" }}>Salary (Usd)</h3>
+                  <h3 style={{ marginBottom: "10px" }}>Mức lương (đồng)</h3>
                   <p style={{ color: "#0BA02C", fontSize: "18px" }}>
                     {infor?.salary}
                   </p>
                   <p style={{ color: "gray", fontSize: "14px" }}>
-                    Yearly Salary
+                    Một tháng
                   </p>
                 </div>
                 <div
@@ -231,20 +170,20 @@ export default function JobDetail() {
                     }}
                   >
                     <img
-                      style={{ marginLeft: "40px", marginBottom: "10px" }}
+                      style={{ marginLeft: "0px", marginBottom: "10px" }}
                       src={MapTrifold}
                     ></img>
-                    <h3>Job Location</h3>
+                    <h3>Địa chỉ làm việc</h3>
                   </div>
 
                   <p style={{ color: "gray", fontSize: "14px" }}>
-                    {addressCompany?.address}
+                    {infor?.address_company?.address}
                   </p>
                 </div>
               </div>
               <div className="job__detail--description--overview1">
                 <div className="line1">
-                  <h3 style={{ marginBottom: "10px" }}>Job Overview</h3>
+                  <h3 style={{ marginBottom: "10px" }}>Thời gian</h3>
                   <div style={{ display: "flex", flexWrap: "wrap" }}>
                     <div
                       style={{
@@ -258,7 +197,7 @@ export default function JobDetail() {
                         src={CalendarBlank}
                       ></img>
                       <p style={{ color: "gray", fontSize: "18px" }}>
-                        Job Posted
+                        Khởi tạo
                       </p>
                       <div class="date">{infor?.created_at}</div>
                     </div>
@@ -267,7 +206,7 @@ export default function JobDetail() {
                         style={{ marginRight: "10px", marginBottom: "10px" }}
                         src={CalendarBlank}
                       ></img>
-                      <p style={{ color: "gray", fontSize: "18px" }}>Job End</p>
+                      <p style={{ color: "gray", fontSize: "18px" }}>Kết thúc</p>
                       <div class="date">{infor?.expire_at}</div>
                     </div>
                   </div>
@@ -276,7 +215,7 @@ export default function JobDetail() {
               </div>
               <div className="job__detail--description--Share1">
                 <div className="line1">
-                  <h3 style={{ marginBottom: "10px" }}>Share thit Job :</h3>
+                  <h3 style={{ marginBottom: "10px" }}>Chia sẻ công việc :</h3>
                   <div style={{ display: "flex", gap: "10px" }}>
                     <img src={Socialbutton}></img>
                     <img src={Socialbutton1}></img>

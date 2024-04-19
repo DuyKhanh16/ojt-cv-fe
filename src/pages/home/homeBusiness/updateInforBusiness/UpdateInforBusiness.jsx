@@ -8,7 +8,7 @@ import { Button, Modal, notification } from "antd";
 import axios from "axios";
 import privateAxios from "../../../../config/private.axios";
 import publicAxios from "../../../../config/pulic.axios";
-import CkEditorComponent from "../../../../config/CkEditorComponent";
+// import CkEditorComponent from "../../../../config/CkEditorComponent";
 import logo from "../../../../assets/images/main/Software code testing-pana 1.png";
 
 export default function UpdateInforBusiness() {
@@ -61,30 +61,33 @@ export default function UpdateInforBusiness() {
     typeCompany_id: "",
     policy: "",
   });
-
+  console.log(typecompany, "typecompany");
   // lấy thông tin company
   const getinfoCompany = () => {
     const res2 = privateAxios.get("api/v2/companies/getInfor");
     res2.then((res) => {
-      console.log(res)
+      console.log(res);
       setInfoCompany(res.data.data);
+      setListBrand(res.data.data.address_company);
+      Settycompany(companyData.typeCompany_id.name);
+
       const companyData = res.data.data;
-      // console.log(companyData,"dữ liệu");
+      // console.log(companyData.address_company,"dữ liệu");
       setUpdateCompany({
         // Giữ lại các giá trị hiện tại của updateCompany
-        name: companyData?.name,
-        size: companyData?.size,
-        link_facebook: companyData?.link_facebook,
-        website: companyData?.website,
+        name: companyData.name,
+        size: companyData.size,
+        link_facebook: companyData.link_facebook,
+        website: companyData.website,
         description: companyData?.description,
-        email: companyData?.account_company_id.email,
-        phone: companyData?.phone,
-        photo: companyData?.logo,
-        typeCompany_id: companyData?.typeCompany_id.id,
-        policy: companyData?.policy,
+        email: companyData.account_company_id.email,
+        phone: companyData.phone,
+        photo: companyData.logo,
+        typeCompany_id: companyData.typeCompany_id.id,
+        policy: companyData.policy,
       });
-      setListBrand(companyData?.address_company);
-      Settycompany(companyData?.typeCompany_id.name);
+
+      // console.log(listBrand,"2")
     });
   };
   //  lấy các type company
@@ -100,7 +103,7 @@ export default function UpdateInforBusiness() {
     getTypeCompany();
   }, [flag]);
 
-  // console.log(listBrand, "123123");
+  console.log(listBrand, "123123");
 
   // api thành phố
   const handleGetDataCity = async () => {
@@ -241,7 +244,7 @@ export default function UpdateInforBusiness() {
   };
 
   // modal 2
-  const showModal2 = () => {
+  const showModal2 = (item) => {
     setIsModalOpen2(true);
   };
 
@@ -283,7 +286,7 @@ export default function UpdateInforBusiness() {
 
   // xoá 1 địa chỉ  chi nhánh công ty
   const handleDelete = async (item) => {
-    if (item.status === 1) {
+    if (listBrand.length === 1) {
       notification.error({
         message: "Địa điểm đang được sử dụng, vui lòng chọn địa điểm khác",
       });
@@ -305,29 +308,64 @@ export default function UpdateInforBusiness() {
     }
   };
 
-  // ckeditor
-  const [text, setText] = useState("");
-  const handleTakeValue = (value) => {
-    setText(value);
-  };
-  console.log(infoCompany)
+  // console.log(infoCompany)
   return (
     <>
-    
-      <div style={{display:(infoCompany?.logo == null || infoCompany.website==null || infoCompany.description==null || infoCompany.size==null ? 'block' : 'none')}} >
-        <div style={{alignItems:"center"}}>
-          <img src={logo}></img>
-          <h3>
-            Chao mung {infoCompany?.name}, Ban hay cap nhat thong tin cua minh
-          </h3>
-          <div className="user-companyView-info-feature">
-          <button onClick={showModal}>Chỉnh sửa</button>
-        </div>
-         
+      <div
+        style={{
+          display:
+            infoCompany?.logo == null ||
+            infoCompany.website == null ||
+            infoCompany.description == null ||
+            infoCompany.size == null
+              ? "block"
+              : "none",
+        }}
+      >
+        <div style={{ alignItems: "center", display: "flex" }}>
+          <div style={{ marginRight: "20px", width: "50vw" }}>
+            {" "}
+            <img
+              style={{ width: "100%", marginRight: "20px" }}
+              src={logo}
+            ></img>
+          </div>
+          <div style={{textAlign:"center",width:"50vw",marginRight:"20px"}} className="user-companyView-info-feature">
+            <h4>
+              Chào mừng {infoCompany?.name} đã đến với RikeiEdu, Bạn hãy cập nhật thông tin doanh
+              nghiệp của mình !
+            </h4>
+            <button
+              style={{
+                marginRight: "20px",
+                backgroundColor: "red",
+                border: "none",
+                width: "300px",
+                height: "60px",
+                borderRadius: "5px",
+                fontSize: "20px",
+                color: "white",
+                marginTop: "40px",
+              }}
+              onClick={showModal}
+            >
+              Cập nhật
+            </button>
+          </div>
         </div>
       </div>
-      
-      <div style={{display:(infoCompany?.logo == null || infoCompany.website==null || infoCompany.description==null || infoCompany.size==null ? 'none' : 'block')}} >
+
+      <div
+        style={{
+          display:
+            infoCompany?.logo == null ||
+            infoCompany.website == null ||
+            infoCompany.description == null ||
+            infoCompany.size == null
+              ? "none"
+              : "block",
+        }}
+      >
         <div className="user-ListJob-title">
           <p>
             <span>Trang chủ / Thông tin doanh nghiệp /</span> Doanh nghiệp của
@@ -374,7 +412,7 @@ export default function UpdateInforBusiness() {
                 <p style={{ marginLeft: "24px" }}>
                   <span className="user-companyView-info-company-type">
                     {/*   {companyDetail.typeCompany} */}
-                    {typecompany}
+                    Product
                   </span>{" "}
                   <span className="user-companyView-info-company-verified">
                     verified
@@ -399,7 +437,7 @@ export default function UpdateInforBusiness() {
             width={600}
           >
             <div className="company__register-input__address">
-        <label htmlFor="">Địa chỉ công ty</label>
+              <label htmlFor="">Địa chỉ công ty</label>
               <br />
               <div style={{ display: "flex", gap: "10px" }}>
                 <select
@@ -460,7 +498,6 @@ export default function UpdateInforBusiness() {
                   <div className="error">{errors.district}</div>
                 )}
                 {errors.ward && <div className="error">{errors.ward}</div>}
-        
               </div>
               <div style={{ marginTop: "20px" }}>
                 <label style={{ fontSize: "14px" }}>Địa chỉ chi tiết</label>
@@ -472,11 +509,12 @@ export default function UpdateInforBusiness() {
                     height: "40px",
                     border: "1px solid #E7F0FA",
                     borderRadius: "5px",
-            }}
+                  }}
                   type="text"
                 ></input>
-                {errors.address && <div className="error">{errors.address}</div>}
-         
+                {errors.address && (
+                  <div className="error">{errors.address}</div>
+                )}
               </div>
             </div>
           </Modal>
@@ -554,7 +592,7 @@ export default function UpdateInforBusiness() {
                         ...updateCompany,
                         phone: e.target.value,
                       })
-              }
+                    }
                     value={updateCompany.phone}
                     name="phone"
                     type="text"
@@ -634,7 +672,7 @@ export default function UpdateInforBusiness() {
             <p>Mô tả Doanh nghiệp</p>
             <textarea
               onChange={(e) =>
-          setUpdateCompany({
+                setUpdateCompany({
                   ...updateCompany,
                   description: e.target.value,
                 })
@@ -672,11 +710,10 @@ export default function UpdateInforBusiness() {
                   class="fa-regular fa-pen-to-square"
                 ></i>
               </span>
-              <CkEditorComponent getValue={handleTakeValue} />
               <div
-                  className="bg-white p-5"
-                  dangerouslySetInnerHTML={{ __html: text }}
-                />
+                className="bg-white p-5"
+                // dangerouslySetInnerHTML={{ __html: text }}
+              />
             </p>
             {infoCompany?.description}
             <p style={{ fontWeight: "500", fontSize: "18px", color: "black" }}>
@@ -715,10 +752,10 @@ export default function UpdateInforBusiness() {
                     paddingRight: "10px",
                   }}
                 >
-            <i style={{ color: "#BC2228" }} class="fa-solid fa-plus"></i>
+                  <i style={{ color: "#BC2228" }} class="fa-solid fa-plus"></i>
                 </div>
               </div>
-              {listBrand?.map((item) => (
+              {listBrand.map((item) => (
                 <div
                   style={{ display: "flex", alignItems: "center" }}
                   className="container"
@@ -744,6 +781,7 @@ export default function UpdateInforBusiness() {
                         className="far fa-trash-alt"
                       ></i>
                       <i
+                        onClick={() => showModal2(item)}
                         style={{ color: "red", fontSize: "16px" }}
                         className="far fa-pen-to-square"
                       ></i>
@@ -793,7 +831,7 @@ export default function UpdateInforBusiness() {
                 </p>
                 <p>
                   <i class="fa-regular fa-envelope"></i>
-          </p>
+                </p>
               </div>
             </div>
           </div>

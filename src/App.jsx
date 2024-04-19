@@ -32,6 +32,7 @@ import Router from "./layouts/router/Router";
 import CompanyRoute from "./layouts/companyRoute/CompanyRoute";
 import ApplyJob from "./pages/home/homeUser/applyJob/ApplyJob";
 import CV1 from "./components/cv/cv1/CV1";
+import UpdateInfoFistTime from "./pages/home/homeBusiness/CompanyUpdateInfoFirstTime/UpdateInfoFistTime";
 
 const router = createBrowserRouter([
   /* source chung */
@@ -65,7 +66,7 @@ const router = createBrowserRouter([
     path: "/allcv",
     element: <AllCV></AllCV>,
   },
-
+  
   /* het source chung */
 
   /* candidate */
@@ -131,12 +132,17 @@ const router = createBrowserRouter([
         element: <AddJob />,
       },
       {
-        path: "updatejob",
+        path: "updatejob/:id",
         element: <UpdateJobBusiness />,
       },
       {
         path: "update-infor-company",
         element: <UpdateInforBusiness />,
+      },
+
+      {
+        path: "updateinforthefirst",
+        element: <UpdateInfoFistTime />,
       },
     ],
   },

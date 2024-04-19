@@ -14,7 +14,7 @@ export default function CV1({item}) {
   const [exp, setExp] = React.useState([]);
   const [project, setProject] = React.useState([]);
   const [certificate, setCertificate] = React.useState([]);
-  const [aboutMe, setAboutMe] = React.useState("");c
+  const [aboutMe, setAboutMe] = React.useState("");
   const getInforCV = async () => {
     await privateAxios
     .get("api/v2/candidates/getAllInformation")

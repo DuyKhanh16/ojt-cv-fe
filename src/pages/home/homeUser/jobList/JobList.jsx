@@ -68,17 +68,17 @@ export default function JobList() {
 
             <p className='user-ListJob-job-title'>{job.title}</p>
             <div className='user-ListJob-job-typeSalary'>
-              <p className='typeJob'>{job.type}</p> 
+              <p className='typeJob'>{job?.types_jobs[0].typejob.name}</p> 
               <p>Salay:{job.salary}</p>
             </div>
             <div className='user-ListJob-job-info'>
               <div className='user-ListJob-job-infoCompany'>
               <div className='user-ListJob-job-info-logo'>
-              <img width={48} src={job.logo} alt="logo"/>
+              <img width={48} src={job?.company.logo} alt="logo"/>
               </div>
               <div className='user-ListJob-job-info-company'>
-              <p >{job.companyName}</p>
-                <p className='user-ListJob-job-info-location'><i class="fa-solid fa-location-dot"></i> {job.location}</p>
+              <p >{job?.company.name}</p>
+                <p className='user-ListJob-job-info-location'><i class="fa-solid fa-location-dot"></i> {job?.address_company.address}</p>
               </div>
               </div>
               <i style={{marginTop:"20px"}} class="fa-solid fa-bookmark"></i>

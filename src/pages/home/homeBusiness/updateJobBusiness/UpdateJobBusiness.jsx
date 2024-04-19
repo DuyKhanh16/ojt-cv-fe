@@ -1,29 +1,177 @@
-import React, { useState } from "react";
-import Header from "../../../../components/header/Header";
-import FormSearch from "../../../../components/formSearch/FormSearch";
+import React, { useEffect, useState } from "react";
 import "./UpdateJobBusiness.scss";
-import Footer from "../../../../components/footer/Footer";
-import { Modal } from "antd";
+import { Modal, notification } from "antd";
 import "../../../../components/confirm/Confirm";
-
+import time1 from "../../../../assets/images/JobDetails/CalendarBlank.png";
+import time2 from "../../../../assets/images/JobDetails/Timer.png";
+import Stack from "../../../../assets/images/JobDetails/Stack.png";
+import Stack1 from "../../../../assets/images/JobDetails/Social button.png";
+import Stack2 from "../../../../assets/images/JobDetails/Social button (1).png";
+import Stack3 from "../../../../assets/images/JobDetails/Social button (2).png";
+import Stack4 from "../../../../assets/images/JobDetails/Social button (3).png";
+import Stack5 from "../../../../assets/images/JobDetails/Social button (4).png";
+import MapTrifold from "../../../../assets/images/JobDetails/MapTrifold.png";
+import Rectangle from "../../../../assets/images/JobDetails/Rectangle 43.png";
+import arrowright from "../../../../assets/images/JobDetails/arrow.right.png";
+import MapPin from "../../../../assets/images/JobDetails/MapPin.png";
+import privateAxios from "../../../../config/private.axios";
+import { useNavigate, useParams } from "react-router";
+import { info } from "sass";
 // const { confirm } = Modal;
 
 export default function UpdateJobBusiness() {
+  
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpen1, setIsModalOpen1] = useState(false);
+  const [infoCompany, setInfoCompany] = useState();
+  const [typeJob, setListTypeJob] = useState([]);
+  const [LevelJob, setLevelJob] = useState([]);
+  const [job, setJob] = useState([]);
+  const [typeJob1, setTypeJob1] = useState([]);
+  const [listAdress, setListAdress] = useState([]);
+  const [levelJob1, setLevelJob1] = useState([]);
+  const [address, setAddress] = useState("");
+  const [flag, setFlag] = useState(false);
+  const [updatejobs, setUpdatejob] = useState({
+    title: "",
+    description: "",
+    requirements: "",
+    salary: "",
+    expire_at: "",
+    address_company_id: "",
+    typejob_id: "",
+    leveljob_id: "",
+    created_at: "",
+  });
 
+  // chuyển trang
+  const navigate = useNavigate();
+  const { id } = useParams();
+  // console.log(id) 
+  // ham lấy jobs details
+  
+  const getJobsDetails = () => {
+    const res = privateAxios.get(`api/v2/jobs/detail/${id}`);
+    res.then((res) => {
+      const jobdetail = res.data.data;
+      // console.log(jobdetail)
+      // setUpdatejob(res.data.data);
+      setJob(res.data.data);
+      setAddress(res.data.data.address_company.address);
+      setLevelJob1(res.data.data.levers_jobs);
+      setTypeJob1(res.data.data.types_jobs);
+      setUpdatejob({
+        title: jobdetail.title,
+        description: jobdetail.description,
+        requirements: jobdetail.requirements,
+        salary: jobdetail.salary,
+        expire_at: jobdetail.expire_at,
+        address_company_id: jobdetail.address_company.id,
+        typejob_id: jobdetail.types_jobs[0].typejob.id,
+        leveljob_id: jobdetail.levers_jobs[0].leveljob.id,        
+        created_at: jobdetail.created_at
+        ,
+      })
+    });
+  };
+  // hafm laasy thong tin company
+  const getinfo = () => {
+    const res = privateAxios.get("api/v2/companies/getInfor");
+    res.then((res) => {
+      setInfoCompany(res.data.data);
+      setListAdress(res.data.data.address_company);
+    });
+  };
+  // haàm lấy thời gian làm việc
+  const getTypeJobs = () => {
+    const res = privateAxios.get("api/v2/typejob/getall");
+    res.then((res) => {
+      setListTypeJob(res.data);
+    });
+  };
+  // hàm lấy level job
+  const getLevelJobs = () => {
+    const res = privateAxios.get("api/v2/leveljob/getall");
+    res.then((res) => {
+      setLevelJob(res.data);
+    });
+  };
+
+  useEffect(() => {
+    getinfo();
+    getTypeJobs();
+    getLevelJobs();
+    getJobsDetails();
+  }, [flag]);
+  console.log(job);
+// console.log(listAdress,"1")
+
+
+  // modal 1
   const showModal = () => {
     setIsModalOpen(true);
   };
 
-  const handleOk = () => {
+  const handleOk =async () => {
+    // console.log(id,updatejobs)
+    const updatejobsNew = {
+      title: updatejobs.title,
+      description: updatejobs.description,
+      requirements: updatejobs.requirements,
+      salary: updatejobs.salary,
+      expire_at: updatejobs.expire_at,
+      address_company_id: updatejobs.address_company_id.toString(),
+      typejob_id: updatejobs.typejob_id.toString(),
+      leveljob_id: updatejobs.leveljob_id.toString(),
+      created_at: updatejobs.created_at,
+    }
+    try {
+      const res = await privateAxios.patch(`api/v2/jobs/edit/${id}`, updatejobsNew);
+      notification.success({
+        message: "Đã cập nhật thành công",
+        duration: 2,
+      });
+      setFlag(!flag)
+    } catch (error) {
+      console.log(error)
+    }
     setIsModalOpen(false);
   };
 
   const handleCancel = () => {
     setIsModalOpen(false);
   };
+  // modal 2
+  const showModal1 = () => {
+    setIsModalOpen1(true);
+  };
+
+  const handleOk1 = async () => {
+    try {
+      // viết api xoá truyền id công việc, khi xoá xong quay trở về trang alljob của company
+      const res = await privateAxios.delete(`api/v2/jobs/delete/${id}`);
+      notification.success({
+        message: "Đã xóa thành công",
+        duration: 2,
+      });
+      navigate("/company/alljob");
+    } catch (error) {
+      console.log(error);
+    }
+    setIsModalOpen1(false);
+  };
+
+  const handleCancel1 = () => {
+    setIsModalOpen1(false);
+  };
   return (
     <div>
+      <Modal
+        title="Bạn có muốn xoá công việc này không"
+        open={isModalOpen1}
+        onOk={handleOk1}
+        onCancel={handleCancel1}
+      ></Modal>
       <div className="job__detail--container">
         <div className="job__detail--title" style={{ color: "#767F8C" }}>
           <p>Trang chủ / </p> <p>Việc làm / </p> <p>Graphics Designer /</p>{" "}
@@ -33,12 +181,19 @@ export default function UpdateJobBusiness() {
           <div className="job__detail--company">
             <div className="job__detail--company--Logo">
               <div className="job__detail--company--Logo1">
-                <img src="./src/assets/images/jobDetails/Rectangle 43.png"></img>
+                <img
+                  style={{
+                    width: "100px",
+                    height: "100px",
+                    borderRadius: "50%",
+                  }}
+                  src={infoCompany?.logo}
+                ></img>
               </div>
               <div className="job__detail--company--Logo--name">
-                <h2>Senior Ux Designer</h2>
+                <h2>{job.title}</h2>
                 <div className="job__detail--company--Logo--name--address">
-                  <div className="adress">at FPT Software</div>
+                  <div className="adress">{infoCompany?.name}</div>
                   <div
                     className="content"
                     style={{
@@ -52,7 +207,7 @@ export default function UpdateJobBusiness() {
                       height: "28px",
                     }}
                   >
-                    Full-Time
+                    {typeJob1[0]?.typejob.name}
                   </div>
                   <div
                     style={{
@@ -72,7 +227,10 @@ export default function UpdateJobBusiness() {
               </div>
             </div>
             <div className="job__detail--company--apply">
-              <button className="job__detail--company--apply--delete">
+              <button
+                onClick={() => setIsModalOpen1(true)}
+                className="job__detail--company--apply--delete"
+              >
                 Xoá
               </button>
               <button
@@ -81,12 +239,13 @@ export default function UpdateJobBusiness() {
               >
                 Cập nhật thông tin
               </button>
-
+                // modal
               <Modal
                 title="Cập nhật thông tin công việc"
                 open={isModalOpen}
                 onOk={handleOk}
                 onCancel={handleCancel}
+                width={700}
                 okButtonProps={{
                   className: "customOkButton", // Sử dụng lớp CSS tùy chỉnh
                 }}
@@ -94,54 +253,89 @@ export default function UpdateJobBusiness() {
                   className: "customCancelBtn", // Áp dụng class CSS tùy chỉnh cho nút Cancel
                 }}
               >
-                <p style={{ fontWeight: "bold", marginBottom: "10px" }}>
+                <p style={{ fontWeight: "bold", marginBottom: "10px",marginTop: "30px" }}>
                   Tên công việc
                 </p>
                 <input
+                onChange={(e) => setUpdatejob({ ...updatejobs, title: e.target.value })}
+                name="title"
+                value={updatejobs.title}
+                // value={updatejobs.title}
                   style={{
                     width: "100%",
                     height: "40px",
                     marginBottom: "20px",
+                    border: "1px solid #E7F0FA",
                   }}
                 ></input>
                 <p style={{ fontWeight: "bold", marginBottom: "10px" }}>
                   Thời gian làm việc
                 </p>
-                <input
-                  style={{
-                    width: "100%",
-                    height: "40px",
-                    marginBottom: "20px",
-                  }}
-                ></input>
-                <p style={{ fontWeight: "bold", marginBottom: "10px" }}>
-                  Tên công việc
-                </p>
-                <input
-                  style={{
-                    width: "100%",
-                    height: "40px",
-                    marginBottom: "20px",
-                  }}
-                ></input>
-                <p style={{ fontWeight: "bold", marginBottom: "10px" }}>
+                <select 
+                onChange={(e) => setUpdatejob({ ...updatejobs, typejob_id: e.target.value })}
+                value={updatejobs.typejob_id}
+                name="typejob_id"
+                style={{ width: "100%", height: "40px",border: "1px solid #E7F0FA", borderRadius: "5px" }}>
+                  <option>{updatejobs.name}</option>
+                 {typeJob.map((item) => (
+                   <option key={item.id} value={item.id}>{item.name}</option>
+                 ))}
+                </select>
+                
+                <p style={{ fontWeight: "bold", marginBottom: "10px",marginTop: "20px" }}>
                   Mức lương
                 </p>
-                <input
-                  style={{
-                    width: "100%",
-                    height: "40px",
-                    marginBottom: "20px",
-                  }}
-                ></input>
-                <p style={{ fontWeight: "bold", marginBottom: "10px" }}>
+                <select
+                onChange={(e) => setUpdatejob({ ...updatejobs, salary: e.target.value })}
+                value={updatejobs.salary}
+                name="salary"
+                style={{ width: "100%", height: "40px",border: "1px solid #E7F0FA", borderRadius: "5px" }}
+                  // onChange={(e) => setNewJob({ ...newJob, salary: e.target.value })}
+                    id="salary"
+                    
+                  >
+                    <option value="">Chọn</option>
+                    <option value="2 triệu - 4 triệu">Từ 2 triệu - 4 triệu</option>
+                    <option value="5 triệu - 10 triệu">Từ 5 triệu - 10 triệu</option>
+                    <option value="8 triệu - 15 triệu">Từ 8 triệu - 15 triệu</option>
+                    <option value="15 triệu - 20 triệu">Từ 15 triệu - 20 triệu</option>
+                    <option value="Thoả thuận">Thoả thuận</option>
+                  </select>
+                  <p style={{ fontWeight: "bold", marginBottom: "10px",marginTop: "20px" }}>Địa chỉ tuyển dụng</p>
+                  <select
+                  onChange={(e) => setUpdatejob({ ...updatejobs, address_company_id: e.target.value })}
+                  style={{ width: "100%", height: "40px",border: "1px solid #E7F0FA", borderRadius: "5px" }}
+                   name="address_company_id">
+                    <option value="">Chọn</option>
+                    {listAdress.map((item) => (
+                      <option value={item.id}>{item.address}</option>
+                    ))}
+                  </select>
+                <p style={{ fontWeight: "bold", marginBottom: "10px",marginTop: "20px" }}>
+                  Cấp độ chuyên môn
+                </p>
+               <select 
+               onChange={(e) => setUpdatejob({ ...updatejobs, leveljob_id: e.target.value })}
+               name="leveljob_id"
+               value={updatejobs.leveljob_id}
+                 style={{ width: "100%", height: "40px",border: "1px solid #E7F0FA", borderRadius: "5px" }}>
+               <option>Intern</option>
+              
+              {LevelJob.map((item) => (
+                <option value={item.id}>{item.name}</option>
+              ))}
+               </select>
+                <p style={{ fontWeight: "bold", marginBottom: "10px",marginTop: "20px" }}>
                   Mô Tả Công việc
                 </p>
                 <textarea
+                onChange={(e) => setUpdatejob({ ...updatejobs, description: e.target.value })}
+                value={updatejobs.description}
+                name="description"
                   type="area"
                   style={{
                     width: "100%",
-                    height: "40px",
+                    height: "200px",
                     marginBottom: "20px",
                   }}
                 ></textarea>
@@ -149,10 +343,13 @@ export default function UpdateJobBusiness() {
                   Yêu cầu công việc
                 </p>
                 <textarea
+                onChange={(e) => setUpdatejob({ ...updatejobs, requirements: e.target.value })}
+                value={updatejobs.requirements}
+                name="requirement"
                   type="area"
                   style={{
                     width: "100%",
-                    height: "40px",
+                    height: "200px",
                     marginBottom: "20px",
                   }}
                 ></textarea>
@@ -169,7 +366,11 @@ export default function UpdateJobBusiness() {
                   <div>
                     {" "}
                     <p style={{ color: "#BC2228" }}>Start Date</p>
-                    <p>7/9/2024</p>
+                    <input 
+                    onChange={(e) => setUpdatejob({ ...updatejobs, created_at: e.target.value })}
+                    value={updatejobs.created_at.split('T')[0]}
+                    style={{border: "none"}}
+                    type="date"></input>
                     <div
                       style={{
                         width: "100%",
@@ -183,7 +384,13 @@ export default function UpdateJobBusiness() {
                   <div>
                     {" "}
                     <p style={{ color: "#BC2228" }}>End Date</p>
-                    <p>7/9/2024</p>
+                    <input 
+                    onChange={
+                      (e) => setUpdatejob({ ...updatejobs, expire_at: e.target.value })
+                    }
+                    value={updatejobs.expire_at}
+                    style={{border: "none"}}
+                    type="date"></input>
                     <div
                       style={{
                         width: "100%",
@@ -200,138 +407,26 @@ export default function UpdateJobBusiness() {
           <div className="job__detail--description">
             <div className="job__detail--description--title">
               <h2>Job Description</h2>
-              <p>
-                {" "}
-                Nhưng, cố nhân từng nói, cuộc đời chỉ cần một người khiến ta
-                ngưỡng mộ, để cả đời noi gương, cả đời thương mến. Vậy là quá đủ
-                rồi”.
-              </p>
-              <p>
-                GIÁO DỤC Những bài văn điểm 10 chấn động mạng Quyên Quyên Chủ
-                nhật, 26/10/2014 09:37 (GMT+7)Những bài văn viết về người thầy
-                cũ đã nghỉ hưu, người bố làm nghề xe ôm hay người mẹ đơn thân
-                thần tảo nuôi con… đã lấy được nước mắt của người đọc. Bài văn
-                về thầy giáo cũ gây xúc động Ngày 16/10, Vũ Phương Thảo (lớp
-                10A1, THPT Định Hóa) được biết đến với bài văn điểm 10 về người
-                thầy có những cảm xúc trong sáng, chân thành. Trong bài văn,
-                Thảo viết: “Máy quay dường như đang chậm lại, từng cảnh từng nét
-                hiện lên rõ ràng. Tôi thấy thầy đang lụi hụi trồng rau, chăm sóc
-                con chó lông trắng đen già khụ, thấy cả chúng tôi ngày đó, trong
-                những ngày vất vả nhưng yên bình. Tôi nghĩ, có lẽ đó là những
-                ngày hạnh phúc và vui vẻ nhất tôi từng có. Sau này, khi bước đi
-                trên đường đời chông gai, có thể sẽ chẳng còn ai chỉ bảo, dạy dỗ
-                tôi tận tình như thầy đã từng, có thể sẽ chẳng có ai lo tôi liệu
-                có ngủ đủ giấc, liệu có stress khi nhồi nhét quá nhiều. Nhưng,
-                cố nhân từng nói, cuộc đời chỉ cần một người khiến ta ngưỡng mộ,
-                để cả đời noi gương, cả đời thương mến. Vậy là quá đủ rồi”.
-              </p>
-              <p>
-                Trong bài văn, Thảo viết: “Máy quay dường như đang chậm lại,
-                từng cảnh từng nét hiện lên rõ ràng. Tôi thấy thầy đang lụi hụi
-                trồng rau, chăm sóc con chó lông trắng đen già khụ, thấy cả
-                chúng tôi ngày đó, trong những ngày vất vả nhưng yên bình. Tôi
-                nghĩ, có lẽ đó là những ngày hạnh phúc và vui vẻ nhất tôi từng
-                có. Sau này, khi bước đi trên đường đời chông gai, có thể sẽ
-                chẳng còn ai chỉ bảo, dạy dỗ tôi tận tình như thầy đã từng, có
-                thể sẽ chẳng có ai lo tôi liệu có ngủ đủ giấc, liệu có stress
-                khi nhồi nhét quá nhiều. Nhưng, cố nhân từng nói, cuộc đời chỉ
-                cần một người khiến ta ngưỡng mộ, để cả đời noi gương, cả đời
-                thương mến. Vậy là quá đủ rồi”.
-              </p>
+              <p>{job.description}</p>
               <h2>Requirements</h2>
               <ul>
                 <li>
-                  {" "}
-                  Trong bài văn, Thảo viết: “Máy quay dường như đang chậm lại,
-                  từng cảnh từng nét hiện lên rõ ràng. Tôi thấy thầy đang lụi
-                  hụi trồng rau, chăm sóc con chó lông trắng đen già khụ, thấy
-                  cả chúng tôi ngày đó,{" "}
+                  <p>{job.requirements}</p>
                 </li>
-                <li>
-                  Trong bài văn, Thảo viết: “Máy quay dường như đang chậm lại,
-                  từng cảnh từng nét hiện lên rõ ràng.
-                </li>
-                <li>
-                  trong những ngày vất vả nhưng yên bình. Tôi nghĩ, có lẽ đó là
-                  những ngày hạnh phúc và vui vẻ nhất tôi từng có. Sau này, khi
-                  bước đi trên đường đời chông gai, có thể sẽ chẳng còn ai chỉ
-                  bảo, dạy dỗ tôi tận tình như thầy đã từng, có thể sẽ chẳng có
-                  ai lo tôi{" "}
-                </li>
-                <li>
-                  Nhưng, cố nhân từng nói, cuộc đời chỉ cần một người khiến ta
-                  ngưỡng mộ, để cả đời noi gương, cả đời thương mến. Vậy là quá
-                  đủ rồi”.
-                </li>
+         
               </ul>
-              <h2>Desirable</h2>
-              <ul>
-                <li>
-                  {" "}
-                  Trong bài văn, Thảo viết: “Máy quay dường như đang chậm lại,
-                  từng cảnh từng nét hiện lên rõ ràng. Tôi thấy thầy đang lụi
-                  hụi trồng rau, chăm sóc con chó lông trắng đen già khụ, thấy
-                  cả chúng tôi ngày đó,{" "}
-                </li>
-                <li>
-                  Trong bài văn, Thảo viết: “Máy quay dường như đang chậm lại,
-                  từng cảnh từng nét hiện lên rõ ràng.
-                </li>
-                <li>
-                  trong những ngày vất vả nhưng yên bình. Tôi nghĩ, có lẽ đó là
-                  những ngày hạnh phúc và vui vẻ nhất tôi từng có. Sau này, khi
-                  bước đi trên đường đời chông gai, có thể sẽ chẳng còn ai chỉ
-                  bảo, dạy dỗ tôi tận tình như thầy đã từng, có thể sẽ chẳng có
-                  ai lo tôi{" "}
-                </li>
-              </ul>
-              <h2>Benefits</h2>
-              <ul>
-                <li>
-                  {" "}
-                  Trong bài văn, Thảo viết: “Máy quay dường như đang chậm lại,
-                  từng cảnh từng nét hiện lên rõ ràng. Tôi thấy thầy đang lụi
-                  hụi trồng rau, chăm sóc con chó lông trắng đen già khụ, thấy
-                  cả chúng tôi ngày đó,{" "}
-                </li>
-                <li>
-                  Trong bài văn, Thảo viết: “Máy quay dường như đang chậm lại,
-                  từng cảnh từng nét hiện lên rõ ràng.
-                </li>
-                <li>
-                  trong những ngày vất vả nhưng yên bình. Tôi nghĩ, có lẽ đó là
-                  những ngày hạnh phúc và vui vẻ nhất tôi từng có. Sau này, khi
-                  bước đi trên đường đời chông gai, có thể sẽ chẳng còn ai chỉ
-                  bảo, dạy dỗ tôi tận tình như thầy đã từng, có thể sẽ chẳng có
-                  ai lo tôi{" "}
-                </li>
-                <li>
-                  Trong bài văn, Thảo viết: “Máy quay dường như đang chậm lại,
-                  từng cảnh từng nét hiện lên rõ ràng.
-                </li>
-                <li>
-                  Trong bài văn, Thảo viết: “Máy quay dường như đang chậm lại,
-                  từng cảnh từng nét hiện lên rõ ràng.
-                </li>
-                <li>
-                  Trong bài văn, Thảo viết: “Máy quay dường như đang chậm lại,
-                  từng cảnh từng nét hiện lên rõ ràng.
-                </li>
-                <li>
-                  Trong bài văn, Thảo viết: “Máy quay dường như đang chậm lại,
-                  từng cảnh từng nét hiện lên rõ ràng.
-                </li>
-              </ul>
+            
+              
             </div>
-            <div>
+            <div className="job__detail--description-2">
               <div className="job__detail--description--details">
                 <div style={{ textAlign: "center" }}>
                   <h3 style={{ marginBottom: "10px" }}>Salary (Usd)</h3>
                   <p style={{ color: "#0BA02C", fontSize: "18px" }}>
-                    $10,000 - $15,000
+                    {job.salary}
                   </p>
                   <p style={{ color: "gray", fontSize: "14px" }}>
-                    Yearly Salary
+                    Montch Salary
                   </p>
                 </div>
                 <div
@@ -342,13 +437,10 @@ export default function UpdateJobBusiness() {
                   }}
                 ></div>
                 <div style={{ textAlign: "center" }}>
-                  <img
-                    style={{ marginLeft: "40px" }}
-                    src="./src/assets/images/jobDetails/MapTrifold.png"
-                  ></img>
+                  <img style={{ marginLeft: "160px" }} src={MapTrifold}></img>
                   <h3>Job Location</h3>
                   <p style={{ color: "gray", fontSize: "14px" }}>
-                    Hồ Chí Minh, Vietnam
+                  {address }
                   </p>
                 </div>
               </div>
@@ -357,54 +449,25 @@ export default function UpdateJobBusiness() {
                   <h3 style={{ marginBottom: "10px" }}>Job Overview</h3>
                   <div style={{ display: "flex", flexWrap: "wrap" }}>
                     <div className="item">
-                      <img
-                        style={{ marginRight: "10px" }}
-                        src="./src/assets/images/jobDetails/CalendarBlank.png"
-                      ></img>
+                      <img style={{ marginRight: "10px" }} src={time1}></img>
                       <p style={{ color: "gray", fontSize: "18px" }}>
                         Job Posted
                       </p>
-                      <span>14 Jun, 2021</span>
+                      <span>{job.created_at.toString().split('T')[0]}</span>
                     </div>
                     <div className="item">
-                      <img
-                        style={{ marginRight: "10px" }}
-                        src="./src/assets/images/jobDetails/Timer.png"
-                      ></img>
+                      <img style={{ marginRight: "10px" }} src={time2}></img>
                       <p style={{ color: "gray", fontSize: "18px" }}>
-                        Job Posted
+                        Job Expire in
                       </p>
-                      <span>14 Jun, 2021</span>
+                      <span>{job.expire_at}</span>
                     </div>
                     <div className="item">
-                      <img
-                        style={{ marginRight: "10px" }}
-                        src="./src/assets/images/jobDetails/Stack.png"
-                      ></img>
+                      <img style={{ marginRight: "10px" }} src={Stack}></img>
                       <p style={{ color: "gray", fontSize: "18px" }}>
-                        Job Posted
+                        level job
                       </p>
-                      <span>14 Jun, 2021</span>
-                    </div>
-                    <div className="item">
-                      <img
-                        style={{ marginRight: "10px" }}
-                        src="./src/assets/images/jobDetails/Wallet.png"
-                      ></img>
-                      <p style={{ color: "gray", fontSize: "18px" }}>
-                        Job Posted
-                      </p>
-                      <span>14 Jun, 2021</span>
-                    </div>
-                    <div className="item">
-                      <img
-                        style={{ marginRight: "10px" }}
-                        src="./src/assets/images/jobDetails/briefcase.png"
-                      ></img>
-                      <p style={{ color: "gray", fontSize: "18px" }}>
-                        Job Posted
-                      </p>
-                      <span>14 Jun, 2021</span>
+                      <span>{levelJob1[0]?.leveljob.name}</span>
                     </div>
                   </div>
                 </div>
@@ -414,11 +477,11 @@ export default function UpdateJobBusiness() {
                 <div className="line1">
                   <h3 style={{ marginBottom: "10px" }}>Share thit Job :</h3>
                   <div style={{ display: "flex", gap: "10px" }}>
-                    <img src="./src/assets/images/jobDetails/Social button.png"></img>
-                    <img src="./src/assets/images/jobDetails/Social button (1).png"></img>
-                    <img src="./src/assets/images/jobDetails/Social button (2).png"></img>
-                    <img src="./src/assets/images/jobDetails/Social button (3).png"></img>
-                    <img src="./src/assets/images/jobDetails/Social button (4).png"></img>
+                    <img src={Stack1}></img>
+                    <img src={Stack2}></img>
+                    <img src={Stack3}></img>
+                    <img src={Stack4}></img>
+                    <img src={Stack5}></img>
                   </div>
                 </div>
               </div>
@@ -473,10 +536,7 @@ export default function UpdateJobBusiness() {
                   </div>
                 </div>
                 <div className="img">
-                  <img
-                    className="img"
-                    src="./src/assets/images/jobDetails/arrow.right.png"
-                  ></img>
+                  <img className="img" src={arrowright}></img>
                 </div>
               </div>
 
@@ -561,7 +621,7 @@ export default function UpdateJobBusiness() {
               >
                 <div style={{ display: "flex" }}>
                   <div>
-                    <img src="./src/assets/images/jobDetails/Rectangle 43.png"></img>
+                    <img src={Rectangle}></img>
                   </div>
                   <div style={{ marginLeft: "10px", marginTop: "20px" }}>
                     <h2>Nguyen van A</h2>
@@ -595,10 +655,7 @@ export default function UpdateJobBusiness() {
                   </div>
                 </div>
                 <div className="img">
-                  <img
-                    className="img"
-                    src="./src/assets/images/jobDetails/arrow.right.png"
-                  ></img>
+                  <img className="img" src={arrowright}></img>
                 </div>
               </div>
 
@@ -667,7 +724,7 @@ export default function UpdateJobBusiness() {
               <div style={{ marginTop: "20px", display: "flex", gap: "10px" }}>
                 <img
                   style={{ width: "20px", height: "20px" }}
-                  src="./src/assets/images/jobDetails/MapPin.png"
+                  src={MapPin}
                 ></img>
                 <div style={{ fontSize: "16px" }}>Hà Nội, Việt Nam</div>
               </div>
