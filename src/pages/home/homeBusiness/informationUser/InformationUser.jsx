@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./InformationUser.scss";
 import cv from "../../../../assets/images/informationUser/cv 1.png";
 import emailicon from "../../../../assets/images/informationUser/emailicon.png";
@@ -10,24 +10,64 @@ import logoFPT from "../../../../assets/images/informationUser/logoFPT.png";
 import MapTrifold from "../../../../assets/images/informationUser/MapTrifold.png";
 import Social from "../../../../assets/images/informationUser/Social icon.png";
 import twicon from "../../../../assets/images/informationUser/twicon.png";
+import { candidateAsync } from "../../../../redux/reduce/candidateReduce";
+import { useDispatch, useSelector } from "react-redux";
+import privateAxios from "../../../../config/private.axios";
 export default function InformationUser() {
+  const [role, setRole] = useState("");
+   const [infor, setInfor] = React.useState({});
+  const dispatch = useDispatch();
+
+  const user = useSelector((state) => state.candidate.data);
+  const getInfor = () => {
+    setRole(user?.account_candidate_id.role);
+  };
+
+  const getInforCV = async () => {
+    await privateAxios
+      .get("api/v2/candidates/getAllInformation")
+      .then((res) => {
+        setInfor(res.data.data);
+        console.log(infor);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  };
+  console.log(user);
+  console.log(infor);
+  useEffect(() => {
+    dispatch(candidateAsync());
+    getInfor();
+    getInforCV();
+  }, [dispatch]);
   return (
     <>
       <div className="informationUser__container">
         <div className="informationUser__nav">
           <p className="informationUser__nav__home">Trang chủ /</p>
-          <p className="informationUser__nav__candidate">Ứng viên nổi bật / </p>
-          <p className="informationUser__nav__name">Nguyen Van A</p>
+          {
+
+          role == 1 ? (
+            <p className="informationUser__nav__candidate">
+              Thông tin cá nhân {" "}
+            </p>
+          ) : (
+            <p className="informationUser__nav__candidate">
+              Ứng viên nổi bật {" "}
+            </p>
+          )}
+
         </div>
         <div className="informationUser__body">
           <div className="informationUser-header">
             <div className="informationUser-header--left">
               <img src={logoFPT} alt="" />
               <div className="informationUser-header--left__infor">
-                <p>Nguyen Van A</p>
+                <p>{user?.name}</p>
                 <div className="informationUser-header--left__infor__list">
                   <div className="informationUser-header--left__infor__list__itemLeft">
-                    Front-end
+                    {}
                   </div>
                   <div className="informationUser-header--left__infor__list__itemRight">
                     Fresher
@@ -51,8 +91,23 @@ export default function InformationUser() {
                   <strong>Mô tả về bản thân</strong>
                 </p>{" "}
                 <p className="informationUser-content--left__aboutInfor__content">
-                Velstar is a Shopify Plus agency, and we partner with brands to help them grow, we also do the same with our people!
-                Here at Velstar, we don't just make websites, we create exceptional digital experiences that consumers love. Our team of designers, developers, strategists, and creators work together to push brands to the next level. From Platform Migration, User Experience & User Interface Design, to Digital Marketing, we have a proven track record in delivering outstanding eCommerce solutions and driving sales for our clients.The role will involve translating project specifications into clean, test-driven, easily maintainable code. You will work with the Project and Development teams as well as with the Technical Director, adhering closely to project plans and delivering work that meets functional & non-functional requirements. You will have the opportunity to create new, innovative, secure and scalable features for our clients on the Shopify platformWant to work with us? You're in good company!
+                  Velstar is a Shopify Plus agency, and we partner with brands
+                  to help them grow, we also do the same with our people! Here
+                  at Velstar, we don't just make websites, we create exceptional
+                  digital experiences that consumers love. Our team of
+                  designers, developers, strategists, and creators work together
+                  to push brands to the next level. From Platform Migration,
+                  User Experience & User Interface Design, to Digital Marketing,
+                  we have a proven track record in delivering outstanding
+                  eCommerce solutions and driving sales for our clients.The role
+                  will involve translating project specifications into clean,
+                  test-driven, easily maintainable code. You will work with the
+                  Project and Development teams as well as with the Technical
+                  Director, adhering closely to project plans and delivering
+                  work that meets functional & non-functional requirements. You
+                  will have the opportunity to create new, innovative, secure
+                  and scalable features for our clients on the Shopify
+                  platformWant to work with us? You're in good company!
                 </p>
                 <div className="responsive__btn">Xem thêm</div>
               </div>
@@ -119,7 +174,6 @@ export default function InformationUser() {
                   </li>
                 </ul>
                 <div className="responsive__btn">Xem thêm</div>
-
               </div>
             </div>
             <div className="informationUser-content--right">

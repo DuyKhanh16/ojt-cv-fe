@@ -1,4 +1,4 @@
-import React, { useEffect, useState ,useCallback, useMemo} from "react";
+import React, { useEffect, useState, useCallback, useMemo } from "react";
 import "./InformationUser.scss";
 import Header from "../../../../components/header/Header";
 import Footer from "../../../../components/footer/Footer";
@@ -39,7 +39,6 @@ export default function InformationUserB() {
   const [openUpdateUser, setOpenUpdateUser] = useState(false);
   const [openConfirm, setOpenConfirm] = useState(false);
 
-
   const [flag, setFlag] = useState(0);
   const [checkAboutMe, setCheckAboutMe] = useState(false);
   const [checkEducation, setCheckEducation] = useState(false);
@@ -58,7 +57,7 @@ export default function InformationUserB() {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
- 
+
   const open = () => {
     setIsOpen(!isOpen);
   };
@@ -76,7 +75,7 @@ export default function InformationUserB() {
     setOpenUpdateUser(false);
     setOpenConfirm(false);
     setFlag(flag + 1);
-  },[dispatch]);
+  }, [dispatch]);
 
   useEffect(() => {
     dispatch(candidateAsync());
@@ -84,8 +83,8 @@ export default function InformationUserB() {
     dispatch(expAsync());
     dispatch(projectAsync());
     dispatch(certificateAsync());
-  },[dispatch]);
- 
+  }, [dispatch]);
+
   /* Candidate */
   const user = useSelector((state) => state.candidate.data);
   const exp = useSelector((state) => state.exp.data);
@@ -98,22 +97,22 @@ export default function InformationUserB() {
     checkExpF();
     checkProjectF();
     checkCertiF();
-  },[user,exp,project,education,certificate]);
+  }, [user, exp, project, education, certificate]);
 
-  const creatAboutMe = ()=> {
+  const creatAboutMe = () => {
     setOpenAbout(true);
     setItemAboutUpdate({
-      status:"creat",
-      item:user
-     })
-  }
+      status: "creat",
+      item: user,
+    });
+  };
   const updateAboutMe = () => {
     setOpenAbout(true);
     setItemAboutUpdate({
-      status:"update",
-      item:user
-     })
-  }
+      status: "update",
+      item: user,
+    });
+  };
   const checkAboutmeF = () => {
     if (user.aboutme != "") {
       setCheckAboutMe(true);
@@ -133,22 +132,22 @@ export default function InformationUserB() {
   const creatEdu = () => {
     setOpenEdu(true);
     setItemEduUpdate({
-      status:"creat"
-     })
-  }
+      status: "creat",
+    });
+  };
   // sua edu
   const updateEdu = (item) => {
     setOpenEdu(true);
-   setItemEduUpdate({
-    item: item,
-    status:"update"
-   })
-  }
-  const handleDelete = async (id,table) => {
+    setItemEduUpdate({
+      item: item,
+      status: "update",
+    });
+  };
+  const handleDelete = async (id, table) => {
     setOpenConfirm(true);
     setItemDelete({
-      id:id,
-      table:table
+      id: id,
+      table: table,
     });
   };
   /* het edu */
@@ -164,21 +163,21 @@ export default function InformationUserB() {
   };
   // sua kinh nghiem
   const updateExp = (item) => {
-    if(item){
+    if (item) {
       setOpenExp(true);
     }
     setItemExpUpdate({
       item: item,
-      status:"update"
+      status: "update",
     });
-  }
+  };
   const creatExp = async () => {
     setOpenExp(true);
     setItemExpUpdate({
-      status:"creat"
-     })
-  }
-  
+      status: "creat",
+    });
+  };
+
   /* het kinh nghiem */
   /* project */
   const checkProjectF = () => {
@@ -192,15 +191,15 @@ export default function InformationUserB() {
     setOpenProject(true);
     setItemProjectUpdate({
       item: item,
-      status:"update"
+      status: "update",
     });
-  }
+  };
   const creatProject = () => {
     setOpenProject(true);
     setItemProjectUpdate({
-      status:"creat"
-     })
-  }
+      status: "creat",
+    });
+  };
   /* het project */
 
   /* cert */
@@ -216,39 +215,59 @@ export default function InformationUserB() {
     setOpenCert(true);
     setItemCertificateUpdate({
       item: item,
-      status:"update"
+      status: "update",
     });
-  }
-  const creatCerti = ()=> {
+  };
+  const creatCerti = () => {
     setOpenCert(true);
     setItemCertificateUpdate({
-      status:"creat"
-     })
-  }
+      status: "creat",
+    });
+  };
 
   /* het cert */
-  console.log("data",user)
-  
+  console.log("data", user);
+
   return (
     <>
-      <AboutUser isOpen={openABout} close={close} item = {itemAboutUpdate}></AboutUser>
-      <Certificate isOpen={openCert} close={close} certificate={itemCertificateUpdate}></Certificate>
-      <Education isOpen={openEdu} user={user} close={close} edu={itemEduUpdate}></Education>
-      <Exp isOpenP={openExp} close={close} exp={itemExpUpdate} userE= {user}></Exp>
-      <ProjectUser isOpen={openProject} close={close} project={itemProjectUpdate}></ProjectUser>
+      <AboutUser
+        isOpen={openABout}
+        close={close}
+        item={itemAboutUpdate}
+      ></AboutUser>
+      <Certificate
+        isOpen={openCert}
+        close={close}
+        certificate={itemCertificateUpdate}
+      ></Certificate>
+      <Education
+        isOpen={openEdu}
+        user={user}
+        close={close}
+        edu={itemEduUpdate}
+      ></Education>
+      <Exp
+        isOpenP={openExp}
+        close={close}
+        exp={itemExpUpdate}
+        userE={user}
+      ></Exp>
+      <ProjectUser
+        isOpen={openProject}
+        close={close}
+        project={itemProjectUpdate}
+      ></ProjectUser>
       <UpdateInforUser isOpen={openUpdateUser} close={close}></UpdateInforUser>
       <Skill></Skill>
-      <Confirm isOpen={openConfirm} close={close} value = {itemDelete}></Confirm>
+      <Confirm isOpen={openConfirm} close={close} value={itemDelete}></Confirm>
       <UpdateInforUser></UpdateInforUser>
       <div className="informationUser">
         <div className="informationUser__navbar2">
           <div className="informationUser__navbar__contain">
-            <NavLink className={"informationUser__navbar__item"}>Hồ sơ</NavLink>
-            <NavLink className={"informationUser__navbar__item"}>
-              Quản lí công việc
-            </NavLink>
-            <NavLink className={"informationUser__navbar__item"}>
-              Tiêu chí làm việc
+            <NavLink className={"informationUser__navbar__item"} to={"/candidate/user-detail"}>
+              {" "}
+              <span class="material-symbols-outlined">arrow_back</span>Quay lại
+              hồ sơ cá nhân
             </NavLink>
           </div>
         </div>
@@ -277,11 +296,7 @@ export default function InformationUserB() {
                     check_circle
                   </span>
                 ) : (
-                  <img
-                    src={vetor}
-                    alt=""
-                    onClick={creatAboutMe}
-                  />
+                  <img src={vetor} alt="" onClick={creatAboutMe} />
                 )}
 
                 <p style={{ color: checkAboutMe ? "green" : "red" }}>
@@ -297,11 +312,7 @@ export default function InformationUserB() {
                     check_circle
                   </span>
                 ) : (
-                  <img
-                    onClick={creatEdu}
-                    src={vetor}
-                    alt=""
-                  />
+                  <img onClick={creatEdu} src={vetor} alt="" />
                 )}
                 <p style={{ color: checkEducation ? "green" : "red" }}>
                   Thêm học vấn
@@ -316,11 +327,7 @@ export default function InformationUserB() {
                     check_circle
                   </span>
                 ) : (
-                  <img
-                    onClick={creatExp}
-                    src={vetor}
-                    alt=""
-                  />
+                  <img onClick={creatExp} src={vetor} alt="" />
                 )}
                 <p style={{ color: checkExp ? "green" : "red" }}>
                   Thêm kinh nghiệm làm việc
@@ -335,11 +342,7 @@ export default function InformationUserB() {
                     check_circle
                   </span>
                 ) : (
-                  <img
-                    onClick={creatProject}
-                    src={vetor}
-                    alt=""
-                  />
+                  <img onClick={creatProject} src={vetor} alt="" />
                 )}
                 <p style={{ color: checkJob ? "green" : "red" }}>
                   Thêm dự án cá nhân
@@ -354,11 +357,7 @@ export default function InformationUserB() {
                     check_circle
                   </span>
                 ) : (
-                  <img
-                    onClick={creatCerti}
-                    src={vetor}
-                    alt=""
-                  />
+                  <img onClick={creatCerti} src={vetor} alt="" />
                 )}
                 <p style={{ color: checkCerti ? "green" : "red" }}>
                   Thêm chứng chỉ
@@ -473,21 +472,21 @@ export default function InformationUserB() {
               style={{ display: checkAboutMe ? "block" : "none" }}
             >
               <p>Giới Thiệu Bản Thân</p>
-              {user?.aboutme?
-              <>
-               <img
-                style={{ cursor: "pointer" }}
-                src={vector2}
-                alt=""
-                onClick={updateAboutMe}
-              />
-              </>
-              :
-              <>
-              <img src={vetor} alt="" onClick={creatAboutMe} />
-              </>
-              }
-             
+              {user?.aboutme ? (
+                <>
+                  <img
+                    style={{ cursor: "pointer" }}
+                    src={vector2}
+                    alt=""
+                    onClick={updateAboutMe}
+                  />
+                </>
+              ) : (
+                <>
+                  <img src={vetor} alt="" onClick={creatAboutMe} />
+                </>
+              )}
+
               <div
                 className="informationUser__contain__right__item__contentInfor"
                 style={{
@@ -521,7 +520,7 @@ export default function InformationUserB() {
                         style={{ cursor: "pointer" }}
                         src={vector2}
                         alt=""
-                        onClick={()=>updateEdu(item)}
+                        onClick={() => updateEdu(item)}
                       />
                       <span
                         class="material-symbols-outlined"
@@ -562,11 +561,14 @@ export default function InformationUserB() {
                         style={{ cursor: "pointer" }}
                         src={vector2}
                         alt=""
-                        onClick={()=>updateExp(item)}
-                       
-
+                        onClick={() => updateExp(item)}
                       />
-                      <span class="material-symbols-outlined" onClick={() => handleDelete(item.id, "exp")}>delete</span>
+                      <span
+                        class="material-symbols-outlined"
+                        onClick={() => handleDelete(item.id, "exp")}
+                      >
+                        delete
+                      </span>
                     </div>
                   </div>
                   <p className="informationUser__contain__right__item__miniitem__nameSchool">
@@ -600,11 +602,14 @@ export default function InformationUserB() {
                         style={{ cursor: "pointer" }}
                         src={vector2}
                         alt=""
-                        onClick={()=>updateProject(item)}
+                        onClick={() => updateProject(item)}
                       />
-                      <span class="material-symbols-outlined"
-                       onClick={() => handleDelete(item.id,"project")}
-                       >delete</span>
+                      <span
+                        class="material-symbols-outlined"
+                        onClick={() => handleDelete(item.id, "project")}
+                      >
+                        delete
+                      </span>
                     </div>
                   </div>
                   <p className="informationUser__contain__right__item__miniitem__nameSchool">
@@ -615,11 +620,7 @@ export default function InformationUserB() {
                   </p>
                 </div>
               ))}
-              <img
-                src={vetor}
-                alt=""
-                onClick={creatProject}
-              />
+              <img src={vetor} alt="" onClick={creatProject} />
             </div>
 
             <div
@@ -641,9 +642,14 @@ export default function InformationUserB() {
                         style={{ cursor: "pointer" }}
                         src={vector2}
                         alt=""
-                        onClick={()=>updateCertificate(item)}
+                        onClick={() => updateCertificate(item)}
                       />
-                      <span class="material-symbols-outlined" onClick={() => handleDelete(item.id,"certificate")}>delete</span>
+                      <span
+                        class="material-symbols-outlined"
+                        onClick={() => handleDelete(item.id, "certificate")}
+                      >
+                        delete
+                      </span>
                     </div>
                   </div>
                   <p className="informationUser__contain__right__item__miniitem__nameSchool">

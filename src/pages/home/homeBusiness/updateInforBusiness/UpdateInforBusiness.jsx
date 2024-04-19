@@ -308,7 +308,7 @@ export default function UpdateInforBusiness() {
     }
   };
 
-  // console.log(infoCompany)
+  console.log(infoCompany);
   return (
     <>
       <div
@@ -330,10 +330,13 @@ export default function UpdateInforBusiness() {
               src={logo}
             ></img>
           </div>
-          <div style={{textAlign:"center",width:"50vw",marginRight:"20px"}} className="user-companyView-info-feature">
+          <div
+            style={{ textAlign: "center", width: "50vw", marginRight: "20px" }}
+            className="user-companyView-info-feature"
+          >
             <h4>
-              Chào mừng {infoCompany?.name} đã đến với RikeiEdu, Bạn hãy cập nhật thông tin doanh
-              nghiệp của mình !
+              Chào mừng {infoCompany?.name} đã đến với RikeiEdu, Bạn hãy cập
+              nhật thông tin doanh nghiệp của mình !
             </h4>
             <button
               style={{
@@ -409,19 +412,30 @@ export default function UpdateInforBusiness() {
                     100 người theo dõi
                   </span>
                 </p>
-                <p style={{ marginLeft: "24px" }}>
-                  <span className="user-companyView-info-company-type">
+                <p style={{ marginLeft: "0px" }}>
+                  <span
+                    className="user-companyView-info-company-type"
+                    style={{ textAlign: "center" }}
+                  >
                     {/*   {companyDetail.typeCompany} */}
-                    Product
+                    Outsource
                   </span>{" "}
-                  <span className="user-companyView-info-company-verified">
-                    verified
-                  </span>
                 </p>
-                <p className="user-companyView-info-company-web">
+                <div
+                  className="user-companyView-info-company-web"
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "10px",
+                    marginLeft: "0px",
+                  }}
+                >
                   {/* {companyDetail.web}  */}
-                  {infoCompany?.website}
-                </p>
+                  <span class="material-symbols-outlined">language</span>
+                  <a style={{ borderBottom: "1px solid black" }}>
+                    {infoCompany?.website}
+                  </a>
+                </div>
               </div>
             </div>
             <div className="user-companyView-info-feature">
@@ -814,7 +828,7 @@ export default function UpdateInforBusiness() {
                   color: "black",
                 }}
               >
-                chia sẻ thông tin công ty đến mọi người:
+                Chia sẻ thông tin công ty đến mọi người:
               </p>
               <div className="user-companyView-orther-social">
                 <p style={{ width: "150px", height: "40px" }}>
