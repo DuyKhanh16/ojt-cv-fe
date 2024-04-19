@@ -31,13 +31,9 @@ export default function FormSearch() {
   // khối của thằng poper của user
   const content = (
     <div className="form__search--popover">
-      <div className="form__search--popover--content">
-        <img src={job}></img>
-        <p>Công việc đã ứng tuyển</p>
-      </div>
       <div className="form__search--popover--info">
         <img src={user1}></img>
-        <p onClick={() => navigate("/candidate/user-detail")}>Thông tin cá nhân</p>
+        <p onClick={() => navigate("/candidate/user-detail")} style={{cursor:"pointer"}}>Thông tin cá nhân</p>
       </div>
       <div
         onClick={() => {
@@ -47,7 +43,7 @@ export default function FormSearch() {
         className="form__search--popover--logout"
       >
         <MenuFoldOutlined size={40} className="custom-icon" />
-        <p>Log out</p>
+        <p style={{cursor:"pointer"}}>Log out</p>
       </div>
     </div>
   );

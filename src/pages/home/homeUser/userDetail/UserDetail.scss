@@ -635,6 +635,141 @@
         }
       }
     }
+    .userDetail__outStandingJob {
+      width: 100%;
+      height: auto;
+      padding: 48px 60px 0 60px;
+      background-color: #fff;
+      margin-bottom: 2vw;
+      .userDetail__outStandingJob--header {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .userDetail__outStandingJob--header__title {
+          width: 35%;
+          font-size: 40px;
+          font-weight: 500;
+          line-height: 48px;
+          color: rgba(25, 31, 51, 1);
+        }
+        .userDetail__outStandingJob--header__view {
+          width: 8%;
+          font-size: 16px;
+          font-weight: 600;
+          line-height: 24px;
+          color: var(--primary);
+          cursor: pointer;
+          display: flex;
+          gap: 10px;
+          img {
+            width: 24px;
+            height: 24px;
+          }
+        }
+      }
+      .userDetail__outStandingJob--listJob {
+        width: 100%;
+        margin-top: 50px;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-gap: 24px;
+        .userDetail__outStandingJob--listJob__item {
+          width: 100%;
+          height: 170px;
+          border: 1px solid rgba(228, 229, 232, 1);
+          border-radius: 8px;
+          padding: 20px;
+          box-shadow: 0px 2px 18px 0 rgba(24, 25, 28, 0.03);
+          .userDetail__outStandingJob--listJob__item--top {
+            width: 100%;
+            height: 54px;
+            .userDetail__outStandingJob--listJob__item--top__name {
+              width: 100%;
+              font-size: 18px;
+              font-weight: 500;
+              line-height: 28px;
+              color: rgba(24, 25, 28, 1);
+            }
+            .userDetail__outStandingJob--listJob__item--top__salary {
+              width: 100%;
+              display: flex;
+              gap: 8px;
+              .userDetail__outStandingJob--listJob__item--top__salary__text {
+                width: 60px;
+                height: 20px;
+                background-color: rgba(231, 246, 234, 1);
+                border-radius: 3px;
+                display: flex;
+                justify-content: center;
+                p {
+                  font-size: 12px;
+                  font-weight: 600;
+                  line-height: 20px;
+                  color: rgba(11, 160, 44, 1);
+                }
+              }
+              .userDetail__outStandingJob--listJob__item--top__salary__price {
+                font-size: 14px;
+                font-weight: 400;
+                line-height: 20px;
+                color: rgba(118, 127, 140, 1);
+              }
+            }
+          }
+          .userDetail__outStandingJob--listJob__item--bottom {
+            width: 100%;
+            height: 48px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+            .userDetail__outStandingJob--listJob__item--bottom--left {
+              display: flex;
+              gap: 12px;
+              .userDetail__outStandingJob--listJob__item--bottom__logo {
+                width: 48px;
+                height: 48px;
+                background-color: rgba(237, 239, 245, 1);
+                // padding: 12px;
+                border-radius: 4px;
+                overflow: hidden;
+                margin-top: 0.3rem;
+                img {
+                  width: 48px;
+                  height: 48px;
+                }
+              }
+              .userDetail__outStandingJob--listJob__item--bottom__nameLogo {
+                .userDetail__outStandingJob--listJob__item--bottom__nameLogo__text {
+                  font-size: 16px;
+                  font-weight: 500;
+                  line-height: 24px;
+                  color: rgba(24, 25, 28, 1);
+                }
+                .userDetail__outStandingJob--listJob__item--bottom__nameLogo__location {
+                  display: flex;
+                  gap: 5px;
+                  img {
+                    width: 18px;
+                    height: 18px;
+                  }
+                  p {
+                    font-size: 14px;
+                    font-weight: 400;
+                    line-height: 24px;
+                  }
+                }
+              }
+            }
+            .userDetail__outStandingJob--listJob__item--bottom__bookmark {
+              width: 24px;
+              height: 24px;
+            }
+          }
+        }
+      }
+    }
   }
   
   /* end main */
