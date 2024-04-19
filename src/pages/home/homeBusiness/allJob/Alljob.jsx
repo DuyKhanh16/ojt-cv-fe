@@ -24,7 +24,7 @@ export default function Alljob() {
   };
 
   const getallJobsCompany = () => {
-    const res1 = privateAxios.get("api/v2/jobs/getJobsForCompany");
+    const res1 = privateAxios.get(`api/v2/jobs/company/${id}`);
     res1.then((res) => {
       setAllJobs(res.data.data, "data");
       // setAllJobs(res.data.data);

@@ -53,6 +53,7 @@ export default function InformationUserB() {
   const [itemExpUpdate, setItemExpUpdate] = useState({});
   const [itemProjectUpdate, setItemProjectUpdate] = useState({});
   const [itemCertificateUpdate, setItemCertificateUpdate] = useState({});
+  const [itemAboutUpdate, setItemAboutUpdate] = useState({});
   // het bien hung
 
   const dispatch = useDispatch();
@@ -98,6 +99,21 @@ export default function InformationUserB() {
     checkProjectF();
     checkCertiF();
   },[user,exp,project,education,certificate]);
+
+  const creatAboutMe = ()=> {
+    setOpenAbout(true);
+    setItemAboutUpdate({
+      status:"creat",
+      item:user
+     })
+  }
+  const updateAboutMe = () => {
+    setOpenAbout(true);
+    setItemAboutUpdate({
+      status:"update",
+      item:user
+     })
+  }
   const checkAboutmeF = () => {
     if (user.aboutme != "") {
       setCheckAboutMe(true);
@@ -215,7 +231,7 @@ export default function InformationUserB() {
   
   return (
     <>
-      <AboutUser isOpen={openABout} close={close} aboutme={user?.aboutme}></AboutUser>
+      <AboutUser isOpen={openABout} close={close} item = {itemAboutUpdate}></AboutUser>
       <Certificate isOpen={openCert} close={close} certificate={itemCertificateUpdate}></Certificate>
       <Education isOpen={openEdu} user={user} close={close} edu={itemEduUpdate}></Education>
       <Exp isOpenP={openExp} close={close} exp={itemExpUpdate} userE= {user}></Exp>
@@ -264,7 +280,7 @@ export default function InformationUserB() {
                   <img
                     src={vetor}
                     alt=""
-                    onClick={() => setOpenAbout(!openABout)}
+                    onClick={creatAboutMe}
                   />
                 )}
 
@@ -463,12 +479,12 @@ export default function InformationUserB() {
                 style={{ cursor: "pointer" }}
                 src={vector2}
                 alt=""
-                onClick={() => setOpenAbout(!openABout)}
+                onClick={updateAboutMe}
               />
               </>
               :
               <>
-              <img src={vetor} alt="" onClick={() => setOpenAbout(!openABout)} />
+              <img src={vetor} alt="" onClick={creatAboutMe} />
               </>
               }
              

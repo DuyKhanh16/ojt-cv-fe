@@ -63,6 +63,7 @@ export default function Main() {
       console.log(error);
     }
   };
+  console.log(allCandidate);
   useEffect(() => {
     getAllCompany();
     getAllLiveJob();
@@ -184,7 +185,10 @@ export default function Main() {
             <span className="main__outStandingJob--header__title">
               Công việc nổi bật
             </span>
-            <div className="main__outStandingJob--header__view" onClick={()=> navigate("/candidate/jobList")}>
+            <div
+              className="main__outStandingJob--header__view"
+              onClick={() => navigate("/candidate/job-list")}
+            >
               <p>Xem thêm</p>
               <img src={arrow} alt="" />
             </div>
