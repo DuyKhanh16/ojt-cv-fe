@@ -8,10 +8,12 @@ import { ref, getDownloadURL, uploadBytesResumable, uploadBytes } from "firebase
 import { useNavigate, useParams } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import { candidateAsync } from '../../../../redux/reduce/candidateReduce';
+import publicAxios from '../../../../config/pulic.axios';
+import { notification } from 'antd';
 const db = getFirestore(app);
 const collectionRef = doc(db, "doc", "doc1");
 
-export default function ApplyJob({position,company,id}) {
+export default function ApplyJob({position,company,id,close}) {
   const [urlImage, setUrlImage] = React.useState("");
   const [candidate_id, setCandidate_id] = React.useState("");
   const [infor, setInfor] = React.useState({
@@ -23,7 +25,13 @@ export default function ApplyJob({position,company,id}) {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
+  const user = useSelector((state) => state.candidate.data);
+  useEffect(() => {
+    setInfor({ ...infor, candidate_id: user?.id, job_id: id });
+  },[user]);
+  useEffect(() => {
+    dispatch(candidateAsync())
+  },[dispatch])
 
   //firebase
   const changeImage = (e) => {
@@ -32,33 +40,36 @@ export default function ApplyJob({position,company,id}) {
     uploadBytes(imageRef, file).then((snapshot) => {
       getDownloadURL(snapshot.ref).then((url) => {
         console.log(url);
-        setUrlImage(url); 
+        setUrlImage(url);
+        setInfor({ ...infor, cv_url: url}); 
       });
     }).catch((error) => {
       console.error("Upload error:", error); 
     });
   };
     // lay thong tin user
-  const user = useSelector((state) => state.candidate.data);
 
   const getChange = (e) => {
     setInfor({ ...infor, [e.target.name]: e.target.value });
   }
 
+ 
 
-
-  const sendInfor = () => {
-    setInfor({...infor,cv_url:urlImage,candidate_id:user?.account_candidate_id.id,job_id:id});
+  const sendInfor = async () => {
+    console.log(infor);
+    try {
+      const result = await publicAxios.post('/api/v2/jobs/applyJob',infor);
+      close(result.data.message,true)
+    } catch (error) {
+      close(error.response.data.message,false)
+    }
   }
-  console.log(infor)
-  console.log("111",user)
-  useEffect(() => {
-    dispatch(candidateAsync());
-  },[dispatch]);
+  
+ 
   return (
     <>
     <div className='applyJob__container'>
-        <div className='applyJob__back' onClick={() => navigate()} >
+        <div className='applyJob__back' >
             <span class="material-symbols-outlined">
             arrow_back
             </span>

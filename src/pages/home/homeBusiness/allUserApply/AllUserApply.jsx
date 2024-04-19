@@ -34,7 +34,9 @@ export default function AllUserApply() {
   return (
     <>
       <div className="detail_CV" style={{ visibility:imgCV ? "visible" : "hidden" }}>
-          <img src={imgCV} alt="" />
+          {/* <img src={"https://cdn1.vieclam24h.vn/images/assets/img/cv34-0559BC.png"} alt="" />
+           */}
+           <iframe src={"https://firebasestorage.googleapis.com/v0/b/ojt-cv.appspot.com/o/images%2FCV111.pdf?alt=media&token=1898658a-49d4-41c8-a1d4-cd687b7d9ce4"} style={{width:"100%",height:"100%"}}></iframe>
           <button onClick={() => setImgCV("")}>Close</button>
       </div>
       <div className="allUserApply__container">
