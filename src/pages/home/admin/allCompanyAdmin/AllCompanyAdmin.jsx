@@ -1,8 +1,26 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import HeaderAdmin from "../../../../components/headerAdmin/HeaderAdmin";
 import "./AllCompanyAdmin.scss";
 import AdminSearch from "../../../../components/adminSearch/AdminSearch";
+import { useNavigate } from "react-router";
+import publicAxios from "../../../../config/pulic.axios";
 export default function AllCompanyAdmin() {
+  const [allCompany, setAllCompany] = useState([]);
+  const navigate = useNavigate();
+  const getAllCompany = async () => {
+    try {
+      const res = await publicAxios.get("/api/v2/companies/getAll");
+      console.log(res.data.data);
+      setAllCompany(res.data.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    getAllCompany();
+  }, []);
+
+
   return (
     <>
       <div className="allCompanyAdmin__formsearch">
@@ -18,7 +36,7 @@ export default function AllCompanyAdmin() {
               <p>Tên công ty</p>
             </div>
             <div className="allCompanyAdmin__content__headerTable__email column">
-              <p>Email</p>
+              <p>Điện thoại</p>
             </div>
             <div className="allCompanyAdmin__content__headerTable__active column">
               <p>Trạng thái</p>
@@ -28,88 +46,39 @@ export default function AllCompanyAdmin() {
             </div>
           </div>
           <div className="allCompanyAdmin__content__bodyTable">
-            <div className="allCompanyAdmin__content__bodyTable__item">
-              <div className="allCompanyAdmin__content__bodyTable__item__stt column">
-                <p>1</p>
-              </div>
-              <div className="allCompanyAdmin__content__bodyTable__item__nameCompany column">
-                <p>Rikkei</p>
-              </div>
-              <div className="allCompanyAdmin__content__bodyTable__item__email column">
-                <p>rikkei@gmail.com</p>
-              </div>
-              <div className="allCompanyAdmin__content__bodyTable__item__active column">
-                <label class="allCompanyAdmin__content__bodyTable__item__active__btn">
-                  <input
-                    type="checkbox"
-                    id="toggle-input"
-                    class="toggle-input"
-                  />
-                  <div class="toggle-bar">
-                    <div class="toggle-spin"></div>
-                  </div>
-                  
-                </label>
-              </div>
-              <div className="allCompanyAdmin__content__bodyTable__item__description column">
-                <p>Xem</p>
-              </div>
-            </div>
-            <div className="allCompanyAdmin__content__bodyTable__item">
-              <div className="allCompanyAdmin__content__bodyTable__item__stt column">
-                <p>2</p>
-              </div>
-              <div className="allCompanyAdmin__content__bodyTable__item__nameCompany column">
-                <p>Rikkei</p>
-              </div>
-              <div className="allCompanyAdmin__content__bodyTable__item__email column">
-                <p>rikkei@gmail.com</p>
-              </div>
-              <div className="allCompanyAdmin__content__bodyTable__item__active column">
-                <label class="allCompanyAdmin__content__bodyTable__item__active__btn">
-                  <input
-                    type="checkbox"
-                    id="toggle-input"
-                    class="toggle-input"
-                  />
-                  <div class="toggle-bar">
-                    <div class="toggle-spin"></div>
-                  </div>
-                  
-                </label>
-              </div>
-              <div className="allCompanyAdmin__content__bodyTable__item__description column">
-                <p>Xem</p>
-              </div>
-            </div>
-            <div className="allCompanyAdmin__content__bodyTable__item">
-              <div className="allCompanyAdmin__content__bodyTable__item__stt column">
-                <p>3</p>
-              </div>
-              <div className="allCompanyAdmin__content__bodyTable__item__nameCompany column">
-                <p>Rikkei</p>
-              </div>
-              <div className="allCompanyAdmin__content__bodyTable__item__email column">
-                <p>rikkei@gmail.com</p>
-              </div>
-              <div className="allCompanyAdmin__content__bodyTable__item__active column">
-                <label class="allCompanyAdmin__content__bodyTable__item__active__btn">
-                  <input
-                    type="checkbox"
-                    id="toggle-input"
-                    class="toggle-input"
-                  />
-                  <div class="toggle-bar">
-                    <div class="toggle-spin"></div>
-                  </div>
-                  
-                </label>
-              </div>
-              <div className="allCompanyAdmin__content__bodyTable__item__description column">
-                <p>Xem</p>
-              </div>
-            </div>
-           
+            {allCompany?.map((item, index) => {
+              return (
+                <div className="allCompanyAdmin__content__bodyTable__item" key={item?.id}>
+                <div className="allCompanyAdmin__content__bodyTable__item__stt column">
+                  <p>{index+1}</p>
+                </div>
+                <div className="allCompanyAdmin__content__bodyTable__item__nameCompany column">
+                  <p>{item?.name}</p>
+                </div>
+                <div className="allCompanyAdmin__content__bodyTable__item__email column">
+                  <p>{item?.phone}</p>
+                </div>
+                <div className="allCompanyAdmin__content__bodyTable__item__active column">
+                  <label class="allCompanyAdmin__content__bodyTable__item__active__btn">
+                    <input
+                      type="checkbox"
+                      id="toggle-input"
+                      class="toggle-input"
+                    />
+                    <div class="toggle-bar">
+                      <div class="toggle-spin"></div>
+                    </div>
+                    
+                  </label>
+                </div>
+                <div className="allCompanyAdmin__content__bodyTable__item__description column">
+                  <p>Xem</p>
+                </div>
+             </div>
+              )
+              
+            })}
+            
           </div>
         </div>
       </div>

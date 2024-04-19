@@ -227,7 +227,8 @@ export default function MainBusiness() {
                   </div>
                   <div className="mainBusiness__outStandingCandidate--listCandidate__item__language__list">
                     <div className="mainBusiness__outStandingCandidate--listCandidate__item__language__list__item">
-                      {item?.certificate_candidate[0].name}{item?.certificate_candidate[0].info}
+                      {item?.certificate_candidate[0].name}
+                      {item?.certificate_candidate[0].info}
                     </div>
                   </div>
                 </div>
