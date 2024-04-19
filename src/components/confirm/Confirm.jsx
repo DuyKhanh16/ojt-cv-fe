@@ -91,7 +91,23 @@ import publicAxios from '../../config/pulic.axios'
               console.log(error);
             }
           }
+    }else if (value.table === "skill") {
+      await privateAxios
+      .delete(`api/v2/candidate/deleteSkill/${value.id}`)
+      .then((res)=>{
+        console.log("API response data:", res);
+        notification.success({
+          message:res.data.message
+        })
+      })
+      .catch((error) => {
+        notification.error({
+          message: error.response.data.message,
+        })
+      })
+      close();
     }
+    
     
 
   }
