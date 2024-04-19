@@ -33,6 +33,7 @@ export default function Main() {
       const res = await publicAxios.get("/api/v2/companies/getAll");
       console.log(res.data.data);
       setAllCompany(res.data.data);
+      const res1 = await publicAxios.get(`/api/v2/jobs/getJobsCompanyById/${res.data.data[0].id}`);
     } catch (error) {
       console.log(error);
     }
@@ -63,7 +64,6 @@ export default function Main() {
       console.log(error);
     }
   };
-  console.log(allCandidate);
   useEffect(() => {
     getAllCompany();
     getAllLiveJob();

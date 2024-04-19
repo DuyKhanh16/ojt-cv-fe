@@ -3,7 +3,7 @@ import FormSearch from "../../../../components/formSearch/FormSearch";
 import "./Alljob.scss";
 import HeaderCompany from "../../../../components/headerCompany/HeaderCompany";
 import down from "../../../../assets/images/fromsearch/Vector.png";
-import { useNavigate } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import privateAxios from "../../../../config/private.axios";
 import { notification,Switch } from "antd";
 import axios from "axios";
@@ -14,7 +14,7 @@ export default function Alljob() {
   const [allJobs, setAllJobs] = useState([]);
   const [infoCompany, SetInfoCompany] = useState();
   const [flag,setflag] = useState(false)
-
+  const id = useParams();
   // get info company
   const getInfo = () => {
     const res = privateAxios.get("api/v2/companies/getInfor");
@@ -42,7 +42,7 @@ export default function Alljob() {
 
   const handleUpdateStatus = async (item) => {
     console.log(item.status)
-    if(item.status===1){
+    if(item.status === 1){
       console.log("đã ăn vào")
       try {
         const res = await axios.patch(`http://localhost:3000/api/v2/jobs/updatestatus/${item.id}?status=0`);
@@ -129,14 +129,14 @@ export default function Alljob() {
                 <p>{index+1}</p>
               </div>
               <div className="alljob__content__bodyTable__item__name column">
-                <p>{item.title}</p>
+                <p>{item?.title}</p>
               </div>
               <div style={{width:"auto"}} className="alljob__content__bodyTable__item__time column">
-                <p>{item.created_at.toString().slice(0, 10)}</p>
+                <p>{item?.created_at.toString().slice(0, 10)}</p>
                 <p>-</p>
-                <p>{item.expire_at}</p>
+                <p>{item?.expire_at}</p>
               </div>
-              <div className="alljob__content__bodyTable__item__active column">
+              <div className="alljob__content__bodyTable__item__active column"  onClick={() => handleUpdateStatus(item)} >
                 <label class="alljob__content__bodyTable__item__active__btn">
                   <input
                     // onClick={() => handleUpdateStatus(item)}
@@ -147,7 +147,7 @@ export default function Alljob() {
                     class="toggle-input"
                   />
                   <div class="toggle-bar">
-                    <div onClick={() => handleUpdateStatus(item)} class="toggle-spin"></div>
+                    <div class="toggle-spin"></div>
                   </div>
                 </label>
               </div>
@@ -161,7 +161,7 @@ export default function Alljob() {
               </div>
               <div className="alljob__content__bodyTable__item__action column">
                 <div 
-                onClick={() => handleDelete(item.id)}
+                onClick={() => handleDelete(item?.id)}
                 className="alljob__content__bodyTable__item__action__delete btn">
                   <p >Xóa</p>
                 </div>

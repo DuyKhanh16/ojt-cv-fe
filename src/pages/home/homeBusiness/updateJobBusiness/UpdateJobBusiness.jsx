@@ -120,9 +120,9 @@ export default function UpdateJobBusiness() {
       requirements: updatejobs.requirements,
       salary: updatejobs.salary,
       expire_at: updatejobs.expire_at,
-      address_company_id: updatejobs.address_company_id.toString(),
-      typejob_id: updatejobs.typejob_id.toString(),
-      leveljob_id: updatejobs.leveljob_id.toString(),
+      address_company_id: updatejobs.address_company_id,
+      typejob_id: updatejobs.typejob_id,
+      leveljob_id: updatejobs.leveljob_id,
       created_at: updatejobs.created_at,
     }
     try {
@@ -368,7 +368,7 @@ export default function UpdateJobBusiness() {
                     <p style={{ color: "#BC2228" }}>Start Date</p>
                     <input 
                     onChange={(e) => setUpdatejob({ ...updatejobs, created_at: e.target.value })}
-                    value={updatejobs.created_at.split('T')[0]}
+                    value={updatejobs?.created_at.split('T')[0]}
                     style={{border: "none"}}
                     type="date"></input>
                     <div
@@ -407,11 +407,11 @@ export default function UpdateJobBusiness() {
           <div className="job__detail--description">
             <div className="job__detail--description--title">
               <h2>Job Description</h2>
-              <p>{job.description}</p>
+              <p>{job?.description}</p>
               <h2>Requirements</h2>
               <ul>
                 <li>
-                  <p>{job.requirements}</p>
+                  <p>{job?.requirements}</p>
                 </li>
          
               </ul>
@@ -423,7 +423,7 @@ export default function UpdateJobBusiness() {
                 <div style={{ textAlign: "center" }}>
                   <h3 style={{ marginBottom: "10px" }}>Salary (Usd)</h3>
                   <p style={{ color: "#0BA02C", fontSize: "18px" }}>
-                    {job.salary}
+                    {job?.salary}
                   </p>
                   <p style={{ color: "gray", fontSize: "14px" }}>
                     Montch Salary
@@ -453,14 +453,14 @@ export default function UpdateJobBusiness() {
                       <p style={{ color: "gray", fontSize: "18px" }}>
                         Job Posted
                       </p>
-                      <span>{job.created_at.toString().split('T')[0]}</span>
+                      <span>{job?.created_at?.toString().split('T')[0]}</span>
                     </div>
                     <div className="item">
                       <img style={{ marginRight: "10px" }} src={time2}></img>
                       <p style={{ color: "gray", fontSize: "18px" }}>
                         Job Expire in
                       </p>
-                      <span>{job.expire_at}</span>
+                      <span>{job?.expire_at}</span>
                     </div>
                     <div className="item">
                       <img style={{ marginRight: "10px" }} src={Stack}></img>

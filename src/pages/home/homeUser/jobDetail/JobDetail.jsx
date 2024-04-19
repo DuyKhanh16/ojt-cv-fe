@@ -21,6 +21,7 @@ import { useNavigate, useParams } from "react-router";
 import privateAxios from "../../../../config/private.axios";
 import { NavLink } from "react-router-dom";
 import ApplyJob from "../applyJob/ApplyJob";
+import { notification } from "antd";
 
 export default function JobDetail() {
   const { id } = useParams();
@@ -55,6 +56,20 @@ export default function JobDetail() {
       });
   }, []);
   console.log(id);
+  const close = (message,status) => {
+    setIsOpen(false);
+    setTimeout(() => {
+      if(status){
+        notification.success({
+          message: message,
+        });
+      }else{
+        notification.error({
+          message: message,
+        });
+      }
+    },500)
+  }
   return (
     <div>
       <div className="job__detail--apply" style={{visibility:isOpen?'visible':'hidden'}}>
@@ -64,7 +79,7 @@ export default function JobDetail() {
             </span>
           Quay lại
         </button>
-        <ApplyJob company={infor?.company} position={infor?.title} id={id}></ApplyJob>
+        <ApplyJob company={infor?.company} position={infor?.title} id={id} close={close}></ApplyJob>
         
       </div>
       

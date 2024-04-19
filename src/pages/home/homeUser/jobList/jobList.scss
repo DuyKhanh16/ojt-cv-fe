@@ -174,7 +174,8 @@ body {
         width: 91%;
         margin: 0 auto;
         display: flex;
-        justify-content: space-between;
+        gap: 30px;
+        // justify-content: space-between;
         flex-wrap: wrap;
         @media screen and (min-width: 576px) and (max-width: 768px) {
             width: 100%;
@@ -236,7 +237,7 @@ body {
 
             .user-ListJob-job-infoCompany {
                 display: flex;
-                
+
 
                 .user-ListJob-job-info-logo {
                     width: 48px;
