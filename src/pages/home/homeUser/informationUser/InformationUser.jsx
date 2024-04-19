@@ -29,6 +29,7 @@ import { educationAsync } from "../../../../redux/reduce/educationReduce";
 import { expAsync } from "../../../../redux/reduce/expReduce";
 import { projectAsync } from "../../../../redux/reduce/projectReduce";
 import { certificateAsync } from "../../../../redux/reduce/certificateReduce";
+import { skillAsync } from "../../../../redux/reduce/skillReduce";
 export default function InformationUserB() {
   const [isOpen, setIsOpen] = useState(true);
   const [openABout, setOpenAbout] = useState(false);
@@ -38,6 +39,7 @@ export default function InformationUserB() {
   const [openProject, setOpenProject] = useState(false);
   const [openUpdateUser, setOpenUpdateUser] = useState(false);
   const [openConfirm, setOpenConfirm] = useState(false);
+  const [openSkill, setOpenSkill] = useState(false);
 
   const [flag, setFlag] = useState(0);
   const [checkAboutMe, setCheckAboutMe] = useState(false);
@@ -45,6 +47,7 @@ export default function InformationUserB() {
   const [checkExp, setCheckExp] = useState(false);
   const [checkJob, setCheckJob] = useState(false);
   const [checkCerti, setCheckCerti] = useState(false);
+  const [checkSkill, setCheckSkill] = useState(false);
 
   // bien hung update sang modal
   const [itemEduUpdate, setItemEduUpdate] = useState({});
@@ -53,6 +56,7 @@ export default function InformationUserB() {
   const [itemProjectUpdate, setItemProjectUpdate] = useState({});
   const [itemCertificateUpdate, setItemCertificateUpdate] = useState({});
   const [itemAboutUpdate, setItemAboutUpdate] = useState({});
+  const [itemSkillUpdate, setItemSkillUpdate] = useState({});
   // het bien hung
 
   const dispatch = useDispatch();
@@ -67,6 +71,7 @@ export default function InformationUserB() {
     dispatch(expAsync());
     dispatch(projectAsync());
     dispatch(certificateAsync());
+    dispatch(skillAsync());
     setOpenAbout(false);
     setOpenEdu(false);
     setOpenCert(false);
@@ -74,6 +79,7 @@ export default function InformationUserB() {
     setOpenProject(false);
     setOpenUpdateUser(false);
     setOpenConfirm(false);
+    setOpenSkill(false);
     setFlag(flag + 1);
   }, [dispatch]);
 
@@ -83,6 +89,7 @@ export default function InformationUserB() {
     dispatch(expAsync());
     dispatch(projectAsync());
     dispatch(certificateAsync());
+    dispatch(skillAsync());
   }, [dispatch]);
 
   /* Candidate */
@@ -91,14 +98,40 @@ export default function InformationUserB() {
   const project = useSelector((state) => state.project.data);
   const education = useSelector((state) => state.education.data);
   const certificate = useSelector((state) => state.certificate.data);
+  const skill = useSelector((state) => state.skill.data);
   useEffect(() => {
     checkAboutmeF();
     checkEdu();
     checkExpF();
     checkProjectF();
     checkCertiF();
-  }, [user, exp, project, education, certificate]);
+    checkSkillF();
+  }, [user, exp, project, education, certificate, skill]);
 
+
+  const checkSkillF = () => {
+    console.log("11", skill);
+    if (skill?.length > 0) {
+      setCheckSkill(true);
+    } else {
+      setCheckSkill(false);
+    }
+  };
+  const creatSkill = () => {
+    setOpenSkill(true);
+    setItemSkillUpdate({
+      status: "creat",
+      item: user,
+    });
+  }
+
+  const updateSkill = () => {
+    setOpenSkill(true);
+    setItemSkillUpdate({
+      status: "update",
+      item: user,
+    });
+  }
   const creatAboutMe = () => {
     setOpenAbout(true);
     setItemAboutUpdate({
@@ -258,7 +291,11 @@ export default function InformationUserB() {
         project={itemProjectUpdate}
       ></ProjectUser>
       <UpdateInforUser isOpen={openUpdateUser} close={close}></UpdateInforUser>
-      <Skill></Skill>
+      <Skill
+        isOpen={openSkill}
+        close={close}
+        skill={itemSkillUpdate}
+      ></Skill>
       <Confirm isOpen={openConfirm} close={close} value={itemDelete}></Confirm>
       <UpdateInforUser></UpdateInforUser>
       <div className="informationUser">
@@ -285,7 +322,7 @@ export default function InformationUserB() {
             />
             <div
               className="informationUser__contain__left__list"
-              style={{ height: isOpen ? "380px" : "0px" }}
+              style={{ height: isOpen ? "450px" : "0px" }}
             >
               <div className="informationUser__contain__left__item ">
                 {checkAboutMe ? (
@@ -363,6 +400,21 @@ export default function InformationUserB() {
                   Thêm chứng chỉ
                 </p>
               </div>
+              <div className="informationUser__contain__left__item">
+                {checkSkill ?(
+                  <span
+                    style={{ color: "green" }}
+                    class="material-symbols-outlined"
+                  >
+                    check_circle
+                  </span>
+                ) : (
+                  <img onClick={creatSkill} src={vetor} alt="" />
+                )}
+                <p style={{ color: checkSkill ? "green" : "red" }}>
+                  Thêm kỹ năng
+                </p>
+              </div>
             </div>
             <div className="informationUser__contain__left__updateCV">
               <img src={cv1} alt="" />
@@ -374,7 +426,8 @@ export default function InformationUserB() {
             education?.length > 0 &&
             exp?.length > 0 &&
             project?.length > 0 &&
-            certificate?.length > 0 ? (
+            certificate?.length > 0&&
+            skill?.length > 0 ? (
               <>
                 <div className="informationUser__contain__left__button">
                   <button onClick={() => navigate("/allcv")}>
@@ -393,8 +446,8 @@ export default function InformationUserB() {
 
           <div className="informationUser__contain__right">
             <div className="informationUser__contain__right__infor">
-              <div>
-                <img src={logo} alt="" />
+              <div style={{ width: "80px", height: "80px",borderRadius: "50%", overflow: "hidden"  }}>
+                <img src={user?.avatar} alt="" width={80} height={80}/>
               </div>
 
               <div className="informationUser__infor">
@@ -661,6 +714,43 @@ export default function InformationUserB() {
                 </div>
               ))}
               <img src={vetor} alt="" onClick={creatCerti} />
+            </div>
+
+            <div
+              className="informationUser__contain__right__item"
+              style={{ display: checkSkill ? "block" : "none" }}
+            >
+              <p>Kỹ năng</p>
+              {skill?.map((item) => (
+                <div
+                  className="informationUser__contain__right__item__miniitem"
+                  key={item.id}
+                >
+                  <div className="informationUser__contain__right__item__miniitem__top">
+                    <p className="informationUser__contain__right__item__miniitem__position">
+                      <strong>{item.name}</strong>
+                    </p>
+                    <div className="informationUser__contain__right__item__miniitem__action">
+                      <img
+                        style={{ cursor: "pointer" }}
+                        src={vector2}
+                        alt=""
+                        onClick={() => updateSkill(item)}
+                      />
+                      <span
+                        class="material-symbols-outlined"
+                        onClick={() => handleDelete(item.id, "skill")}
+                      >
+                        delete
+                      </span>
+                    </div>
+                  </div>
+                  <p className="informationUser__contain__right__item__miniitem__nameSchool">
+                    {item?.leveljob_id?.name}
+                  </p>
+                </div>
+              ))}
+              <img src={vetor} alt="" onClick={creatSkill} />
             </div>
           </div>
         </div>
