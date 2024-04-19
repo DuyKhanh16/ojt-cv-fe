@@ -33,6 +33,7 @@ import CompanyRoute from "./layouts/companyRoute/CompanyRoute";
 import ApplyJob from "./pages/home/homeUser/applyJob/ApplyJob";
 import CV1 from "./components/cv/cv1/CV1";
 import UpdateInfoFistTime from "./pages/home/homeBusiness/CompanyUpdateInfoFirstTime/UpdateInfoFistTime";
+import UserDetail from "./pages/home/homeUser/userDetail/UserDetail";
 
 const router = createBrowserRouter([
   /* source chung */
@@ -78,6 +79,10 @@ const router = createBrowserRouter([
       {
         path: "", // Correct way to specify a nested route
         element: <Main />,
+      },
+      {
+        path:"user-detail",
+        element:<UserDetail></UserDetail>
       },
       {
         path: "job-list",

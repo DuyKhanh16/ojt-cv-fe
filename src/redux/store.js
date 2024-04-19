@@ -6,6 +6,7 @@ import educationReducer from "./reduce/educationReduce";
 import expReducer from "./reduce/expReduce";
 import projectReducer from "./reduce/projectReduce";
 import certificateReducer from "./reduce/certificateReduce";
+import inforCompanyReducer from "./reduce/getInforCompany";
 export const store = configureStore({
   reducer: {
     candidate: candidateReducer,
@@ -13,5 +14,6 @@ export const store = configureStore({
     exp: expReducer,
     project: projectReducer,
     certificate: certificateReducer,
+    inforCompany: inforCompanyReducer,
   },
 });
