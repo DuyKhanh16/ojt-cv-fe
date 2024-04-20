@@ -38,6 +38,7 @@ import SearchAll from "./pages/home/searchAll/SearchAll";
 import SearchJob from "./pages/home/searchAll/SearchJob";
 import SearchCandidate from "./pages/home/searchAll/SearchCandidate";
 import SearchCompany from "./pages/home/searchAll/SearchCompany";
+import InforOutStandingCompany from "./pages/home/homeUser/inforOutStandingCompany/InforOutStandingCompany";
 
 const router = createBrowserRouter([
   /* source chung */
@@ -52,27 +53,23 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path:'/searchAll',
+    path:'/search-all',
     element:<SearchAll></SearchAll>,
     children:[
       {
-        path:"searchJob",
+        path:"search-job",
         element:<SearchJob></SearchJob>
       },
       {
-        path:"searchCandidate",
+        path:"search-candidate",
         element:<SearchCandidate></SearchCandidate>
       },
       {
-        path:"searchCompany",
+        path:"search-company",
         element:<SearchCompany></SearchCompany>
       }
     ]
 
-  },
-  {
-    path:"/testCV1",
-    element:<CV1></CV1>
   },
   {
     path: "/login",
@@ -112,7 +109,7 @@ const router = createBrowserRouter([
         element: <JobList></JobList>,
       },
       {
-        path: "job-detail/:id",
+        path: "jobdetail/:id",
         element: <JobDetail></JobDetail>,
       },
 
@@ -126,8 +123,12 @@ const router = createBrowserRouter([
         element: <InformationComany></InformationComany>,
       },
       {
-        path: "candidate-outstanding",
+        path: "candidate-outstanding/:id",
         element: <InformationUser></InformationUser>,
+      },
+      {
+        path:"infor-companybycandidate/:id",
+        element:<InforOutStandingCompany></InforOutStandingCompany>
       }
     ],
   },
@@ -152,7 +153,7 @@ const router = createBrowserRouter([
         element: <Alljob />,
       },
       {
-        path: "candidate-outstanding",
+        path: "candidate-outstanding-bybussiness/:id",
         element: <InformationUser />,
       },
       {

@@ -64,12 +64,12 @@ export default function JobList() {
       </div>
       <div className='user-ListJob-jobRender'>
         {ListJob.map((job) => {
-          return( <div key={job.id} className='user-ListJob-job' style={{cursor:"pointer"}} onClick={() => navigate(`/candidate/job-detail/${job.id}`)}>
+          return( <div key={job.id} className='user-ListJob-job' style={{cursor:"pointer"}} onClick={() => navigate(`/candidate/jobdetail/${job.id}`)}>
 
             <p className='user-ListJob-job-title'>{job.title}</p>
             <div className='user-ListJob-job-typeSalary'>
               <p className='typeJob'>{job?.types_jobs[0].typejob.name}</p> 
-              <p>Salay:{job.salary}</p>
+              <p>Salary:{job.salary}</p>
             </div>
             <div className='user-ListJob-job-info'>
               <div className='user-ListJob-job-infoCompany'>
