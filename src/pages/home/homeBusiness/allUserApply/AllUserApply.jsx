@@ -4,11 +4,17 @@ import "./AllUserApply.scss";
 import HeaderCompany from "../../../../components/headerCompany/HeaderCompany";
 import Footer from "../../../../components/footer/Footer";
 import privateAxios from "../../../../config/private.axios";
+import { Button, Modal, notification } from "antd";
+
+
 export default function AllUserApply() {
 
   const [allJob, setAllJob] = useState([]);
   const [allUserApply, setAllUserApply] = useState([]);
   const [imgCV, setImgCV] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpen2, setIsModalOpen2] = useState(false);
+  const [idApply, setIdApply] = useState("");
 
   useEffect(() => {
     const getAllJob = privateAxios.get("api/v2/jobs/getJobsForCompany")
@@ -30,6 +36,39 @@ export default function AllUserApply() {
   const displayCV = (link)=>{
     console.log(link)
     setImgCV(link)
+  }
+  const handleOk = (id) => {
+    setIdApply(id)
+    setIsModalOpen(true);
+  }
+  const handleCancel = async () => {
+   
+    setIsModalOpen(false);
+  }
+ 
+  const handleShow=()=>{
+    setIsModalOpen2(true);
+  }
+  const handleOff=()=>{
+    setIsModalOpen2(false);
+  }
+
+  const cancelCandidate = async()=>{
+    const check = confirm("Bạn có muốn hủy ứng tuyển này?")
+    if (!check) {
+    setIsModalOpen(false);
+    return
+    }
+    try {
+     const res = await privateAxios.post(`api/v2/jobs/cancelCandidate/${idApply}`)
+     console.log(res);
+      notification.success({
+        message:res.data.message
+      })
+      setIsModalOpen(false);
+    } catch (error) {
+      console.log(error);
+    }
   }
   return (
     <>
@@ -105,12 +144,12 @@ export default function AllUserApply() {
                     <p>{item?.title}</p>
                   </div>
                   <div className="allUserApply__content__bodyTable__item__active column">
-                    <div className="allUserApply__content__bodyTable__item__active__btn">
+                    <div className="allUserApply__content__bodyTable__item__active__btn" onClick={() => handleOk(item.job_candidates[0].id)}>
                       Chờ xác nhận
                     </div>
                   </div>
                   <div className="allUserApply__content__bodyTable__item__description column" onClick={() => displayCV(item.job_candidates[0].cv_url)}>
-                    <p>Xem Chi tiết</p>
+                    <p style={{ cursor: "pointer" }}>Xem Chi tiết</p>
                   </div>
                 </div>
                 })
@@ -120,6 +159,41 @@ export default function AllUserApply() {
 
         </div>
       </div>
+      <Modal
+            className="modal-updateInforUser"
+            title="Xác Nhận Ứng Viên"
+            open={isModalOpen}
+            onOk={handleOk}
+            onCancel={handleCancel}
+            
+            footer={null}
+    
+            width={450}
+            style={{padding:"20px", textAlign:"center"}}
+          >
+            <div style={{height:"100px",paddingTop:"30px" }}>
+          <Button type="primary" style={{width:"150px"
+          ,height:"40px", backgroundColor:"red",margin:"10px"}} onClick={cancelCandidate}>Từ chối ứng viên</Button>
+              <Button type="primary" style={{width:"150px"
+          ,height:"40px", backgroundColor:"green"}} onClick={handleShow}>Chấp nhận ứng viên</Button>
+            </div>
+          </Modal>
+
+          <Modal
+            className="modal-updateInforUser"
+            title="Chọn Lịch Hẹn Phỏng Vấn"
+            open={isModalOpen2}
+            onOk={handleShow}
+            onCancel={handleOff}
+            width={450}
+            footer={null}
+
+            style={{padding:"20px", textAlign:"center"}}
+          >
+            <div style={{height:"100px",paddingTop:"30px" }}>
+              <input type="date" min={new Date().toISOString().split("T")[0]} />
+            </div>
+          </Modal>
     </>
   );
 }
