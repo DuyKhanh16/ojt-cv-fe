@@ -8,6 +8,7 @@ import HeaderCompany from "../../../components/headerCompany/HeaderCompany";
 import avatar from "../../../assets/images/cv/ACg8ocILX9TfOIrNEplYDawUBSv1Rpw3rLnuugZCNRefPEMyjM6NXIV4=s96-c.jpg";
 import FormSearchAll from "../../../components/formSearchAll/FormSearchAll";
 import { Link } from "react-router-dom";
+import SearchJob from "./SearchJob";
 
 export default function SearchAll() {
   const body = document.querySelector("body"),
@@ -22,6 +23,7 @@ export default function SearchAll() {
   const user = useSelector((state) => state.candidate.data);
   console.log(user);
   useEffect(() => {
+    navigate("/searchall/searchjob");
     dispatch(candidateAsync());
     // getInforCV();
   }, [dispatch]);
@@ -190,7 +192,7 @@ export default function SearchAll() {
               transition: "1s",
             }}
           >
-            <div className="searchAll__content-Right__content">     
+            <div className="searchAll__content-Right__content">
               <Outlet />
             </div>
           </div>
