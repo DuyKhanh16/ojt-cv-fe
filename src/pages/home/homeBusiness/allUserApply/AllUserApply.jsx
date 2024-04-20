@@ -15,26 +15,26 @@ export default function AllUserApply() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isModalOpen2, setIsModalOpen2] = useState(false);
   const [idApply, setIdApply] = useState("");
-
+  const [flag, setFlag] = useState(true)
   useEffect(() => {
     const getAllJob = privateAxios.get("api/v2/jobs/getJobsForCompany")
     getAllJob.then((res) => {
       setAllJob(res.data.data)
     })
-    const getCandidates = privateAxios.get("api/v2/jobs/getCandidatesApplying")
-    getCandidates.then((res) => {
-      setAllUserApply(res.data.data)
-    })
-  },[])
+    // const getCandidates = privateAxios.get("api/v2/jobs/getCandidatesApplying")
+    // getCandidates.then((res) => {
+    //   console.log(res);
+    //   setAllUserApply(res.data.data)
+    // })
+  },[flag])
   const findCandidate = async(id)=>{
     console.log(id)
 
     const res = await privateAxios.get(`api/v2/jobs/getCandidatesbyIdJob/${id}`)
-    console.log(res.data.data)
+    console.log(res);
     setAllUserApply(res.data.data)
   }
   const displayCV = (link)=>{
-    console.log(link)
     setImgCV(link)
   }
   const handleOk = (id) => {
@@ -53,6 +53,9 @@ export default function AllUserApply() {
     setIsModalOpen2(false);
   }
 
+  const hiddenPDF=()=>{
+    setImgCV("")
+  }
   const cancelCandidate = async()=>{
     const check = confirm("Bạn có muốn hủy ứng tuyển này?")
     if (!check) {
@@ -66,17 +69,18 @@ export default function AllUserApply() {
         message:res.data.message
       })
       setIsModalOpen(false);
+      setFlag(!flag)
     } catch (error) {
       console.log(error);
     }
   }
+  
   return (
     <>
-      <div className="detail_CV" style={{ visibility:imgCV ? "visible" : "hidden" }}>
-          {/* <img src={"https://cdn1.vieclam24h.vn/images/assets/img/cv34-0559BC.png"} alt="" />
-           */}
-           <iframe src={"https://firebasestorage.googleapis.com/v0/b/ojt-cv.appspot.com/o/images%2FCV111.pdf?alt=media&token=1898658a-49d4-41c8-a1d4-cd687b7d9ce4"} style={{width:"100%",height:"100%"}}></iframe>
-          <button onClick={() => setImgCV("")}>Close</button>
+      <div className="detail_CV" style={{ visibility:imgCV !=""? "visible" : "hidden" }}>
+         
+           <iframe src={imgCV} style={{width:"100%",height:"100%"}}></iframe>
+          <button onClick={hiddenPDF}>Close</button>
       </div>
       <div className="allUserApply__container">
         <div className="allUserApply__header">
@@ -124,35 +128,43 @@ export default function AllUserApply() {
               <div className="allUserApply__content__headerTable__active column">
                 <p>Trạng thái</p>
               </div>
+              <div className="allUserApply__content__headerTable__active column">
+                <p>Lịch phỏng vấn</p>
+              </div>
               <div className="allUserApply__content__headerTable__description column">
                 <p>Thông tin CV</p>
               </div>
             </div>
 
             <div className="allUserApply__content__bodyTable">
-              {
+              { 
                 allUserApply.map((item, index) => {
-                  return <div className="allUserApply__content__bodyTable__item">
+                  return <div className="allUserApply__content__bodyTable__item" key={index}>
                   <div className="allUserApply__content__bodyTable__item__stt column">
                     <p>{index + 1}</p>
                   </div>
                   <div className="allUserApply__content__bodyTable__item__name column">
-                    <p>{item?.job_candidates[0].candidate_id?.name}</p>
+                    <p>{item?.candidate_id?.name}</p>
                   </div>
                  
                   <div className="allUserApply__content__bodyTable__item__job column">
-                    <p>{item?.title}</p>
+                    <p>{item?.job_id?.title}</p>
                   </div>
                   <div className="allUserApply__content__bodyTable__item__active column">
-                    <div className="allUserApply__content__bodyTable__item__active__btn" onClick={() => handleOk(item.job_candidates[0].id)}>
+                   {item?.status != 1?  <div className="allUserApply__content__bodyTable__item__active__btn" style={{opacity:0.7,cursor:"not-allowed",backgroundColor:`${item?.status == 0? "black" : "green"}` }}>
+                      {item?.status == 0 ? "Đã Từ Chối" : "Đã Gửi Lịch PV"}
+                    </div>: <div className="allUserApply__content__bodyTable__item__active__btn" onClick={() => handleOk(item.id)}>
                       Chờ xác nhận
-                    </div>
+                    </div>}
                   </div>
-                  <div className="allUserApply__content__bodyTable__item__description column" onClick={() => displayCV(item.job_candidates[0].cv_url)}>
+                  <div className="allUserApply__content__bodyTable__item__job column">
+                    <p>{item.interview_day==null?`${item?.status == 0? "Đã Từ Chối" : "Chưa có lịch"}`:`${item.interview_day}`}</p>
+                  </div>
+                  <div className="allUserApply__content__bodyTable__item__description column" onClick={() => displayCV(item.cv_url)}>
                     <p style={{ cursor: "pointer" }}>Xem Chi tiết</p>
                   </div>
                 </div>
-                })
+                }) 
               }
             </div>
           </div>
