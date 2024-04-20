@@ -16,6 +16,7 @@ export default function AllUserApply() {
   const [isModalOpen2, setIsModalOpen2] = useState(false);
   const [idApply, setIdApply] = useState("");
   const [flag, setFlag] = useState(true)
+  const [interviewDay,setInterviewDay] = useState("")
   useEffect(() => {
     const getAllJob = privateAxios.get("api/v2/jobs/getJobsForCompany")
     getAllJob.then((res) => {
@@ -64,17 +65,34 @@ export default function AllUserApply() {
     }
     try {
      const res = await privateAxios.post(`api/v2/jobs/cancelCandidate/${idApply}`)
-     console.log(res);
+     setIsModalOpen(false);
       notification.success({
         message:res.data.message
       })
+    window.location.reload()
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  const uploadInterview = async()=>{
+    const check = confirm("Bạn có muốn đặt lịch phỏng vấn cho ứng tuyển này?")
+    if (!check) {
+    setIsModalOpen2(false);
+    return
+    }
+    try {
+     const res = await privateAxios.post(`api/v2/jobs/update-interview-date/${idApply}`,{interview_day:interviewDay})
+     
+      setIsModalOpen2(false);
       setIsModalOpen(false);
+      notification.success({
+        message:res.data.message
+      })
       setFlag(!flag)
     } catch (error) {
       console.log(error);
     }
   }
-  
   return (
     <>
       <div className="detail_CV" style={{ visibility:imgCV !=""? "visible" : "hidden" }}>
@@ -203,7 +221,8 @@ export default function AllUserApply() {
             style={{padding:"20px", textAlign:"center"}}
           >
             <div style={{height:"100px",paddingTop:"30px" }}>
-              <input type="date" min={new Date().toISOString().split("T")[0]} />
+              <input type="date" min={new Date().toISOString().split("T")[0]} onChange={(e)=>setInterviewDay(e.target.value)}/>
+              <Button type="primary" style={{margin:"10px", backgroundColor:"red"}} onClick={uploadInterview}>Gửi Lịch PV</Button>
             </div>
           </Modal>
     </>
