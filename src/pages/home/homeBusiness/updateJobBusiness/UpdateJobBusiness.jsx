@@ -17,6 +17,7 @@ import MapPin from "../../../../assets/images/JobDetails/MapPin.png";
 import privateAxios from "../../../../config/private.axios";
 import { useNavigate, useParams } from "react-router";
 import { info } from "sass";
+import axios from "axios";
 // const { confirm } = Modal;
 
 export default function UpdateJobBusiness() {
@@ -28,8 +29,10 @@ export default function UpdateJobBusiness() {
   const [LevelJob, setLevelJob] = useState([]);
   const [job, setJob] = useState([]);
   const [typeJob1, setTypeJob1] = useState([]);
+  const [salary, setSalary] = useState([]);
   const [listAdress, setListAdress] = useState([]);
   const [levelJob1, setLevelJob1] = useState([]);
+  const [allUserApply, setAllUserApply] = useState([]);
   const [address, setAddress] = useState("");
   const [flag, setFlag] = useState(false);
   const [updatejobs, setUpdatejob] = useState({
@@ -82,6 +85,23 @@ export default function UpdateJobBusiness() {
       setListAdress(res.data.data.address_company);
     });
   };
+
+  // hàm lấy các user apply vào công việc này
+  const getalluserapply = () => {
+    const res = privateAxios.get(`api/v2/jobs/getCandidatesbyIdJob/${id}`);
+    res.then((res) => {
+      setAllUserApply(res.data.data);
+    });
+  }
+  // console.log(allUserApply,"123")
+  // hàm lấy  các mức lương
+const getlistSalary = () => {
+  const res = axios.get("http://localhost:3000/api/v2/salary/getAll");
+  res.then((res) => {
+    setSalary(res.data);
+  });
+};
+
   // haàm lấy thời gian làm việc
   const getTypeJobs = () => {
     const res = privateAxios.get("api/v2/typejob/getall");
@@ -102,6 +122,7 @@ export default function UpdateJobBusiness() {
     getTypeJobs();
     getLevelJobs();
     getJobsDetails();
+    getlistSalary();
   }, [flag]);
   console.log(job);
 // console.log(listAdress,"1")
@@ -295,11 +316,9 @@ export default function UpdateJobBusiness() {
                     
                   >
                     <option value="">Chọn</option>
-                    <option value="2 triệu - 4 triệu">Từ 2 triệu - 4 triệu</option>
-                    <option value="5 triệu - 10 triệu">Từ 5 triệu - 10 triệu</option>
-                    <option value="8 triệu - 15 triệu">Từ 8 triệu - 15 triệu</option>
-                    <option value="15 triệu - 20 triệu">Từ 15 triệu - 20 triệu</option>
-                    <option value="Thoả thuận">Thoả thuận</option>
+                   {salary.map((item) => (
+                      <option value={item.id}>{item.name}</option>
+                    ))}
                   </select>
                   <p style={{ fontWeight: "bold", marginBottom: "10px",marginTop: "20px" }}>Địa chỉ tuyển dụng</p>
                   <select
@@ -489,490 +508,135 @@ export default function UpdateJobBusiness() {
           </div>
         </div>
         <div className="job__detail--Relatedjob">
-          <h1>Applied Candidates</h1>
+          <h1> {allUserApply.length} Hồ sơ ứng tuyển </h1>
           <div className="job__detail--Relatedjob--content">
+         
+           
+           
+           {allUserApply.map((item,index) => (
             <div className="job__detail--Relatedjob--content--item">
-              <div
-                style={{
-                  display: "flex",
-                  gap: "10px",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                }}
-              >
-                <div style={{ display: "flex" }}>
-                  <div>
-                    <img src="./src/assets/images/jobDetails/Rectangle 43.png"></img>
-                  </div>
-                  <div style={{ marginLeft: "10px", marginTop: "20px" }}>
-                    <h2>Nguyen van A</h2>
-                    <div style={{ display: "flex", gap: "10px" }}>
-                      <div
-                        style={{
-                          backgroundColor: "#0BA02C",
-                          width: "98px",
-                          height: "28px",
-                          // textAlign: "center",
-                          padding: "3px 15px 3px 18px",
-                          color: "white",
-                          borderRadius: "3px",
-                        }}
-                      >
-                        Front-end
-                      </div>
-                      <div
-                        style={{
-                          width: "75px",
-                          height: "28px",
-                          backgroundColor: "#E7F0FA",
-                          borderRadius: "40px",
-                          padding: "3px 15px 3px 18px",
-                          color: "#0A65CC",
-                        }}
-                      >
-                        Fresher
-                      </div>
+            <div
+              style={{
+                display: "flex",
+                gap: "10px",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              <div style={{ display: "flex" }}>
+                <div>
+                  <img src="./src/assets/images/jobDetails/Rectangle 43.png"></img>
+                </div>
+                <div style={{ marginLeft: "10px", marginTop: "20px" }}>
+                  <h2>Nguyen van A</h2>
+                  <div style={{ display: "flex", gap: "10px" }}>
+                    <div
+                      style={{
+                        backgroundColor: "#0BA02C",
+                        width: "98px",
+                        height: "28px",
+                        // textAlign: "center",
+                        padding: "3px 15px 3px 18px",
+                        color: "white",
+                        borderRadius: "3px",
+                      }}
+                    >
+                      Front-end
+                    </div>
+                    <div
+                      style={{
+                        width: "75px",
+                        height: "28px",
+                        backgroundColor: "#E7F0FA",
+                        borderRadius: "40px",
+                        padding: "3px 15px 3px 18px",
+                        color: "#0A65CC",
+                      }}
+                    >
+                      Fresher
                     </div>
                   </div>
                 </div>
-                <div className="img">
-                  <img className="img" src={arrowright}></img>
-                </div>
               </div>
-
-              <div
-                className="Technical-skills"
-                style={{
-                  marginTop: "20px",
-                  display: "flex",
-                  gap: "10px",
-                  fontSize: "16px",
-                }}
-              >
-                Technical skills :
-                <div
-                  className="skill"
-                  style={{
-                    backgroundColor: "#E7F6EA",
-                    width: "70px",
-                    height: "20px",
-                    padding: "0px 8px 1px 12px",
-                    color: "#0BA02C",
-                    borderRadius: "3px",
-                    fontSize: "14px",
-                  }}
-                >
-                  ReactJS
-                </div>
-                <div
-                  style={{
-                    backgroundColor: "#E7F6EA",
-                    width: "70px",
-                    height: "20px",
-                    padding: "0px 8px 1px 12px",
-                    color: "#0BA02C",
-                    borderRadius: "3px",
-                    fontSize: "14px",
-                  }}
-                >
-                  NODEJS
-                </div>
-              </div>
-              <div
-                className="language"
-                style={{
-                  marginTop: "20px",
-                  display: "flex",
-                  gap: "10px",
-                  fontSize: "16px",
-                }}
-              >
-                Foregin language :
-                <div
-                  style={{
-                    backgroundColor: "#FCE1D1",
-                    width: "AUTO",
-                    height: "20px",
-                    padding: "0px 8px 1px 12px",
-                    color: "#F16A1B",
-                    borderRadius: "3px",
-                    fontSize: "14px",
-                  }}
-                >
-                  N2
-                </div>
-              </div>
-              <div style={{ marginTop: "20px", display: "flex", gap: "10px" }}>
+              <div className="img">
                 <img
-                  style={{ width: "20px", height: "20px" }}
-                  src="./src/assets/images/jobDetails/MapPin.png"
+                  className="img"
+                  src="./src/assets/images/jobDetails/arrow.right.png"
                 ></img>
-                <div style={{ fontSize: "16px" }}>Hà Nội, Việt Nam</div>
               </div>
             </div>
-            <div className="job__detail--Relatedjob--content--item">
-              <div
-                style={{
-                  display: "flex",
-                  gap: "10px",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                }}
-              >
-                <div style={{ display: "flex" }}>
-                  <div>
-                    <img src={Rectangle}></img>
-                  </div>
-                  <div style={{ marginLeft: "10px", marginTop: "20px" }}>
-                    <h2>Nguyen van A</h2>
-                    <div style={{ display: "flex", gap: "10px" }}>
-                      <div
-                        style={{
-                          backgroundColor: "#0BA02C",
-                          width: "98px",
-                          height: "28px",
-                          // textAlign: "center",
-                          padding: "3px 15px 3px 18px",
-                          color: "white",
-                          borderRadius: "3px",
-                        }}
-                      >
-                        Front-end
-                      </div>
-                      <div
-                        style={{
-                          width: "75px",
-                          height: "28px",
-                          backgroundColor: "#E7F0FA",
-                          borderRadius: "40px",
-                          padding: "3px 15px 3px 18px",
-                          color: "#0A65CC",
-                        }}
-                      >
-                        Fresher
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="img">
-                  <img className="img" src={arrowright}></img>
-                </div>
-              </div>
 
+            <div
+              className="Technical-skills"
+              style={{
+                marginTop: "20px",
+                display: "flex",
+                gap: "10px",
+                fontSize: "16px",
+              }}
+            >
+              Technical skills :
               <div
-                className="Technical-skills"
+                className="skill"
                 style={{
-                  marginTop: "20px",
-                  display: "flex",
-                  gap: "10px",
-                  fontSize: "16px",
+                  backgroundColor: "#E7F6EA",
+                  width: "70px",
+                  height: "20px",
+                  padding: "0px 8px 1px 12px",
+                  color: "#0BA02C",
+                  borderRadius: "3px",
+                  fontSize: "14px",
                 }}
               >
-                Technical skills :
-                <div
-                  className="skill"
-                  style={{
-                    backgroundColor: "#E7F6EA",
-                    width: "70px",
-                    height: "20px",
-                    padding: "0px 8px 1px 12px",
-                    color: "#0BA02C",
-                    borderRadius: "3px",
-                    fontSize: "14px",
-                  }}
-                >
-                  ReactJS
-                </div>
-                <div
-                  style={{
-                    backgroundColor: "#E7F6EA",
-                    width: "70px",
-                    height: "20px",
-                    padding: "0px 8px 1px 12px",
-                    color: "#0BA02C",
-                    borderRadius: "3px",
-                    fontSize: "14px",
-                  }}
-                >
-                  NODEJS
-                </div>
+                ReactJS
               </div>
               <div
-                className="language"
                 style={{
-                  marginTop: "20px",
-                  display: "flex",
-                  gap: "10px",
-                  fontSize: "16px",
+                  backgroundColor: "#E7F6EA",
+                  width: "70px",
+                  height: "20px",
+                  padding: "0px 8px 1px 12px",
+                  color: "#0BA02C",
+                  borderRadius: "3px",
+                  fontSize: "14px",
                 }}
               >
-                Foregin language :
-                <div
-                  style={{
-                    backgroundColor: "#FCE1D1",
-                    width: "AUTO",
-                    height: "20px",
-                    padding: "0px 8px 1px 12px",
-                    color: "#F16A1B",
-                    borderRadius: "3px",
-                    fontSize: "14px",
-                  }}
-                >
-                  N2
-                </div>
-              </div>
-              <div style={{ marginTop: "20px", display: "flex", gap: "10px" }}>
-                <img
-                  style={{ width: "20px", height: "20px" }}
-                  src={MapPin}
-                ></img>
-                <div style={{ fontSize: "16px" }}>Hà Nội, Việt Nam</div>
+                NODEJS
               </div>
             </div>
-            <div className="job__detail--Relatedjob--content--item">
+            <div
+              className="language"
+              style={{
+                marginTop: "20px",
+                display: "flex",
+                gap: "10px",
+                fontSize: "16px",
+              }}
+            >
+              Foregin language :
               <div
                 style={{
-                  display: "flex",
-                  gap: "10px",
-                  justifyContent: "space-between",
-                  alignItems: "center",
+                  backgroundColor: "#FCE1D1",
+                  width: "AUTO",
+                  height: "20px",
+                  padding: "0px 8px 1px 12px",
+                  color: "#F16A1B",
+                  borderRadius: "3px",
+                  fontSize: "14px",
                 }}
               >
-                <div style={{ display: "flex" }}>
-                  <div>
-                    <img src="./src/assets/images/jobDetails/Rectangle 43.png"></img>
-                  </div>
-                  <div style={{ marginLeft: "10px", marginTop: "20px" }}>
-                    <h2>Nguyen van A</h2>
-                    <div style={{ display: "flex", gap: "10px" }}>
-                      <div
-                        style={{
-                          backgroundColor: "#0BA02C",
-                          width: "98px",
-                          height: "28px",
-                          // textAlign: "center",
-                          padding: "3px 15px 3px 18px",
-                          color: "white",
-                          borderRadius: "3px",
-                        }}
-                      >
-                        Front-end
-                      </div>
-                      <div
-                        style={{
-                          width: "75px",
-                          height: "28px",
-                          backgroundColor: "#E7F0FA",
-                          borderRadius: "40px",
-                          padding: "3px 15px 3px 18px",
-                          color: "#0A65CC",
-                        }}
-                      >
-                        Fresher
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="img">
-                  <img
-                    className="img"
-                    src="./src/assets/images/jobDetails/arrow.right.png"
-                  ></img>
-                </div>
-              </div>
-
-              <div
-                className="Technical-skills"
-                style={{
-                  marginTop: "20px",
-                  display: "flex",
-                  gap: "10px",
-                  fontSize: "16px",
-                }}
-              >
-                Technical skills :
-                <div
-                  className="skill"
-                  style={{
-                    backgroundColor: "#E7F6EA",
-                    width: "70px",
-                    height: "20px",
-                    padding: "0px 8px 1px 12px",
-                    color: "#0BA02C",
-                    borderRadius: "3px",
-                    fontSize: "14px",
-                  }}
-                >
-                  ReactJS
-                </div>
-                <div
-                  style={{
-                    backgroundColor: "#E7F6EA",
-                    width: "70px",
-                    height: "20px",
-                    padding: "0px 8px 1px 12px",
-                    color: "#0BA02C",
-                    borderRadius: "3px",
-                    fontSize: "14px",
-                  }}
-                >
-                  NODEJS
-                </div>
-              </div>
-              <div
-                className="language"
-                style={{
-                  marginTop: "20px",
-                  display: "flex",
-                  gap: "10px",
-                  fontSize: "16px",
-                }}
-              >
-                Foregin language :
-                <div
-                  style={{
-                    backgroundColor: "#FCE1D1",
-                    width: "AUTO",
-                    height: "20px",
-                    padding: "0px 8px 1px 12px",
-                    color: "#F16A1B",
-                    borderRadius: "3px",
-                    fontSize: "14px",
-                  }}
-                >
-                  N2
-                </div>
-              </div>
-              <div style={{ marginTop: "20px", display: "flex", gap: "10px" }}>
-                <img
-                  style={{ width: "20px", height: "20px" }}
-                  src="./src/assets/images/jobDetails/MapPin.png"
-                ></img>
-                <div style={{ fontSize: "16px" }}>Hà Nội, Việt Nam</div>
+                N2
               </div>
             </div>
-            <div className="job__detail--Relatedjob--content--item">
-              <div
-                style={{
-                  display: "flex",
-                  gap: "10px",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                }}
-              >
-                <div style={{ display: "flex" }}>
-                  <div>
-                    <img src="./src/assets/images/jobDetails/Rectangle 43.png"></img>
-                  </div>
-                  <div style={{ marginLeft: "10px", marginTop: "20px" }}>
-                    <h2>Nguyen van A</h2>
-                    <div style={{ display: "flex", gap: "10px" }}>
-                      <div
-                        style={{
-                          backgroundColor: "#0BA02C",
-                          width: "98px",
-                          height: "28px",
-                          // textAlign: "center",
-                          padding: "3px 15px 3px 18px",
-                          color: "white",
-                          borderRadius: "3px",
-                        }}
-                      >
-                        Front-end
-                      </div>
-                      <div
-                        style={{
-                          width: "75px",
-                          height: "28px",
-                          backgroundColor: "#E7F0FA",
-                          borderRadius: "40px",
-                          padding: "3px 15px 3px 18px",
-                          color: "#0A65CC",
-                        }}
-                      >
-                        Fresher
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="img">
-                  <img
-                    className="img"
-                    src="./src/assets/images/jobDetails/arrow.right.png"
-                  ></img>
-                </div>
-              </div>
-
-              <div
-                className="Technical-skills"
-                style={{
-                  marginTop: "20px",
-                  display: "flex",
-                  gap: "10px",
-                  fontSize: "16px",
-                }}
-              >
-                Technical skills :
-                <div
-                  className="skill"
-                  style={{
-                    backgroundColor: "#E7F6EA",
-                    width: "70px",
-                    height: "20px",
-                    padding: "0px 8px 1px 12px",
-                    color: "#0BA02C",
-                    borderRadius: "3px",
-                    fontSize: "14px",
-                  }}
-                >
-                  ReactJS
-                </div>
-                <div
-                  style={{
-                    backgroundColor: "#E7F6EA",
-                    width: "70px",
-                    height: "20px",
-                    padding: "0px 8px 1px 12px",
-                    color: "#0BA02C",
-                    borderRadius: "3px",
-                    fontSize: "14px",
-                  }}
-                >
-                  NODEJS
-                </div>
-              </div>
-              <div
-                className="language"
-                style={{
-                  marginTop: "20px",
-                  display: "flex",
-                  gap: "10px",
-                  fontSize: "16px",
-                }}
-              >
-                Foregin language :
-                <div
-                  style={{
-                    backgroundColor: "#FCE1D1",
-                    width: "AUTO",
-                    height: "20px",
-                    padding: "0px 8px 1px 12px",
-                    color: "#F16A1B",
-                    borderRadius: "3px",
-                    fontSize: "14px",
-                  }}
-                >
-                  N2
-                </div>
-              </div>
-              <div style={{ marginTop: "20px", display: "flex", gap: "10px" }}>
-                <img
-                  style={{ width: "20px", height: "20px" }}
-                  src="./src/assets/images/jobDetails/MapPin.png"
-                ></img>
-                <div style={{ fontSize: "16px" }}>Hà Nội, Việt Nam</div>
-              </div>
+            <div style={{ marginTop: "20px", display: "flex", gap: "10px" }}>
+              <img
+                style={{ width: "20px", height: "20px" }}
+                src="./src/assets/images/jobDetails/MapPin.png"
+              ></img>
+              <div style={{ fontSize: "16px" }}>Hà Nội, Việt Nam</div>
             </div>
+          </div>
+           ))}
           </div>
         </div>
       </div>

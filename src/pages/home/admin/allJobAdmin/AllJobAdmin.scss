@@ -10,6 +10,15 @@
       rgba(10, 3, 60, 0)
     );
   }
+  /* Tùy chỉnh màu nền khi Switch được bật và thanh trượt ở bên phải */
+.custom-switch-checked {
+  background-color: #4caf50 !important; /* Màu xanh */
+}
+
+/* Tùy chỉnh nút trượt của Switch khi được bật */
+.custom-switch-checked .ant-switch-handle {
+  left: calc(100% - 26px - 2px); /* Di chuyển thanh trượt sang phải */
+}
   html,
   body {
     font-family: "Cabin", sans-serif;

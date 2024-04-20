@@ -60,7 +60,7 @@ export default function UserLogin() {
           navigate("/admin")
         }
 
-        if(res.data.data.role === 1){
+        if(res.data.data.role === 1 || res.data.data.status === 1){
 
           localStorage.setItem("token",JSON.stringify(res.data.data.token))
           localStorage.setItem("role",JSON.stringify(res.data.data.role))
@@ -68,6 +68,10 @@ export default function UserLogin() {
           navigate("/candidate")
           notification.success({
             message:res.data.message
+          })
+        }else{
+          notification.error({
+            message:"Tài khoản của bạn đang bị khoá"
           })
         }
         if(res.data.data.role ===2){
