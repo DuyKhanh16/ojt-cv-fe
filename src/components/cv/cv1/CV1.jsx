@@ -94,7 +94,7 @@ export default function CV1({item}) {
               
               
             </div>
-            {/* <div className="CV1__content--left__skill">
+            <div className="CV1__content--left__skill">
               <p className="CV1__content--left__skill__title title">Kĩ năng</p>
               <div className="CV1__content--left__skill__item">
                 <p className="CV1__content--left__skill__item__level">
@@ -104,7 +104,7 @@ export default function CV1({item}) {
                   Java Script
                 </div>
               </div>
-            </div> */}
+            </div>
             <div className="CV1__content--left__certificate">
               <p className="CV1__content--left__certificate__title title">
                 Chứng chỉ

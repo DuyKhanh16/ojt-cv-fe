@@ -182,14 +182,17 @@ export default function MainBusiness() {
             </div>
           </div>
           <div className="mainBusiness__outStandingCandidate--listCandidate">
-            {allCandidate.map((item) => (
+              {allCandidate.map((item) => (
               <div
                 className="mainBusiness__outStandingCandidate--listCandidate__item"
+                onClick={()=> navigate(`candidate-outstanding-bybussiness/${item.id}`)}
                 key={item.id}
               >
                 <div className="mainBusiness__outStandingCandidate--listCandidate__item__information">
                   <div className="mainBusiness__outStandingCandidate--listCandidate__item__information--left">
-                    <div className="mainBusiness__outStandingCandidate--listCandidate__item__information--left__avatar"></div>
+                    <div className="mainBusiness__outStandingCandidate--listCandidate__item__information--left__avatar">
+                      <img src={item?.avatar} alt="" />
+                    </div>
                     <div className="mainBusiness__outStandingCandidate--listCandidate__item__information--left__name">
                       <div className="mainBusiness__outStandingCandidate--listCandidate__item__information--left__name--top">
                         {item.name}

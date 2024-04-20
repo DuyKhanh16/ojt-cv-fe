@@ -173,10 +173,12 @@ body::-webkit-scrollbar {
               font-weight: 600;
             }
           }
+         
           .allUserApply__content__bodyTable__item__active {
               display: flex;
               align-items: center;
               justify-content: center;
+
               .allUserApply__content__bodyTable__item__active__btn {
                   width: 7vw;
                   height: 40px;

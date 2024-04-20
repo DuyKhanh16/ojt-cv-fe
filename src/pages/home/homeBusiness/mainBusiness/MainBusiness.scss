@@ -404,7 +404,12 @@
                 width: 86px;
                 height: 78px;
                 border-radius: 4px;
-                background-color: rgba(237, 239, 245, 1);
+                background-color: #fff;
+                img {
+                  width: 100%;
+                  height: 100%;
+                  object-fit: contain;
+                }
               }
               .mainBusiness__outStandingCandidate--listCandidate__item__information--left__name {
                 .mainBusiness__outStandingCandidate--listCandidate__item__information--left__name--top {
