@@ -70,20 +70,26 @@ export default function FormSearch() {
     </div>
   );
   // hàm lấy thông tin người dùng
-  const getInfo = () => {
-    if(role === 1){
-      const res1 = privateAxios.get("api/v2/candidates/getInfor");
-      res1.then((res) => {
-        SetInfo(res.data.data);
-      });
-    }
-    if(role === 2){
-      const res2 = privateAxios.get("api/v2/companies/getInfor");
-      res2.then((res) => {
-        SetInfo(res.data.data);
-      });
-    }
-  };
+ 
+    const getInfo = () => {
+      if (token) { 
+        if(role === 1){
+          const res1 = privateAxios.get("api/v2/candidates/getInfor");
+          res1.then((res) => {
+            SetInfo(res.data.data);
+          });
+        }
+        if(role === 2){
+          const res2 = privateAxios.get("api/v2/companies/getInfor");
+          res2.then((res) => {
+            SetInfo(res.data.data);
+          });
+        }
+      }
+      
+    };
+  
+  
   useEffect(() => {
     getInfo();
   }, []);
