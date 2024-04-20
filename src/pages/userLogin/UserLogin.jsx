@@ -93,7 +93,7 @@ export default function UserLogin() {
     <>
       <div className="user__login__container">
         {/* logo */}
-        <div className="logo">
+        <div className="logo" onClick={()=> navigate("/")}>
           <img src={logo} alt="rikkei" />
         </div>
         {/*end logo */}

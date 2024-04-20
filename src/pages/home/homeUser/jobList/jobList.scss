@@ -203,6 +203,8 @@ body {
             padding: 24px;
              margin: 0px !important;
             margin-bottom: 24px !important;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease-in-out;
             @media screen and (min-width: 576px) and (max-width: 768px) {
                 width: 255px;
                 
@@ -211,7 +213,10 @@ body {
                 width: 500px;
                 }
             .user-ListJob-job-title {
-                font-size: 20px;
+                width: 100%; /* Độ rộng của phần tử chứa ngày */
+                white-space: nowrap; /* Ngăn chặn ngắt dòng */
+                overflow: hidden; /* Ẩn phần vượt quá giới hạn chiều rộng */
+                text-overflow: ellipsis; /* Hiển thị dấu chấm (...) khi text bị cắt */
             }
 
             .user-ListJob-job-typeSalary {
@@ -270,6 +275,10 @@ body {
             }
 
         }
+        }
+        .user-ListJob-job:hover{
+            border: 2px solid #0ab305;
+            transform: scale(1.05)
         }
 
     }

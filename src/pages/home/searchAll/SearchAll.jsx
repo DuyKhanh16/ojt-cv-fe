@@ -23,7 +23,6 @@ export default function SearchAll() {
   console.log(user);
   useEffect(() => {
     dispatch(candidateAsync());
-    // getInforCV();
   }, [dispatch]);
 
   const handleLogout = ()=> {
@@ -102,7 +101,7 @@ export default function SearchAll() {
               <div className="menu">
                 <ul className="menu-links">
                   <li className="nav-link">
-                    <Link to="/searchAll/searchCandidate">
+                    <Link to="/searchAll/search-candidate">
                       <span className="icon">
                       <span class="material-symbols-outlined" style={{fontSize:"2vw"}}>
                         person
@@ -118,7 +117,7 @@ export default function SearchAll() {
                   </li>
 
                   <li className="nav-link">
-                    <Link to="/searchAll/searchCompany">
+                    <Link to="/searchAll/search-company">
                       <span className="icon">
                         <span class="material-symbols-outlined">apartment</span>
                       </span>
@@ -132,7 +131,7 @@ export default function SearchAll() {
                   </li>
                  
                   <li className="nav-link">
-                    <Link to="/searchAll/searchJob">
+                    <Link to="/searchAll/search-job">
                       <span className="icon">
                         <span class="material-symbols-outlined">work</span>
                       </span>
