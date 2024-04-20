@@ -10,6 +10,7 @@ export default function AddJob() {
   const [addressCompany, setAdressCompany] = useState([]);
   const [typeJob, setListTypeJob] = useState([]);
   const [LevelJob, setLevelJob] = useState([]);
+  const [salaryJob, setSalaryJob] = useState([]);
   const [newJob, setNewJob] = useState({
     title: "",
     description: "",
@@ -48,14 +49,24 @@ export default function AddJob() {
       setLevelJob(res.data);
     });
   };
+
+  const salaryJobs = () => {
+    const res = axios.get("http://localhost:3000/api/v2/salary/getall");
+    res.then((res) => {
+      console.log(res)
+      setSalaryJob(res.data);
+    });
+  };
   useEffect(() => {
     getInfo();
     getTypeJob();
     levelJobs();
+    salaryJobs();
   }, []);
   console.log(newJob,"1221312")
   // hàm tạo job
   const handleSubmit = async () => {
+    console.log(newJob)
     try {
       const res = await axios.post(
         `http://localhost:3000/api/v2/jobs/create/${infoCompany.id}`,
@@ -159,14 +170,16 @@ export default function AddJob() {
                   <select
                   onChange={(e) => setNewJob({ ...newJob, salary: e.target.value })}
                     id="salary"
-                    value={newJob.salary}
+                    value={newJob?.salary}
                   >
                     <option value="">Chọn</option>
-                    <option value="2 triệu - 4 triệu">Từ 2 triệu - 4 triệu</option>
-                    <option value="5 triệu - 10 triệu">Từ 5 triệu - 10 triệu</option>
-                    <option value="8 triệu - 15 triệu">Từ 8 triệu - 15 triệu</option>
-                    <option value="15 triệu - 20 triệu">Từ 15 triệu - 20 triệu</option>
-                    <option value="Thoả thuận">Thoả thuận</option>
+                    {
+                      salaryJob.map((item,index) => {
+                        return <option value={item.id}>{item?.name}</option>
+                        
+                      })
+                    }
+                    
                   </select>
                 </div>
                 <div className="addJob__body__form__highInfor__time">

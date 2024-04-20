@@ -96,7 +96,7 @@
             color: rgb(127,135,143);
         }
         select {
-            width: 10vw;
+            width: 12vw;
             height: 100%;
             font-size: 16px;
             border: none;
@@ -241,6 +241,9 @@
                         line-height: 20px;
                         color: rgba(11, 160, 44, 1);
                       }
+                    }
+                    .text2{
+                      background-color: rgba(255, 166, 0, 0.514) !important;
                     }
                     .searchJob__outStandingJob--listJob__item--top__salary__price {
                       font-size: 14px;
