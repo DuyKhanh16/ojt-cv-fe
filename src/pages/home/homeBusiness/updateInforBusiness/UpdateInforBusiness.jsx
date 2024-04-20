@@ -5,11 +5,15 @@ import Footer from "../../../../components/footer/Footer";
 import map from "../../../../assets/images/map.jpeg";
 import "./updateInfoBusinis.scss";
 import { Button, Modal, notification } from "antd";
+import Mappin from "../../../../assets/images/main/MapPin.png";
+import BookmarkSimple from "../../../../assets/images/main/BookmarkSimple.png";
+import arowright from "../../../../assets/images/main/fi_arrow-right.png";
 import axios from "axios";
 import privateAxios from "../../../../config/private.axios";
 import publicAxios from "../../../../config/pulic.axios";
 // import CkEditorComponent from "../../../../config/CkEditorComponent";
 import logo from "../../../../assets/images/main/Software code testing-pana 1.png";
+import { useNavigate } from "react-router";
 
 export default function UpdateInforBusiness() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -19,6 +23,7 @@ export default function UpdateInforBusiness() {
   const [preview, setPreview] = useState(undefined);
   const [selectedMedia, setSelectedMedia] = useState(null);
   const [errors, setErrors] = useState({});
+  const [listjobs, setListJobs] = useState([]);
 
   // api tỉnh
 
@@ -61,7 +66,8 @@ export default function UpdateInforBusiness() {
     typeCompany_id: "",
     policy: "",
   });
-  console.log(typecompany, "typecompany");
+ 
+  const navigate = useNavigate();
   // lấy thông tin company
   const getinfoCompany = () => {
     const res2 = privateAxios.get("api/v2/companies/getInfor");
@@ -90,6 +96,14 @@ export default function UpdateInforBusiness() {
       // console.log(listBrand,"2")
     });
   };
+
+  // lấy các jobs của công ty
+  const getJobsForCompany = () => {
+    const res = privateAxios.get("api/v2/jobs/getJobsForCompany");
+    res.then((res) => {
+      setListJobs(res.data.data);
+    });
+  }
   //  lấy các type company
   const getTypeCompany = () => {
     const res = publicAxios.get("api/v2/typecompany/all");
@@ -101,9 +115,10 @@ export default function UpdateInforBusiness() {
   useEffect(() => {
     getinfoCompany();
     getTypeCompany();
+    getJobsForCompany();
   }, [flag]);
 
-  console.log(listBrand, "123123");
+  console.log(listjobs, "123123");
 
   // api thành phố
   const handleGetDataCity = async () => {
@@ -315,9 +330,9 @@ export default function UpdateInforBusiness() {
         style={{
           display:
             infoCompany?.logo == null ||
-            infoCompany.website == null ||
-            infoCompany.description == null ||
-            infoCompany.size == null
+              infoCompany.website == null ||
+              infoCompany.description == null ||
+              infoCompany.size == null
               ? "block"
               : "none",
         }}
@@ -362,9 +377,9 @@ export default function UpdateInforBusiness() {
         style={{
           display:
             infoCompany?.logo == null ||
-            infoCompany.website == null ||
-            infoCompany.description == null ||
-            infoCompany.size == null
+              infoCompany.website == null ||
+              infoCompany.description == null ||
+              infoCompany.size == null
               ? "none"
               : "block",
         }}
@@ -726,7 +741,7 @@ export default function UpdateInforBusiness() {
               </span>
               <div
                 className="bg-white p-5"
-                // dangerouslySetInnerHTML={{ __html: text }}
+              // dangerouslySetInnerHTML={{ __html: text }}
               />
             </p>
             {infoCompany?.description}
@@ -850,6 +865,52 @@ export default function UpdateInforBusiness() {
             </div>
           </div>
         </div>
+          <div style={{ borderTop: "1px solid #E7F0FA",padding:"32px"}}>
+          <div style={{fontSize:"28px",fontWeight:"500",paddingLeft:"32px"}}>Các job của công ty</div>
+          <div style={{
+          display: "flex",flexWrap: "wrap",gap: "20px",
+           height: "auto", padding: "32px" }}>
+           
+            {listjobs.map((item) =>
+              <div
+              onClick={() => navigate(`/company/updatejob/${item.id}`)}
+                style={{
+                  width: "400px",
+                  height: "auto",
+                  border: "2px solid #E7F0FA",
+                  borderRadius: "8px",
+                  padding: "12px",
+                  fontSize: "14px"
+                }}
+                className="main__outStandingJob--listJob__item"
+  
+              >
+                <div style={{ display: "flex", gap: "10px" }}>
+                  <div>
+                    <img
+                      style={{ width: "100px", height: "100px" }}
+                      src={item.company.logo}></img></div>
+                  <div>
+                    <div style={{ fontWeight: "500", fontSize: "16px" }}>{item.title}</div>
+                    <div style={{ display: "flex", justifyContent: "space-between" }}>
+                      <div> Công ty {item.company.name}</div>
+                      <div> <img src={arowright}></img></div>
+                    </div>
+                    <div> Thời gian : {item.types_jobs[0].typejob.name}</div>
+  
+                    <div style={{ display: "flex", gap: "10px", }}>
+                      <img
+                        style={{ width: "20px", height: "20px" }}
+                        src={Mappin}></img>
+                      <div>{item.address_company.address}</div>
+                    </div>
+                  </div>
+                </div>
+  
+              </div>
+            )}
+          </div>
+          </div>
       </div>
     </>
   );
