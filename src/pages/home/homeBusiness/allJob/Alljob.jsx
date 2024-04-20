@@ -72,9 +72,10 @@ export default function Alljob() {
   // hàm xoá công việc
 
   const handleDelete = async (id) => {
+    console.log(id);
   if(confirm("Bạn có muốn xóa")){
     try {
-      // const res = await privateAxios.delete(`api/v2/jobs/delete/${id}`);
+      const res = await privateAxios.delete(`api/v2/jobs/delete/${id}`);
       notification.success({ message: "Đã xóa thành công" });
     } catch (error) {
       console.log(error);
@@ -158,7 +159,7 @@ export default function Alljob() {
               </div>
               <div className="alljob__content__bodyTable__item__action column">
                 <div className="alljob__content__bodyTable__item__action__delete btn">
-                  <p onClick={handleDelete}>Xóa</p>
+                  <p onClick={()=>handleDelete(item.id)}>Xóa</p>
                 </div>
               
               </div>
