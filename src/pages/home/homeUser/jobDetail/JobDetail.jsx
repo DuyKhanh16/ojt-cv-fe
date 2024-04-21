@@ -24,7 +24,7 @@ export default function JobDetail() {
   const [company, setCompany] = React.useState({});
   const [position, setPosition] = React.useState("");
   const [allLiveJob, setLiveJob] = useState([]);
-
+  const [salary, setSalary] = useState([]);
   const navigate = useNavigate();
   // lay het thong tin cua jobdetail
   const inforJobDetail = async () => {
@@ -44,6 +44,7 @@ export default function JobDetail() {
       .then((res) => {
         console.log(res.data.data);
         setInfor(res.data.data);
+        setSalary(res.data.data.salary_jobs);
       })
       .catch((error) => {
         console.log(error);
@@ -76,6 +77,8 @@ export default function JobDetail() {
   useEffect(() => {
     getAllLiveJob();
   }, []);
+  console.log(infor)
+  console.log(salary)
   return (
     <div>
       <div
@@ -186,11 +189,10 @@ export default function JobDetail() {
             <div>
               <div className="job__detail--description--details1">
                 <div style={{ textAlign: "center" }}>
-                  <h3 style={{ marginBottom: "10px" }}>Mức lương (đồng)</h3>
+                  <h3 style={{ marginBottom: "10px" }}>Mức lương</h3>
                   <p style={{ color: "#0BA02C", fontSize: "18px" }}>
-                    {infor?.salary}
+                    {salary[0]?.salary?.name}
                   </p>
-                  <p style={{ color: "gray", fontSize: "14px" }}>Một tháng</p>
                 </div>
                 <div
                   style={{
@@ -204,8 +206,9 @@ export default function JobDetail() {
                     style={{
                       display: "flex",
                       alignItems: "center",
+                      justifyContent: "center",
                       gap: "10px",
-                      marginLeft: "70px",
+                      // marginLeft: "70px",
                     }}
                   >
                     <img
