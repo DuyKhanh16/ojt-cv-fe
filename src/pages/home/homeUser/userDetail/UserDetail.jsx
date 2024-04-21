@@ -64,7 +64,9 @@ export default function UserDetail() {
         <div className="userDetail__body">
           <div className="userDetail-header">
             <div className="userDetail-header--left">
-              <img src={logoFPT} alt="" />
+              <div className="userDetail-header--left__avatar">
+              <img src={user?.avatar} alt="" />
+              </div>
               <div className="userDetail-header--left__infor">
                 <p>{user?.name}</p>
                 <div className="userDetail-header--left__infor__list">

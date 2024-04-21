@@ -14,6 +14,7 @@ import { candidateAsync } from "../../../../redux/reduce/candidateReduce";
 import { useDispatch, useSelector } from "react-redux";
 import privateAxios from "../../../../config/private.axios";
 import { useParams } from "react-router";
+import { set } from "firebase/database";
 export default function InformationUser() {
   const { id } = useParams();
   console.log(id);
@@ -24,23 +25,25 @@ export default function InformationUser() {
 
   useEffect(() => {
     dispatch(candidateAsync());
-    getInfor();
+    getInforUser();
     getInforCV();
     getInforCompany();
-    
   }, [dispatch]);
   const user = useSelector((state) => state.candidate.data);
-  console.log(user);
 
-  const getInfor = () => {
-    if (inforCompany?.email_company != "") {
-      setRole(2)
-    } else {
-      setRole(user?.account_candidate_id?.role);
-    }
-  }; 
-  console.log(role)
-
+  console.log(inforCompany);
+  console.log(role);
+  const getInforUser = async () => {
+    await privateAxios
+      .get(`api/v2/candidates/getInfor`)
+      .then((res) => {
+        setInforCompany(res.data.data);
+        setRole(res.data.data.account_candidate_id?.role);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  };
   const getInforCV = async () => {
     await privateAxios
       .get(`api/v2/candidates/getInforCandidatebyId/${id}`)
@@ -56,14 +59,15 @@ export default function InformationUser() {
     await privateAxios
       .get(`api/v2/companies/getInfor`)
       .then((res) => {
-        setInforCompany(res.data.data); 
+        setInforCompany(res.data.data);
+        setRole(res.data.data.account_company_id?.role);
       })
       .catch((error) => {
         console.error("Error:", error);
       });
-  }
+  };
   console.log(infor);
- 
+
   return (
     <>
       <div className="informationUser__container">
@@ -108,7 +112,7 @@ export default function InformationUser() {
                     <img src={heart} alt="" />
                   </div>
                   <div className="informationUser-header--right__button">
-                    Đặt lịch phỏng vấn
+                    Xem CV
                   </div>
                 </>
               )}
