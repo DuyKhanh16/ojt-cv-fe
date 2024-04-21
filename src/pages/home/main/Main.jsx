@@ -196,6 +196,7 @@ export default function Main() {
             </div>
           </div>
         </div>
+
         <div className="main__outStandingJob">
           <div className="main__outStandingJob--header">
             <span className="main__outStandingJob--header__title">
@@ -299,6 +300,7 @@ export default function Main() {
             )}
           </div>
         </div>
+
         <div className="main__outStandingCandidate">
           <div className="main__outStandingCandidate--header">
             <span className="main__outStandingCandidate--header__title">
@@ -439,6 +441,7 @@ export default function Main() {
             )}
           </div>
         </div>
+
         <div className="main__outStandingCompany">
           <div className="main__outStandingCompany--header">
             <span className="main__outStandingCompany--header__title">
@@ -449,6 +452,7 @@ export default function Main() {
               <img src={arrow} alt="" />
             </div>
           </div>
+          
           <div className="main__outStandingCompany--listCompany">
             {token ? (
               <>
@@ -521,6 +525,7 @@ export default function Main() {
             )}
           </div>
         </div>
+
         <div className="main__comment">
           <div className="main__comment__title">
             <p>Clients Testimonial</p>

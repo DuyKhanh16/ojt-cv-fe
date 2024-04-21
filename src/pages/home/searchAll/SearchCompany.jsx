@@ -5,9 +5,10 @@ import publicAxios from '../../../config/pulic.axios';
 import arrow from "../../../assets/images/main/fi_arrow-right.png";
 import MapPin from "../../../assets/images/main/MapPin.png";
 import BookmarkSimple from "../../../assets/images/main/BookmarkSimple.png";
+const token = localStorage.getItem("token");
 export default function SearchCompany() {
-  const [allLiveJob, setLiveJob] = useState([]);
-
+  const [allCompany, setAllCompany] = useState([]);
+  
     // data city
     const [dataCity, setDataCity] = useState([]);
     // api thành phố
@@ -27,18 +28,17 @@ export default function SearchCompany() {
     setCity(nameCity.province_name);
     setDataDistrict(data.data.results);
   };
-  const getAllLiveJob = async () => {
+  const getAllCompanya = async () => {
     try {
-      const res = await publicAxios.get("/api/v2/jobs/getLiveJobs");
+      const res = await publicAxios.get("/api/v2/companies/getAll");
       console.log(res.data.data);
-      setLiveJob(res.data.data);
+      setAllCompany(res.data.data);
     } catch (error) {
       console.log(error);
     }
   };
-  console.log(allLiveJob)
   useEffect(() => {
-    getAllLiveJob();
+    getAllCompanya();
     handleGetDataCity();
   }, []);
   return (
@@ -99,46 +99,76 @@ export default function SearchCompany() {
               <img src={arrow} alt="" />
             </div>
           </div>
-          <div className="searchCompany__outStandingJob--listJob">
-            {allLiveJob.map((item) => (
-              <div
-                className="searchCompany__outStandingJob--listJob__item"
-                key={item.id}
-              >
-                <div className="searchCompany__outStandingJob--listJob__item--top">
-                  <span className="searchCompany__outStandingJob--listJob__item--top__name">
-                    {item.title}
-                  </span>
-                  <div className="searchCompany__outStandingJob--listJob__item--top__salary">
-                    <div className="searchCompany__outStandingJob--listJob__item--top__salary__text">
-                      <p>{item?.types_jobs[0].typejob.name}</p>
-                    </div>
-                    <span className="searchCompany__outStandingJob--listJob__item--top__salary__price">
-                      {item.salary}
-                    </span>
-                  </div>
-                </div>
-                <div className="searchCompany__outStandingJob--listJob__item--bottom">
-                  <div className="searchCompany__outStandingJob--listJob__item--bottom--left">
-                    <div className="searchCompany__outStandingJob--listJob__item--bottom__logo">
-                      <img src={item?.company.logo} alt="" />
-                    </div>
-                    <div className="searchCompany__outStandingJob--listJob__item--bottom__nameLogo">
-                      <p className="searchCompany__outStandingJob--listJob__item--bottom__nameLogo__text">
-                        {item?.company.name}
-                      </p>
-                      <div className="searchCompany__outStandingJob--listJob__item--bottom__nameLogo__location">
-                        <img src={MapPin} alt="" />
-                        <p>{item?.address_company.address}</p>
+          <div className="main__outStandingCompany--listCompany">
+            {token ? (
+              <>
+                {allCompany.map((item) => (
+                  <div
+                    className="main__outStandingCompany--listCompany__item"
+                    key={item.id}
+                    onClick={() =>
+                      navigate(`/candidate/infor-companybycandidate/${item.id}`)
+                    }
+                  >
+                    <div className="main__outStandingCompany--listCompany__item__top">
+                      <div className="main__outStandingCompany--listCompany__item__top--logo">
+                        <img src={item?.logo} alt="" />
+                      </div>
+                      <div className="main__outStandingCompany--listCompany__item__top--name">
+                        <div className="main__outStandingCompany--listCompany__item__top--name--top">
+                          <span>{item.name}</span>
+                          <div className="main__outStandingCompany--listCompany__item__top--name--top__featured">
+                            {item?.typeCompany_id.name}
+                          </div>
+                        </div>
+                        <div className="main__outStandingCompany--listCompany__item__top--name--bottom">
+                          <img src={MapPin} alt="" />
+                          <p className="main__outStandingCompany--listCompany__item__top--name--bottom__location">
+                            {item?.address_company[0].address}
+                          </p>
+                        </div>
                       </div>
                     </div>
+                    <div className="main__outStandingCompany--listCompany__item__bottom">
+                      Open Position (3)
+                    </div>
                   </div>
-                  <div className="searchCompany__outStandingJob--listJob__item--bottom__bookmark">
-                    <img src={BookmarkSimple} alt="" />
+                ))}
+              </>
+            ) : (
+              <>
+                {allCompany.map((item) => (
+                  <div
+                    className="main__outStandingCompany--listCompany__item"
+                    key={item.id}
+                    onClick={() => open()}
+                  >
+                    <div className="main__outStandingCompany--listCompany__item__top">
+                      <div className="main__outStandingCompany--listCompany__item__top--logo">
+                        <img src={item?.logo} alt="" />
+                      </div>
+                      <div className="main__outStandingCompany--listCompany__item__top--name">
+                        <div className="main__outStandingCompany--listCompany__item__top--name--top">
+                          <span>{item.name}</span>
+                          <div className="main__outStandingCompany--listCompany__item__top--name--top__featured">
+                            {item?.typeCompany_id.name}
+                          </div>
+                        </div>
+                        <div className="main__outStandingCompany--listCompany__item__top--name--bottom">
+                          <img src={MapPin} alt="" />
+                          <p className="main__outStandingCompany--listCompany__item__top--name--bottom__location">
+                            {item?.address_company[0].address}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="main__outStandingCompany--listCompany__item__bottom">
+                      Xem thông tin công ty
+                    </div>
                   </div>
-                </div>
-              </div>
-            ))}
+                ))}
+              </>
+            )}
           </div>
         </div>
         </div>
