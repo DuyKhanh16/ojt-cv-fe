@@ -33,13 +33,61 @@ export default function AdminChart() {
   const [allCandidate, setAllCandidate] = useState([]);
   const navigate = useNavigate();
 
-  // data lấy dữ liệu về hiển thị
-  const data1 = {
+ 
+
+  
+  const getAllCompany = async () => {
+    try {
+      const res = await publicAxios.get("/api/v2/companies/getAll");
+      console.log(res.data.data);
+      setAllCompany(res.data.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const getAllLiveJob = async () => {
+    try {
+      const res = await publicAxios.get("/api/v2/jobs/getLiveJobs");
+      console.log(res.data.data);
+      setLiveJob(res.data.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const getAllNewJob = async () => {
+    try {
+      const res = await publicAxios.get("/api/v2/jobs/getNewJobs");
+      setNewJob(res.data.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const getAllCandidate = async () => {
+    try {
+      const res = await publicAxios.get("/api/v2/candidates/getAll");
+      console.log(res.data.data);
+      setAllCandidate(res.data.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  console.log(allCandidate);
+  useEffect(() => {
+    getAllCompany();
+    getAllLiveJob();
+    getAllNewJob();
+    getAllCandidate();
+  }, []);
+
+console.log(allCandidate)
+
+   // data lấy dữ liệu về hiển thị
+   const data1 = {
     labels: ["Candidate", "Company", "Jobs"],
     datasets: [
       {
         label: "Tổng ",
-        data: [100, 50, 123],
+        data: [allCandidate.length, allCompany.length, allNewJob.length],
         backgroundColor: "#E80505",
         borderColor: "rgba(255, 99, 132, 1)",
         borderWidth: 1,
@@ -119,50 +167,6 @@ export default function AdminChart() {
       },
     },
   };
-
-  
-  const getAllCompany = async () => {
-    try {
-      const res = await publicAxios.get("/api/v2/companies/getAll");
-      console.log(res.data.data);
-      setAllCompany(res.data.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  const getAllLiveJob = async () => {
-    try {
-      const res = await publicAxios.get("/api/v2/jobs/getLiveJobs");
-      console.log(res.data.data);
-      setLiveJob(res.data.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  const getAllNewJob = async () => {
-    try {
-      const res = await publicAxios.get("/api/v2/jobs/getNewJobs");
-      setNewJob(res.data.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  const getAllCandidate = async () => {
-    try {
-      const res = await publicAxios.get("/api/v2/candidates/getAll");
-      console.log(res.data.data);
-      setAllCandidate(res.data.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  console.log(allCandidate);
-  useEffect(() => {
-    getAllCompany();
-    getAllLiveJob();
-    getAllNewJob();
-    getAllCandidate();
-  }, []);
 
   return (
     <div className="adminChart">

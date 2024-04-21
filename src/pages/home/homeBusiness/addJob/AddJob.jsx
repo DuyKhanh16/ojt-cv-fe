@@ -10,7 +10,9 @@ export default function AddJob() {
   const [addressCompany, setAdressCompany] = useState([]);
   const [typeJob, setListTypeJob] = useState([]);
   const [LevelJob, setLevelJob] = useState([]);
-  const [salaryJob, setSalaryJob] = useState([]);
+
+  const [salary, setSalary] = useState([]);
+
   const [newJob, setNewJob] = useState({
     title: "",
     description: "",
@@ -32,7 +34,7 @@ export default function AddJob() {
     });
   };
 
-  // console.log(infoCompany, "infoCompany");
+  console.log(infoCompany, "infoCompany");
   //  hàm lấy các type job
   const getTypeJob = () => {
     const res = axios.get("http://localhost:3000/api/v2/typejob/getall");
@@ -50,23 +52,28 @@ export default function AddJob() {
     });
   };
 
-  const salaryJobs = () => {
-    const res = axios.get("http://localhost:3000/api/v2/salary/getall");
+
+  // hàm lấy các salary
+  const getlistSalary = () => {
+    const res = axios.get("http://localhost:3000/api/v2/salary/getAll");
     res.then((res) => {
-      console.log(res)
-      setSalaryJob(res.data);
+      // console.log(res)
+      setSalary(res.data);
     });
-  };
+  }
+
   useEffect(() => {
     getInfo();
     getTypeJob();
     levelJobs();
-    salaryJobs();
+
+    getlistSalary();
+
   }, []);
-  console.log(newJob,"1221312")
+  console.log(salary,"1221312")
   // hàm tạo job
   const handleSubmit = async () => {
-    console.log(newJob)
+
     try {
       const res = await axios.post(
         `http://localhost:3000/api/v2/jobs/create/${infoCompany.id}`,
@@ -173,13 +180,14 @@ export default function AddJob() {
                     value={newJob?.salary}
                   >
                     <option value="">Chọn</option>
-                    {
-                      salaryJob.map((item,index) => {
-                        return <option value={item.id}>{item?.name}</option>
-                        
-                      })
-                    }
-                    
+
+                 {salary.map((item, index) => (
+                      <option key={index} value={item.id}>
+                        {item.name}
+                      </option>
+                    ))}
+                 
+
                   </select>
                 </div>
                 <div className="addJob__body__form__highInfor__time">

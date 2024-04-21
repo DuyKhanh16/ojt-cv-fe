@@ -93,7 +93,7 @@ export default function FormSearch() {
   useEffect(() => {
     getInfo();
   }, []);
-  // console.log(info,"123");
+  console.log(info,"123");
   return (
     <div className="form__search">
       <div className="form__search--content">

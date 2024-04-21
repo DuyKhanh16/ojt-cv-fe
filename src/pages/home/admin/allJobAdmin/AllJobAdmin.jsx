@@ -190,10 +190,11 @@ export default function AllJobAdmin() {
 
                   </div>
                   <div className="allJobAdmin__content__headerTable__active column">
-                    <Switch defaultChecked
-                      // checked={item.status === 1 ? true : false}
-                      onChange={(checked, event) => onChange(checked, event, item)} // Truyền thông tin về công việc vào hàm onChange
-                      />
+                    {item.status === 1 ? (
+                      <div style={{ color: "green",fontSize:"12px" }}>Đang tuyển dụng</div> 
+                    ) : (
+                      <div style={{ color: "red",fontSize:"12px" }}>Dừng tuyển</div>
+                    )}
                   </div>
                   <div
                     onClick={() => showModal(item)}
