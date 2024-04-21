@@ -33,7 +33,12 @@ export default function FormSearch() {
     <div className="form__search--popover">
       <div className="form__search--popover--info">
         <img src={user1}></img>
-        <p onClick={() => navigate("/candidate/user-detail")} style={{cursor:"pointer"}}>Thông tin cá nhân</p>
+        <p
+          onClick={() => navigate("/candidate/user-detail")}
+          style={{ cursor: "pointer" }}
+        >
+          Thông tin cá nhân
+        </p>
       </div>
       <div
         onClick={() => {
@@ -43,14 +48,14 @@ export default function FormSearch() {
         className="form__search--popover--logout"
       >
         <MenuFoldOutlined size={40} className="custom-icon" />
-        <p style={{cursor:"pointer"}}>Log out</p>
+        <p style={{ cursor: "pointer" }}>Đăng xuất</p>
       </div>
     </div>
   );
   // Khối của thằng company
   const contentCompany = (
     <div className="form__search--popover">
-      <Link style={{color:"black"}} to={"/company/update-infor-company"}>
+      <Link style={{ color: "black" }} to={"/company/update-infor-company"}>
         <div className="form__search--popover--info">
           <img src={user1}></img>
           <p>Thông tin Doanh Nghiệp</p>
@@ -65,35 +70,33 @@ export default function FormSearch() {
         className="form__search--popover--logout"
       >
         <MenuFoldOutlined size={40} className="custom-icon" />
-        <p>Log out</p>
+        <p>Đăng xuất</p>
       </div>
     </div>
   );
   // hàm lấy thông tin người dùng
- 
-    const getInfo = () => {
-      if (token) { 
-        if(role === 1){
-          const res1 = privateAxios.get("api/v2/candidates/getInfor");
-          res1.then((res) => {
-            SetInfo(res.data.data);
-          });
-        }
-        if(role === 2){
-          const res2 = privateAxios.get("api/v2/companies/getInfor");
-          res2.then((res) => {
-            SetInfo(res.data.data);
-          });
-        }
+
+  const getInfo = () => {
+    if (token) {
+      if (role === 1) {
+        const res1 = privateAxios.get("api/v2/candidates/getInfor");
+        res1.then((res) => {
+          SetInfo(res.data.data);
+        });
       }
-      
-    };
-  
-  
+      if (role === 2) {
+        const res2 = privateAxios.get("api/v2/companies/getInfor");
+        res2.then((res) => {
+          SetInfo(res.data.data);
+        });
+      }
+    }
+  };
+
   useEffect(() => {
     getInfo();
   }, []);
-  console.log(info,"123");
+  console.log(info, "123");
   return (
     <div className="form__search">
       <div className="form__search--content">
@@ -108,13 +111,12 @@ export default function FormSearch() {
               options={options}
             />
 
-            <Input defaultValue="Job title, keywords,company" />
+            <Input defaultValue="Tìm kiếm công việc, công ty..." />
             <img src={logo}></img>
           </Space.Compact>
         </div>
         <div className="form__search--button">
           <div className="form__search--notifacation">
-            {/* <img src="./src/assets/images/fromsearch/bell.fill.png"></img> */}
             {token ? (
               <img className="form__search--notifacation-1" src={bell}></img>
             ) : (
@@ -127,7 +129,6 @@ export default function FormSearch() {
             )}
           </div>
           <div className="form__search--info">
-            {/* <img src="./src/assets/images/fromsearch/Outline.png"></img> */}
             {token ? (
               <Popover
                 placement="bottom"
@@ -154,9 +155,6 @@ export default function FormSearch() {
               </Link>
             </Button>
           )}
-
-          {/*  <p style={{ color: "#BC2228", fontSize: "14px" }}>
-            Nguyễn Minh Dương</p> */}
         </div>
       </div>
     </div>

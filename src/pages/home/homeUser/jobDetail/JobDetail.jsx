@@ -34,7 +34,6 @@ export default function JobDetail() {
   const navigate = useNavigate();
   // lay het thong tin cua jobdetail
   const inforJobDetail = async () => {
-    
     await privateAxios
       .get(`/api/v2/jobs/detail/${id}`)
       .then((res) => {
@@ -46,8 +45,9 @@ export default function JobDetail() {
       });
   };
   useEffect(() => {
-   const result = privateAxios.get(`/api/v2/jobs/detail/${id}`)
-      result.then((res) => {
+    const result = privateAxios.get(`/api/v2/jobs/detail/${id}`);
+    result
+      .then((res) => {
         console.log(res.data.data);
         setInfor(res.data.data);
       })
@@ -56,33 +56,41 @@ export default function JobDetail() {
       });
   }, []);
   console.log(id);
-  const close = (message,status) => {
+  const close = (message, status) => {
     setIsOpen(false);
     setTimeout(() => {
-      if(status){
+      if (status) {
         notification.success({
           message: message,
         });
-      }else{
+      } else {
         notification.error({
           message: message,
         });
       }
-    },500)
-  }
+    }, 500);
+  };
   return (
     <div>
-      <div className="job__detail--apply" style={{visibility:isOpen?'visible':'hidden'}}>
-        <button className="job__detail--apply__button"  onClick={() => setIsOpen(false)}>
-        <span class="material-symbols-outlined">
-            arrow_back
-            </span>
+      <div
+        className="job__detail--apply"
+        style={{ visibility: isOpen ? "visible" : "hidden" }}
+      >
+        <button
+          className="job__detail--apply__button"
+          onClick={() => setIsOpen(false)}
+        >
+          <span class="material-symbols-outlined">arrow_back</span>
           Quay lại
         </button>
-        <ApplyJob company={infor?.company} position={infor?.title} id={id} close={close}></ApplyJob>
-        
+        <ApplyJob
+          company={infor?.company}
+          position={infor?.title}
+          id={id}
+          close={close}
+        ></ApplyJob>
       </div>
-      
+
       <div className="job__detail--container1">
         <div className="job__detail--title1" style={{ color: "#767F8C" }}>
           <p>Trang chủ / </p> <p>Việc làm / </p>
@@ -103,21 +111,23 @@ export default function JobDetail() {
               <div className="job__detail--company--Logo--name1">
                 <h2>{infor?.company?.name}</h2>
                 <div className="job__detail--company--Logo--name--address1">
-                  <div className="adress">tại {infor?.address_company?.address}</div>
+                  <div className="adress">
+                    tại {infor?.address_company?.address}
+                  </div> 
+                  <div style={{display:"flex", gap:"10px", paddingTop:"5px"}}>
                   <div
                     className="hinhthuc1"
                     style={{
                       fontSize: "18px",
                       backgroundColor: "#0BA02C",
                       width: "98px",
-                      // padding: "4px, 12px, 4px, 12px",
                       textAlign: "center",
                       color: "white",
                       borderRadius: "3px",
                       height: "28px",
                     }}
                   >
-                    {infor?.title?infor.levers_jobs[0].leveljob.name:""}
+                    {infor?.title ? infor.levers_jobs[0].leveljob.name : ""}
                   </div>
                   <div
                     style={{
@@ -134,16 +144,26 @@ export default function JobDetail() {
                       padding: "3px 10x 3px 10px",
                     }}
                   >
-                    {infor.title?infor.types_jobs[0].typejob.name:""}
+                    {infor.title ? infor.types_jobs[0].typejob.name : ""}
                   </div>
+                  </div>
+                  
                 </div>
               </div>
             </div>
             <div className="job__detail--company--apply1">
               <button className="job__detail--company--apply--bookmark1">
-                <span class="material-symbols-outlined" style={{color:"rgba(188, 34, 40, 1)",fontWeight:"800"}}>bookmark</span>
+                <span
+                  class="material-symbols-outlined"
+                  style={{ color: "rgba(188, 34, 40, 1)", fontWeight: "800" }}
+                >
+                  bookmark
+                </span>
               </button>
-              <button className="job__detail--company--apply--apply11" onClick={() => setIsOpen(true)}>
+              <button
+                className="job__detail--company--apply--apply11"
+                onClick={() => setIsOpen(true)}
+              >
                 <p>Ứng tuyển </p>
                 <img src={arrow}></img>
               </button>
@@ -155,7 +175,6 @@ export default function JobDetail() {
               <p>{infor?.description}</p>
               <h2>Yêu cầu</h2>
               <p>{infor?.requirements}</p>
-              
             </div>
             <div>
               <div className="job__detail--description--details1">
@@ -164,9 +183,7 @@ export default function JobDetail() {
                   <p style={{ color: "#0BA02C", fontSize: "18px" }}>
                     {infor?.salary}
                   </p>
-                  <p style={{ color: "gray", fontSize: "14px" }}>
-                    Một tháng
-                  </p>
+                  <p style={{ color: "gray", fontSize: "14px" }}>Một tháng</p>
                 </div>
                 <div
                   style={{
@@ -221,14 +238,16 @@ export default function JobDetail() {
                         style={{ marginRight: "10px", marginBottom: "10px" }}
                         src={CalendarBlank}
                       ></img>
-                      <p style={{ color: "gray", fontSize: "18px" }}>Kết thúc</p>
+                      <p style={{ color: "gray", fontSize: "18px" }}>
+                        Kết thúc
+                      </p>
                       <div class="date">{infor?.expire_at}</div>
                     </div>
                   </div>
                 </div>
                 <div className="line2"></div>
               </div>
-              <div className="job__detail--description--Share1">
+              <div className="job__detail--description--Share1" style={{marginTop:"30px"}}>
                 <div className="line1">
                   <h3 style={{ marginBottom: "10px" }}>Chia sẻ công việc :</h3>
                   <div style={{ display: "flex", gap: "10px" }}>

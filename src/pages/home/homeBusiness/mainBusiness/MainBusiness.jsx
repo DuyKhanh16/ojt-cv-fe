@@ -72,9 +72,9 @@ export default function MainBusiness() {
                 Tìm kiếm công việc phù hợp với năng lực của bạn cùng chúng tôi
               </h1>
               <p className="mainBusiness--searchJob--left__text--up">
-                Aliquam vitae turpis in diam convallis finibus in at risus.
-                Nullam <br />
-                in scelerisque leo, eget sollicitudin velit bestibulum.
+                Khám phá danh sách top 30 IT hàng đầu Việt Nam.
+                <br />
+                Hàng ngàn công việc đang chờ bạn ứng tuyển.
               </p>
               <div className="mainBusiness--searchJob--left__formSearch">
                 <div className="mainBusiness--searchJob--left__formSearch__input">
@@ -87,7 +87,7 @@ export default function MainBusiness() {
                       className="mainBusiness--searchJob--left__formSearch__input--left__text"
                       name=""
                       id=""
-                      placeholder="Job tittle, Keyword..."
+                      placeholder="Ứng viên, công ty, việc làm..."
                     />
                   </div>
                   <div className="mainBusiness--searchJob--left__formSearch__input--line"></div>
@@ -104,12 +104,12 @@ export default function MainBusiness() {
                     />
                   </div>
                 </div>
-                <div className="mainBusiness--searchJob--left__formSearch__button">
-                  Find Job
+                <div className="mainBusiness--searchJob--left__formSearch__button"  onClick={() => navigate("/search-all")}>
+                  Tìm kiếm
                 </div>
               </div>
               <p className="mainBusiness--searchJob--left__text--down">
-                Suggestion: Designer, Programing, Digital Marketing, Animation.
+                Từ khóa: thực tập FE, thực tập BE, thực tập UI/UX...
               </p>
             </div>
             <div className="mainBusiness--searchJob--right">
@@ -126,7 +126,7 @@ export default function MainBusiness() {
                   <strong>{allLiveJob.length}</strong>
                 </p>
                 <p className="mainBusiness--showInformation__liveJob--text__name">
-                  Live Jobs
+                  Công việc đang tuyển
                 </p>
               </div>
             </div>
@@ -139,7 +139,7 @@ export default function MainBusiness() {
                   <strong>{allCompany.length}</strong>
                 </p>
                 <p className="mainBusiness--showInformation__companies--text__name">
-                  Companies
+                  Công ty
                 </p>
               </div>
             </div>
@@ -152,7 +152,7 @@ export default function MainBusiness() {
                   <strong>{allCandidate.length}</strong>
                 </p>
                 <p className="mainBusiness--showInformation__candicates--text__name">
-                  Candicates
+                  Ứng viên
                 </p>
               </div>
             </div>
@@ -165,7 +165,7 @@ export default function MainBusiness() {
                   <strong>{allNewJob.length}</strong>
                 </p>
                 <p className="mainBusiness--showInformation__newJobs--text__name">
-                  New Jobs
+                  Công việc đã đăng
                 </p>
               </div>
             </div>
