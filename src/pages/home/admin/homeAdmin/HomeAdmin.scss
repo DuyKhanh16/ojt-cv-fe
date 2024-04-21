@@ -411,6 +411,7 @@ body::-webkit-scrollbar {
     }
     .homeAdmin__content-Right {
       width: 100%;
+      height: auto;
       flex-basis: 1; /* Bắt buộc khối bên phải co giãn */
       .homeAdmin__content-Right__content {
         width: 90%;
