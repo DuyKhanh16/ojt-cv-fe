@@ -69,13 +69,9 @@ export default function UpdateInforBusiness() {
  
   const navigate = useNavigate();
   // lấy thông tin company
-  const getinfoCompany = async () => {
-    const res2 = await privateAxios
-    .get("api/v2/companies/getInfor")
-    console.log(res2)
-    .then((res) => {
-      console.log(res);
-      setInfoCompany(res.data.data);
+  const getinfoCompany = async () => {try {
+    const res = await privateAxios.get("api/v2/companies/getInfor")
+    setInfoCompany(res.data.data);
       setListBrand(res.data.data.address_company);
       Settycompany(companyData.typeCompany_id.name);
 
@@ -94,9 +90,10 @@ export default function UpdateInforBusiness() {
         typeCompany_id: companyData.typeCompany_id.id,
         policy: companyData.policy,
       });
-
-      // console.log(listBrand,"2")
-    });
+  } catch (error) {
+    console.log(error)
+  }
+  
   };
 
   // lấy các jobs của công ty
