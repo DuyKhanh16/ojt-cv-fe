@@ -35,10 +35,13 @@ export default function InformationUser() {
   const getInfor = () => {
     if (inforCompany?.email_company != "") {
       setRole(2)
-    } else {
-      setRole(user?.account_candidate_id?.role);
+    } 
+    if (user?.account_candidate_id?.role == 1)
+    {
+    setRole(user?.account_candidate_id?.role);
     }
   }; 
+  console.log(inforCompany)
   console.log(role)
 
   const getInforCV = async () => {

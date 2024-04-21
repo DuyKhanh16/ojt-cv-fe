@@ -69,9 +69,11 @@ export default function UpdateInforBusiness() {
  
   const navigate = useNavigate();
   // lấy thông tin company
-  const getinfoCompany = () => {
-    const res2 = privateAxios.get("api/v2/companies/getInfor");
-    res2.then((res) => {
+  const getinfoCompany = async () => {
+    const res2 = await privateAxios
+    .get("api/v2/companies/getInfor")
+    console.log(res2)
+    .then((res) => {
       console.log(res);
       setInfoCompany(res.data.data);
       setListBrand(res.data.data.address_company);
