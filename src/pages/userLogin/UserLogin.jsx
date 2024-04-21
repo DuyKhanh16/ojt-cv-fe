@@ -52,6 +52,7 @@ export default function UserLogin() {
         const res = await publicAxios.post("api/v2/auth/login",user)
         console.log(res.data.data.role,"123")
         if(res.data.data.role === 0 ){
+          console.log("111111111111111111111111")
           localStorage.setItem("token",JSON.stringify(res.data.data.token))
           localStorage.setItem("role",JSON.stringify(res.data.data.role))
           notification.success({
@@ -60,7 +61,7 @@ export default function UserLogin() {
           navigate("/admin")
         }
 
-        if(res.data.data.role === 1 || res.data.data.status === 1){
+        if(res.data.data.role === 1 && res.data.data.status === 1){
 
           localStorage.setItem("token",JSON.stringify(res.data.data.token))
           localStorage.setItem("role",JSON.stringify(res.data.data.role))
@@ -74,10 +75,9 @@ export default function UserLogin() {
             message:"Tài khoản của bạn đang bị khoá"
           })
         }
-        if(res.data.data.role ===2){
+        if(res.data.data.role === 2){
           localStorage.setItem("token",JSON.stringify(res.data.data.token))
           localStorage.setItem("role",JSON.stringify(res.data.data.role))
-
           navigate("/company")
           notification.success({
             message:res.data.message

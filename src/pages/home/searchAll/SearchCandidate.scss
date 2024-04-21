@@ -42,14 +42,14 @@
     margin-bottom: 2vw;
     margin-top: 2vw;
     .searchCandidate__container__header {
-        width: 100%;
-        margin-left: 100px;
+      width: 100%;
+      margin-left: 100px;
       height: 56px;
       display: flex;
       gap: 1vw;
       align-items: center;
       .inputS {
-        width: 18%;
+        width: 20%;
         height: 100%;
         display: flex;
         gap: 1vw;
@@ -96,7 +96,7 @@
             color: rgb(127,135,143);
         }
         select {
-            width: 10vw;
+            width: 12vw;
             height: 100%;
             font-size: 16px;
             border: none;
@@ -114,7 +114,7 @@
             color: rgb(127,135,143);
         }
         select {
-            width: 10vw;
+            width: 12vw;
             height: 100%;
             font-size: 16px;
             border: none;
@@ -201,48 +201,153 @@
                 }
               }
             }
-            .searchCandidate__outStandingJob--listJob {
-              width: 100%;
-              margin-top: 50px;
-              display: grid;
-              grid-template-columns: repeat(3, 1fr);
-              grid-gap: 24px;
-              .searchCandidate__outStandingJob--listJob__item {
+         
+            .mainBusiness__outStandingCandidate--listCandidate {
                 width: 100%;
-                height: 170px;
-                border: 1px solid rgba(228, 229, 232, 1);
-                border-radius: 8px;
-                padding: 20px;
-                box-shadow: 0px 2px 18px 0 rgba(24, 25, 28, 0.03);
-                .searchCandidate__outStandingJob--listJob__item--top {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                grid-gap: 24px;
+                margin-top: 50px;
+                .mainBusiness__outStandingCandidate--listCandidate__item {
                   width: 100%;
-                  height: 54px;
-                  .searchCandidate__outStandingJob--listJob__item--top__name {
+                  height: 270px;
+                  padding: 24px;
+                  box-shadow: 0 2px 7px 0 rgb(220, 217, 217);
+                  .mainBusiness__outStandingCandidate--listCandidate__item__information {
                     width: 100%;
-                    font-size: 18px;
-                    font-weight: 500;
-                    line-height: 28px;
-                    color: rgba(24, 25, 28, 1);
-                  }
-                  .searchCandidate__outStandingJob--listJob__item--top__salary {
-                    width: 100%;
+                    height: 78px;
                     display: flex;
-                    gap: 8px;
-                    .searchCandidate__outStandingJob--listJob__item--top__salary__text {
-                      width: 60px;
-                      height: 20px;
-                      background-color: rgba(231, 246, 234, 1);
-                      border-radius: 3px;
+                    justify-content: space-between;
+                    align-items: center;
+                    .mainBusiness__outStandingCandidate--listCandidate__item__information--left {
                       display: flex;
-                      justify-content: center;
-                      p {
-                        font-size: 12px;
-                        font-weight: 600;
-                        line-height: 20px;
-                        color: rgba(11, 160, 44, 1);
+                      align-items: center;
+                      gap: 12px;
+                      .mainBusiness__outStandingCandidate--listCandidate__item__information--left__avatar {
+                        width: 86px;
+                        height: 78px;
+                        border-radius: 4px;
+                        background-color: #fff;
+                        img {
+                          width: 100%;
+                          height: 100%;
+                          object-fit: contain;
+                        }
+                      }
+                      .mainBusiness__outStandingCandidate--listCandidate__item__information--left__name {
+                        .mainBusiness__outStandingCandidate--listCandidate__item__information--left__name--top {
+                          font-size: 16px;
+                          font-weight: 500;
+                          line-height: 24px;
+                          color: rgba(24, 25, 28, 1);
+                        }
+                        .mainBusiness__outStandingCandidate--listCandidate__item__information--left__name--bottom {
+                          display: flex;
+                          gap: 8px;
+                          .mainBusiness__outStandingCandidate--listCandidate__item__information--left__name--bottom__left {
+                            width: auto;
+                            height: 28px;
+                            background-color: rgba(11, 160, 44, 1);
+                            border-radius: 3px;
+                            padding: 4px 6px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            font-size: 14px;
+                            font-weight: 600;
+                            line-height: 20px;
+                            color: rgba(255, 255, 255, 1);
+                          }
+                          .mainBusiness__outStandingCandidate--listCandidate__item__information--left__name--bottom__right {
+                            width: 75px;
+                            height: 28px;
+                            border-radius: 52px;
+                            background-color: rgba(231, 240, 250, 1);
+                            padding: 4px 12px 4px 12px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            font-size: 14px;
+                            font-weight: 400;
+                            line-height: 20px;
+                            color: rgba(10, 101, 204, 1);
+                          }
+                        }
                       }
                     }
-                    .searchCandidate__outStandingJob--listJob__item--top__salary__price {
+                    .mainBusiness__outStandingCandidate--listCandidate__item__information--right {
+                      width: 18.13px;
+                      height: 14.81px;
+                      cursor: pointer;
+                    }
+                  }
+                  .mainBusiness__outStandingCandidate--listCandidate__item__technical {
+                    display: flex;
+                    margin-top: 20px;
+                    gap: 8px;
+                    .mainBusiness__outStandingCandidate--listCandidate__item__technical__title {
+                      font-size: 14px;
+                      font-weight: 400;
+                      line-height: 20px;
+                      color: rgba(118, 127, 140, 1);
+                    }
+                    .mainBusiness__outStandingCandidate--listCandidate__item__technical__list {
+                      display: flex;
+                      gap: 8px;
+                      .mainBusiness__outStandingCandidate--listCandidate__item__technical__list__item {
+                        width: 70px;
+                        height: 20px;
+                        border-radius: 3px;
+                        padding: 4px 8px 4px 8px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        background-color: rgba(231, 246, 234, 1);
+                        color: rgba(11, 160, 44, 1);
+                        font-size: 12px;
+                        font-weight: 600;
+                        line-height: 12px;
+                      }
+                    }
+                  }
+                  .mainBusiness__outStandingCandidate--listCandidate__item__language {
+                    display: flex;
+                    gap: 8px;
+                    margin-top: 20px;
+                    .mainBusiness__outStandingCandidate--listCandidate__item__language__title {
+                      font-size: 14px;
+                      font-weight: 400;
+                      line-height: 20px;
+                      color: rgba(118, 127, 140, 1);
+                    }
+                    .mainBusiness__outStandingCandidate--listCandidate__item__language__list {
+                      display: flex;
+                      gap: 8px;
+                      .mainBusiness__outStandingCandidate--listCandidate__item__language__list__item {
+                        width: auto;
+                        height: 20px;
+                        background-color: rgba(252, 225, 209, 1);
+                        border-radius: 3px;
+                        padding: 4px 8px 4px 8px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        font-size: 12px;
+                        font-weight: 600;
+                        line-height: 12px;
+                        color: rgba(241, 106, 27, 1);
+                      }
+                    }
+                  }
+                  .mainBusiness__outStandingCandidate--listCandidate__item__local {
+                    display: flex;
+                    gap: 8px;
+                    margin-top: 20px;
+                    img {
+                      width: 18px;
+                      height: 18px;
+                    }
+                    p {
                       font-size: 14px;
                       font-weight: 400;
                       line-height: 20px;
@@ -250,58 +355,8 @@
                     }
                   }
                 }
-                .searchCandidate__outStandingJob--listJob__item--bottom {
-                  width: 100%;
-                  height: 48px;
-                  display: flex;
-                  justify-content: space-between;
-                  align-items: center;
-                  margin-top: 20px;
-                  .searchCandidate__outStandingJob--listJob__item--bottom--left {
-                    display: flex;
-                    gap: 12px;
-                    .searchCandidate__outStandingJob--listJob__item--bottom__logo {
-                      width: 48px;
-                      height: 48px;
-                      background-color: rgba(237, 239, 245, 1);
-                      // padding: 12px;
-                      border-radius: 4px;
-                      overflow: hidden;
-                      margin-top: 0.3rem;
-                      img {
-                        width: 48px;
-                        height: 48px;
-                      }
-                    }
-                    .searchCandidate__outStandingJob--listJob__item--bottom__nameLogo {
-                      .searchCandidate__outStandingJob--listJob__item--bottom__nameLogo__text {
-                        font-size: 16px;
-                        font-weight: 500;
-                        line-height: 24px;
-                        color: rgba(24, 25, 28, 1);
-                      }
-                      .searchCandidate__outStandingJob--listJob__item--bottom__nameLogo__location {
-                        display: flex;
-                        gap: 5px;
-                        img {
-                          width: 18px;
-                          height: 18px;
-                        }
-                        p {
-                          font-size: 14px;
-                          font-weight: 400;
-                          line-height: 24px;
-                        }
-                      }
-                    }
-                  }
-                  .searchCandidate__outStandingJob--listJob__item--bottom__bookmark {
-                    width: 24px;
-                    height: 24px;
-                  }
-                }
-              }
             }
+            
           }
     }
   }
