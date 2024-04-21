@@ -49,6 +49,8 @@ export default function InformationUserB() {
   const [checkCerti, setCheckCerti] = useState(false);
   const [checkSkill, setCheckSkill] = useState(false);
 
+  
+
   // bien hung update sang modal
   const [itemEduUpdate, setItemEduUpdate] = useState({});
   const [itemDelete, setItemDelete] = useState({});
@@ -212,6 +214,7 @@ export default function InformationUserB() {
   };
 
   /* het kinh nghiem */
+
   /* project */
   const checkProjectF = () => {
     if (project.length > 0) {

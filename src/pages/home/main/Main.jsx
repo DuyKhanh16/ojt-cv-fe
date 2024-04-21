@@ -31,7 +31,7 @@ export default function Main() {
   const [allCandidate, setAllCandidate] = useState([]);
   const navigate = useNavigate();
   // check token
-  
+
   const token = localStorage.getItem("token") || null;
   const [isOpen, setIsOpen] = useState(false);
   const open = () => {
@@ -94,9 +94,9 @@ export default function Main() {
                 Tìm kiếm công việc phù hợp với năng lực của bạn cùng chúng tôi
               </h1>
               <p className="main--searchJob--left__text--up">
-                Aliquam vitae turpis in diam convallis finibus in at risus.
-                Nullam <br />
-                in scelerisque leo, eget sollicitudin velit bestibulum.
+                Khám phá danh sách top 30 IT hàng đầu Việt Nam.
+                <br />
+                Hàng ngàn công việc đang chờ bạn ứng tuyển.
               </p>
               <div className="main--searchJob--left__formSearch">
                 <div className="main--searchJob--left__formSearch__input">
@@ -109,7 +109,7 @@ export default function Main() {
                       className="main--searchJob--left__formSearch__input--left__text"
                       name=""
                       id=""
-                      placeholder='Ứng viên, công ty, việc làm...'
+                      placeholder="Ứng viên, công ty, việc làm..."
                     />
                   </div>
                   <div className="main--searchJob--left__formSearch__input--line"></div>
@@ -126,12 +126,15 @@ export default function Main() {
                     />
                   </div>
                 </div>
-                <div className="main--searchJob--left__formSearch__button" onClick={()=>navigate("/search-all")}>
-                  Tìm kiếm 
+                <div
+                  className="main--searchJob--left__formSearch__button"
+                  onClick={() => navigate("/search-all")}
+                >
+                  Tìm kiếm
                 </div>
               </div>
               <p className="main--searchJob--left__text--down">
-                Suggestion: Designer, Programing, Digital Marketing, Animation.
+                Từ khóa: thực tập FE, thực tập BE, thực tập UI/UX...
               </p>
             </div>
             <div className="main--searchJob--right">
@@ -148,7 +151,7 @@ export default function Main() {
                   <strong>{allLiveJob.length}</strong>
                 </p>
                 <p className="main--showInformation__liveJob--text__name">
-                  Live Jobs
+                  Công việc đang tuyển
                 </p>
               </div>
             </div>
@@ -161,7 +164,7 @@ export default function Main() {
                   <strong>{allCompany.length}</strong>
                 </p>
                 <p className="main--showInformation__companies--text__name">
-                  Companies
+                  Công ty
                 </p>
               </div>
             </div>
@@ -174,7 +177,7 @@ export default function Main() {
                   <strong>{allCandidate.length}</strong>
                 </p>
                 <p className="main--showInformation__candicates--text__name">
-                  Candicates
+                  Ứng viên
                 </p>
               </div>
             </div>
@@ -187,7 +190,7 @@ export default function Main() {
                   <strong>{allNewJob.length}</strong>
                 </p>
                 <p className="main--showInformation__newJobs--text__name">
-                  New Jobs
+                  Công việc đã đăng
                 </p>
               </div>
             </div>
@@ -207,90 +210,93 @@ export default function Main() {
             </div>
           </div>
           <div className="main__outStandingJob--listJob">
-            {token?
-            (
+            {token ? (
               <>
-              {allLiveJob?.map((item) => (
-             <div className="main__outStandingJob--listJob__item" key={item.id} onClick={()=> navigate(`/candidate/jobdetail/${item.id}`)}>
-             <div className="main__outStandingJob--listJob__item--top">
-               <span className="main__outStandingJob--listJob__item--top__name">
-                 {item.title}
-               </span>
-               <div className="main__outStandingJob--listJob__item--top__salary">
-                 <div className="main__outStandingJob--listJob__item--top__salary__text">
-                   <p>{item?.types_jobs[0].typejob.name}</p>
-                 </div>
-                 <span className="main__outStandingJob--listJob__item--top__salary__price">
-                   {item.salary}
-                 </span>
-               </div>
-             </div>
-             <div className="main__outStandingJob--listJob__item--bottom">
-               <div className="main__outStandingJob--listJob__item--bottom--left">
-                 <div className="main__outStandingJob--listJob__item--bottom__logo">
-                   <img src={item?.company.logo} alt="" />
-                 </div>
-                 <div className="main__outStandingJob--listJob__item--bottom__nameLogo">
-                   <p className="main__outStandingJob--listJob__item--bottom__nameLogo__text">
-                     {item?.company.name}
-                   </p>
-                   <div className="main__outStandingJob--listJob__item--bottom__nameLogo__location">
-                     <img src={MapPin} alt="" />
-                     <p>{item?.address_company.address}</p>
-                   </div>
-                 </div>
-               </div>
-               <div className="main__outStandingJob--listJob__item--bottom__bookmark">
-                 <img src={BookmarkSimple} alt="" />
-               </div>
-             </div>
-           </div>
-              
-            ))}</>
-            )
-            :
-            (
+                {allLiveJob?.map((item) => (
+                  <div
+                    className="main__outStandingJob--listJob__item"
+                    key={item.id}
+                    onClick={() => navigate(`/candidate/jobdetail/${item.id}`)}
+                  >
+                    <div className="main__outStandingJob--listJob__item--top">
+                      <span className="main__outStandingJob--listJob__item--top__name">
+                        {item.title}
+                      </span>
+                      <div className="main__outStandingJob--listJob__item--top__salary">
+                        <div className="main__outStandingJob--listJob__item--top__salary__text">
+                          <p>{item?.types_jobs[0].typejob.name}</p>
+                        </div>
+                        <span className="main__outStandingJob--listJob__item--top__salary__price">
+                          {item.salary}
+                        </span>
+                      </div>
+                    </div>
+                    <div className="main__outStandingJob--listJob__item--bottom">
+                      <div className="main__outStandingJob--listJob__item--bottom--left">
+                        <div className="main__outStandingJob--listJob__item--bottom__logo">
+                          <img src={item?.company.logo} alt="" />
+                        </div>
+                        <div className="main__outStandingJob--listJob__item--bottom__nameLogo">
+                          <p className="main__outStandingJob--listJob__item--bottom__nameLogo__text">
+                            {item?.company.name}
+                          </p>
+                          <div className="main__outStandingJob--listJob__item--bottom__nameLogo__location">
+                            <img src={MapPin} alt="" />
+                            <p>{item?.address_company.address}</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="main__outStandingJob--listJob__item--bottom__bookmark">
+                        <img src={BookmarkSimple} alt="" />
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </>
+            ) : (
               <>
-              {allLiveJob?.map((item) => (
-             <div className="main__outStandingJob--listJob__item" key={item.id}  onClick={() => open()}>
-             <div className="main__outStandingJob--listJob__item--top">
-               <span className="main__outStandingJob--listJob__item--top__name">
-                 {item.title}
-               </span>
-               <div className="main__outStandingJob--listJob__item--top__salary">
-                 <div className="main__outStandingJob--listJob__item--top__salary__text">
-                   <p>{item?.types_jobs[0].typejob.name}</p>
-                 </div>
-                 <span className="main__outStandingJob--listJob__item--top__salary__price">
-                   {item.salary}
-                 </span>
-               </div>
-             </div>
-             <div className="main__outStandingJob--listJob__item--bottom">
-               <div className="main__outStandingJob--listJob__item--bottom--left">
-                 <div className="main__outStandingJob--listJob__item--bottom__logo">
-                   <img src={item?.company.logo} alt="" />
-                 </div>
-                 <div className="main__outStandingJob--listJob__item--bottom__nameLogo">
-                   <p className="main__outStandingJob--listJob__item--bottom__nameLogo__text">
-                     {item?.company.name}
-                   </p>
-                   <div className="main__outStandingJob--listJob__item--bottom__nameLogo__location">
-                     <img src={MapPin} alt="" />
-                     <p>{item?.address_company.address}</p>
-                   </div>
-                 </div>
-               </div>
-               <div className="main__outStandingJob--listJob__item--bottom__bookmark">
-                 <img src={BookmarkSimple} alt="" />
-               </div>
-             </div>
-           </div>
-              
-            ))}</>
-            )
-          }
-            
+                {allLiveJob?.map((item) => (
+                  <div
+                    className="main__outStandingJob--listJob__item"
+                    key={item.id}
+                    onClick={() => open()}
+                  >
+                    <div className="main__outStandingJob--listJob__item--top">
+                      <span className="main__outStandingJob--listJob__item--top__name">
+                        {item.title}
+                      </span>
+                      <div className="main__outStandingJob--listJob__item--top__salary">
+                        <div className="main__outStandingJob--listJob__item--top__salary__text">
+                          <p>{item?.types_jobs[0].typejob.name}</p>
+                        </div>
+                        <span className="main__outStandingJob--listJob__item--top__salary__price">
+                          {item.salary}
+                        </span>
+                      </div>
+                    </div>
+                    <div className="main__outStandingJob--listJob__item--bottom">
+                      <div className="main__outStandingJob--listJob__item--bottom--left">
+                        <div className="main__outStandingJob--listJob__item--bottom__logo">
+                          <img src={item?.company.logo} alt="" />
+                        </div>
+                        <div className="main__outStandingJob--listJob__item--bottom__nameLogo">
+                          <p className="main__outStandingJob--listJob__item--bottom__nameLogo__text">
+                            {item?.company.name}
+                          </p>
+                          <div className="main__outStandingJob--listJob__item--bottom__nameLogo__location">
+                            <img src={MapPin} alt="" />
+                            <p>{item?.address_company.address}</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="main__outStandingJob--listJob__item--bottom__bookmark">
+                        <img src={BookmarkSimple} alt="" />
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </>
+            )}
           </div>
         </div>
         <div className="main__outStandingCandidate">
@@ -304,136 +310,133 @@ export default function Main() {
             </div>
           </div>
           <div className="main__outStandingCandidate--listCandidate">
-            {token?
-            (
+            {token ? (
               <>
-              {allCandidate.map((item) => (
-              <div
-                className="main__outStandingCandidate--listCandidate__item"
-                onClick={()=> navigate(`/candidate/candidate-outstanding/${item.id}`)}
-                key={item.id}
-              >
-                <div className="main__outStandingCandidate--listCandidate__item__information">
-                  <div className="main__outStandingCandidate--listCandidate__item__information--left">
-                    <div className="main__outStandingCandidate--listCandidate__item__information--left__avatar">
-                      <img src={item?.avatar} alt="" />
-                    </div>
-                    <div className="main__outStandingCandidate--listCandidate__item__information--left__name">
-                      <div className="main__outStandingCandidate--listCandidate__item__information--left__name--top">
-                        {item.name}
-                      </div>
-                      <div className="main__outStandingCandidate--listCandidate__item__information--left__name--bottom">
-                        <div className="main__outStandingCandidate--listCandidate__item__information--left__name--bottom__left">
-                          {item?.position}
+                {allCandidate.map((item) => (
+                  <div
+                    className="main__outStandingCandidate--listCandidate__item"
+                    onClick={() =>
+                      navigate(`/candidate/candidate-outstanding/${item.id}`)
+                    }
+                    key={item.id}
+                  >
+                    <div className="main__outStandingCandidate--listCandidate__item__information">
+                      <div className="main__outStandingCandidate--listCandidate__item__information--left">
+                        <div className="main__outStandingCandidate--listCandidate__item__information--left__avatar">
+                          <img src={item?.avatar} alt="" />
                         </div>
-                        <div className="main__outStandingCandidate--listCandidate__item__information--left__name--bottom__right">
-                          Fresher
+                        <div className="main__outStandingCandidate--listCandidate__item__information--left__name">
+                          <div className="main__outStandingCandidate--listCandidate__item__information--left__name--top">
+                            {item.name}
+                          </div>
+                          <div className="main__outStandingCandidate--listCandidate__item__information--left__name--bottom">
+                            <div className="main__outStandingCandidate--listCandidate__item__information--left__name--bottom__left">
+                              {item?.position}
+                            </div>
+                            <div className="main__outStandingCandidate--listCandidate__item__information--left__name--bottom__right">
+                              Fresher
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="main__outStandingCandidate--listCandidate__item__information--right">
+                        <img src={arrow} alt="" />
+                      </div>
+                    </div>
+                    <div className="main__outStandingCandidate--listCandidate__item__technical">
+                      <div className="main__outStandingCandidate--listCandidate__item__technical__title">
+                        Technical in use:
+                      </div>
+                      <div className="main__outStandingCandidate--listCandidate__item__technical__list">
+                        <div className="main__outStandingCandidate--listCandidate__item__technical__list__item">
+                          ReactJS
+                        </div>
+                        <div className="main__outStandingCandidate--listCandidate__item__technical__list__item">
+                          NodeJS
                         </div>
                       </div>
                     </div>
-                  </div>
-                  <div className="main__outStandingCandidate--listCandidate__item__information--right">
-                    <img src={arrow} alt="" />
-                  </div>
-                </div>
-                <div className="main__outStandingCandidate--listCandidate__item__technical">
-                  <div className="main__outStandingCandidate--listCandidate__item__technical__title">
-                    Technical in use:
-                  </div>
-                  <div className="main__outStandingCandidate--listCandidate__item__technical__list">
-                    <div className="main__outStandingCandidate--listCandidate__item__technical__list__item">
-                      ReactJS
+                    <div className="main__outStandingCandidate--listCandidate__item__language">
+                      <div className="main__outStandingCandidate--listCandidate__item__language__title">
+                        Foreign Language:
+                      </div>
+                      <div className="main__outStandingCandidate--listCandidate__item__language__list">
+                        <div className="main__outStandingCandidate--listCandidate__item__language__list__item">
+                          {item?.certificate_candidate[0].name}
+                          {item?.certificate_candidate[0].info}
+                        </div>
+                      </div>
                     </div>
-                    <div className="main__outStandingCandidate--listCandidate__item__technical__list__item">
-                      NodeJS
-                    </div>
-                  </div>
-                </div>
-                <div className="main__outStandingCandidate--listCandidate__item__language">
-                  <div className="main__outStandingCandidate--listCandidate__item__language__title">
-                    Foreign Language:
-                  </div>
-                  <div className="main__outStandingCandidate--listCandidate__item__language__list">
-                    <div className="main__outStandingCandidate--listCandidate__item__language__list__item">
-                      {item?.certificate_candidate[0].name}
-                      {item?.certificate_candidate[0].info}
+                    <div className="main__outStandingCandidate--listCandidate__item__local">
+                      <img src={MapPin} alt="" />
+                      <p>{item?.address}</p>
                     </div>
                   </div>
-                </div>
-                <div className="main__outStandingCandidate--listCandidate__item__local">
-                  <img src={MapPin} alt="" />
-                  <p>{item?.address}</p>
-                </div>
-              </div>
-            ))}
+                ))}
               </>
-            )
-            :
-            (
+            ) : (
               <>
-              {allCandidate.map((item) => (
-              <div
-                className="main__outStandingCandidate--listCandidate__item"
-               onClick={()=>open()}
-                key={item.id}
-              >
-                <div className="main__outStandingCandidate--listCandidate__item__information">
-                  <div className="main__outStandingCandidate--listCandidate__item__information--left">
-                    <div className="main__outStandingCandidate--listCandidate__item__information--left__avatar">
-                      <img src={item?.avatar} alt="" />
-                    </div>
-                    <div className="main__outStandingCandidate--listCandidate__item__information--left__name">
-                      <div className="main__outStandingCandidate--listCandidate__item__information--left__name--top">
-                        {item.name}
-                      </div>
-                      <div className="main__outStandingCandidate--listCandidate__item__information--left__name--bottom">
-                        <div className="main__outStandingCandidate--listCandidate__item__information--left__name--bottom__left">
-                          {item?.position}
+                {allCandidate.map((item) => (
+                  <div
+                    className="main__outStandingCandidate--listCandidate__item"
+                    onClick={() => open()}
+                    key={item.id}
+                  >
+                    <div className="main__outStandingCandidate--listCandidate__item__information">
+                      <div className="main__outStandingCandidate--listCandidate__item__information--left">
+                        <div className="main__outStandingCandidate--listCandidate__item__information--left__avatar">
+                          <img src={item?.avatar} alt="" />
                         </div>
-                        <div className="main__outStandingCandidate--listCandidate__item__information--left__name--bottom__right">
-                          Fresher
+                        <div className="main__outStandingCandidate--listCandidate__item__information--left__name">
+                          <div className="main__outStandingCandidate--listCandidate__item__information--left__name--top">
+                            {item.name}
+                          </div>
+                          <div className="main__outStandingCandidate--listCandidate__item__information--left__name--bottom">
+                            <div className="main__outStandingCandidate--listCandidate__item__information--left__name--bottom__left">
+                              {item?.position}
+                            </div>
+                            <div className="main__outStandingCandidate--listCandidate__item__information--left__name--bottom__right">
+                              Fresher
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="main__outStandingCandidate--listCandidate__item__information--right">
+                        <img src={arrow} alt="" />
+                      </div>
+                    </div>
+                    <div className="main__outStandingCandidate--listCandidate__item__technical">
+                      <div className="main__outStandingCandidate--listCandidate__item__technical__title">
+                        Technical in use:
+                      </div>
+                      <div className="main__outStandingCandidate--listCandidate__item__technical__list">
+                        <div className="main__outStandingCandidate--listCandidate__item__technical__list__item">
+                          ReactJS
+                        </div>
+                        <div className="main__outStandingCandidate--listCandidate__item__technical__list__item">
+                          NodeJS
                         </div>
                       </div>
                     </div>
-                  </div>
-                  <div className="main__outStandingCandidate--listCandidate__item__information--right">
-                    <img src={arrow} alt="" />
-                  </div>
-                </div>
-                <div className="main__outStandingCandidate--listCandidate__item__technical">
-                  <div className="main__outStandingCandidate--listCandidate__item__technical__title">
-                    Technical in use:
-                  </div>
-                  <div className="main__outStandingCandidate--listCandidate__item__technical__list">
-                    <div className="main__outStandingCandidate--listCandidate__item__technical__list__item">
-                      ReactJS
+                    <div className="main__outStandingCandidate--listCandidate__item__language">
+                      <div className="main__outStandingCandidate--listCandidate__item__language__title">
+                        Foreign Language:
+                      </div>
+                      <div className="main__outStandingCandidate--listCandidate__item__language__list">
+                        <div className="main__outStandingCandidate--listCandidate__item__language__list__item">
+                          {item?.certificate_candidate[0].name}
+                          {item?.certificate_candidate[0].info}
+                        </div>
+                      </div>
                     </div>
-                    <div className="main__outStandingCandidate--listCandidate__item__technical__list__item">
-                      NodeJS
-                    </div>
-                  </div>
-                </div>
-                <div className="main__outStandingCandidate--listCandidate__item__language">
-                  <div className="main__outStandingCandidate--listCandidate__item__language__title">
-                    Foreign Language:
-                  </div>
-                  <div className="main__outStandingCandidate--listCandidate__item__language__list">
-                    <div className="main__outStandingCandidate--listCandidate__item__language__list__item">
-                      {item?.certificate_candidate[0].name}
-                      {item?.certificate_candidate[0].info}
+                    <div className="main__outStandingCandidate--listCandidate__item__local">
+                      <img src={MapPin} alt="" />
+                      <p>{item?.address}</p>
                     </div>
                   </div>
-                </div>
-                <div className="main__outStandingCandidate--listCandidate__item__local">
-                  <img src={MapPin} alt="" />
-                  <p>{item?.address}</p>
-                </div>
-              </div>
-            ))}
+                ))}
               </>
-            )
-            }
-            
+            )}
           </div>
         </div>
         <div className="main__outStandingCompany">
@@ -447,74 +450,75 @@ export default function Main() {
             </div>
           </div>
           <div className="main__outStandingCompany--listCompany">
-            {token?
-            <>
-            {allCompany.map((item) => (
-              <div
-                className="main__outStandingCompany--listCompany__item"
-                key={item.id}
-                onClick={()=> navigate(`/candidate/infor-companybycandidate/${item.id}`)}
-              >
-                <div className="main__outStandingCompany--listCompany__item__top">
-                  <div className="main__outStandingCompany--listCompany__item__top--logo">
-                    <img src={global} alt="" />
-                  </div>
-                  <div className="main__outStandingCompany--listCompany__item__top--name">
-                    <div className="main__outStandingCompany--listCompany__item__top--name--top">
-                      <span>{item.name}</span>
-                      <div className="main__outStandingCompany--listCompany__item__top--name--top__featured">
-                        {item?.typeCompany_id.name}
+            {token ? (
+              <>
+                {allCompany.map((item) => (
+                  <div
+                    className="main__outStandingCompany--listCompany__item"
+                    key={item.id}
+                    onClick={() =>
+                      navigate(`/candidate/infor-companybycandidate/${item.id}`)
+                    }
+                  >
+                    <div className="main__outStandingCompany--listCompany__item__top">
+                      <div className="main__outStandingCompany--listCompany__item__top--logo">
+                        <img src={item?.logo} alt="" />
+                      </div>
+                      <div className="main__outStandingCompany--listCompany__item__top--name">
+                        <div className="main__outStandingCompany--listCompany__item__top--name--top">
+                          <span>{item.name}</span>
+                          <div className="main__outStandingCompany--listCompany__item__top--name--top__featured">
+                            {item?.typeCompany_id.name}
+                          </div>
+                        </div>
+                        <div className="main__outStandingCompany--listCompany__item__top--name--bottom">
+                          <img src={MapPin} alt="" />
+                          <p className="main__outStandingCompany--listCompany__item__top--name--bottom__location">
+                            {item?.address_company[0].address}
+                          </p>
+                        </div>
                       </div>
                     </div>
-                    <div className="main__outStandingCompany--listCompany__item__top--name--bottom">
-                      <img src={MapPin} alt="" />
-                      <p className="main__outStandingCompany--listCompany__item__top--name--bottom__location">
-                        {item?.address_company[0].address}
-                      </p>
+                    <div className="main__outStandingCompany--listCompany__item__bottom">
+                      Open Position (3)
                     </div>
                   </div>
-                </div>
-                <div className="main__outStandingCompany--listCompany__item__bottom">
-                  Open Position (3)
-                </div>
-              </div>
-            ))}
-            </>
-            :
-            <>
-            {allCompany.map((item) => (
-              <div
-                className="main__outStandingCompany--listCompany__item"
-                key={item.id}
-                onClick={()=> open()}
-              >
-                <div className="main__outStandingCompany--listCompany__item__top">
-                  <div className="main__outStandingCompany--listCompany__item__top--logo">
-                    <img src={global} alt="" />
-                  </div>
-                  <div className="main__outStandingCompany--listCompany__item__top--name">
-                    <div className="main__outStandingCompany--listCompany__item__top--name--top">
-                      <span>{item.name}</span>
-                      <div className="main__outStandingCompany--listCompany__item__top--name--top__featured">
-                        {item?.typeCompany_id.name}
+                ))}
+              </>
+            ) : (
+              <>
+                {allCompany.map((item) => (
+                  <div
+                    className="main__outStandingCompany--listCompany__item"
+                    key={item.id}
+                    onClick={() => open()}
+                  >
+                    <div className="main__outStandingCompany--listCompany__item__top">
+                      <div className="main__outStandingCompany--listCompany__item__top--logo">
+                        <img src={item?.logo} alt="" />
+                      </div>
+                      <div className="main__outStandingCompany--listCompany__item__top--name">
+                        <div className="main__outStandingCompany--listCompany__item__top--name--top">
+                          <span>{item.name}</span>
+                          <div className="main__outStandingCompany--listCompany__item__top--name--top__featured">
+                            {item?.typeCompany_id.name}
+                          </div>
+                        </div>
+                        <div className="main__outStandingCompany--listCompany__item__top--name--bottom">
+                          <img src={MapPin} alt="" />
+                          <p className="main__outStandingCompany--listCompany__item__top--name--bottom__location">
+                            {item?.address_company[0].address}
+                          </p>
+                        </div>
                       </div>
                     </div>
-                    <div className="main__outStandingCompany--listCompany__item__top--name--bottom">
-                      <img src={MapPin} alt="" />
-                      <p className="main__outStandingCompany--listCompany__item__top--name--bottom__location">
-                        {item?.address_company[0].address}
-                      </p>
+                    <div className="main__outStandingCompany--listCompany__item__bottom">
+                      Xem thông tin công ty
                     </div>
                   </div>
-                </div>
-                <div className="main__outStandingCompany--listCompany__item__bottom">
-                  Open Position (3)
-                </div>
-              </div>
-            ))}
-            </>
-          }
-            
+                ))}
+              </>
+            )}
           </div>
         </div>
         <div className="main__comment">

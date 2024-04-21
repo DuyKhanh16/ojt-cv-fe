@@ -186,7 +186,7 @@ body {
           flex-direction: column;
           gap: 1vw;
           .CV2__content--left__skill__item__level {
-            font-size: 1vw;
+            font-size: 1.3vw;
             font-weight: 700;
             color: #fff;
           }
@@ -283,11 +283,12 @@ body {
             .CV2__content--right__experience--item__role__time {
               font-size: 0.7vw;
               font-weight: 400;
+              // width: auto;
               color: #fff;
             }
           }
           .CV2__content--right__experience--item__company {
-            font-size: 1.1vw;
+            font-size: 1vw;
             font-weight: 600;
             text-transform: uppercase;
             color: #fff;
@@ -313,7 +314,7 @@ body {
             justify-content: space-between;
             align-items: center;
             .CV2__content--right__project--item__nameProject__title {
-              font-size: 1.3vw;
+              font-size: 1.2vw;
               font-weight: 700;
               text-transform: uppercase;
               color: #fff;
