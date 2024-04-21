@@ -17,6 +17,7 @@ export default function AllUserApply() {
   const [idApply, setIdApply] = useState("");
   const [flag, setFlag] = useState(true)
   const [interviewDay,setInterviewDay] = useState("")
+  const [idcheck,setIdCheck] = useState("")
   useEffect(() => {
     const getAllJob = privateAxios.get("api/v2/jobs/getJobsForCompany")
     getAllJob.then((res) => {
@@ -30,7 +31,7 @@ export default function AllUserApply() {
   },[flag])
   const findCandidate = async(id)=>{
     console.log(id)
-
+    setIdCheck(id)
     const res = await privateAxios.get(`api/v2/jobs/getCandidatesbyIdJob/${id}`)
     console.log(res);
     setAllUserApply(res.data.data)
@@ -67,9 +68,11 @@ export default function AllUserApply() {
      const res = await privateAxios.post(`api/v2/jobs/cancelCandidate/${idApply}`)
      setIsModalOpen(false);
       notification.success({
-        message:res.data.message
+        message:"Gửi mail từ chối thành công"
       })
-    window.location.reload()
+      const res1 = await privateAxios.get(`api/v2/jobs/getCandidatesbyIdJob/${idcheck}`)
+      console.log(res);
+      setAllUserApply(res1.data.data)
     } catch (error) {
       console.log(error);
     }
@@ -86,8 +89,11 @@ export default function AllUserApply() {
       setIsModalOpen2(false);
       setIsModalOpen(false);
       notification.success({
-        message:res.data.message
+        message:"Đặt lịch phỏng vấn cho ứng tuyển thành công"
       })
+      const res1 = await privateAxios.get(`api/v2/jobs/getCandidatesbyIdJob/${idcheck}`)
+      console.log(res);
+      setAllUserApply(res1.data.data)
       setFlag(!flag)
     } catch (error) {
       console.log(error);
