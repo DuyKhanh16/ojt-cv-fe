@@ -32,7 +32,7 @@
   }
   .allJobAdmin__container {
     width: 100%;
-    height: 100vh;
+    height: auto;
     .allJobAdmin__header {
       width: 100%;
       height: 68px;
@@ -71,6 +71,7 @@
       }
       .allJobAdmin__content__bodyTable {
         width: 100%;
+        height: auto;
       display: flex;
       flex-direction: column;
       align-items: center;

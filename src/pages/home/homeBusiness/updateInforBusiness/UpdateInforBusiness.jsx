@@ -391,7 +391,7 @@ export default function UpdateInforBusiness() {
         </div>
         <div
           className="user-companyView"
-          style={{ marginBottom: "24px", width: "100vw", padding: "0 7vw" }}
+          style={{ marginBottom: "24px", width: "100vw", padding: "2vw 7vw" }}
         >
           <div className="user-companyView-info">
             <div className="user-companyView-info-company">
@@ -452,7 +452,7 @@ export default function UpdateInforBusiness() {
                 </div>
               </div>
             </div>
-            <div className="user-companyView-info-feature">
+            <div className="user-companyView-info-feature" style={{width:"36%"}}>
               <button onClick={showModal}>Chỉnh sửa</button>
             </div>
           </div>
