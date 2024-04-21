@@ -13,7 +13,12 @@ export default function SearchJob() {
     // api thành phố
   const [salary, setSalary] = useState([]);
   const [leveljob, setLeveljob] = useState([]);
-  const [jobSearch, setJobSearch] = useState({});
+  const [jobSearch, setJobSearch] = useState({
+    name: "",
+    location: "",
+    leveljob: "",
+    salary: "",
+  });
   const handleGetDataCity = async () => {
     let data = await axios.get(`https://vapi.vnappmob.com/api/province/`);
     setDataCity(data.data.results);
@@ -43,7 +48,13 @@ export default function SearchJob() {
   };
   const search = async () => {
     console.log(jobSearch)
-    try {
+    if(jobSearch.name === "" && jobSearch.location === "" && jobSearch.leveljob === "" && jobSearch.salary === ""){
+      notification.warning({ message: "Please enter some data to search!" });
+      const res = await publicAxios.get("/api/v2/jobs/getLiveJobs");
+      // console.log(res.data.data);
+      setLiveJob(res.data.data);
+    }else{
+      try {
       const result = await publicAxios.get(
         `/api/v2/jobs/searchJob?name=${jobSearch.name}&location=${jobSearch.location}&leveljob=${jobSearch.leveljob}&salary=${jobSearch.salary}`,
       )
@@ -51,6 +62,8 @@ export default function SearchJob() {
     } catch (error) {
       notification.error({ message: error.response.data.message });
     }
+    }
+    
   }
 
   // console.log(allLiveJob)
