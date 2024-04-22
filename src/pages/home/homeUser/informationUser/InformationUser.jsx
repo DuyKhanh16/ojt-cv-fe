@@ -127,11 +127,11 @@ export default function InformationUserB() {
     });
   }
 
-  const updateSkill = () => {
+  const updateSkill = (item) => {
     setOpenSkill(true);
     setItemSkillUpdate({
       status: "update",
-      item: user,
+      item: item,
     });
   }
   const creatAboutMe = () => {

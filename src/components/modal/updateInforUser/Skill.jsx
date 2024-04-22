@@ -6,16 +6,19 @@ import { useSelector } from 'react-redux';
 import publicAxios from '../../../config/pulic.axios';
 import { notification } from 'antd';
 export default function Skill({isOpen,close,skill}) {
+  console.log(skill);
   const usera = useSelector((state) => state.candidate.data);
   const [allLevel, setAllLevel] = useState([]);
   const [user, setUser] = useState({
+    name:"",
+    leveljob_id:"",
   });
   useEffect(() => {
     const level = publicAxios.get(`api/v2/leveljob/getall`).then((res) => {
         console.log(res.data);
       setAllLevel(res.data);
     });
-    setUser({ ...user,candidate_id:usera.id});
+    setUser({ ...user,name:skill?.item?.name,leveljob_id:skill?.item?.leveljob_id.name,candidate_id:usera.id});
   },[usera])
   console.log(usera);
   const changeValue = (e) => {
@@ -28,6 +31,17 @@ export default function Skill({isOpen,close,skill}) {
  const addSkill = async () => {
      if (skill.status == "update") {
             console.log(user);
+            try {
+              const res = await publicAxios.patch(`api/v2/candidate/updateSkill/${skill?.item.id}`,user);
+              notification.success({
+                  message: res.data.message,
+              })
+          } catch (error) {
+              notification.error({
+                  message: error.response.data.message,
+              })
+          }
+          closeModal();
      }else{
         try {
             const res = await publicAxios.post(`api/v2/candidate/createSkill`,user);
@@ -54,12 +68,13 @@ export default function Skill({isOpen,close,skill}) {
         <div className="updateInforUser__table__skill__contain">
             <div className='skillSame'>
                 <label htmlFor="">Kĩ năng</label>
-                <input type="text" name="name" placeholder='Mời nhập kĩ năng của bạn ...' onChange={changeValue}/>
+                <input type="text" name="name" placeholder='Mời nhập kĩ năng của bạn ...' onChange={changeValue} value={
+                  user.name?user.name:skill?.item?.name}/>
             </div>
             <div className='skillSame'>
                 <label htmlFor="">Mức độ</label>
                 <select name="leveljob_id" id="" onChange={changeValue}>
-                    <option value="">level</option>
+                    <option value="">{user?.leveljob_id?user?.leveljob_id:skill?.item?.leveljob_id.name}</option>
                     {
                         allLevel.map((item,index) => {
                             return <option value={item.id}>{item.name}</option>
