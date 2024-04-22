@@ -69,7 +69,7 @@ export default function Skill({isOpen,close,skill}) {
             <div className='skillSame'>
                 <label htmlFor="">Kĩ năng</label>
                 <input type="text" name="name" placeholder='Mời nhập kĩ năng của bạn ...' onChange={changeValue} value={
-                  user.name?user.name:skill?.item?.name}/>
+                  user?.name?user.name:skill?.item?.name}/>
             </div>
             <div className='skillSame'>
                 <label htmlFor="">Mức độ</label>

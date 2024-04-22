@@ -7,6 +7,7 @@ import eye from "../../assets/images/userLogin/eye (1) 1.png";
 import { Await, Link, useNavigate } from "react-router-dom";
 import publicAxios from "../../config/pulic.axios";
 import { notification } from "antd";
+import ForgetPassword from "../../components/modal/forgetPassword/ForgetPassword";
 export default function UserLogin() {
   const [user, setUser] = useState({
     email: "",
@@ -14,6 +15,7 @@ export default function UserLogin() {
   });
   const [errors, setErrors] = useState({});
   const [passwordShown, setPasswordShown] = useState(false);
+  const [open, setOpen] = useState(false);
   const navigate = useNavigate();
 
   // Hàm kiểm tra email hợp lệ
@@ -93,8 +95,12 @@ export default function UserLogin() {
       }
     }
   };
+  const close = () => {
+    setOpen(false);
+  }
   return (
     <>
+      <ForgetPassword isOpen={open} close={close} />
       <div className="user__login__container">
         {/* logo */}
         <div className="logo" onClick={() => navigate("/")}>
@@ -153,7 +159,7 @@ export default function UserLogin() {
                 Đăng nhập
               </div>
               <div className="user__login-input__footer">
-                <span className="user__login-input__footer--forgot">
+                <span className="user__login-input__footer--forgot" onClick={() => setOpen(true)}>
                   Quên mật khẩu
                 </span>
                 <div className="user__login-input__footer--context">
