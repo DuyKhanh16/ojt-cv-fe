@@ -16,7 +16,7 @@ import logo from "../../../../assets/images/main/Software code testing-pana 1.pn
 import { useNavigate } from "react-router";
 
 export default function UpdateInforBusiness() {
-  window.scrollTo(0, 0);
+  // window.scrollTo(0, 0);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isModalOpen2, setIsModalOpen2] = useState(false);
@@ -37,6 +37,8 @@ export default function UpdateInforBusiness() {
   const [district, setDistrict] = useState("");
   const [ward, setWard] = useState("");
   const [address, setAddress] = useState("");
+  const [edit,setEdit]=useState(false)
+  const [idaddress,setidaddress]=useState()
   // console.log(address)
 
   const [infoCompany, setInfoCompany] = useState({});
@@ -258,38 +260,73 @@ export default function UpdateInforBusiness() {
 
   // modal 2
   const showModal2 = (item) => {
+    // console.log(item);
+    if(item.address === undefined){
+      setEdit(false)
+      
+    }
+    if(item.address){
+   setEdit(true)
+   setidaddress(item.id)
+    }
+
     setIsModalOpen2(true);
   };
-
+console.log(address,ward,district,city)
   const handleOk2 = async () => {
+    console.log(edit)
     // console.log(address);
-    if (address === "") {
-      notification.error({
-        message: "Hãy điền đủ thông tin",
-        duration: 2,
-      });
-      return;
+    if(!edit){
+      if (address === "") {
+        notification.error({
+          message: "Hãy điền đủ thông tin",
+          duration: 2,
+        });
+        return;
+      }
+      try {
+        const newAdress = {
+          address: `${address} - ${ward} - ${district} - ${city}`,
+        };
+        const res = await axios.post(
+          `http://localhost:3000/api/v2/companies/create-address/${infoCompany.id}`,
+          newAdress
+        );
+        notification.success({
+          message: "Thêm Địa chỉ thành công",
+          duration: 2,
+        });
+        setCity("");
+        setDistrict("");
+        setWard("");
+        setAddress("");
+        SetFlag(!flag);
+        setIsModalOpen2(false);
+      } catch (error) {
+        console.log(error);
+      }
     }
-    try {
+    if(edit){
+// console.log(idaddress,"ăn vào đây")
       const newAdress = {
         address: `${address} - ${ward} - ${district} - ${city}`,
       };
-      const res = await axios.post(
-        `http://localhost:3000/api/v2/companies/create-address/${infoCompany.id}`,
+      const res = await axios.patch(
+        `http://localhost:3000/api/v2/companies/update-address/${idaddress}`,
         newAdress
       );
       notification.success({
-        message: "Thêm Địa chỉ thành công",
+        message: "Cap nhap thanh cong",
         duration: 2,
       });
-      setIsModalOpen2(false);
       setCity("");
       setDistrict("");
       setWard("");
       setAddress("");
       SetFlag(!flag);
-    } catch (error) {
-      console.log(error);
+      setidaddress(null)
+      setEdit(false)
+      setIsModalOpen2(false);
     }
   };
 
@@ -324,7 +361,7 @@ export default function UpdateInforBusiness() {
   const policy =infoCompany?.policy?.split('\n');
   // console.log(inforequiments)
   // console.log(infoCompany);
-  console.log(updateCompany)
+  console.log(edit)
 
   return (
     <>
@@ -463,7 +500,7 @@ export default function UpdateInforBusiness() {
           <Modal
             onOk={handleOk2}
             onCancel={handleCancel2}
-            title="Thêm địa chỉ công ty"
+            title={edit === true  ? "Sửa địa chỉ" : "Thêm địa chỉ"}
             open={isModalOpen2}
             width={600}
           >
