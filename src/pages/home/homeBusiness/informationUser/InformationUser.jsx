@@ -16,6 +16,8 @@ import privateAxios from "../../../../config/private.axios";
 import { useParams } from "react-router";
 import { set } from "firebase/database";
 export default function InformationUser() {
+  window.scrollTo(0, 0);
+
   const { id } = useParams();
   console.log(id);
   const [role, setRole] = useState("");
@@ -31,8 +33,6 @@ export default function InformationUser() {
   }, [dispatch]);
   const user = useSelector((state) => state.candidate.data);
 
-  console.log(inforCompany);
-  console.log(role);
   const getInforUser = async () => {
     await privateAxios
       .get(`api/v2/candidates/getInfor`)
@@ -49,7 +49,6 @@ export default function InformationUser() {
       .get(`api/v2/candidates/getInforCandidatebyId/${id}`)
       .then((res) => {
         setInfor(res.data.data);
-        console.log(infor);
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -66,7 +65,6 @@ export default function InformationUser() {
         console.error("Error:", error);
       });
   };
-  console.log(infor);
 
   return (
     <>

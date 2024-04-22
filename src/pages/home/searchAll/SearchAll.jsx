@@ -23,7 +23,7 @@ export default function SearchAll() {
   const user = useSelector((state) => state.candidate.data);
   console.log(user);
   useEffect(() => {
-    navigate("/searchall/searchjob");
+    navigate("/search-all/search-job");
     dispatch(candidateAsync());
   }, [dispatch]);
 

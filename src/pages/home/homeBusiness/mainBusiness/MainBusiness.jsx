@@ -14,6 +14,8 @@ import publicAxios from "../../../../config/pulic.axios";
 import { useNavigate } from "react-router";
 
 export default function MainBusiness() {
+  window.scrollTo(0, 0);
+
   const [allCompany, setAllCompany] = useState([]);
   const [allLiveJob, setLiveJob] = useState([]);
   const [allNewJob, setNewJob] = useState([]);

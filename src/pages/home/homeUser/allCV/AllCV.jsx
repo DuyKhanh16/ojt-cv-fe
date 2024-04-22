@@ -13,6 +13,8 @@ import privateAxios from "../../../../config/private.axios";
 import { useReactToPrint } from "react-to-print";
 import { notification } from "antd";
 export default function AllCV() {
+  window.scrollTo(0, 0);
+
   const [cv1, setCv1] = React.useState(true);
   const [cv2, setCv2] = React.useState(false);
   const [cv3, setCv3] = React.useState(false);

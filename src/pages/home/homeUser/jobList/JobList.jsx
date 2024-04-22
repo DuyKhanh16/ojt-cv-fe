@@ -11,6 +11,8 @@ import privateAxios from '../../../../config/private.axios';
 export default function JobList() {
   const [ListCity, setListCity] = React.useState([]);
   const [ListJob, setListJob] = React.useState([]);
+
+  window.scrollTo(0, 0);
   const navigate = useNavigate();
   async function getListCity() {
     try {
@@ -65,11 +67,10 @@ export default function JobList() {
       <div className='user-ListJob-jobRender'>
         {ListJob.map((job) => {
           return( <div key={job.id} className='user-ListJob-job' style={{cursor:"pointer"}} onClick={() => navigate(`/candidate/jobdetail/${job.id}`)}>
-
             <p className='user-ListJob-job-title'>{job.title}</p>
             <div className='user-ListJob-job-typeSalary'>
               <p className='typeJob'>{job?.types_jobs[0].typejob.name}</p> 
-              <p>Salary:{job.salary}</p>
+              <p>Lương: {job?.salary_jobs[0]?.salary?.name}</p>
             </div>
             <div className='user-ListJob-job-info'>
               <div className='user-ListJob-job-infoCompany'>

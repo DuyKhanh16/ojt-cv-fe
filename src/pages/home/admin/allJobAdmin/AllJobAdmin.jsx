@@ -8,6 +8,7 @@ import { Switch, Modal, notification } from 'antd';
 import axios from "axios";
 
 export default function AllJobAdmin() {
+  window.scrollTo(0, 0);
   const [allNewJob, setNewJob] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [flag, setflag] = useState(false);  
