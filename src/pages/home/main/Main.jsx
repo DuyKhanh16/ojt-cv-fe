@@ -78,6 +78,7 @@ export default function Main() {
       console.log(error);
     }
   };
+  console.log(allCandidate)
   useEffect(() => {
     getAllCompany();
     getAllLiveJob();
@@ -339,9 +340,7 @@ export default function Main() {
                             <div className="main__outStandingCandidate--listCandidate__item__information--left__name--bottom__left">
                               {item?.position}
                             </div>
-                            <div className="main__outStandingCandidate--listCandidate__item__information--left__name--bottom__right">
-                              Fresher
-                            </div>
+                        
                           </div>
                         </div>
                       </div>
@@ -351,25 +350,27 @@ export default function Main() {
                     </div>
                     <div className="main__outStandingCandidate--listCandidate__item__technical">
                       <div className="main__outStandingCandidate--listCandidate__item__technical__title">
-                        Technical in use:
+                        Kĩ năng lập trình:
                       </div>
                       <div className="main__outStandingCandidate--listCandidate__item__technical__list">
-                        <div className="main__outStandingCandidate--listCandidate__item__technical__list__item">
-                          ReactJS
-                        </div>
-                        <div className="main__outStandingCandidate--listCandidate__item__technical__list__item">
-                          NodeJS
-                        </div>
+                        {
+                          item?.skills_candidate?.map((item) => (
+                            <div className="main__outStandingCandidate--listCandidate__item__technical__list__item" key={item.id}>
+                            {item.name}
+                          </div>
+                          ))
+                        }
+                        
+                        
                       </div>
                     </div>
                     <div className="main__outStandingCandidate--listCandidate__item__language">
                       <div className="main__outStandingCandidate--listCandidate__item__language__title">
-                        Foreign Language:
+                        Ngoại ngữ:
                       </div>
                       <div className="main__outStandingCandidate--listCandidate__item__language__list">
                         <div className="main__outStandingCandidate--listCandidate__item__language__list__item">
                           {item?.certificate_candidate[0].name}
-                          {item?.certificate_candidate[0].info}
                         </div>
                       </div>
                     </div>

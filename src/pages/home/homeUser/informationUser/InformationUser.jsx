@@ -31,8 +31,6 @@ import { projectAsync } from "../../../../redux/reduce/projectReduce";
 import { certificateAsync } from "../../../../redux/reduce/certificateReduce";
 import { skillAsync } from "../../../../redux/reduce/skillReduce";
 export default function InformationUserB() {
-  window.scrollTo(0, 0);
-
   const [isOpen, setIsOpen] = useState(true);
   const [openABout, setOpenAbout] = useState(false);
   const [openEdu, setOpenEdu] = useState(false);
@@ -736,7 +734,7 @@ export default function InformationUserB() {
                 >
                   <div className="informationUser__contain__right__item__miniitem__top">
                     <p className="informationUser__contain__right__item__miniitem__position">
-                      <strong>{item.name}</strong>
+                      <strong>{item?.name}</strong>
                     </p>
                     <div className="informationUser__contain__right__item__miniitem__action">
                       <img

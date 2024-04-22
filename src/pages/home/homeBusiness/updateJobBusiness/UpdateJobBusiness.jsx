@@ -206,8 +206,7 @@ console.log(salary1,"123")
       ></Modal>
       <div className="job__detail--container">
         <div className="job__detail--title" style={{ color: "#767F8C" }}>
-          <p>Trang chủ / </p> <p>Việc làm / </p> <p>Graphics Designer /</p>{" "}
-          <p style={{ color: "#18191C" }}>Job A Details</p>{" "}
+          <p>Thông tin chi tiết việc làm</p>{" "}
         </div>
         <div className="job__detail--content">
           <div className="job__detail--company">
@@ -437,12 +436,14 @@ console.log(salary1,"123")
           <div className="job__detail--description">
             <div className="job__detail--description--title">
               <h2>Mô tả công việc</h2>
+
               <ul style={{ marginTop: "20px" }}>
                       {description?.map((item, index) => (
                         <li key={index}>{item}</li>
                       ))}
               </ul>
               <h2 style={{ marginTop: "20px", marginBottom: "20px" }}>Yêu cầu của công ty</h2>
+
               <ul>
                 {
                   requirementsWithBreaks?.map((item, index) => (
@@ -456,12 +457,9 @@ console.log(salary1,"123")
             <div className="job__detail--description-2">
               <div className="job__detail--description--details">
                 <div style={{ textAlign: "center" }}>
-                  <h3 style={{ marginBottom: "10px" }}>Salary (Usd)</h3>
+                  <h3 style={{ marginBottom: "10px" }}>Mức lương</h3>
                   <p style={{ color: "#0BA02C", fontSize: "18px" }}>
                       {salary1[0]?.salary.name}
-                  </p>
-                  <p style={{ color: "gray", fontSize: "14px" }}>
-                    Montch Salary
                   </p>
                 </div>
                 <div
@@ -473,7 +471,7 @@ console.log(salary1,"123")
                 ></div>
                 <div style={{ textAlign: "center" }}>
                   <img style={{ marginLeft: "160px" }} src={MapTrifold}></img>
-                  <h3>Job Location</h3>
+                  <h3>Địa chỉ làm việc</h3>
                   <p style={{ color: "gray", fontSize: "14px" }}>
                   {address }
                   </p>
@@ -481,26 +479,26 @@ console.log(salary1,"123")
               </div>
               <div className="job__detail--description--overview">
                 <div className="line1">
-                  <h3 style={{ marginBottom: "10px" }}>Job Overview</h3>
+                  <h3 style={{ marginBottom: "10px" }}>Thời gian</h3>
                   <div style={{ display: "flex", flexWrap: "wrap" }}>
                     <div className="item">
                       <img style={{ marginRight: "10px" }} src={time1}></img>
                       <p style={{ color: "gray", fontSize: "18px" }}>
-                        Job Posted
+                        Bắt đầu
                       </p>
                       <span>{job?.created_at?.toString().split('T')[0]}</span>
                     </div>
                     <div className="item">
                       <img style={{ marginRight: "10px" }} src={time2}></img>
                       <p style={{ color: "gray", fontSize: "18px" }}>
-                        Job Expire in
+                        Kết thúc
                       </p>
                       <span>{job?.expire_at}</span>
                     </div>
                     <div className="item">
                       <img style={{ marginRight: "10px" }} src={Stack}></img>
                       <p style={{ color: "gray", fontSize: "18px" }}>
-                        level job
+                        Cấp độ
                       </p>
                       <span>{levelJob1[0]?.leveljob.name}</span>
                     </div>
@@ -510,7 +508,7 @@ console.log(salary1,"123")
               </div>
               <div className="job__detail--description--Share">
                 <div className="line1">
-                  <h3 style={{ marginBottom: "10px" }}>Share thit Job :</h3>
+                  <h3 style={{ marginBottom: "10px" }}>Chia sẻ công việc :</h3>
                   <div style={{ display: "flex", gap: "10px" }}>
                     <img src={Stack1}></img>
                     <img src={Stack2}></img>

@@ -5,7 +5,11 @@ import privateAxios from "../../../../config/private.axios";
 import axios from "axios";
 import { Select, notification } from "antd";
 export default function AddJob() {
+
   // window.scrollTo(0, 0);
+
+  const navigate = useNavigate();
+
   const [infoCompany, SetInfoCompany] = useState();
   const [addressCompany, setAdressCompany] = useState([]);
   const [typeJob, setListTypeJob] = useState([]);

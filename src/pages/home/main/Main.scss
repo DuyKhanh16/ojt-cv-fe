@@ -729,7 +729,7 @@ body::-webkit-scrollbar {
       grid-template-columns: repeat(3, 1fr);
       grid-gap: 24px;
       .main__outStandingCompany--listCompany__item {
-        width: 100%;
+        width:90%;
         height: auto;
         border: 1px solid rgba(228, 229, 232, 1);
         border-radius: 8px;
@@ -799,7 +799,7 @@ body::-webkit-scrollbar {
           }
         }
         .main__outStandingCompany--listCompany__item__bottom {
-          width: 376px;
+          width: 100%;
           height: 30px;
           background-color: rgba(231, 240, 250, 1);
           border-radius: 3px;
