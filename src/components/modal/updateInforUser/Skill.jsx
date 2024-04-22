@@ -18,7 +18,7 @@ export default function Skill({isOpen,close,skill}) {
         console.log(res.data);
       setAllLevel(res.data);
     });
-    setUser({ ...user,name:skill?.item?.name,leveljob_id:skill?.item?.leveljob_id.name,candidate_id:usera.id});
+    setUser({ ...user,name:skill?.item?.name,leveljob_id:skill?.item?.leveljob_id?.name,candidate_id:usera.id});
   },[usera])
   console.log(usera);
   const changeValue = (e) => {
