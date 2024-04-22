@@ -39,6 +39,7 @@ import SearchJob from "./pages/home/searchAll/SearchJob";
 import SearchCandidate from "./pages/home/searchAll/SearchCandidate";
 import SearchCompany from "./pages/home/searchAll/SearchCompany";
 import InforOutStandingCompany from "./pages/home/homeUser/inforOutStandingCompany/InforOutStandingCompany";
+import UpdatePassword from "./components/modal/UpdatePassword/UpdatePassword";
 
 const router = createBrowserRouter([
   /* source chung */
@@ -177,7 +178,10 @@ const router = createBrowserRouter([
   },
 
   /* het company */
-
+  {
+    path:"/update-password",
+   element:<UpdatePassword/>
+  },
   /* admin */
   {
     path: "/admin",
@@ -198,7 +202,7 @@ const router = createBrowserRouter([
       {
         path: "companies",
         element: <AllCompanyAdmin />,
-      },
+       },
     ],
   },
   /* het admin */
