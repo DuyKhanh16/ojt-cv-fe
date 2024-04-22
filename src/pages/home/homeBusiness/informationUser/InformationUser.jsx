@@ -13,7 +13,7 @@ import twicon from "../../../../assets/images/informationUser/twicon.png";
 import { candidateAsync } from "../../../../redux/reduce/candidateReduce";
 import { useDispatch, useSelector } from "react-redux";
 import privateAxios from "../../../../config/private.axios";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { set } from "firebase/database";
 export default function InformationUser() {
   window.scrollTo(0, 0);
@@ -24,12 +24,18 @@ export default function InformationUser() {
   const [infor, setInfor] = React.useState({});
   const [inforCompany, setInforCompany] = React.useState({});
   const dispatch = useDispatch();
+  const role2 = JSON.parse(localStorage.getItem("role"));
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(candidateAsync());
     getInforUser();
     getInforCV();
     getInforCompany();
+    if(role2 !== 2){
+      navigate('/candidate')
+    }
+ 
   }, [dispatch]);
   const user = useSelector((state) => state.candidate.data);
 

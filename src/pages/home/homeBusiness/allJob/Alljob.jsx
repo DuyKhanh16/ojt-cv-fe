@@ -10,15 +10,18 @@ import axios from "axios";
 
 // import { Switch } from 'antd';
 export default function Alljob() {
-  window.scrollTo(0, 0);
+  // window.scrollTo(0, 0);
 
-  const navigate = useNavigate();
   const [allJobs, setAllJobs] = useState([]);
   const [infoCompany, SetInfoCompany] = useState();
   const [status, setStatus] = useState();
   const [flag, setflag] = useState(false);
   const [key, setKey] = useState("");
+ 
   const id = useParams();
+  const role =JSON.parse(localStorage.getItem("role"))
+  const navigate = useNavigate();
+
   // get info company
   const getInfo = () => {
     const res = privateAxios.get("api/v2/companies/getInfor");
@@ -39,8 +42,12 @@ export default function Alljob() {
   useEffect(() => {
     getInfo();
     getallJobsCompany();
+   if(role !== 2){
+    navigate("/candidate")
+   }
+  
   }, [flag]);
-  console.log(allJobs);
+  // console.log(allJobs);
 
   // hàm get all job của company
 

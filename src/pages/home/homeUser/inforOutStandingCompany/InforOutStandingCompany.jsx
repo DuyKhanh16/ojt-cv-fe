@@ -2,11 +2,13 @@ import React, { useEffect, useState } from "react";
 import map from "../../../../assets/images/map.jpeg";
 import "./InforOutStandingCompany.scss";
 import privateAxios from "../../../../config/private.axios";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 
 export default function InforOutStandingCompany() {
   const { id } = useParams();
   const [infoCompany, setInfoCompany] = useState({});
+  const navigate1 = useNavigate();
+  const role = JSON.parse(localStorage.getItem("role"));
   window.scrollTo(0, 0);
   // lấy thông tin company
   const getinfoCompany = async () => {
@@ -23,6 +25,9 @@ export default function InforOutStandingCompany() {
 
   useEffect(() => {
     getinfoCompany();
+    if(role !== 1){
+      navigate1("/company")
+    }
   }, []);
 
   return (

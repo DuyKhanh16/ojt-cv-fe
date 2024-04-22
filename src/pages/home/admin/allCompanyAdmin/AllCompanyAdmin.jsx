@@ -20,7 +20,8 @@ export default function AllCompanyAdmin() {
     address: "",
     email: "",
   });
-
+  const role = JSON.parse(localStorage.getItem("role"))
+  const token = JSON.parse(localStorage.getItem("token"));
   const navigate = useNavigate();
 
   const showModal = (item) => {
@@ -58,6 +59,15 @@ export default function AllCompanyAdmin() {
   };
   useEffect(() => {
     getAllCompany();
+    if(!token){
+      navigate("/login");
+    }
+    if(role == 1){
+      navigate("/candidate");
+    }
+    if(role == 2){
+      navigate("/company");
+    }
   }, []);
 
   // thay đôi trạng thái công ty

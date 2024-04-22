@@ -30,9 +30,10 @@ export default function Main() {
   const [allNewJob, setNewJob] = useState([]);
   const [allCandidate, setAllCandidate] = useState([]);
   const [salary, setSalary] = useState([]);
+  
   const navigate = useNavigate();
   // check token
-
+  const role1 = JSON.parse(localStorage.getItem("role"));
   const token = localStorage.getItem("token") || null;
   const [isOpen, setIsOpen] = useState(false);
   const open = () => {
@@ -82,6 +83,7 @@ export default function Main() {
     getAllLiveJob();
     getAllNewJob();
     getAllCandidate();
+   
   }, []);
   return (
     <>

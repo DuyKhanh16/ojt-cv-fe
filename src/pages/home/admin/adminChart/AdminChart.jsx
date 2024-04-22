@@ -32,6 +32,8 @@ export default function AdminChart() {
   const [allLiveJob, setLiveJob] = useState([]);
   const [allNewJob, setNewJob] = useState([]);
   const [allCandidate, setAllCandidate] = useState([]);
+  const role = JSON.parse(localStorage.getItem("role"));
+  const token1 = JSON.parse(localStorage.getItem("token"));
   const navigate = useNavigate();
 
   const getAllCompany = async () => {
@@ -72,6 +74,15 @@ export default function AdminChart() {
     getAllLiveJob();
     getAllNewJob();
     getAllCandidate();
+    if(!token1){
+      navigate("/login");
+    }
+    if(role == 1){
+      navigate("/candidate");
+    }
+    if(role == 2){
+      navigate("/company");
+    }
   }, []);
 
 
