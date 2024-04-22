@@ -16,6 +16,8 @@ import logo from "../../../../assets/images/main/Software code testing-pana 1.pn
 import { useNavigate } from "react-router";
 
 export default function UpdateInforBusiness() {
+  window.scrollTo(0, 0);
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isModalOpen2, setIsModalOpen2] = useState(false);
   const [flag, SetFlag] = useState(false);

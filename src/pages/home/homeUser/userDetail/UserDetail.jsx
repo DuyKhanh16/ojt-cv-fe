@@ -23,6 +23,8 @@ export default function UserDetail() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((state) => state.candidate.data);
+  
+  window.scrollTo(0, 0);
 
   const getInforCV = async () => {
     await privateAxios

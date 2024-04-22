@@ -31,6 +31,8 @@ import { projectAsync } from "../../../../redux/reduce/projectReduce";
 import { certificateAsync } from "../../../../redux/reduce/certificateReduce";
 import { skillAsync } from "../../../../redux/reduce/skillReduce";
 export default function InformationUserB() {
+  window.scrollTo(0, 0);
+
   const [isOpen, setIsOpen] = useState(true);
   const [openABout, setOpenAbout] = useState(false);
   const [openEdu, setOpenEdu] = useState(false);

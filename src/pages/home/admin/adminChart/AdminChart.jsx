@@ -27,19 +27,16 @@ ChartJS.register(
   Legend
 );
 export default function AdminChart() {
+  window.scrollTo(0, 0);
   const [allCompany, setAllCompany] = useState([]);
   const [allLiveJob, setLiveJob] = useState([]);
   const [allNewJob, setNewJob] = useState([]);
   const [allCandidate, setAllCandidate] = useState([]);
   const navigate = useNavigate();
 
- 
-
-  
   const getAllCompany = async () => {
     try {
       const res = await publicAxios.get("/api/v2/companies/getAll");
-      console.log(res.data.data);
       setAllCompany(res.data.data);
     } catch (error) {
       console.log(error);
@@ -48,7 +45,6 @@ export default function AdminChart() {
   const getAllLiveJob = async () => {
     try {
       const res = await publicAxios.get("/api/v2/jobs/getLiveJobs");
-      console.log(res.data.data);
       setLiveJob(res.data.data);
     } catch (error) {
       console.log(error);
@@ -71,7 +67,6 @@ export default function AdminChart() {
       console.log(error);
     }
   };
-  console.log(allCandidate);
   useEffect(() => {
     getAllCompany();
     getAllLiveJob();
@@ -79,10 +74,9 @@ export default function AdminChart() {
     getAllCandidate();
   }, []);
 
-console.log(allCandidate)
 
-   // data lấy dữ liệu về hiển thị
-   const data1 = {
+  // data lấy dữ liệu về hiển thị
+  const data1 = {
     labels: ["Candidate", "Company", "Jobs"],
     datasets: [
       {

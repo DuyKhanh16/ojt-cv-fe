@@ -21,6 +21,7 @@ import axios from "axios";
 // const { confirm } = Modal;
 
 export default function UpdateJobBusiness() {
+  window.scrollTo(0, 0);
   
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isModalOpen1, setIsModalOpen1] = useState(false);
