@@ -29,6 +29,7 @@ export default function Main() {
   const [allLiveJob, setLiveJob] = useState([]);
   const [allNewJob, setNewJob] = useState([]);
   const [allCandidate, setAllCandidate] = useState([]);
+  const [salary, setSalary] = useState([]);
   const navigate = useNavigate();
   // check token
 
@@ -58,6 +59,7 @@ export default function Main() {
       console.log(error);
     }
   };
+  console.log(allLiveJob)
   const getAllNewJob = async () => {
     try {
       const res = await publicAxios.get("/api/v2/jobs/getNewJobs");
@@ -228,7 +230,7 @@ export default function Main() {
                           <p>{item?.types_jobs[0].typejob.name}</p>
                         </div>
                         <span className="main__outStandingJob--listJob__item--top__salary__price">
-                          {item.salary}
+                          {item?.salary_jobs[0]?.salary.name}
                         </span>
                       </div>
                     </div>
@@ -484,7 +486,7 @@ export default function Main() {
                       </div>
                     </div>
                     <div className="main__outStandingCompany--listCompany__item__bottom">
-                      Open Position (3)
+                      Xem thông tin
                     </div>
                   </div>
                 ))}

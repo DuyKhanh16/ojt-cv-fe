@@ -14,6 +14,9 @@ const db = getFirestore(app);
 const collectionRef = doc(db, "doc", "doc1");
 
 export default function ApplyJob({position,company,id,close}) {
+  window.scrollTo(0, 0);
+
+
   const [urlImage, setUrlImage] = React.useState("");
   const [candidate_id, setCandidate_id] = React.useState("");
   const [infor, setInfor] = React.useState({

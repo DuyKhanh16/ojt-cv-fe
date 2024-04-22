@@ -5,11 +5,12 @@ import AllJobAdmin from "../allJobAdmin/AllJobAdmin";
 import AllCompanyAdmin from "../allCompanyAdmin/AllCompanyAdmin";
 import FormSearch from "../../../../components/formSearch/FormSearch";
 import logo from "../../../../assets/images/logo/logo.png";
-import avatar from '../../../../assets/images/cv/ACg8ocILX9TfOIrNEplYDawUBSv1Rpw3rLnuugZCNRefPEMyjM6NXIV4=s96-c.jpg'
+import avatar from "../../../../assets/images/cv/ACg8ocILX9TfOIrNEplYDawUBSv1Rpw3rLnuugZCNRefPEMyjM6NXIV4=s96-c.jpg";
 import { Link, useNavigate } from "react-router-dom";
 import { Outlet } from "react-router-dom";
 import Footer from "../../../../components/footer/Footer";
 export default function HomeAdmin() {
+  window.scrollTo(0, 0);
   const body = document.querySelector("body"),
     sidebar = body.querySelector(".fui-sidbar-navigiation nav"),
     toggle = body.querySelector(".fui-sidbar-navigiation .toggle"),
@@ -21,10 +22,10 @@ export default function HomeAdmin() {
     setToggleSidebar(!toggleSidebar);
   };
   const navigate = useNavigate();
-  const handleLogout = ()=> {
-    localStorage.removeItem('token')
-    navigate("/login")
-  }
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    navigate("/login");
+  };
 
   return (
     <>
@@ -139,7 +140,11 @@ export default function HomeAdmin() {
                         />
                       </svg>
                     </span>
-                    <input style={{fontSize:"1.4vw"}} type="text" placeholder="Search..." />
+                    <input
+                      style={{ fontSize: "1.4vw" }}
+                      type="text"
+                      placeholder="Search..."
+                    />
                   </li>
                   <ul className="menu-links">
                     <li className="nav-link">
@@ -178,10 +183,15 @@ export default function HomeAdmin() {
                             />
                           </svg>
                         </span>
-                        <span className="text nav-text" style={{fontSize:"1.4vw"}}>Trang chủ</span>
+                        <span
+                          className="text nav-text"
+                          style={{ fontSize: "1.4vw" }}
+                        >
+                          Trang chủ
+                        </span>
                       </Link>
                     </li>
-                    
+
                     <li className="nav-link">
                       <Link to="/admin/companies">
                         <span className="icon">
@@ -189,7 +199,12 @@ export default function HomeAdmin() {
                             apartment
                           </span>
                         </span>
-                        <span className="text nav-text" style={{fontSize:"1.4vw"}}>Công ty</span>
+                        <span
+                          className="text nav-text"
+                          style={{ fontSize: "1.4vw" }}
+                        >
+                          Công ty
+                        </span>
                       </Link>
                     </li>
                     <li className="nav-link">
@@ -216,15 +231,25 @@ export default function HomeAdmin() {
                             />
                           </svg>
                         </span>
-                        <span className="text nav-text" style={{fontSize:"1.4vw"}}>Người dùng</span>
+                        <span
+                          className="text nav-text"
+                          style={{ fontSize: "1.4vw" }}
+                        >
+                          Người dùng
+                        </span>
                       </Link>
                     </li>
                     <li className="nav-link">
-                      <Link  to="/admin/jobs">
+                      <Link to="/admin/jobs">
                         <span className="icon">
                           <span class="material-symbols-outlined">work</span>
                         </span>
-                        <span className="text nav-text" style={{fontSize:"1.4vw"}}>Việc làm</span>
+                        <span
+                          className="text nav-text"
+                          style={{ fontSize: "1.4vw" }}
+                        >
+                          Việc làm
+                        </span>
                       </Link>
                     </li>
                     <li className="nav-link">
@@ -252,7 +277,13 @@ export default function HomeAdmin() {
                           </svg>
                         </span>
 
-                        <span className="text nav-text" style={{fontSize:"1.4vw"}} onClick={handleLogout}>Đăng xuất</span>
+                        <span
+                          className="text nav-text"
+                          style={{ fontSize: "1.4vw" }}
+                          onClick={handleLogout}
+                        >
+                          Đăng xuất
+                        </span>
                       </a>
                     </li>
                   </ul>
@@ -267,7 +298,7 @@ export default function HomeAdmin() {
               transition: "1s",
             }}
           >
-            <div className="homeAdmin__content-Right__content">     
+            <div className="homeAdmin__content-Right__content">
               <Outlet />
             </div>
           </div>

@@ -130,7 +130,7 @@ export default function SearchCompany() {
                       </div>
                     </div>
                     <div className="main__outStandingCompany--listCompany__item__bottom">
-                      Open Position (3)
+                      Xem thông tin
                     </div>
                   </div>
                 ))}

@@ -99,6 +99,7 @@ export default function ListCompany() {
     }
 
   ]);
+  window.scrollTo(0, 0);
   async function getListCity() {
     try {
       const result = await axios.get("https://vapi.vnappmob.com/api/province/");

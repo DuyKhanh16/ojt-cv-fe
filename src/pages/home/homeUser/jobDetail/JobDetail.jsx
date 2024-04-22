@@ -26,6 +26,8 @@ export default function JobDetail() {
   const [allLiveJob, setLiveJob] = useState([]);
   const [salary, setSalary] = useState([]);
   const navigate = useNavigate();
+
+  window.scrollTo(0, 0);
   // lay het thong tin cua jobdetail
   const inforJobDetail = async () => {
     await privateAxios

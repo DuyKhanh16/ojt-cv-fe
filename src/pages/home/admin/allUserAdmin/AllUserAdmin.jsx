@@ -3,8 +3,9 @@ import "./AllUserAdmin.scss";
 import AdminSearch from "../../../../components/adminSearch/AdminSearch";
 import { useNavigate } from "react-router";
 import publicAxios from "../../../../config/pulic.axios";
-import { Switch, Modal, notification } from 'antd';
+import { Switch, Modal, notification } from "antd";
 export default function AllUserAdmin() {
+  window.scrollTo(0, 0);
   const [allCandidate, setAllCandidate] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -15,22 +16,20 @@ export default function AllUserAdmin() {
     position: "",
     avatar: "",
     address: "",
-    certificate: ""
+    certificate: "",
   });
   const navigate = useNavigate();
-
 
   const getAllCandidate = async () => {
     try {
       const res = await publicAxios.get("/api/v2/candidates/getAll");
       // console.log(res.data.data);
       setAllCandidate(res.data.data);
-
     } catch (error) {
       console.log(error);
     }
   };
-  console.log(allCandidate)
+  console.log(allCandidate);
   useEffect(() => {
     getAllCandidate();
   }, []);
@@ -45,11 +44,11 @@ export default function AllUserAdmin() {
       position: item.position,
       address: item.address,
       certificate: item.certificate_candidate[0].name,
-      avatar: item.avatar
-    })
+      avatar: item.avatar,
+    });
     setIsModalOpen(true);
   };
-  console.log(infoUser)
+  console.log(infoUser);
 
   const handleOk = () => {
     setIsModalOpen(false);
@@ -63,55 +62,88 @@ export default function AllUserAdmin() {
   const BandorUnBanUser = async (item) => {
     try {
       const res = await publicAxios.patch(`api/v2/account/update/${item.id}`, {
-        status: !item.status
+        status: !item.status,
       });
-      notification.success({ message: "Thay đổi trang thái thành công", placement: 'bottomRight', duration: 2, });
+      notification.success({
+        message: "Thay đổi trang thái thành công",
+        placement: "bottomRight",
+        duration: 2,
+      });
       console.log(res.data);
       getAllCandidate();
     } catch (error) {
       console.log(error);
     }
-  }
+  };
   return (
     <>
       <div className="allUserAdmin__container">
         <Modal
           width={700}
-          title="Thông tin chi tiết" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
-          <div style={{ display: "flex", paddingTop: "20px", fontFamily: "sans-serif" }}>
-            <div style={{ width: "40%", }}>
+          title="Thông tin chi tiết"
+          open={isModalOpen}
+          onOk={handleOk}
+          onCancel={handleCancel}
+        >
+          <div
+            style={{
+              display: "flex",
+              paddingTop: "20px",
+              fontFamily: "sans-serif",
+            }}
+          >
+            <div style={{ width: "40%" }}>
               <div style={{ width: "100%" }}>
                 <img
-                  style={{ width: "200px", height: "200px", borderRadius: "50%", objectFit: "cover" }}
-                  src={infoUser.avatar}></img></div>
-
+                  style={{
+                    width: "200px",
+                    height: "200px",
+                    borderRadius: "50%",
+                    objectFit: "cover",
+                  }}
+                  src={infoUser.avatar}
+                ></img>
+              </div>
             </div>
-            <div style={{ width: "60%", }}>
-              <div style={{ display: "flex", }}>
-                <span style={{ marginRight: "10px", fontWeight: "bold" }}>Họ và tên :</span>
+            <div style={{ width: "60%" }}>
+              <div style={{ display: "flex" }}>
+                <span style={{ marginRight: "10px", fontWeight: "bold" }}>
+                  Họ và tên :
+                </span>
                 <div> {infoUser.name}</div>
               </div>
               <div style={{ display: "flex", paddingTop: "10px" }}>
-                <span style={{ marginRight: "10px", fontWeight: "bold" }}>Email :</span>
+                <span style={{ marginRight: "10px", fontWeight: "bold" }}>
+                  Email :
+                </span>
                 <div> {infoUser.email}</div>
-              </div> <div style={{ display: "flex", paddingTop: "10px" }}>
-                <span style={{ marginRight: "10px", fontWeight: "bold" }}>Số điện thoại :</span>
+              </div>{" "}
+              <div style={{ display: "flex", paddingTop: "10px" }}>
+                <span style={{ marginRight: "10px", fontWeight: "bold" }}>
+                  Số điện thoại :
+                </span>
                 <div> {infoUser.phone}</div>
-              </div> <div style={{ display: "flex", paddingTop: "10px" }}>
-                <span style={{ marginRight: "10px", fontWeight: "bold" }}>Địa chỉ :</span>
+              </div>{" "}
+              <div style={{ display: "flex", paddingTop: "10px" }}>
+                <span style={{ marginRight: "10px", fontWeight: "bold" }}>
+                  Địa chỉ :
+                </span>
                 <div> {infoUser.address}</div>
-              </div> <div style={{ display: "flex", paddingTop: "10px" }}>
-                <span style={{ marginRight: "10px", fontWeight: "bold" }}>Kỹ năng :</span>
+              </div>{" "}
+              <div style={{ display: "flex", paddingTop: "10px" }}>
+                <span style={{ marginRight: "10px", fontWeight: "bold" }}>
+                  Kỹ năng :
+                </span>
                 <div> {infoUser.position}</div>
               </div>
               <div style={{ display: "flex", paddingTop: "10px" }}>
-                <span style={{ marginRight: "10px", fontWeight: "bold", }}>Ngoại ngữ:</span>
+                <span style={{ marginRight: "10px", fontWeight: "bold" }}>
+                  Ngoại ngữ:
+                </span>
                 <div> {infoUser.certificate}-Toiec600</div>
               </div>
-
             </div>
           </div>
-
         </Modal>
         <div className="allUserAdmin__header">
           <AdminSearch />
@@ -140,7 +172,10 @@ export default function AllUserAdmin() {
           <div className="allUserAdmin__content__bodyTable">
             {allCandidate.map((item, index) => {
               return (
-                <div className="allUserAdmin__content__bodyTable__item" key={item.id}>
+                <div
+                  className="allUserAdmin__content__bodyTable__item"
+                  key={item.id}
+                >
                   <div className="allUserAdmin__content__bodyTable__item__stt column">
                     <p>{index + 1}</p>
                   </div>
@@ -155,35 +190,37 @@ export default function AllUserAdmin() {
                       <p style={{ color: "green" }}>Hoạt động</p>
                     ) : (
                       <p style={{ color: "gray" }}>Không hoạt động</p>
-                    )
-                    }
-
+                    )}
                   </div>
-                  <div
-
-                    className="allUserAdmin__content__bodyTable__item__description column">
-
+                  <div className="allUserAdmin__content__bodyTable__item__description column">
                     {item.account_candidate_id.status ? (
-                      <p onClick={() => BandorUnBanUser(item.account_candidate_id)}>Khoá</p>
-
+                      <p
+                        onClick={() =>
+                          BandorUnBanUser(item.account_candidate_id)
+                        }
+                      >
+                        Khoá
+                      </p>
                     ) : (
-                      <p onClick={() => BandorUnBanUser(item.account_candidate_id)}>Mở khoá</p>
-                    )
-                    }
+                      <p
+                        onClick={() =>
+                          BandorUnBanUser(item.account_candidate_id)
+                        }
+                      >
+                        Mở khoá
+                      </p>
+                    )}
                   </div>
-
 
                   <div
                     onClick={() => showModal(item)}
-                    className="allUserAdmin__content__bodyTable__item__description column">
-
+                    className="allUserAdmin__content__bodyTable__item__description column"
+                  >
                     <p>Xem</p>
                   </div>
                 </div>
-              )
+              );
             })}
-
-
           </div>
         </div>
       </div>

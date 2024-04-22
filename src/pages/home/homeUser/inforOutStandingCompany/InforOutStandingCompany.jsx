@@ -7,7 +7,7 @@ import { useParams } from "react-router";
 export default function InforOutStandingCompany() {
   const { id } = useParams();
   const [infoCompany, setInfoCompany] = useState({});
-
+  window.scrollTo(0, 0);
   // lấy thông tin company
   const getinfoCompany = async () => {
     const resutl = await privateAxios

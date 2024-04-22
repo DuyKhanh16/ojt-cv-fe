@@ -7,6 +7,9 @@ import axios from 'axios';
 import './infomationCompany.scss';
 
 export default function InformationComany() {
+  window.scrollTo(0, 0);
+
+
   const [ListCity, setListCity] = React.useState([]);
   const [ListJob, setListJob] = React.useState([
     {
