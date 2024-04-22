@@ -32,7 +32,7 @@ export default function InformationUser() {
     getInforUser();
     getInforCV();
     getInforCompany();
-    if(role2 !== 2){
+    if(role2 !== 1){
       navigate('/candidate')
     }
  
