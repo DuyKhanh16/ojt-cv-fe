@@ -6,6 +6,7 @@ import arrow from "../../../assets/images/main/fi_arrow-right.png";
 import MapPin from "../../../assets/images/main/MapPin.png";
 import BookmarkSimple from "../../../assets/images/main/BookmarkSimple.png";
 import { notification } from 'antd';
+import { useNavigate } from 'react-router';
 export default function SearchJob() {
   const [allLiveJob, setLiveJob] = useState([]);
     // data city
@@ -19,6 +20,8 @@ export default function SearchJob() {
     leveljob: "",
     salary: "",
   });
+  const navigate = useNavigate();
+
   const handleGetDataCity = async () => {
     let data = await axios.get(`https://vapi.vnappmob.com/api/province/`);
     setDataCity(data.data.results);
@@ -164,6 +167,7 @@ export default function SearchJob() {
             {allLiveJob.map((item) => (
               <div
                 className="searchJob__outStandingJob--listJob__item"
+                onClick={() => navigate(`/candidate/jobdetail/${item.id}`)}
                 key={item?.id}
               >
                 <div className="searchJob__outStandingJob--listJob__item--top">

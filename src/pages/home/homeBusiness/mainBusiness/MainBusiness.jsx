@@ -101,7 +101,7 @@ export default function MainBusiness() {
                       type="text"
                       name=""
                       id=""
-                      placeholder="Your Location"
+                      placeholder="Địa điểm"
                       className="mainBusiness--searchJob--left__formSearch__input--right__text"
                     />
                   </div>
@@ -216,25 +216,25 @@ export default function MainBusiness() {
                 </div>
                 <div className="mainBusiness__outStandingCandidate--listCandidate__item__technical">
                   <div className="mainBusiness__outStandingCandidate--listCandidate__item__technical__title">
-                    Technical in use:
+                    Kỹ năng lập trình:
                   </div>
                   <div className="mainBusiness__outStandingCandidate--listCandidate__item__technical__list">
-                    <div className="mainBusiness__outStandingCandidate--listCandidate__item__technical__list__item">
-                      ReactJS
-                    </div>
-                    <div className="mainBusiness__outStandingCandidate--listCandidate__item__technical__list__item">
-                      NodeJS
-                    </div>
+                      {
+                          item?.skills_candidate?.map((item) => (
+                            <div className="mainBusiness__outStandingCandidate--listCandidate__item__technical__list__item" key={item.id}>
+                            {item.name}
+                          </div>
+                          ))
+                        }
                   </div>
                 </div>
                 <div className="mainBusiness__outStandingCandidate--listCandidate__item__language">
                   <div className="mainBusiness__outStandingCandidate--listCandidate__item__language__title">
-                    Foreign Language:
+                    Ngoại ngữ:
                   </div>
                   <div className="mainBusiness__outStandingCandidate--listCandidate__item__language__list">
                     <div className="mainBusiness__outStandingCandidate--listCandidate__item__language__list__item">
                       {item?.certificate_candidate[0].name}
-                      {item?.certificate_candidate[0].info}
                     </div>
                   </div>
                 </div>
