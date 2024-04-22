@@ -68,35 +68,37 @@ export default function UpdateInforBusiness() {
     typeCompany_id: "",
     policy: "",
   });
+
  
   const navigate = useNavigate();
+  const role = JSON.parse(localStorage.getItem("role"));
   // lấy thông tin company
-  const getinfoCompany = async () => {try {
+  const getinfoCompany = async () => {
+    try {
     const res = await privateAxios.get("api/v2/companies/getInfor")
-    setInfoCompany(res.data.data);
+      setInfoCompany(res.data.data);
       setListBrand(res.data.data.address_company);
-      Settycompany(companyData.typeCompany_id.name);
-
-      const companyData = res.data.data;
-      // console.log(companyData.address_company,"dữ liệu");
+      // Settycompany(res.data.data.typeCompany_id.name);
+      console.log(res.data.data)
       setUpdateCompany({
-        // Giữ lại các giá trị hiện tại của updateCompany
-        name: companyData.name,
-        size: companyData.size,
-        link_facebook: companyData.link_facebook,
-        website: companyData.website,
-        description: companyData?.description,
-        email: companyData.account_company_id.email,
-        phone: companyData.phone,
-        photo: companyData.logo,
-        typeCompany_id: companyData.typeCompany_id.id,
-        policy: companyData.policy,
+        name: res.data.data.name,
+        size: res.data.data.size,
+        link_facebook: res.data.data.link_facebook,
+        website: res.data.data.website,
+        description: res.data.data.description,
+        email: res.data.data.account_company_id.email,
+        phone: res.data.data.phone,
+        photo: res.data.data.logo,
+        typeCompany_id: res.data.data.typeCompany_id.id,
+        policy: res.data.data.policy,
       });
+      // console.log(updateCompany)
   } catch (error) {
     console.log(error)
   }
   
   };
+  console.log(updateCompany)
 
   // lấy các jobs của công ty
   const getJobsForCompany = () => {
@@ -117,9 +119,12 @@ export default function UpdateInforBusiness() {
     getinfoCompany();
     getTypeCompany();
     getJobsForCompany();
+    if(role !== 2){
+      navigate("/candidate")
+    }
   }, [flag]);
 
-  console.log(listjobs, "123123");
+  // console.log(listjobs, "123123");
 
   // api thành phố
   const handleGetDataCity = async () => {
@@ -174,33 +179,25 @@ export default function UpdateInforBusiness() {
   };
 
   const handleOk = async () => {
-    const errors = {};
-    let hasError = false;
-    if (!updateCompany.name.trim()) {
-      errors.name = "Tên doanh nghiệp không được để trống";
-      hasError = true;
-    }
-    if (!updateCompany.email.trim()) {
-      errors.email = "Email không được để trống";
-      hasError = true;
-    }
-    if (!updateCompany.phone.trim()) {
-      errors.phone = "Số điện thoại không được để trống";
-      hasError = true;
-    }
-    // if (updateCompany.size.trim() === "") {
-    //   errors.size = "Số lượng nhân viên không được để trống";
+    // const errors = {};
+    // let hasError = false;
+    // if (!updateCompany.name.trim()) {
+    //   errors.name = "Tên doanh nghiệp không được để trống";
     //   hasError = true;
-    // } else if (!/^\d+$/.test(updateCompany.size.trim())) {
-    //   errors.size = "Số lượng nhân viên chỉ được nhập số";
+    // }
+    // if (!updateCompany.email.trim()) {
+    //   errors.email = "Email không được để trống";
+    //   hasError = true;
+    // }
+    // if (!updateCompany.phone.trim()) {
+    //   errors.phone = "Số điện thoại không được để trống";
     //   hasError = true;
     // }
 
-    // Nếu có lỗi, cập nhật state để hiển thị thông báo lỗi
-    if (hasError) {
-      setErrorMessages(errors);
-      return;
-    }
+    // if (hasError) {
+    //   setErrorMessages(errors);
+    //   return;
+    // }
 
     if (selectedMedia) {
       const formData = new FormData();
@@ -323,8 +320,12 @@ export default function UpdateInforBusiness() {
       }
     }
   };
+  const description =infoCompany?.description?.split('\n');
+  const policy =infoCompany?.policy?.split('\n');
+  // console.log(inforequiments)
+  // console.log(infoCompany);
+  console.log(updateCompany)
 
-  console.log(infoCompany);
   return (
     <>
       <div
@@ -373,7 +374,7 @@ export default function UpdateInforBusiness() {
           </div>
         </div>
       </div>
-
+            
       <div
         style={{
           display:
@@ -593,7 +594,7 @@ export default function UpdateInforBusiness() {
                     onChange={handleAddMedia}
                     type="file"
                   ></input>
-                  <img src={preview ? preview : updateCompany.photo}></img>
+                  <img src={preview ? preview : updateCompany.logo}></img>
                 </div>
               </div>
               <div style={{ width: "60%", marginLeft: "-150px" }}>
@@ -606,7 +607,7 @@ export default function UpdateInforBusiness() {
                         email: e.target.value,
                       })
                     }
-                    value={updateCompany.email}
+                    value={updateCompany?.account_company_id?.email}
                     name="email"
                     type="text"
                   ></input>
@@ -732,24 +733,29 @@ export default function UpdateInforBusiness() {
           }}
         >
           <div className="user-companyView-describe">
-            <p style={{ fontWeight: "500", fontSize: "18px", color: "black" }}>
+            <p style={{ fontWeight: "500", fontSize: "25px", color: "black" }}>
               Mô tả về công ty{" "}
               <span>
-                <i
-                  style={{ color: "red", marginLeft: "8px" }}
-                  class="fa-regular fa-pen-to-square"
-                ></i>
+              
               </span>
               <div
                 className="bg-white p-5"
               // dangerouslySetInnerHTML={{ __html: text }}
               />
             </p>
-            {infoCompany?.description}
-            <p style={{ fontWeight: "500", fontSize: "18px", color: "black" }}>
+           <ul style={{ marginTop: "10px",marginLeft: "20px" }}>
+           {description?.map((item, index) => (
+             <li key={index}>{item}</li>
+           ))}
+           </ul>
+            <p style={{ fontWeight: "500", fontSize: "25px", color: "black" }}>
               Chính sách
             </p>
-            {infoCompany?.policy}
+            <ul style={{ marginTop: "10px",marginLeft: "20px" }}>
+              {policy?.map((item, index) => (
+                <li style={{ marginBottom: "10px" }} key={index}>{item}</li>
+              ))}
+            </ul>
             <div
               style={{
                 width: "100%",

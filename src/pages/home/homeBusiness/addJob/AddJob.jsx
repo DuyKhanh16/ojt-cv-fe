@@ -5,12 +5,17 @@ import privateAxios from "../../../../config/private.axios";
 import axios from "axios";
 import { Select, notification } from "antd";
 export default function AddJob() {
+
+  // window.scrollTo(0, 0);
+
   const navigate = useNavigate();
+
   const [infoCompany, SetInfoCompany] = useState();
   const [addressCompany, setAdressCompany] = useState([]);
   const [typeJob, setListTypeJob] = useState([]);
   const [LevelJob, setLevelJob] = useState([]);
   const [salary, setSalary] = useState([]);
+  
   const [newJob, setNewJob] = useState({
     title: "",
     description: "",
@@ -21,6 +26,11 @@ export default function AddJob() {
     typejob_id: "",
     leveljob_id: "",
   });
+  
+  
+  const role = JSON.parse(localStorage.getItem("role"));
+  const navigate = useNavigate();
+
 
   // lấy thông tin company
   const getInfo = () => {
@@ -60,9 +70,20 @@ export default function AddJob() {
     getTypeJob();
     levelJobs();
     getlistSalary();
+    if(role !== 2) {
+      navigate("/candidate")
+    }
+  
   }, []);
   // hàm tạo job
   const handleSubmit = async () => {
+    if(newJob.address_company_id === "" || newJob.typejob_id === "" || newJob.leveljob_id === "" || newJob.salary === "" || newJob.expire_at === "" || newJob.title === "" || newJob.description === "" || newJob.requirements === ""){
+      notification.error({
+        message: "Vui lòng điền đầy đủ thông tin",
+        placement: "topRight",
+        duration: 2,
+      })
+    }
     try {
       const res = await axios.post(
         `http://localhost:3000/api/v2/jobs/create/${infoCompany.id}`,

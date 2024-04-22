@@ -60,7 +60,7 @@ export default function InformationUserB() {
   const [itemAboutUpdate, setItemAboutUpdate] = useState({});
   const [itemSkillUpdate, setItemSkillUpdate] = useState({});
   // het bien hung
-
+  const role = JSON.parse(localStorage.getItem("role"));
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -83,6 +83,9 @@ export default function InformationUserB() {
     setOpenConfirm(false);
     setOpenSkill(false);
     setFlag(flag + 1);
+    if(role !== 1){
+      navigate("/company")
+    }
   }, [dispatch]);
 
   useEffect(() => {

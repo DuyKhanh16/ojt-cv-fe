@@ -20,6 +20,9 @@ export default function AllCV() {
   const [cv3, setCv3] = React.useState(false);
   const [cv4, setCv4] = React.useState(false);
   const [infor, setInfor] = React.useState({});
+  const role = JSON.parse(localStorage.getItem("role"));
+  const navigate = useNavigate();
+  
   const choose = (index) => {
     const ar = document
       .getElementsByClassName("allCV__content--left__list__item")
@@ -58,7 +61,6 @@ export default function AllCV() {
       }
     }
   };
-  const navigate = useNavigate();
   const getInforCV = async () => {
     await privateAxios
       .get("api/v2/candidates/getAllInformation")
@@ -81,6 +83,9 @@ export default function AllCV() {
   });
   useEffect(() => {
     getInforCV();
+    if(role !== 1){
+      navigate("/company")
+    }
   }, []);
   return (
     <>

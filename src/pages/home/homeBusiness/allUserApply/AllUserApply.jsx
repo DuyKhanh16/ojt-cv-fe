@@ -5,6 +5,7 @@ import HeaderCompany from "../../../../components/headerCompany/HeaderCompany";
 import Footer from "../../../../components/footer/Footer";
 import privateAxios from "../../../../config/private.axios";
 import { Button, Modal, notification } from "antd";
+import { useNavigate } from "react-router";
 
 export default function AllUserApply() {
   window.scrollTo(0, 0);
@@ -18,12 +19,20 @@ export default function AllUserApply() {
   const [flag, setFlag] = useState(true)
   const [interviewDay,setInterviewDay] = useState("")
   const [idcheck,setIdCheck] = useState("")
+
+ const role = JSON.parse(localStorage.getItem("role"));
+  const navigate = useNavigate();
+
+  
   useEffect(() => {
     const getAllJob = privateAxios.get("api/v2/jobs/getJobsForCompany");
     getAllJob.then((res) => {
 
       setAllJob(res.data.data)
     })
+   if(role !==2) {
+    navigate('/candidate')
+   }
     // const getCandidates = privateAxios.get("api/v2/jobs/getCandidatesApplying")
     // getCandidates.then((res) => {
     //   console.log(res);

@@ -20,7 +20,11 @@ export default function MainBusiness() {
   const [allLiveJob, setLiveJob] = useState([]);
   const [allNewJob, setNewJob] = useState([]);
   const [allCandidate, setAllCandidate] = useState([]);
+  const role = JSON.parse(localStorage.getItem("role"));
   const navigate = useNavigate();
+  // console.log(role,"11111111")
+
+
   const getAllCompany = async () => {
     try {
       const res = await publicAxios.get("/api/v2/companies/getAll");
@@ -62,6 +66,10 @@ export default function MainBusiness() {
     getAllLiveJob();
     getAllNewJob();
     getAllCandidate();
+    if(role !== 2){
+      navigate("/candidate");
+    }
+
   }, []);
   return (
     <>

@@ -25,6 +25,8 @@ export default function AllJobAdmin() {
     nameCompany: "",
   });
   const navigate = useNavigate();
+  const role = JSON.parse(localStorage.getItem("role"));
+  const token1 = JSON.parse(localStorage.getItem("token"));
 
   const showModal = (item) => {
     console.log(item);
@@ -75,6 +77,15 @@ export default function AllJobAdmin() {
   // console.log(allNewJob);
   useEffect(() => {
     getAllNewJob();
+    if(!token1){
+      navigate("/login");
+    }
+    if(role == 1){
+      navigate("/candidate");
+    }
+    if(role == 2){
+      navigate("/company");
+    }
   }, [flag]);
   console.log(allNewJob);
   return (

@@ -22,6 +22,7 @@ export default function UserDetail() {
   const [allJob, setAllJob] = React.useState([]);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const role = JSON.parse(localStorage.getItem("role"));
   const user = useSelector((state) => state.candidate.data);
   
   window.scrollTo(0, 0);
@@ -55,6 +56,9 @@ export default function UserDetail() {
     dispatch(candidateAsync());
     getInforCV();
     allJobApply();
+    if(role !== 1) {
+      navigate("/company")
+    }
   }, [dispatch]);
   return (
     <>

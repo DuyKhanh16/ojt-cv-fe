@@ -19,6 +19,8 @@ export default function AllUserAdmin() {
     certificate: "",
   });
   const navigate = useNavigate();
+  const role = JSON.parse(localStorage.getItem("role"));
+  const token1 = JSON.parse(localStorage.getItem("token"));
 
   const getAllCandidate = async () => {
     try {
@@ -32,6 +34,15 @@ export default function AllUserAdmin() {
   console.log(allCandidate);
   useEffect(() => {
     getAllCandidate();
+    if(!token1){
+      navigate("/login");
+    }
+    if(role == 1){
+      navigate("/candidate");
+    }
+    if(role == 2){
+      navigate("/company");
+    }
   }, []);
 
   // modal
