@@ -7,6 +7,7 @@ import publicAxios from "../../../../config/pulic.axios";
 import { Switch, Modal, notification } from 'antd';
 import axios from "axios";
 
+
 export default function AllJobAdmin() {
   window.scrollTo(0, 0);
   const [allNewJob, setNewJob] = useState([]);
@@ -32,7 +33,7 @@ export default function AllJobAdmin() {
     console.log(item);
     setInfoJob({
       name: item.title,
-      salary: item.salary,
+      salary: item.salary_jobs[0].salary.name,
       address: item.address_company.address,
       typejob_id: item.types_jobs[0].typejob.name,
       requirements: item.requirements,
@@ -74,7 +75,7 @@ export default function AllJobAdmin() {
     }
   };
 
-  // console.log(allNewJob);
+  console.log(allNewJob);
   useEffect(() => {
     getAllNewJob();
     if(!token1){
@@ -159,8 +160,12 @@ export default function AllJobAdmin() {
             <div className="allJobAdmin__content__headerTable__namejob column">
               <p>Tên công việc </p>
             </div>
+            
             <div className="allJobAdmin__content__headerTable__nameCompany column">
               <p>Công ty</p>
+            </div>
+            <div className="allJobAdmin__content__headerTable__nameCompany column">
+              <p>Logo</p>
             </div>
             <div className="allJobAdmin__content__headerTable__time column">
               <p>Thời hạn</p>
@@ -185,10 +190,15 @@ export default function AllJobAdmin() {
                   <div className="allJobAdmin__content__headerTable__namejob column">
                     <p>{item?.title} </p>
                   </div>
-                  <div className="allJobAdmin__content__headerTable__nameCompany column">
+                  <div
+                   className="allJobAdmin__content__headerTable__nameCompany column">
                     <p>{item?.company.name}</p>
                   </div>
-
+                  <div 
+                  style={{display:"flex",alignItems:"center",justifyContent:"center"}}
+                  className="allJobAdmin__content__headerTable__namejob column">
+                  <img src={item?.company.logo} style={{width:"50px",height:"50px"}}></img>
+                </div>
                   <div className="allJobAdmin__content__headerTable__time column">
                     <span class="material-symbols-outlined">
                       calendar_month
@@ -197,7 +207,7 @@ export default function AllJobAdmin() {
                   </div>
                   <div className="allJobAdmin__content__headerTable__salary column">
                     <div className="allJobAdmin__content__headerTable__salary__start ">
-                      {item?.salary}
+                      {item?.salary_jobs[0].salary.name}
                     </div>
 
                   </div>
