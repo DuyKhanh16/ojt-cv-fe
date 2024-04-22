@@ -83,9 +83,7 @@ export default function InformationUserB() {
     setOpenConfirm(false);
     setOpenSkill(false);
     setFlag(flag + 1);
-    if(role !== 1){
-      navigate("/company")
-    }
+   
   }, [dispatch]);
 
   useEffect(() => {
