@@ -25,6 +25,7 @@ export default function JobDetail() {
   const [position, setPosition] = React.useState("");
   const [allLiveJob, setLiveJob] = useState([]);
   const [salary, setSalary] = useState([]);
+  const [check, setCheck] = useState(false);
   const navigate = useNavigate();
 
   window.scrollTo(0, 0);
@@ -41,6 +42,10 @@ export default function JobDetail() {
       });
   };
   useEffect(() => {
+    const result2 = privateAxios.get(`/api/v2/jobs/getJobAppliedCandidatesbyId/${id}`);
+    result2.then((res) => {
+      setCheck(res.data.check);
+    })
     const result = privateAxios.get(`/api/v2/jobs/detail/${id}`);
     result
       .then((res) => {
@@ -172,13 +177,22 @@ export default function JobDetail() {
                   bookmark
                 </span>
               </button>
-              <button
+              {
+                check?<button
+                className="job__detail--company--apply--apply11"
+                style={{ backgroundColor: "gray", color: "white" }}
+                // onClick={() => setIsOpen(true)}
+              >
+                <p>Đã ứng tuyển </p>
+              </button>:<button
                 className="job__detail--company--apply--apply11"
                 onClick={() => setIsOpen(true)}
               >
-                <p>Ứng tuyển </p>
+                <p> Ứng tuyển </p>
                 <img src={arrow}></img>
               </button>
+              }
+              
             </div>
           </div>
           <div className="job__detail--description1">
