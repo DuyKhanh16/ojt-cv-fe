@@ -31,6 +31,7 @@ export default function UpdateJobBusiness() {
   const [job, setJob] = useState([]);
   const [typeJob1, setTypeJob1] = useState([]);
   const [salary, setSalary] = useState([]);
+  const [salary1, setSalary1] = useState([]);
   const [listAdress, setListAdress] = useState([]);
   const [levelJob1, setLevelJob1] = useState([]);
   const [allUserApply, setAllUserApply] = useState([]);
@@ -61,6 +62,7 @@ export default function UpdateJobBusiness() {
       // console.log(jobdetail)
       // setUpdatejob(res.data.data);
       setJob(res.data.data);
+      setSalary1(res.data.data.salary_jobs);
       setAddress(res.data.data.address_company.address);
       setLevelJob1(res.data.data.levers_jobs);
       setTypeJob1(res.data.data.types_jobs);
@@ -103,6 +105,7 @@ const getlistSalary = () => {
   });
 };
 
+console.log(salary1,"123")
   // haàm lấy thời gian làm việc
   const getTypeJobs = () => {
     const res = privateAxios.get("api/v2/typejob/getall");
@@ -125,7 +128,7 @@ const getlistSalary = () => {
     getJobsDetails();
     getlistSalary();
   }, [flag]);
-  console.log(job);
+
 // console.log(listAdress,"1")
 
 
@@ -443,7 +446,7 @@ const getlistSalary = () => {
                 <div style={{ textAlign: "center" }}>
                   <h3 style={{ marginBottom: "10px" }}>Salary (Usd)</h3>
                   <p style={{ color: "#0BA02C", fontSize: "18px" }}>
-                    {job?.salary}
+                      {salary1[0]?.salary.name}
                   </p>
                   <p style={{ color: "gray", fontSize: "14px" }}>
                     Montch Salary

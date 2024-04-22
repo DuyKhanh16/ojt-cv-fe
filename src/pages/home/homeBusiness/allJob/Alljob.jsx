@@ -79,7 +79,8 @@ export default function Alljob() {
       try {
         const res = await privateAxios.delete(`api/v2/jobs/delete/${id}`);
         notification.success({ message: "Đã xóa thành công" });
-        setflag(!flag);
+        getallJobsCompany();
+        setflag(!flag)
       } catch (error) {
         console.log(error);
       }

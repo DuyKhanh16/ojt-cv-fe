@@ -151,7 +151,7 @@ export default function InformationUserB() {
     });
   };
   const checkAboutmeF = () => {
-    if (user.aboutme != "") {
+    if (user?.aboutme != "") {
       setCheckAboutMe(true);
     } else {
       setCheckAboutMe(false);

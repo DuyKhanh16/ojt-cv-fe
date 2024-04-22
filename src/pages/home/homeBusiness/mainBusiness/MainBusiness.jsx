@@ -173,6 +173,7 @@ export default function MainBusiness() {
             </div>
           </div>
         </div>
+        
         <div className="mainBusiness__outStandingCandidate">
           <div className="mainBusiness__outStandingCandidate--header">
             <span className="mainBusiness__outStandingCandidate--header__title">

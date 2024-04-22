@@ -15,18 +15,26 @@ export default function AllUserApply() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isModalOpen2, setIsModalOpen2] = useState(false);
   const [idApply, setIdApply] = useState("");
-  const [flag, setFlag] = useState(true);
-  const [interviewDay, setInterviewDay] = useState("");
+  const [flag, setFlag] = useState(true)
+  const [interviewDay,setInterviewDay] = useState("")
+  const [idcheck,setIdCheck] = useState("")
   useEffect(() => {
     const getAllJob = privateAxios.get("api/v2/jobs/getJobsForCompany");
     getAllJob.then((res) => {
-      setAllJob(res.data.data);
-    });
-  }, [flag]);
-  const findCandidate = async (id) => {
-    const res = await privateAxios.get(
-      `api/v2/jobs/getCandidatesbyIdJob/${id}`
-    );
+
+      setAllJob(res.data.data)
+    })
+    // const getCandidates = privateAxios.get("api/v2/jobs/getCandidatesApplying")
+    // getCandidates.then((res) => {
+    //   console.log(res);
+    //   setAllUserApply(res.data.data)
+    // })
+  },[flag])
+  const findCandidate = async(id)=>{
+    console.log(id)
+    setIdCheck(id)
+    const res = await privateAxios.get(`api/v2/jobs/getCandidatesbyIdJob/${id}`)
+
     console.log(res);
     setAllUserApply(res.data.data);
   };
@@ -64,9 +72,11 @@ export default function AllUserApply() {
       );
       setIsModalOpen(false);
       notification.success({
-        message: res.data.message,
-      });
-      window.location.reload();
+        message:"Gửi mail từ chối thành công"
+      })
+      const res1 = await privateAxios.get(`api/v2/jobs/getCandidatesbyIdJob/${idcheck}`)
+      console.log(res);
+      setAllUserApply(res1.data.data)
     } catch (error) {
       console.log(error);
     }
@@ -85,9 +95,12 @@ export default function AllUserApply() {
       setIsModalOpen2(false);
       setIsModalOpen(false);
       notification.success({
-        message: res.data.message,
-      });
-      setFlag(!flag);
+        message:"Đặt lịch phỏng vấn cho ứng tuyển thành công"
+      })
+      const res1 = await privateAxios.get(`api/v2/jobs/getCandidatesbyIdJob/${idcheck}`)
+      console.log(res);
+      setAllUserApply(res1.data.data)
+      setFlag(!flag)
     } catch (error) {
       console.log(error);
     }
