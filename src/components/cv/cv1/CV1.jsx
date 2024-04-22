@@ -49,7 +49,7 @@ export default function CV1({ item }) {
           </div>
           <div className="CV1__header--right">
             <div className="CV1__header--right__avatar">
-              <img src={avatar} alt="" />
+              <img src={inforCV?.avatar} alt="" />
             </div>
           </div>
         </div>

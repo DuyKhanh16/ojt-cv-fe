@@ -67,13 +67,14 @@ function UpdateInforUser({ isOpen, close }) {
   };
   // het api thanh pho
   const getUser = () => {
+    console.log(address)
     privateAxios
       .get("api/v2/candidates/getInfor")
       .then((res) => {
         setUser(res.data.data);
         setUserUpdate({
           name: res.data.data.name,
-          address:  `${address}-${ward}-${district}-${city}`,
+          address: res.data.data.address,
           phone: res.data.data.phone,
           gender: res.data.data.gender,
           link_git: res.data.data.link_git,
@@ -81,6 +82,10 @@ function UpdateInforUser({ isOpen, close }) {
           position: res.data.data.position,
           avatar: res.data.data.avatar,
         });
+        setCity(res.data.data.address.split("-")[3]);
+        setDistrict(res.data.data.address.split("-")[2]);
+        setAddress(res.data.data.address.split("-")[0]);
+        setWard(res.data.data.address.split("-")[1]);
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -151,6 +156,17 @@ function UpdateInforUser({ isOpen, close }) {
     setPreview("");
     close();
   };
+
+  const handleWard = async (e) => {
+    console.log(userUpdate.address)
+    setWard(e.target.value);
+    setUserUpdate({ ...userUpdate, address: `${address}-${e.target.value}-${district}-${city}` });
+  }
+  const handleAddress = async (e) => {
+    console.log(address)
+    setAddress(e.target.value);
+    setUserUpdate({ ...userUpdate, address: `${e.target.value}-${ward}-${district}-${city}` });
+  }
   //  hàm validate các trường
   const validate = () => {
     let tempErrors = {};
@@ -320,7 +336,7 @@ function UpdateInforUser({ isOpen, close }) {
                     name=""
                     id=""
                   >
-                    <option value="">Chọn thành phố</option>
+                    <option value="">{ city ? city :"Chọn thành phố"}</option>
                     {dataCity.map((item, index) => (
                       <option key={index} value={item.code}>
                         {item.province_name}
@@ -339,7 +355,7 @@ function UpdateInforUser({ isOpen, close }) {
                     name=""
                     id=""
                   >
-                    <option>Chọn Quận/Huyện</option>
+                    <option>{district ? district :"Chọn Quận/Huyện"}</option>
                     {dataDistrict.map((item, index) => (
                       <option key={index} value={item.code}>
                         {item.district_name}
@@ -353,11 +369,13 @@ function UpdateInforUser({ isOpen, close }) {
                       border: "1px solid #E7F0FA",
                       borderRadius: "5px",
                     }}
-                    onChange={(e) => setWard(e.target.value)}
+                    onChange={handleWard}
                     name=""
                     id=""
                   >
-                    <option value="">Chọn Phường/Xã</option>
+
+                    <option value="">{ward ? ward :"Chọn Phường/Xã"}</option>
+
                     {dataWard.map((item, index) => (
                       <option key={index}>{item.ward_name}</option>
                     ))}
@@ -377,7 +395,7 @@ function UpdateInforUser({ isOpen, close }) {
                 <input
                   name="address"
                   value={address}
-                  onChange={(e) => setAddress(e.target.value)}
+                  onChange={handleAddress}
                   type="text"
                   placeholder="Địa chỉ chi tiết"
                 />

@@ -47,7 +47,7 @@ export default function CV2() {
         </div>
         <div className="CV2__header--right">
           <div className="CV2__header--right__avatar">
-            <img src={avatar} alt="" />
+            <img src={inforCV?.avatar} alt="" />
           </div>
         </div>
       </div>
