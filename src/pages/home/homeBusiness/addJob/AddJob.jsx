@@ -6,9 +6,9 @@ import axios from "axios";
 import { Select, notification } from "antd";
 export default function AddJob() {
 
-  window.scrollTo(0, 0);
+  // window.scrollTo(0, 0);
 
-  
+  const navigate = useNavigate();
 
   const [infoCompany, SetInfoCompany] = useState();
   const [addressCompany, setAdressCompany] = useState([]);
@@ -28,13 +28,12 @@ export default function AddJob() {
   });
   
   
-  const role = JSON.parse(localStorage.getItem("role"));
-  const navigate = useNavigate();
+  // const role = JSON.parse(localStorage.getItem("role"));
 
 
   // lấy thông tin company
-  const getInfo = () => {
-    const res = privateAxios.get("api/v2/companies/getInfor");
+  const getInfo = async () => {
+    const res = await privateAxios.get("api/v2/companies/getInfor");
     res.then((res) => {
       SetInfoCompany(res.data.data);
       setAdressCompany(res.data.data.address_company);
@@ -43,23 +42,23 @@ export default function AddJob() {
 
   console.log(infoCompany, "infoCompany");
   //  hàm lấy các type job
-  const getTypeJob = () => {
-    const res = axios.get("http://localhost:3000/api/v2/typejob/getall");
+  const getTypeJob = async () => {
+    const res = await axios.get("http://localhost:3000/api/v2/typejob/getall");
     res.then((res) => {
       setListTypeJob(res.data);
     });
   };
   //  hàm lấy các level job
-  const levelJobs = () => {
-    const res = axios.get("http://localhost:3000/api/v2/leveljob/getall");
+  const levelJobs = async () => {
+    const res = await axios.get("http://localhost:3000/api/v2/leveljob/getall");
     res.then((res) => {
       setLevelJob(res.data);
     });
   };
 
   // hàm lấy các salary
-  const getlistSalary = () => {
-    const res = axios.get("http://localhost:3000/api/v2/salary/getAll");
+  const getlistSalary = async () => {
+    const res = await axios.get("http://localhost:3000/api/v2/salary/getAll");
     res.then((res) => {
       setSalary(res.data);
     });
