@@ -44,6 +44,7 @@ export default function JobDetail() {
   useEffect(() => {
     const result2 = privateAxios.get(`/api/v2/jobs/getJobAppliedCandidatesbyId/${id}`);
     result2.then((res) => {
+      console.log(res.data.check);
       setCheck(res.data.check);
     })
     const result = privateAxios.get(`/api/v2/jobs/detail/${id}`);

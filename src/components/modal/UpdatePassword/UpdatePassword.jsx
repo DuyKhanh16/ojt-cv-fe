@@ -8,6 +8,8 @@ export default function UpdatePassword() {
       <div  className=" updateInforUser"  >
         <div className="updateInforUser__contain">
           <div className='updatePassword' >
+            <label>Tài khoản đăng đăng ký</label>
+            <input type="text" placeholder="Nhập mật khẩu" onChange={(e)=>setEmail(e.target.value)}/>
             <label>Mời nhập lại mật khẩu mới</label>
             <input type="text" placeholder="Nhập mật khẩu" onChange={(e)=>setEmail(e.target.value)}/>
             <label>Xác nhận lại mật khẩu</label>

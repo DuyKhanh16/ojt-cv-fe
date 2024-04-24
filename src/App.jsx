@@ -45,7 +45,7 @@ const router = createBrowserRouter([
   /* source chung */
   {
     path: "/",
-    element: <Router />,
+    element: <Router />,  
     children: [
       {
         path: "",
