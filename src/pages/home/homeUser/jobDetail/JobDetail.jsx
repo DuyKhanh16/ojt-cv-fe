@@ -27,6 +27,8 @@ export default function JobDetail() {
   const [salary, setSalary] = useState([]);
   const [check, setCheck] = useState(false);
   const navigate = useNavigate();
+  const role = JSON.parse(localStorage.getItem("role"));
+
 
   window.scrollTo(0, 0);
   // lay het thong tin cua jobdetail
@@ -57,6 +59,9 @@ export default function JobDetail() {
       .catch((error) => {
         console.log(error);
       });
+      if(role !== 1){
+        navigate("/company")
+      }
   }, []);
 
   const getAllLiveJob = async () => {
@@ -85,8 +90,8 @@ export default function JobDetail() {
   useEffect(() => {
     getAllLiveJob();
   }, []);
-  console.log(infor)
-  console.log(salary)
+  // console.log(infor)
+  // console.log(salary)
   return (
     <div>
       <div

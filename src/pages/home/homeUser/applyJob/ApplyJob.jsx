@@ -25,12 +25,15 @@ export default function ApplyJob({position,company,id,close}) {
     candidate_id:"",
     job_id:""
   });
-
+  const role = JSON.parse(localStorage.getItem("role"));
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.candidate.data);
   useEffect(() => {
     setInfor({ ...infor, candidate_id: user?.id, job_id: id });
+    if(role !== 1){
+      navigate('/company')
+    }
   },[user]);
   useEffect(() => {
     dispatch(candidateAsync())

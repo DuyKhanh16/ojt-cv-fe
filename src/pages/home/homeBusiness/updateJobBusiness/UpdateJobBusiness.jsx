@@ -189,6 +189,13 @@ console.log(salary1,"123")
   const handleCancel1 = () => {
     setIsModalOpen1(false);
   };
+
+  const requirementsWithBreaks = job?.requirements?.split('\n')
+  // console.log(job.description)
+  const description = job?.description?.split('\n')
+  // console.log(description)
+  
+    
   return (
     <div>
       <Modal
@@ -429,12 +436,19 @@ console.log(salary1,"123")
           <div className="job__detail--description">
             <div className="job__detail--description--title">
               <h2>Mô tả công việc</h2>
-              <p>{job?.description}</p>
-              <h2>Yêu cầu</h2>
+
+              <ul style={{ marginTop: "20px" }}>
+                      {description?.map((item, index) => (
+                        <li key={index}>{item}</li>
+                      ))}
+              </ul>
+              <h2 style={{ marginTop: "20px", marginBottom: "20px" }}>Yêu cầu của công ty</h2>
+
               <ul>
-                <li>
-                  <p>{job?.requirements}</p>
-                </li>
+                {
+                  requirementsWithBreaks?.map((item, index) => (
+                    <li key={index}>{item}</li>
+                  ))}
          
               </ul>
             

@@ -14,6 +14,7 @@ export default function JobList() {
 
   window.scrollTo(0, 0);
   const navigate = useNavigate();
+  const role = JSON.parse(localStorage.getItem("role"));
   async function getListCity() {
     try {
       const result = await axios.get("https://vapi.vnappmob.com/api/province/");
@@ -36,6 +37,9 @@ export default function JobList() {
   React.useEffect(() => {
     getListCity();
     getAllJob();
+    if(role !== 1) {
+      navigate("/company");
+    }
   }, [])
   return (
     <>

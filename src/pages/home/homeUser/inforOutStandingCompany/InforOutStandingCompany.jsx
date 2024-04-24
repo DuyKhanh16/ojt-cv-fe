@@ -2,11 +2,17 @@ import React, { useEffect, useState } from "react";
 import map from "../../../../assets/images/map.jpeg";
 import "./InforOutStandingCompany.scss";
 import privateAxios from "../../../../config/private.axios";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
+import { notification } from "antd";
+import publicAxios from "../../../../config/pulic.axios";
 
 export default function InforOutStandingCompany() {
   const { id } = useParams();
   const [infoCompany, setInfoCompany] = useState({});
+  const navigate1 = useNavigate();
+  const role = JSON.parse(localStorage.getItem("role"));
+  const [listflow,setListFlow]=React.useState()
+  const [candidateId,setCandidateId]=React.useState()
   window.scrollTo(0, 0);
   // lấy thông tin company
   const getinfoCompany = async () => {
@@ -20,11 +26,31 @@ export default function InforOutStandingCompany() {
         console.log(err);
       });
   };
-
+ const getflowerCompany= async()=>{
+    const res= await privateAxios.get(`api/v2/companies/flow-company?company_id=${id}`)
+    setListFlow(res.data.data)
+    setCandidateId(res.data.candidateId)
+  }
   useEffect(() => {
     getinfoCompany();
+    if(role !== 1){
+      navigate1("/company")
+    }
+    getflowerCompany()
   }, []);
 
+  const flowCompany = async () =>{
+    try {
+      await privateAxios.post(`/api/v2/companies/flow/${id}`)
+      notification.success({
+        message: "Đã tạo Flow công ty",
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  let checkFlow = listflow?.filter  ((item)=>item.candidate.id==candidateId)
+  console.log(listflow);
   return (
     <>
       <div>
@@ -67,7 +93,7 @@ export default function InforOutStandingCompany() {
                       style={{ color: "red", marginRight: "8px" }}
                       class="fa-solid fa-heart"
                     ></i>{" "}
-                    100 người theo dõi
+                    {listflow?.length} người theo dõi
                   </span>
                 </p>
                 <p style={{ marginLeft: "0px" }}>
@@ -97,7 +123,7 @@ export default function InforOutStandingCompany() {
               </div>
             </div>
             <div className="user-companyView-info-feature">
-              <button>Theo dõi</button>
+          {checkFlow?<button>Đã FL</button>:  <button onClick={flowCompany}>Theo dõi</button>}
             </div>
           </div>
         </div>
