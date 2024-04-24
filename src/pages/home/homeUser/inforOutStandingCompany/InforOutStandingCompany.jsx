@@ -11,46 +11,58 @@ export default function InforOutStandingCompany() {
   const [infoCompany, setInfoCompany] = useState({});
   const navigate1 = useNavigate();
   const role = JSON.parse(localStorage.getItem("role"));
-  const [listflow,setListFlow]=React.useState()
-  const [candidateId,setCandidateId]=React.useState()
+  const [listflow,setListFlow]=React.useState([])
+  const [checkFlow,setCheckFlow]=React.useState()
+  const [flag, setflag] = useState(false);
   window.scrollTo(0, 0);
   // lấy thông tin company
   const getinfoCompany = async () => {
     const resutl = await privateAxios
       .get(`/api/v2/companies/getInfoCompanyById/${id}`)
       .then((resutl) => {
-        console.log(resutl);
         setInfoCompany(resutl.data.data);
       })
       .catch((err) => {
         console.log(err);
       });
   };
- const getflowerCompany= async()=>{
+  const getIdcandidate= async ()=>{
+  try {
+    const res= await privateAxios.get("api/v2/account/id-auth")
+    getflowerCompany(res.data.data)
+    
+  } catch (error) {
+    console.log(error);
+  }
+  }
+ const getflowerCompany= async(candidateId)=>{
     const res= await privateAxios.get(`api/v2/companies/flow-company?company_id=${id}`)
     setListFlow(res.data.data)
-    setCandidateId(res.data.candidateId)
+    setCheckFlow(res.data.data.findIndex((item)=>item.candidate.id===candidateId))
   }
-  useEffect(() => {
-    getinfoCompany();
-    if(role !== 1){
-      navigate1("/company")
-    }
-    getflowerCompany()
-  }, []);
 
+     
   const flowCompany = async () =>{
+    setCheckFlow(0)
     try {
       await privateAxios.post(`/api/v2/companies/flow/${id}`)
       notification.success({
         message: "Đã tạo Flow công ty",
       });
+      setflag(!flag)
     } catch (error) {
       console.log(error);
     }
   }
-  let checkFlow = listflow?.filter  ((item)=>item.candidate.id==candidateId)
-  console.log(listflow);
+
+  useEffect(() => {
+    getinfoCompany();
+    if(role !== 1){
+      navigate1("/company")
+    }
+    getIdcandidate()  
+  }, [flag]);
+ 
   return (
     <>
       <div>
@@ -123,7 +135,7 @@ export default function InforOutStandingCompany() {
               </div>
             </div>
             <div className="user-companyView-info-feature">
-          {checkFlow?<button>Đã FL</button>:  <button onClick={flowCompany}>Theo dõi</button>}
+          {checkFlow != -1?<button>Đã Theo Dõi +</button>:  <button onClick={flowCompany}>Theo dõi</button>}
             </div>
           </div>
         </div>
