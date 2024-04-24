@@ -23,6 +23,7 @@ import publicAxios from "../../../config/pulic.axios";
 import { Outlet, useNavigate } from "react-router";
 import CheckLogin from "../../../components/confirm/CheckLogin";
 import axios from "axios";
+import privateAxios from "../../../config/private.axios";
 
 export default function Main() {
   const [allCompany, setAllCompany] = useState([]);
@@ -36,18 +37,23 @@ export default function Main() {
   const role1 = JSON.parse(localStorage.getItem("role"));
   const token = localStorage.getItem("token") || null;
   const [isOpen, setIsOpen] = useState(false);
+  const [flag, setflag] = useState(false);
+  const [lisJobSave, setLisJobSave] = useState([]);
+  const [chekSave, setChekSave] = useState(true);
   const open = () => {
     console.log(isOpen);
     setIsOpen(!isOpen);
   };
 
   const getAllCompany = async () => {
+    // debugger
     try {
       const res = await publicAxios.get("/api/v2/companies/getAll");
       setAllCompany(res.data.data);
-      const res1 = await publicAxios.get(
-        `/api/v2/jobs/getJobsCompanyById/${res.data.data[0].id}`
-      );
+      // const res1 = await publicAxios.get(
+      //   `/api/v2/jobs/getJobsCompanyById/${res.data.data[0].id}`
+      // );
+
     } catch (error) {
       console.log(error);
     }
@@ -71,7 +77,7 @@ export default function Main() {
   };
   const getAllCandidate = async () => {
     try {
-      const res = await publicAxios.get("api/v2/candidates/getAll");
+      const res = await publicAxios.get("/api/v2/candidates/getAll");
       console.log(res.data.data);
       setAllCandidate(res.data.data);
     } catch (error) {
@@ -79,13 +85,43 @@ export default function Main() {
     }
   };
   console.log(allCandidate)
+
+  const getListJobSave = async () => {
+    try {
+      const res= await privateAxios.get("api/v2/candidates/getJobSave")
+      console.log(res);
+      setLisJobSave(res.data.data)
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  console.log(lisJobSave)
+
   useEffect(() => {
     getAllCompany();
     getAllLiveJob();
     getAllNewJob();
     getAllCandidate();
-   
-  }, []);
+   getListJobSave()
+  }, [flag]);
+  
+  const candidateSaveJob =async(id)=>{
+    setChekSave(false)
+    if(!chekSave) return
+
+    try {
+      await privateAxios.post(`/api/v2/candidates/candidate-save-job/?job_id=${id}`)
+       notification.success({
+        message: "Đã lưu công việc",
+      });
+      setflag(!flag)
+    } catch (error) {
+      console.log(error);
+      notification.error({
+        message: "không thể lưu công việc này 2 lần",
+      });
+    }
+  }
   return (
     <>
       <CheckLogin isOpen={isOpen} close={open}></CheckLogin>
@@ -222,10 +258,10 @@ export default function Main() {
                   <div
                     className="main__outStandingJob--listJob__item"
                     key={item.id}
-                    onClick={() => navigate(`/candidate/jobdetail/${item.id}`)}
+                   
                   >
                     <div className="main__outStandingJob--listJob__item--top">
-                      <span className="main__outStandingJob--listJob__item--top__name">
+                      <span  onClick={() => navigate(`/candidate/jobdetail/${item.id}`)}   className="main__outStandingJob--listJob__item--top__name">
                         {item.title}
                       </span>
                       <div className="main__outStandingJob--listJob__item--top__salary">
@@ -252,9 +288,13 @@ export default function Main() {
                           </div>
                         </div>
                       </div>
-                      <div className="main__outStandingJob--listJob__item--bottom__bookmark">
-                        <img src={BookmarkSimple} alt="" />
+                     {lisJobSave.findIndex((job) => job.job.id === item.id) !== -1  ?  <div  className="main__outStandingJob--listJob__item--bottom__bookmark">
+                      <i style={{color:"gold"}} class="fa-solid fa-bookmark"></i>
+                      </div>: <div  onClick={() => candidateSaveJob(item.id)} className="main__outStandingJob--listJob__item--bottom__bookmark">
+                      <i style={{opacity:"0.5"}} class="fa-solid fa-bookmark"></i>
                       </div>
+                       
+                     }
                     </div>
                   </div>
                 ))}
@@ -296,7 +336,7 @@ export default function Main() {
                         </div>
                       </div>
                       <div className="main__outStandingJob--listJob__item--bottom__bookmark">
-                        <img src={BookmarkSimple} alt="" />
+                      <i class="fa-regular fa-bookmark"></i>
                       </div>
                     </div>
                   </div>
