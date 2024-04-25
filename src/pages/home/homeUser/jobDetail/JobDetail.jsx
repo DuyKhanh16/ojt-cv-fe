@@ -13,7 +13,7 @@ import "./JobDetail.scss";
 import { useNavigate, useParams } from "react-router";
 import privateAxios from "../../../../config/private.axios";
 import ApplyJob from "../applyJob/ApplyJob";
-import { notification } from "antd";
+import { Button, notification } from "antd";
 import publicAxios from "../../../../config/pulic.axios";
 
 export default function JobDetail() {
@@ -28,6 +28,7 @@ export default function JobDetail() {
   const [check, setCheck] = useState(false);
   const navigate = useNavigate();
   const role = JSON.parse(localStorage.getItem("role"));
+  const [checkSaveJob,setCheckSaveJob]=React.useState(false)
 
   window.scrollTo(0, 0);
   // lay het thong tin cua jobdetail
@@ -42,6 +43,16 @@ export default function JobDetail() {
         console.log(error);
       });
   };
+
+  const checkSave = async () => {
+    try {
+      const res= await privateAxios.get(`/api/v2/candidates/checkSaveJob?job_id=${id}`);
+      setCheckSaveJob(res.data.data)
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   useEffect(() => {
     const result2 = privateAxios.get(
       `/api/v2/jobs/getJobAppliedCandidatesbyId/${id}`
@@ -59,9 +70,12 @@ export default function JobDetail() {
       .catch((error) => {
         console.log(error);
       });
-    if (role !== 1) {
-      navigate("/company");
-    }
+
+      if(role !== 1){
+        navigate("/company")
+      }
+      checkSave()
+
   }, []);
 
   const getAllLiveJob = async () => {
@@ -90,8 +104,21 @@ export default function JobDetail() {
   useEffect(() => {
     getAllLiveJob();
   }, []);
-  // console.log(infor)
-  // console.log(salary)
+
+  const saveJob = async () => {
+    setCheckSaveJob(true)
+    try {
+      await privateAxios.post(`/api/v2/candidates/candidate-save-job/?job_id=${id}`)
+       notification.success({
+        message: "Đã lưu công việc",
+      });
+    } catch (error) {
+      console.log(error);
+      notification.error({
+        message: "không thể lưu công việc này 2 lần",
+      });
+    }
+  }
   return (
     <div>
       <div
@@ -175,31 +202,29 @@ export default function JobDetail() {
               </div>
             </div>
             <div className="job__detail--company--apply1">
-              <button className="job__detail--company--apply--bookmark1">
-                <span
-                  class="material-symbols-outlined"
-                  style={{ color: "rgba(188, 34, 40, 1)", fontWeight: "800" }}
-                >
-                  bookmark
-                </span>
+
+              {checkSaveJob===false?    <Button className="job__detail--company--apply--bookmark1" onClick={saveJob} >
+              <i style={{color:"red",fontSize:28}} class="fa-solid fa-bookmark"></i>
+              </Button>:    <Button className="job__detail--company--apply--bookmark1"  >
+              <i style={{color:"orange",fontSize:28}} class="fa-solid fa-bookmark"></i>
+              </Button>}
+              {
+                check?<button
+                className="job__detail--company--apply--apply11"
+                style={{ backgroundColor: "gray", color: "white" }}
+                // onClick={() => setIsOpen(true)}
+              >
+                <p>Đã ứng tuyển </p>
+              </button>:<button
+                className="job__detail--company--apply--apply11"
+              >
+                <p  onClick={() => setIsOpen(true)}
+               > Ứng tuyển </p>
+                <img src={arrow}></img>
               </button>
-              {check ? (
-                <button
-                  className="job__detail--company--apply--apply11"
-                  style={{ backgroundColor: "gray", color: "white" }}
-                  // onClick={() => setIsOpen(true)}
-                >
-                  <p>Đã ứng tuyển </p>
-                </button>
-              ) : (
-                <button
-                  className="job__detail--company--apply--apply11"
-                  onClick={() => setIsOpen(true)}
-                >
-                  <p> Ứng tuyển </p>
-                  <img src={arrow}></img>
-                </button>
-              )}
+              }
+              
+
             </div>
           </div>
           <div className="job__detail--description1">

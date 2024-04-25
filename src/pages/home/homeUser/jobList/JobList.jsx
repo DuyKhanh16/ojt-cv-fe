@@ -79,7 +79,7 @@ export default function JobList() {
             <div className='user-ListJob-job-info'>
               <div className='user-ListJob-job-infoCompany'>
               <div className='user-ListJob-job-info-logo'>
-              <img width={48} src={job?.company.logo} alt="logo"/>
+              <img width={48} height={48} src={job?.company.logo} alt="logo"/>
               </div>
               <div className='user-ListJob-job-info-company'>
               <p >{job?.company.name}</p>
