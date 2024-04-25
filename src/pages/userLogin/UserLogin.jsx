@@ -70,7 +70,7 @@ export default function UserLogin() {
         password: user.uid
         
       };
-      privateAxios.post("api/v2/auth/loginByGoogle", userGoogle)
+      publicAxios.post("api/v2/auth/loginByGoogle", userGoogle)
       .then((res) => {
         localStorage.setItem("token", JSON.stringify(res.data.data.token));
         localStorage.setItem("role", JSON.stringify(res.data.data.role));

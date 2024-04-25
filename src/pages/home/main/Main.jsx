@@ -24,6 +24,7 @@ import { Outlet, useNavigate } from "react-router";
 import CheckLogin from "../../../components/confirm/CheckLogin";
 import axios from "axios";
 import privateAxios from "../../../config/private.axios";
+import { candidateGetAll } from "../../../apis/candidates";
 
 export default function Main() {
   const [allCompany, setAllCompany] = useState([]);
@@ -98,8 +99,8 @@ export default function Main() {
 
   const getAllCandidate = async () => {
     try {
-      const res = await publicAxios.get("/api/v2/candidates/getAll");
-      console.log(res.data.data);
+      const res = await candidateGetAll();
+      console.log(res.data);
       setAllCandidate(res.data.data);
     } catch (error) {
       console.log(error);
