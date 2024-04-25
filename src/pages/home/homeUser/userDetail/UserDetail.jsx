@@ -17,6 +17,9 @@ import { candidateAsync } from "../../../../redux/reduce/candidateReduce";
 import { useDispatch, useSelector } from "react-redux";
 import privateAxios from "../../../../config/private.axios";
 import { useNavigate } from "react-router";
+import { candidateGetAllInformation } from "../../../../apis/candidates";
+import { getAllJobApply } from "../../../../apis/jobs";
+
 export default function UserDetail() {
   const [infor, setInfor] = React.useState({});
   const [allJob, setAllJob] = React.useState([]);
@@ -25,33 +28,26 @@ export default function UserDetail() {
   const role = JSON.parse(localStorage.getItem("role"));
   const user = useSelector((state) => state.candidate.data);
 
-  window.scrollTo(0, 0);
-
   const getInforCV = async () => {
-    await privateAxios
-      .get("api/v2/candidates/getAllInformation")
+    await candidateGetAllInformation()
       .then((res) => {
-        setInfor(res.data.data);
-        console.log(infor);
+        setInfor(res.data);
       })
       .catch((error) => {
-        console.error("Error:", error);
+        return error;
       });
   };
-  console.log(user);
-  console.log(infor);
+  
   const allJobApply = async () => {
-    await privateAxios
-      .get("api/v2/jobs/getJobAppliedCandidates")
+    await getAllJobApply()
       .then((res) => {
-        console.log(res.data.data);
-        setAllJob(res.data.data);
+        setAllJob(res.data);
       })
       .catch((error) => {
-        console.error("Error:", error);
+        return error;
       });
   };
-  console.log(allJob);
+
   useEffect(() => {
     dispatch(candidateAsync());
     getInforCV();

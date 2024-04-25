@@ -25,6 +25,8 @@ import CheckLogin from "../../../components/confirm/CheckLogin";
 import axios from "axios";
 import privateAxios from "../../../config/private.axios";
 import { candidateGetAll } from "../../../apis/candidates";
+import { jobGetLiveJobs, jobGetNewJobs } from "../../../apis/jobs";
+;
 
 export default function Main() {
   const [allCompany, setAllCompany] = useState([]);
@@ -44,21 +46,15 @@ export default function Main() {
   const [lisJobSave, setLisJobSave] = useState([]);
   const [chekSave, setChekSave] = useState(true);
   const open = () => {
-    console.log(isOpen);
     setIsOpen(!isOpen);
   };
 
   const getAllCompany = async () => {
-    // debugger
     try {
       const res = await publicAxios.get("/api/v2/companies/getAll");
       setAllCompany(res.data.data);
-      // const res1 = await publicAxios.get(
-      //   `/api/v2/jobs/getJobsCompanyById/${res.data.data[0].id}`
-      // );
-
     } catch (error) {
-      console.log(error);
+      return error;
     }
   };
 
@@ -72,10 +68,10 @@ export default function Main() {
 
   const getAllLiveJob = async () => {
     try {
-      const res = await publicAxios.get("/api/v2/jobs/getLiveJobs");
-      setLiveJob(res.data.data);
+      const res = await jobGetLiveJobs();
+      setLiveJob(res.data);
     } catch (error) {
-      console.log(error);
+      return error;
     }
   };
 
@@ -86,24 +82,23 @@ export default function Main() {
       console.log(error);
     }
   }
-  console.log(allLiveJob)
+  
 
   const getAllNewJob = async () => {
     try {
-      const res = await publicAxios.get("/api/v2/jobs/getNewJobs");
-      setNewJob(res.data.data);
+      const res = await jobGetNewJobs();
+      setNewJob(res.data);
     } catch (error) {
-      console.log(error);
+      return error;
     }
   };
 
   const getAllCandidate = async () => {
     try {
       const res = await candidateGetAll();
-      console.log(res.data);
-      setAllCandidate(res.data.data);
+      setAllCandidate(res.data);
     } catch (error) {
-      console.log(error);
+      return error;
     }
   };
 
@@ -114,7 +109,6 @@ export default function Main() {
       console.log(error);
     }
   }
-  console.log(allCandidate)
 
   const getListJobSave = async () => {
     try {
@@ -125,7 +119,6 @@ export default function Main() {
       console.log(error);
     }
   }
-  console.log(lisJobSave)
 
   useEffect(() => {
     getAllCompany();
