@@ -1,8 +1,9 @@
 // AUTH
 export const API_REGISTER_CANDIDATE = "/auth/register-candidate";
+
 export const API_REGISTER_COMPANY = "/auth/register-company";
 export const API_LOGIN = "/auth/login";
-export const ADMIN_LOGIN_BY_GOOGLE = "/auth/loginByGoogle";
+export const API_LOGIN_BY_GOOGLE = "/auth/loginByGoogle";
 export const API_FORGET_PASSWORD = "/auth/forgetPassword";
 export const API_GETOTP = "/auth/getOTP";
 

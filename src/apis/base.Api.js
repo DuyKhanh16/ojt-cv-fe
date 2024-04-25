@@ -1,4 +1,4 @@
-impo
+
 
 import axios from "axios";
 
@@ -22,4 +22,3 @@ privateAxios.interceptors.request.use((config) => {
   };
 });
 
-export default privateAxios;
