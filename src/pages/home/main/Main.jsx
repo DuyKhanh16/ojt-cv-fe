@@ -30,7 +30,9 @@ export default function Main() {
   const [allNewJob, setNewJob] = useState([]);
   const [allCandidate, setAllCandidate] = useState([]);
   const [salary, setSalary] = useState([]);
-  
+  const [jobOutStanding, setJobOutStanding] = useState([]);
+  const [companyOutStanding, setCompanyOutStanding] = useState([]);
+  const [candidateOutStanding, setCandidateOutStanding] = useState([]);
   const navigate = useNavigate();
   // check token
   const role1 = JSON.parse(localStorage.getItem("role"));
@@ -52,6 +54,15 @@ export default function Main() {
       console.log(error);
     }
   };
+
+  const getCompanyOutStanding = async () => {
+    try {
+      setCompanyOutStanding(allCompany.slice(0,6));
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   const getAllLiveJob = async () => {
     try {
       const res = await publicAxios.get("/api/v2/jobs/getLiveJobs");
@@ -60,7 +71,16 @@ export default function Main() {
       console.log(error);
     }
   };
+
+  const getJobOutStanding = async () => {
+    try {
+      setJobOutStanding(allLiveJob.slice(0,6));
+    } catch (error) {
+      console.log(error);
+    }
+  }
   console.log(allLiveJob)
+
   const getAllNewJob = async () => {
     try {
       const res = await publicAxios.get("/api/v2/jobs/getNewJobs");
@@ -69,6 +89,7 @@ export default function Main() {
       console.log(error);
     }
   };
+
   const getAllCandidate = async () => {
     try {
       const res = await publicAxios.get("api/v2/candidates/getAll");
@@ -78,18 +99,24 @@ export default function Main() {
       console.log(error);
     }
   };
+
+  const getCandidateOutStanding = async () => {
+    try {
+      setCandidateOutStanding(allCandidate.slice(0,6));
+    } catch (error) {
+      console.log(error);
+    }
+  }
   console.log(allCandidate)
   useEffect(() => {
     getAllCompany();
     getAllLiveJob();
     getAllNewJob();
     getAllCandidate();
-   
   }, []);
   return (
     <>
       <CheckLogin isOpen={isOpen} close={open}></CheckLogin>
-
       <div className="main__container">
         <div className="main__introduce">
           <div className="main--searchJob">
@@ -131,12 +158,30 @@ export default function Main() {
                     />
                   </div>
                 </div>
-                <div
+                {token?(
+                  <>
+                  <div
                   className="main--searchJob--left__formSearch__button"
                   onClick={() => navigate("/search-all")}
                 >
                   Tìm kiếm
                 </div>
+                  </>
+                ):
+                (
+                  <>
+                  <div
+                  className="main--searchJob--left__formSearch__button"
+                  onClick={() => open()}
+                >
+                  Tìm kiếm
+                </div>
+                  </>
+                )
+              
+              
+              }
+                
               </div>
               <p className="main--searchJob--left__text--down">
                 Từ khóa: thực tập FE, thực tập BE, thực tập UI/UX...
@@ -173,6 +218,7 @@ export default function Main() {
                 </p>
               </div>
             </div>
+            
             <div className="main--showInformation__candicates">
               <div className="main--showInformation__candicates--icon">
                 <img src={users} alt="" />
@@ -276,7 +322,8 @@ export default function Main() {
                           <p>{item?.types_jobs[0].typejob.name}</p>
                         </div>
                         <span className="main__outStandingJob--listJob__item--top__salary__price">
-                          {item.salary}
+                        {item?.salary_jobs[0]?.salary.name}
+
                         </span>
                       </div>
                     </div>
@@ -319,7 +366,7 @@ export default function Main() {
           <div className="main__outStandingCandidate--listCandidate">
             {token ? (
               <>
-                {allCandidate.map((item) => (
+                {allCandidate?.map((item) => (
                   <div
                     className="main__outStandingCandidate--listCandidate__item"
                     onClick={() =>
@@ -383,7 +430,7 @@ export default function Main() {
               </>
             ) : (
               <>
-                {allCandidate.map((item) => (
+                {allCandidate?.map((item) => (
                   <div
                     className="main__outStandingCandidate--listCandidate__item"
                     onClick={() => open()}
@@ -402,9 +449,9 @@ export default function Main() {
                             <div className="main__outStandingCandidate--listCandidate__item__information--left__name--bottom__left">
                               {item?.position}
                             </div>
-                            <div className="main__outStandingCandidate--listCandidate__item__information--left__name--bottom__right">
+                            {/* <div className="main__outStandingCandidate--listCandidate__item__information--left__name--bottom__right">
                               Fresher
-                            </div>
+                            </div> */}
                           </div>
                         </div>
                       </div>
@@ -414,26 +461,30 @@ export default function Main() {
                     </div>
                     <div className="main__outStandingCandidate--listCandidate__item__technical">
                       <div className="main__outStandingCandidate--listCandidate__item__technical__title">
-                        Technical in use:
+                        Kĩ năng lập trình:
                       </div>
                       <div className="main__outStandingCandidate--listCandidate__item__technical__list">
-                        <div className="main__outStandingCandidate--listCandidate__item__technical__list__item">
-                          ReactJS
-                        </div>
-                        <div className="main__outStandingCandidate--listCandidate__item__technical__list__item">
-                          NodeJS
-                        </div>
+                        {
+                          item?.skills_candidate?.map((item) => (
+                            <div className="main__outStandingCandidate--listCandidate__item__technical__list__item" key={item.id}>
+                            {item.name}
+                          </div>
+                          ))
+                        }
+                        
+                        
                       </div>
                     </div>
                     <div className="main__outStandingCandidate--listCandidate__item__language">
                       <div className="main__outStandingCandidate--listCandidate__item__language__title">
-                        Foreign Language:
+                        Ngoại ngữ:
                       </div>
+                      <div className="main__outStandingCandidate--listCandidate__item__language__list">
                       <div className="main__outStandingCandidate--listCandidate__item__language__list">
                         <div className="main__outStandingCandidate--listCandidate__item__language__list__item">
                           {item?.certificate_candidate[0].name}
-                          {item?.certificate_candidate[0].info}
                         </div>
+                      </div>
                       </div>
                     </div>
                     <div className="main__outStandingCandidate--listCandidate__item__local">
@@ -461,7 +512,7 @@ export default function Main() {
           <div className="main__outStandingCompany--listCompany">
             {token ? (
               <>
-                {allCompany.map((item) => (
+                {allCompany?.map((item) => (
                   <div
                     className="main__outStandingCompany--listCompany__item"
                     key={item.id}
@@ -496,7 +547,7 @@ export default function Main() {
               </>
             ) : (
               <>
-                {allCompany.map((item) => (
+                {allCompany?.map((item) => (
                   <div
                     className="main__outStandingCompany--listCompany__item"
                     key={item.id}
@@ -533,7 +584,7 @@ export default function Main() {
 
         <div className="main__comment">
           <div className="main__comment__title">
-            <p>Clients Testimonial</p>
+            <p>Bình luận</p>
           </div>
           <div className="main__comment__allComment">
             <div className="main__comment__allComment__arrowLeft">

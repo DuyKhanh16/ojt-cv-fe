@@ -27,7 +27,7 @@ export default function FormSearch() {
   const navigate = useNavigate();
   const token = JSON.parse(localStorage.getItem("token"));
   const role = JSON.parse(localStorage.getItem("role"));
-  // console.log(role)
+
   // khối của thằng poper của user
   const content = (
     <div className="form__search--popover">
@@ -92,7 +92,13 @@ export default function FormSearch() {
       }
     }
   };
-
+  const goHome = () => {
+    if (role == 1) {
+      navigate("/candidate");
+    } if (role == 2) {
+      navigate("/company");
+    }
+  }
   useEffect(() => {
     getInfo();
   }, []);
@@ -100,7 +106,7 @@ export default function FormSearch() {
   return (
     <div className="form__search">
       <div className="form__search--content">
-        <div className="form__search--image">
+        <div className="form__search--image" onClick={goHome}>
           <img className="form__search--image--logo" src={avatar}></img>
         </div>
         <div className="form__search--input">
