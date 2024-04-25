@@ -1,9 +1,8 @@
 
-
 /**
  * Access token key
  */
-const ACCESS_TOKEN_KEY = "Auth";
+const ACCESS_TOKEN_KEY = "token";
 
 /**
  * Get access token
@@ -11,7 +10,11 @@ const ACCESS_TOKEN_KEY = "Auth";
  * @return Access token
  */
 export const getAccessToken = ()  => {
-  return window.localStorage.getItem(ACCESS_TOKEN_KEY);
+ const token = JSON.parse(localStorage.getItem(ACCESS_TOKEN_KEY));
+ if(token) {
+   return token;
+ }
+ return null;
 };
 
 /**
@@ -54,3 +57,4 @@ privateAxios.interceptors.request.use(
   }
 );
 
+export default privateAxios;

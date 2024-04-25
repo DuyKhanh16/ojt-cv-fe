@@ -10,6 +10,7 @@ import { Button, Select, Input, Space, Popover } from "antd";
 import { MenuFoldOutlined } from "@ant-design/icons";
 import { Link, useNavigate } from "react-router-dom";
 import privateAxios from "../../config/private.axios";
+import {getInforCompany} from "../../apis/company/index.js"
 // import { Button, Input, Select, Space } from 'antd';
 const { Search } = Input;
 const options = [
@@ -85,10 +86,15 @@ export default function FormSearch() {
         });
       }
       if (role === 2) {
-        const res2 = privateAxios.get("api/v2/companies/getInfor");
-        res2.then((res) => {
+      try {
+        const res = getInforCompany();
+        res.then((res) => {
+          console.log(res.data.data, "123");
           SetInfo(res.data.data);
-        });
+        })
+      } catch (error) {
+        console.log(error)
+      }
       }
     }
   };

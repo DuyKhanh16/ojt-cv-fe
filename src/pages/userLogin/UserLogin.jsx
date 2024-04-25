@@ -12,6 +12,7 @@ import { initializeApp } from "firebase/app";
 import { getAuth, signInWithPopup } from "firebase/auth";
 import { auth, provider } from "../../config/firebase";
 import privateAxios from "../../config/private.axios";
+import {Login,LoginByGoogle} from "../../apis/auth/auth"
 export default function UserLogin() {
   const [user, setUser] = useState({
     email: "",
@@ -70,7 +71,7 @@ export default function UserLogin() {
         password: user.uid
         
       };
-      publicAxios.post("api/v2/auth/loginByGoogle", userGoogle)
+     LoginByGoogle(userGoogle)
       .then((res) => {
         localStorage.setItem("token", JSON.stringify(res.data.data.token));
         localStorage.setItem("role", JSON.stringify(res.data.data.role));
@@ -93,8 +94,8 @@ export default function UserLogin() {
     if (validate()) {
       try {
         console.log(user, "111");
-        const res = await publicAxios.post("api/v2/auth/login", user);
-        console.log(res.data.data.role, "123");
+          const res = await Login(user)
+        // console.log(res.data.data.role, "123");
         if (res.data.data.role === 0) {
           localStorage.setItem("token", JSON.stringify(res.data.data.token));
           localStorage.setItem("role", JSON.stringify(res.data.data.role));

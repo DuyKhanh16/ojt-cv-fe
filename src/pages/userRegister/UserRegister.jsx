@@ -65,11 +65,11 @@ export default function () {
     return Object.values(tempErrors).every((x) => x === "");
   };
   // HÀM ĐĂNG KÝ
-  const addNewUser =  () => {
+  const addNewUser = async () => {
     if (validate()) {
       console.log(NewUser, "1");
       try {
-        const res =  UserRegister(NewUser)
+        const res = await UserRegister(NewUser)
         // console.log(res.data.message);
         notification.success({
           message: res.data.message,
