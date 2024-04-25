@@ -10,7 +10,7 @@ import {
 export const jobGetNewJobs = async () => {
   try {
     const response = await privateAxios.get(API_JOB_GETNEWJOB);
-    return response;
+    return response.data;
   } catch (err) {
     throw err;
   }
@@ -19,7 +19,7 @@ export const jobGetNewJobs = async () => {
 export const jobGetLiveJobs = async () => {
   try {
     const response = await privateAxios.get(API_JOB_GETLIVEJOB);
-    return response;
+    return response.data;
   } catch (err) {
     throw err;
   }
@@ -28,7 +28,7 @@ export const jobGetLiveJobs = async () => {
 export const getAllJobApply = async () => {
   try {
     const response = await privateAxios.get(API_JOB_GETJOBAPPLIEDCANDIDATES);
-    return response;
+    return response.data;
   } catch (err) {
     throw err;
   }
@@ -37,7 +37,7 @@ export const getAllJobApply = async () => {
 export const getJobDetail = async (id) => {
   try {
     const response = await privateAxios.get(`${API_JOB_DETAIL_BYID}/${id}`);
-    return response;
+    return response.data;
   } catch (err) {
     throw err;
   }
@@ -48,7 +48,7 @@ export const getJobAppliedCandidatesbyId = async (id) => {
     const response = await privateAxios.get(
       API_JOB_GETJOBAPPLIEDCANDIDATES_BYID
     );
-    return response;
+    return response.data;
   } catch (err) {
     throw err;
   }

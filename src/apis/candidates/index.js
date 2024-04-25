@@ -4,7 +4,7 @@ import { API_CANDIDATE_GETALL, API_CANDIDATE_GETALLINFORMATION } from "../patchA
 export const candidateGetAll = async () => {
   try {
     const response = await privateAxios.get(API_CANDIDATE_GETALL);
-    return response;
+    return response.data;
   } catch (err) {
     throw err;
   }
@@ -13,7 +13,7 @@ export const candidateGetAll = async () => {
 export const candidateGetAllInformation = async () => {
   try {
     const response = await privateAxios.get(API_CANDIDATE_GETALLINFORMATION);
-    return response;
+    return response.data;
   } catch (err) {
     throw err;
   }

@@ -28,27 +28,23 @@ export default function UserDetail() {
   const role = JSON.parse(localStorage.getItem("role"));
   const user = useSelector((state) => state.candidate.data);
 
-  window.scrollTo(0, 0);
-
   const getInforCV = async () => {
     await candidateGetAllInformation()
       .then((res) => {
-        setInfor(res.data.data);
-        console.log(infor);
+        setInfor(res.data);
       })
       .catch((error) => {
-        console.error("Error:", error);
+        return error;
       });
   };
   
   const allJobApply = async () => {
     await getAllJobApply()
       .then((res) => {
-        console.log(res.data.data);
-        setAllJob(res.data.data);
+        setAllJob(res.data);
       })
       .catch((error) => {
-        console.error("Error:", error);
+        return error;
       });
   };
 
