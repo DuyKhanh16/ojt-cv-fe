@@ -2,7 +2,7 @@
 /**
  * Access token key
  */
-const ACCESS_TOKEN_KEY = "Auth";
+const ACCESS_TOKEN_KEY = "token";
 
 /**
  * Get access token
@@ -10,7 +10,7 @@ const ACCESS_TOKEN_KEY = "Auth";
  * @return Access token
  */
 export const getAccessToken = ()  => {
-  return window.localStorage.getItem(ACCESS_TOKEN_KEY);
+ return JSON.parse(localStorage.getItem(ACCESS_TOKEN_KEY)) ;
 };
 
 /**
@@ -19,14 +19,14 @@ export const getAccessToken = ()  => {
  * @param value - Access token
  */
 export const setAccessToken = (value) => {
-  window.localStorage.setItem(ACCESS_TOKEN_KEY, value);
+localStorage.setItem(ACCESS_TOKEN_KEY, JSON.stringify (value));
 };
 
 /**
  * Remove access token
  */
 export const removeAccessToken = () => {
-  window.localStorage.removeItem(ACCESS_TOKEN_KEY);
+  localStorage.removeItem(ACCESS_TOKEN_KEY);
 };
 
 

@@ -43,6 +43,9 @@ export const API_CANDIDATE_GETALLCERTIFICATE = "/candidate/getAllCertificate";
 export const API_CANDIDATE_CREATECERTIFICATE = "/candidate/createCertificate";
 export const API_CANDIDATE_UPDATECERTIFICATE_BYID = "/candidate/updateCertificate";
 export const API_CANDIDATE_DELETECERTIFICATE_BYID = "/candidate/deleteCertificate";
+export const API_CANDIDATE_SAVEJOB = "/candidates/candidate-save-job";
+export const API_CANDIDATE_GETJOBSAVE = "/candidates/getJobSave";
+export const API_CANDIDATE_CHECKSAVEJOB = "/candidates/checkSaveJob";
 
 // HET CANDIDATE
 

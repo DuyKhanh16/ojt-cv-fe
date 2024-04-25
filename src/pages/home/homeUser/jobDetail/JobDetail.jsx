@@ -15,6 +15,7 @@ import privateAxios from "../../../../config/private.axios";
 import ApplyJob from "../applyJob/ApplyJob";
 import { Button, notification } from "antd";
 import publicAxios from "../../../../config/pulic.axios";
+import { getJobAppliedCandidatesbyId, getJobDetail, jobGetLiveJobs } from "../../../../apis/jobs";
 
 export default function JobDetail() {
   const { id } = useParams();
@@ -33,8 +34,7 @@ export default function JobDetail() {
   window.scrollTo(0, 0);
   // lay het thong tin cua jobdetail
   const inforJobDetail = async () => {
-    await privateAxios
-      .get(`/api/v2/jobs/detail/${id}`)
+    await getJobDetail(id)
       .then((res) => {
         console.log(res.data.data);
         setInfor(res.data.data);
@@ -54,13 +54,12 @@ export default function JobDetail() {
   }
 
   useEffect(() => {
-    const result2 = privateAxios.get(
-      `/api/v2/jobs/getJobAppliedCandidatesbyId/${id}`
-    );
+    const result2 = 
+    getJobAppliedCandidatesbyId(id)
     result2.then((res) => {
       setCheck(res.data.check);
     });
-    const result = privateAxios.get(`/api/v2/jobs/detail/${id}`);
+    const result = getJobDetail(id);
     result
       .then((res) => {
         console.log(res.data.data);
@@ -80,7 +79,7 @@ export default function JobDetail() {
 
   const getAllLiveJob = async () => {
     try {
-      const res = await publicAxios.get("/api/v2/jobs/getLiveJobs");
+      const res = await jobGetLiveJobs();
       console.log("23", res.data.data);
       setLiveJob(res.data.data);
     } catch (error) {

@@ -25,6 +25,8 @@ import CheckLogin from "../../../components/confirm/CheckLogin";
 import axios from "axios";
 import privateAxios from "../../../config/private.axios";
 import { candidateGetAll } from "../../../apis/candidates";
+import { jobGetLiveJobs, jobGetNewJobs } from "../../../apis/jobs";
+;
 
 export default function Main() {
   const [allCompany, setAllCompany] = useState([]);
@@ -72,7 +74,7 @@ export default function Main() {
 
   const getAllLiveJob = async () => {
     try {
-      const res = await publicAxios.get("/api/v2/jobs/getLiveJobs");
+      const res = await jobGetLiveJobs();
       setLiveJob(res.data.data);
     } catch (error) {
       console.log(error);
@@ -90,7 +92,7 @@ export default function Main() {
 
   const getAllNewJob = async () => {
     try {
-      const res = await publicAxios.get("/api/v2/jobs/getNewJobs");
+      const res = await jobGetNewJobs();
       setNewJob(res.data.data);
     } catch (error) {
       console.log(error);
