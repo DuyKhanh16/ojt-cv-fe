@@ -130,7 +130,7 @@ export default function () {
                   value={NewUser.email}
                   name="email"
                   type="text"
-                  placeholder="abc@gmail.com"
+                  placeholder="Nhập email"
                 />
               </div>
               {errors.email && <div className="error">{errors.email}</div>}
@@ -147,7 +147,7 @@ export default function () {
                     value={NewUser.password}
                     className="user__register-input__password--text"
                     type={passwordShown ? 'text' : 'password'}
-                    placeholder="*************"
+                    placeholder="Nhập mật khẩu"
                   />
                   <span className="togglePasswordVisibility" onClick={togglePasswordVisibility}>
   
@@ -173,11 +173,9 @@ export default function () {
                     value={NewUser.confirmPassword}
                     className="user__register-input__confirmPassword--text"
                     type={confirmPasswordShown ? 'text' : 'password'}
-                    placeholder="*************"
+                    placeholder="Nhập lại mật khẩu"
                   />
-                  <span className="togglePasswordVisibility" onClick={toggleConfirmPasswordVisibility}>
-                  <img src={eye} alt="" />
-                  </span>
+                  
                 </div>
                 {errors.confirmPassword && (
                   <div className="error">{errors.confirmPassword}</div>

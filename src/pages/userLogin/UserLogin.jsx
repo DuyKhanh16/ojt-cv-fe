@@ -8,6 +8,10 @@ import { Await, Link, useNavigate } from "react-router-dom";
 import publicAxios from "../../config/pulic.axios";
 import { notification } from "antd";
 import ForgetPassword from "../../components/modal/forgetPassword/ForgetPassword";
+import { initializeApp } from "firebase/app";
+import { getAuth, signInWithPopup } from "firebase/auth";
+import { auth, provider } from "../../config/firebase";
+import privateAxios from "../../config/private.axios";
 export default function UserLogin() {
   const [user, setUser] = useState({
     email: "",
@@ -45,11 +49,49 @@ export default function UserLogin() {
     // Kiểm tra xem có lỗi nào không
     return Object.values(tempErrors).every((x) => x === "");
   };
+
+  //dang nhap bang gg
+
+ 
+
+
+  // // Lấy đối tượng auth từ Firebase
+
+  // // Tạo một provider cho đăng nhập bằng Google
+
+  const signInWithGoogle = async () => {
+    try {
+      const result = await signInWithPopup(auth, provider);
+      console.log(result);
+      const user = result.user;
+      const userGoogle = {
+        name: user.displayName,
+        email: user.email,
+        password: user.uid
+        
+      };
+      privateAxios.post("api/v2/auth/loginByGoogle", userGoogle)
+      .then((res) => {
+        localStorage.setItem("token", JSON.stringify(res.data.data.token));
+        localStorage.setItem("role", JSON.stringify(res.data.data.role));
+        notification.success({
+          message: "dang nhap thanh cong",
+        });
+        navigate("/candidate");
+
+        
+      })
+    } catch (error) {
+      console.error("Google authentication failed:", error);
+    }
+  };
+
+
+  // het dang nhap bang gg
   // đăng nhập
   const handlelogin = async () => {
     if (validate()) {
       try {
-
         console.log(user, "111");
         const res = await publicAxios.post("api/v2/auth/login", user);
         console.log(res.data.data.role, "123");
@@ -157,6 +199,24 @@ export default function UserLogin() {
               </div>
               <div onClick={handlelogin} className="btn">
                 Đăng nhập
+              </div>
+              <div className="user__login-input__or">
+                <div className="user__login-input__or--line">
+
+                </div>
+                <div className="user__login-input__or--text">
+                  Hoặc
+                </div>
+                <div className="user__login-input__or--line">
+
+                </div>
+
+              </div>
+              <div className="user__login-input__loginByGg" 
+                onClick={signInWithGoogle}
+              >
+                    <img src={"https://itviec.com/assets/google_logo-af373a5e64715e7d4fcdea711f96995f7fd7a49725b3dd8910d4749b74742cb2.svg"} alt="" />
+                    <p>Đăng nhập bằng Google</p>
               </div>
               <div className="user__login-input__footer">
                 <span className="user__login-input__footer--forgot" onClick={() => setOpen(true)}>

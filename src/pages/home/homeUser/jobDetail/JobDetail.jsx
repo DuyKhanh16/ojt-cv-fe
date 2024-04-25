@@ -30,7 +30,6 @@ export default function JobDetail() {
   const role = JSON.parse(localStorage.getItem("role"));
   const [checkSaveJob,setCheckSaveJob]=React.useState(false)
 
-
   window.scrollTo(0, 0);
   // lay het thong tin cua jobdetail
   const inforJobDetail = async () => {
@@ -55,10 +54,12 @@ export default function JobDetail() {
   }
 
   useEffect(() => {
-    const result2 = privateAxios.get(`/api/v2/jobs/getJobAppliedCandidatesbyId/${id}`);
+    const result2 = privateAxios.get(
+      `/api/v2/jobs/getJobAppliedCandidatesbyId/${id}`
+    );
     result2.then((res) => {
       setCheck(res.data.check);
-    })
+    });
     const result = privateAxios.get(`/api/v2/jobs/detail/${id}`);
     result
       .then((res) => {
@@ -69,10 +70,12 @@ export default function JobDetail() {
       .catch((error) => {
         console.log(error);
       });
+
       if(role !== 1){
         navigate("/company")
       }
       checkSave()
+
   }, []);
 
   const getAllLiveJob = async () => {
@@ -199,6 +202,7 @@ export default function JobDetail() {
               </div>
             </div>
             <div className="job__detail--company--apply1">
+
               {checkSaveJob===false?    <Button className="job__detail--company--apply--bookmark1" onClick={saveJob} >
               <i style={{color:"red",fontSize:28}} class="fa-solid fa-bookmark"></i>
               </Button>:    <Button className="job__detail--company--apply--bookmark1"  >
@@ -220,6 +224,7 @@ export default function JobDetail() {
               </button>
               }
               
+
             </div>
           </div>
           <div className="job__detail--description1">
@@ -340,7 +345,7 @@ export default function JobDetail() {
                       <p>{item?.types_jobs[0].typejob.name}</p>
                     </div>
                     <span className="job__detail__outStandingJob--listJob__item--top__salary__price">
-                      {item.salary}
+                    {item?.salary_jobs[0]?.salary.name}
                     </span>
                   </div>
                 </div>

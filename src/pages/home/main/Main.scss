@@ -414,26 +414,29 @@ body::-webkit-scrollbar {
           .main__outStandingJob--listJob__item--top__salary {
             width: 100%;
             display: flex;
+            align-items: center;
             gap: 8px;
             .main__outStandingJob--listJob__item--top__salary__text {
-              width: auto;
-              height: 20px;
+              width: 4.5vw;
+              height: 25px;
               background-color: rgba(231, 246, 234, 1);
               border-radius: 3px;
               display: flex;
               justify-content: center;
+              align-items: center;
+              
               p {
                 font-size: 12px;
-                font-weight: 600;
+                font-weight: 900;
                 line-height: 20px;
                 color: rgba(11, 160, 44, 1);
               }
             }
             .main__outStandingJob--listJob__item--top__salary__price {
               font-size: 14px;
-              font-weight: 400;
+              font-weight: 900;
               line-height: 20px;
-              color: rgba(118, 127, 140, 1);
+              color: var(--primary);
             }
           }
         }

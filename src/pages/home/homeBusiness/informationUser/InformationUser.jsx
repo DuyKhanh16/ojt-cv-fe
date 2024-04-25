@@ -32,10 +32,6 @@ export default function InformationUser() {
     getInforUser();
     getInforCV();
     getInforCompany();
-    if(role2 !== 2){
-      navigate('/candidate')
-    }
- 
   }, [dispatch]);
   const user = useSelector((state) => state.candidate.data);
 

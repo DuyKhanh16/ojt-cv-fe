@@ -193,7 +193,7 @@ export default function () {
                   name="email"
                   value={NewCompany.email}
                   type="text"
-                  placeholder="abc@gmail.com"
+                  placeholder="Nhập email"
                 />
                 {errors.email && <div className="error">{errors.email}</div>}
               </div>
@@ -209,7 +209,7 @@ export default function () {
                     value={NewCompany.password}
                     className="company__register-input__password--text"
                     type={passwordShown ? "text" : "password"}
-                    placeholder="*************"
+                    placeholder="Nhập mật khẩu"
                   />
                   <span
                     className="togglePasswordVisibility"
@@ -237,7 +237,7 @@ export default function () {
                     value={NewCompany.confirmPassword}
                     className="company__register-input__confirmPassword--text"
                     type={confirmPasswordShown ? "text" : "password"}
-                    placeholder="*************"
+                    placeholder="Nhập lại mật khẩu"
                   />
                   <span
                     className="togglePasswordVisibility"
@@ -364,7 +364,7 @@ export default function () {
                     setNewCompany({ ...NewCompany, phone: e.target.value })
                   }
                   type="text"
-                  placeholder="12334444"
+                  placeholder="Nhập số điện thoại"
                 />
                 {errors.phone && <div className="error">{errors.phone}</div>}
               </div>
