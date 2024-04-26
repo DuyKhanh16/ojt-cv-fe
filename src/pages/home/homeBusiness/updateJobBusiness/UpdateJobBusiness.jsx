@@ -11,13 +11,11 @@ import Stack3 from "../../../../assets/images/JobDetails/Social button (2).png";
 import Stack4 from "../../../../assets/images/JobDetails/Social button (3).png";
 import Stack5 from "../../../../assets/images/JobDetails/Social button (4).png";
 import MapTrifold from "../../../../assets/images/JobDetails/MapTrifold.png";
-import Rectangle from "../../../../assets/images/JobDetails/Rectangle 43.png";
-import arrowright from "../../../../assets/images/JobDetails/arrow.right.png";
-import MapPin from "../../../../assets/images/JobDetails/MapPin.png";
 import privateAxios from "../../../../config/private.axios";
 import { useNavigate, useParams } from "react-router";
-import { info } from "sass";
 import axios from "axios";
+import {getInforCompany} from "../../../../apis/company/index"
+import {getSalaries,getJobDetail,getTypeJobs,getLevelJobs,updateJobs,deleteJobs} from "../../../../apis/jobs/index"
 // const { confirm } = Modal;
 
 export default function UpdateJobBusiness() {
@@ -55,38 +53,40 @@ export default function UpdateJobBusiness() {
   // console.log(id) 
   // ham lấy jobs details
   
-  const getJobsDetails = () => {
-    const res = privateAxios.get(`api/v2/jobs/detail/${id}`);
-    res.then((res) => {
-      const jobdetail = res.data.data;
-      // console.log(jobdetail)
-      // setUpdatejob(res.data.data);
-      setJob(res.data.data);
-      setSalary1(res.data.data.salary_jobs);
-      setAddress(res.data.data.address_company.address);
-      setLevelJob1(res.data.data.levers_jobs);
-      setTypeJob1(res.data.data.types_jobs);
-      setUpdatejob({
-        title: jobdetail.title,
-        description: jobdetail.description,
-        requirements: jobdetail.requirements,
-        salary: jobdetail.salary,
-        expire_at: jobdetail.expire_at,
-        address_company_id: jobdetail.address_company.id,
-        typejob_id: jobdetail.types_jobs[0].typejob.id,
-        leveljob_id: jobdetail.levers_jobs[0].leveljob.id,        
-        created_at: jobdetail.created_at
-        ,
-      })
-    });
+  const getJobsDetails = async () => {
+    try {
+      const res = await getJobDetail(id)
+        setJob(res.data);
+        setSalary1(res.data.salary_jobs);
+        setAddress(res.data.address_company.address);
+        setLevelJob1(res.data.levers_jobs);
+        setTypeJob1(res.data.types_jobs);
+        setUpdatejob({
+          title: res.data.title,
+          description: res.data.description,
+          requirements: res.data.requirements,
+          salary: res.data.salary,
+          expire_at: res.data.expire_at,
+          address_company_id: res.data.address_company.id,
+          typejob_id: res.data.types_jobs[0].typejob.id,
+          leveljob_id: res.data.levers_jobs[0].leveljob.id,
+          created_at: res.data.created_at
+        })
+    } catch (error) {
+      console.log(error)
+    }
   };
+
+
   // hafm laasy thong tin company
-  const getinfo = () => {
-    const res = privateAxios.get("api/v2/companies/getInfor");
-    res.then((res) => {
-      setInfoCompany(res.data.data);
-      setListAdress(res.data.data.address_company);
-    });
+  const getinfo = async () => {
+   try {
+      const res = await getInforCompany()
+      setInfoCompany(res.data)
+      setListAdress(res.data.address_company)
+   } catch (error) {
+    console.log(error)
+   }
   };
 
   // hàm lấy các user apply vào công việc này
@@ -98,38 +98,42 @@ export default function UpdateJobBusiness() {
   }
   // console.log(allUserApply,"123")
   // hàm lấy  các mức lương
-const getlistSalary = () => {
-  const res = axios.get("http://localhost:3000/api/v2/salary/getAll");
-  res.then((res) => {
-    setSalary(res.data);
-  });
+const getlistSalary = async () => {
+  try {
+    const res = await getSalaries()
+    setSalary(res)
+  } catch (error) {
+    console.log(error)
+  }
 };
 
-console.log(salary1,"123")
   // haàm lấy thời gian làm việc
-  const getTypeJobs = () => {
-    const res = privateAxios.get("api/v2/typejob/getall");
-    res.then((res) => {
-      setListTypeJob(res.data);
-    });
+  const getTypeJob = async () => {
+   try {
+    const res = await getTypeJobs();
+    setListTypeJob(res);
+   } catch (error) {
+    console.log(error)
+   }
   };
   // hàm lấy level job
-  const getLevelJobs = () => {
-    const res = privateAxios.get("api/v2/leveljob/getall");
-    res.then((res) => {
-      setLevelJob(res.data);
-    });
+  const getLevelJob = async  () => {
+  try {
+    const res = await getLevelJobs();
+    setLevelJob(res)
+  } catch (error) {
+    console.log(error)
+  }
   };
 
   useEffect(() => {
     getinfo();
-    getTypeJobs();
-    getLevelJobs();
+    getTypeJob();
+    getLevelJob();
     getJobsDetails();
     getlistSalary();
   }, [flag]);
 
-// console.log(listAdress,"1")
 
 
   // modal 1
@@ -138,6 +142,7 @@ console.log(salary1,"123")
   };
 
   const handleOk =async () => {
+   
     // console.log(id,updatejobs)
     const updatejobsNew = {
       title: updatejobs.title,
@@ -150,8 +155,9 @@ console.log(salary1,"123")
       leveljob_id: updatejobs.leveljob_id,
       created_at: updatejobs.created_at,
     }
+   
     try {
-      const res = await privateAxios.patch(`api/v2/jobs/edit/${id}`, updatejobsNew);
+      const res = await updateJobs(id,updatejobsNew)
       notification.success({
         message: "Đã cập nhật thành công",
         duration: 2,
@@ -174,7 +180,7 @@ console.log(salary1,"123")
   const handleOk1 = async () => {
     try {
       // viết api xoá truyền id công việc, khi xoá xong quay trở về trang alljob của company
-      const res = await privateAxios.delete(`api/v2/jobs/delete/${id}`);
+      const res = await deleteJobs(id);
       notification.success({
         message: "Đã xóa thành công",
         duration: 2,

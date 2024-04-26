@@ -82,6 +82,7 @@ export const API_JOB_GETJOBFORCOMPANY = "/jobs/getJobsForCompany";
 export const API_JOB_COMPANY_BYID = "/jobs/company";
 export const API_JOB_CREATE_BYID = "/jobs/create";
 export const API_JOB_EDIT_BYID = "/jobs/edit";
+export const API_JOB_DELETE_BYID = "/jobs/delete";
 export const API_JOB_GETCANDIDATE_BYIDJOB = "/jobs/getCandidatesbyIdJob";
 export const API_JOB_GETCANDIDATEAPPLYING = "/jobs/getCandidatesApplying";
 export const API_JOB_DETAIL_BYID = "/jobs/detail";
