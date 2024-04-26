@@ -12,7 +12,7 @@ import {
 export const getInforCompany = async () => {
     try {
         const res = await privateAxios.get(API_COMPANY_GETINFOR)
-        return res
+        return res.data
     } catch (error) {
         console.log(error)
     }
@@ -22,18 +22,16 @@ export const getInforCompany = async () => {
 export const getJobsForCompanyS = async () => {
     try {
         const res = await privateAxios.get(API_GETJOBSFOR_COMPANY)
-        return res
+        return res.data
     } catch (error) {
         console.log(error)
     }
 }
 // update info company
 export const updateInfoCompany = async (id, data) => {
-    console.log(id)
-    console.log(data)
     try {
         const res = await privateAxios.patch(`${API_COMPANY_UPDATEINFOR_BYID}/${id}`, data)
-        return res
+        return res.data
     } catch (error) {
         console.log(error)
     }
@@ -43,7 +41,7 @@ export const updateInfoCompany = async (id, data) => {
 export const createAddressCompany = async (id,data) => {
     try {
         const res = await privateAxios.post(`${API_CREAT_BRAND_COMPANY}/${id}`, data)
-        return res
+        return res.data
     } catch (error) {
         console.log(error)
     }
@@ -53,7 +51,7 @@ export const createAddressCompany = async (id,data) => {
 export const updateAddressCompany = async (id, data) => {
     try {
         const res = await privateAxios.patch(`${API_UPDATE_BRAND_COMPANY}/${id}`, data)
-        return res
+        return res.data
     } catch (error) {
         console.log(error)
     }
@@ -62,7 +60,7 @@ export const updateAddressCompany = async (id, data) => {
 export const deleteAddressCompany = async (id) => {
     try {
         const res = await privateAxios.delete(`${API_DELETE_BRAND_COMPANY}/${id}`)
-        return res
+        return res.data
     } catch (error) {
         console.log(error)
     }

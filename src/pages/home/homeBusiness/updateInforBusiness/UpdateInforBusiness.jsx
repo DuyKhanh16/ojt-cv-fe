@@ -79,19 +79,19 @@ export default function UpdateInforBusiness() {
   const getinfoCompany = async () => {
     try {
       const res = await getInforCompany()
-      setInfoCompany(res.data.data);
-      setListBrand(res.data.data.address_company);
+      setInfoCompany(res.data);
+      setListBrand(res.data.address_company);
       setUpdateCompany({
-        name: res.data.data.name,
-        size: res.data.data.size,
-        link_facebook: res.data.data.link_facebook,
-        website: res.data.data.website,
-        description: res.data.data.description,
-        email: res.data.data.account_company_id.email,
-        phone: res.data.data.phone,
-        photo: res.data.data.logo,
-        typeCompany_id: res.data.data.typeCompany_id.id,
-        policy: res.data.data.policy,
+        name: res.data.name,
+        size: res.data.size,
+        link_facebook: res.data.link_facebook,
+        website: res.data.website,
+        description: res.data.description,
+        email: res.data.account_company_id.email,
+        phone: res.data.phone,
+        photo: res.data.logo,
+        typeCompany_id: res.data.typeCompany_id.id,
+        policy: res.data.policy,
       });
     } catch (error) {
       console.log(error)
@@ -103,18 +103,23 @@ export default function UpdateInforBusiness() {
   const getJobsByCompany = () => {
     const res = getJobsForCompanyS()
     res.then((res) => {
-      setListJobs(res.data.data);
+      setListJobs(res.data);
     });
   }
 
   //  lấy các type company
   const getTypeCompany = () => {
-    const res = getAllTypeCompany();
-    res.then((res) => {
-      setListTypeCompany(res.data.data);
-    });
+    try {
+      const res = getAllTypeCompany()
+      res.then((res) => {
+        console.log(res)
+        setListTypeCompany(res.data)
+      })
+      
+    } catch (error) {
+      console.log(error)
+    }  
   };
-
   useEffect(() => {
     getinfoCompany();
     getTypeCompany();
@@ -123,7 +128,8 @@ export default function UpdateInforBusiness() {
       navigate("/candidate")
     }
   }, [flag]);
-
+  
+  // console.log(listTypeCompany)
 
   // api thành phố
   const handleGetDataCity = async () => {

@@ -89,8 +89,7 @@ export default function FormSearch() {
       try {
         const res = getInforCompany();
         res.then((res) => {
-          console.log(res.data.data, "123");
-          SetInfo(res.data.data);
+          SetInfo(res.data);
         })
       } catch (error) {
         console.log(error)
