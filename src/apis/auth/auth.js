@@ -10,8 +10,8 @@ from "../patchApi";
 
 export const UserRegister = async (newuser) => {
     try {
-        const res = await privateAxios.post(API_REGISTER_CANDIDATE, newuser)
-        return res
+        const response = await privateAxios.post(API_REGISTER_CANDIDATE, newuser)
+        return response
     } catch (error) {
         console.log(error)
     }
@@ -19,16 +19,16 @@ export const UserRegister = async (newuser) => {
 
 export const CompanyRegister = async (newuCompany) => {
     try {
-        const res = await privateAxios.post(API_REGISTER_COMPANY, newuCompany)
-        return res
+        const response = await privateAxios.post(API_REGISTER_COMPANY, newuCompany)
+        return response
     } catch (error) {
         console.log(error)
     }
 }
 export const Login = async (user) => {
     try {
-        const res = await privateAxios.post(API_LOGIN, user)
-        return res
+        const response = await privateAxios.post(API_LOGIN, user)
+        return response
     } catch (error) {
         console.log(error)
     }
@@ -36,8 +36,17 @@ export const Login = async (user) => {
 
 export const LoginByGoogle = async (user) => {
     try {
-        const res = await privateAxios.post(API_LOGIN_BY_GOOGLE, user)
-        return res
+        const response = await privateAxios.post(API_LOGIN_BY_GOOGLE, user)
+        return response
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const checkMail = async (email) => {
+    try {
+        const response = await privateAxios.post(`${API_MAIL_CHECKMAIL}?email=${email}`)
+        return response
     } catch (error) {
         console.log(error)
     }

@@ -6,6 +6,7 @@ import emailw from "../../../assets/images/cv/mailw.svg";
 import bdw from "../../../assets/images/cv/bdw.svg";
 import mapw from "../../../assets/images/cv/mapw.svg";
 import privateAxios from "../../../config/private.axios";
+import { candidateGetAllInformation } from "../../../apis/candidates";
 export default function CV2() {
   const [inforCV, setInforCV] = React.useState({});
   const [email, setEmail] = React.useState("");
@@ -16,21 +17,19 @@ export default function CV2() {
   const [skill, setSkill] = React.useState([]);
   const [certificate, setCertificate] = React.useState([]);
   const getInforCV = async () => {
-    await privateAxios
-      .get("api/v2/candidates/getAllInformation")
+    await candidateGetAllInformation()
       .then((res) => {
-        console.log(res.data.data);
-        setInforCV(res.data.data);
-        setEmail(res.data.data.account_candidate_id.email);
-        setEducation(res.data.data.education_candidate);
-        setExp(res.data.data.experience_candidate);
-        setProject(res.data.data.project_candidate);
-        setAboutMe(res.data.data.aboutme);
-        setSkill(res.data.data.skills_candidate);
-        setCertificate(res.data.data.certificate_candidate);
+        setInforCV(res.data);
+        setEmail(res.data.account_candidate_id.email);
+        setEducation(res.data.education_candidate);
+        setExp(res.data.experience_candidate);
+        setProject(res.data.project_candidate);
+        setAboutMe(res.data.aboutme);
+        setSkill(res.data.skills_candidate);
+        setCertificate(res.data.certificate_candidate);
       })
       .catch((error) => {
-        console.error("Error:", error);
+        return error;
       });
   };
   useEffect(() => {

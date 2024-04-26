@@ -10,6 +10,7 @@ import { Button, Select, Input, Space, Popover } from "antd";
 import { MenuFoldOutlined } from "@ant-design/icons";
 import { Link, useNavigate } from "react-router-dom";
 import privateAxios from "../../config/private.axios";
+import { candidateGetInfor } from "../../apis/candidates";
 // import { Button, Input, Select, Space } from 'antd';
 const { Search } = Input;
 const options = [
@@ -23,11 +24,10 @@ const options = [
   },
 ];
 export default function FormSearchAll() {
-  const [info, SetInfo] = useState({});
+  const [info, setInfor] = useState({});
   const navigate = useNavigate();
   const token = JSON.parse(localStorage.getItem("token"));
   const role = JSON.parse(localStorage.getItem("role"));
-  // console.log(role)
   // khối của thằng poper của user
   const content = (
     <div className="formSearchAll__search--popover">
@@ -72,22 +72,21 @@ export default function FormSearchAll() {
   // hàm lấy thông tin người dùng
   const getInfo = () => {
     if(role === 1){
-      const res1 = privateAxios.get("api/v2/candidates/getInfor");
-      res1.then((res) => {
-        SetInfo(res.data.data);
+      const response = candidateGetInfor();
+      response.then((res) => {
+        setInfor(res.data);
       });
     }
     if(role === 2){
-      const res2 = privateAxios.get("api/v2/companies/getInfor");
-      res2.then((res) => {
-        SetInfo(res.data.data);
+      const response = privateAxios.get("api/v2/companies/getInfor");
+      response.then((res) => {
+        setInfor(res.data.data);
       });
     }
   };
   useEffect(() => {
     getInfo();
   }, []);
-  // console.log(info,"123");
   return (
     <div className="formSearchAll__search" style={{padding:"0",width:"100vw"}}>
       <div className="formSearchAll__search--content" style={{width:"100vw",margin:"0 auto",marginLeft:"0px"}}>

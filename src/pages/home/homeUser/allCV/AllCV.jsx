@@ -12,6 +12,7 @@ import { useNavigate } from "react-router";
 import privateAxios from "../../../../config/private.axios";
 import { useReactToPrint } from "react-to-print";
 import { notification } from "antd";
+import { candidateGetAllInformation } from "../../../../apis/candidates";
 export default function AllCV() {
   window.scrollTo(0, 0);
 
@@ -22,7 +23,7 @@ export default function AllCV() {
   const [infor, setInfor] = React.useState({});
   const role = JSON.parse(localStorage.getItem("role"));
   const navigate = useNavigate();
-  
+
   const choose = (index) => {
     const ar = document
       .getElementsByClassName("allCV__content--left__list__item")
@@ -62,29 +63,26 @@ export default function AllCV() {
     }
   };
   const getInforCV = async () => {
-    await privateAxios
-      .get("api/v2/candidates/getAllInformation")
+    await 
+      candidateGetAllInformation()
       .then((res) => {
-        setInfor(res.data.data);
-        console.log(infor);
+        setInfor(res.data);
       })
       .catch((error) => {
-        console.error("Error:", error);
+        return error;
       });
   };
-
   const pdf = useRef();
   const exportCV = useReactToPrint({
     content: () => pdf.current,
     documentTitle: "CV",
-
     onAfterPrint: () =>
       notification.success({ message: "Xuất file thành công" }),
   });
   useEffect(() => {
     getInforCV();
-    if(role !== 1){
-      navigate("/company")
+    if (role !== 1) {
+      navigate("/company");
     }
   }, []);
   return (

@@ -69,10 +69,9 @@ export default function () {
     if (validate()) {
       console.log(NewUser, "1");
       try {
-        const res = await UserRegister(NewUser)
-        // console.log(res.data.message);
+        const response = await UserRegister(NewUser)
         notification.success({
-          message: res.data.message,
+          message: response.data.message,
           duration: 2,
         })
         navigate("/login")
