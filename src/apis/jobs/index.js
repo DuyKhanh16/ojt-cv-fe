@@ -45,9 +45,7 @@ export const getJobDetail = async (id) => {
 
 export const getJobAppliedCandidatesbyId = async (id) => {
   try {
-    const response = await privateAxios.get(
-      API_JOB_GETJOBAPPLIEDCANDIDATES_BYID
-    );
+    const response = await privateAxios.get(`${API_JOB_GETJOBAPPLIEDCANDIDATES_BYID}/${id}`);
     return response.data;
   } catch (err) {
     throw err;
