@@ -41,9 +41,7 @@ export default function () {
   }, []);
   const handleCity = async (e) => {
     let idCity = e.target.value;
-
     const nameCity = dataCity.find((item) => item.province_name === idCity);
-
     const numberCity = nameCity.province_id;
     let data = await axios.get(
       `https://vapi.vnappmob.com/api/province/district/${numberCity}`
@@ -63,17 +61,18 @@ export default function () {
     setDistrict(nameDistrict.district_name);
     setDataWard(data.data.results);
   };
-  // console.log(city, district, ward,"các dữ liệu");
 
   // Hàm kiểm tra email hợp lệ
   const isEmailValid = (email) => {
     return /\S+@\S+\.\S+/.test(email);
   };
+
   // hàm kiểm tra số điện thoại vn
   const isVietnamesePhoneNumberValid = (phone) => {
     const vnPhoneRegex = /^(03|05|07|08|09|01[2|6|8|9])+([0-9]{8})\b/;
     return vnPhoneRegex.test(phone);
   };
+
   // Hàm toggle hiển thị mật khẩu
   const togglePasswordVisibility = () => {
     setPasswordShown(!passwordShown);
@@ -87,7 +86,6 @@ export default function () {
   //  hàm validate các trường
   const validate = () => {
     let tempErrors = {};
-    // tempErrors.name = NewCompany.name ? "" : "Tên không được để trống";
 
     tempErrors.email = NewCompany.email
       ? isEmailValid(NewCompany.email)
@@ -123,11 +121,7 @@ export default function () {
 
     tempErrors.address = address ? "" : "Không được để trống";
 
-    // tempErrors.emailCompany = NewCompany.emailCompany
-    //   ? isEmailValid(NewCompany.emailCompany)
-    //     ? ""
-    //     : "Email không hợp lệ"
-    //   : "Email không là này";
+   
 
     setErrors(tempErrors);
     // Kiểm tra xem có lỗi nào không
@@ -138,7 +132,6 @@ export default function () {
   const handleRegister = async () => {
     if (validate()) {
       try {
-        // console.log(NewCompany, "11111");
         const newCompany = {
           name: NewCompany.name,
           email: NewCompany.email,
@@ -146,7 +139,6 @@ export default function () {
           phone: NewCompany.phone,
           address: `${address}-${ward}-${district}-${city}`,
         }
-        console.log(newCompany,"123123");
         const res = await CompanyRegister(newCompany);
         notification.success(
           {
@@ -156,7 +148,7 @@ export default function () {
         );
         navigate("/login");
       } catch (error) {
-        console.log(error);
+        return error;
       }
     }
   };

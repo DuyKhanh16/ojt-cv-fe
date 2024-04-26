@@ -1,16 +1,19 @@
 import privateAxios from "../base.Api";
 import {
+  API_JOB_APPLYJOB,
   API_JOB_DETAIL_BYID,
   API_JOB_GETJOBAPPLIEDCANDIDATES,
   API_JOB_GETJOBAPPLIEDCANDIDATES_BYID,
   API_JOB_GETLIVEJOB,
   API_JOB_GETNEWJOB,
+
   API_TYPEJOB_GETALL,
   API_LEVELJOB_GETALL,
   API_SALARY_GETALL,
   API_JOB_CREATE_BYID,
   API_JOB_EDIT_BYID,
   API_JOB_DELETE_BYID
+
 } from "../patchApi";
 
 export const jobGetNewJobs = async () => {
@@ -51,7 +54,27 @@ export const getJobDetail = async (id) => {
 
 export const getJobAppliedCandidatesbyId = async (id) => {
   try {
-    const response = await privateAxios.get(`${API_JOB_GETJOBAPPLIEDCANDIDATES_BYID}/${id}`);
+    const response = await privateAxios.get(
+      `${API_JOB_GETJOBAPPLIEDCANDIDATES_BYID}/${id}`
+    );
+    return response.data;
+  } catch (err) {
+    throw err;
+  }
+};
+
+export const postApplyJob = async (infor) => {
+  try {
+    const response = await privateAxios.post(`${API_JOB_APPLYJOB}`, infor);
+    return response.data;
+  } catch (err) {
+    throw err;
+  }
+};
+
+export const getLevelJob = async () => {
+  try {
+    const response = await privateAxios.get(API_LEVELJOB_GETALL);
     return response.data;
   } catch (err) {
     throw err;

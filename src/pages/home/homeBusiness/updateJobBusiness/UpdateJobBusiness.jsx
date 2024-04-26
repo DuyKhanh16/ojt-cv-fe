@@ -50,7 +50,6 @@ export default function UpdateJobBusiness() {
   // chuyển trang
   const navigate = useNavigate();
   const { id } = useParams();
-  // console.log(id) 
   // ham lấy jobs details
   
   const getJobsDetails = async () => {

@@ -63,7 +63,6 @@ export default function UserLogin() {
   const signInWithGoogle = async () => {
     try {
       const result = await signInWithPopup(auth, provider);
-      console.log(result);
       const user = result.user;
       const userGoogle = {
         name: user.displayName,
@@ -72,9 +71,9 @@ export default function UserLogin() {
         
       };
      LoginByGoogle(userGoogle)
-      .then((res) => {
-        localStorage.setItem("token", JSON.stringify(res.data.data.token));
-        localStorage.setItem("role", JSON.stringify(res.data.data.role));
+      .then((response) => {
+        localStorage.setItem("token", JSON.stringify(response.data.data.token));
+        localStorage.setItem("role", JSON.stringify(response.data.data.role));
         notification.success({
           message: "dang nhap thanh cong",
         });
@@ -94,40 +93,39 @@ export default function UserLogin() {
     if (validate()) {
       try {
         console.log(user, "111");
-          const res = await Login(user)
-        // console.log(res.data.data.role, "123");
-        if (res.data.data.role === 0) {
-          localStorage.setItem("token", JSON.stringify(res.data.data.token));
-          localStorage.setItem("role", JSON.stringify(res.data.data.role));
+          const response = await Login(user)
+        if (response.data.data.role === 0) {
+          localStorage.setItem("token", JSON.stringify(response.data.data.token));
+          localStorage.setItem("role", JSON.stringify(response.data.data.role));
           notification.success({
-            message: res.data.message,
+            message: response.data.message,
           });
           navigate("/admin");
         }
 
 
-        if (res.data.data.role === 1 && res.data.data.status === 1) {
-          localStorage.setItem("token", JSON.stringify(res.data.data.token));
-          localStorage.setItem("role", JSON.stringify(res.data.data.role));
+        if (response.data.data.role === 1 && response.data.data.status === 1) {
+          localStorage.setItem("token", JSON.stringify(response.data.data.token));
+          localStorage.setItem("role", JSON.stringify(response.data.data.role));
           navigate("/candidate");
 
           notification.success({
-            message: res.data.message,
+            message: response.data.message,
           });
-        } else if (res.data.data.role === 1 && res.data.data.status === 0) {
+        } else if (response.data.data.role === 1 && response.data.data.status === 0) {
           notification.error({
             message: "Tài khoản của bạn đang bị khoá",
           });
         }
 
 
-        if (res.data.data.role === 2) {
-          localStorage.setItem("token", JSON.stringify(res.data.data.token));
-          localStorage.setItem("role", JSON.stringify(res.data.data.role));
+        if (response.data.data.role === 2) {
+          localStorage.setItem("token", JSON.stringify(response.data.data.token));
+          localStorage.setItem("role", JSON.stringify(response.data.data.role));
           navigate("/company");
 
           notification.success({
-            message: res.data.message,
+            message: response.data.message,
           });
         }
       } catch (error) {
