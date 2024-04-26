@@ -1,12 +1,7 @@
 import React from 'react'
 import axios from "axios";
-import filter from "../../../../assets/images/listJob/filter.png"
 import './jobList.scss'
-import Header from '../../../../components/header/Header';
-import FormSearch from '../../../../components/formSearch/FormSearch';
-import Footer from '../../../../components/footer/Footer';
 import { useNavigate } from 'react-router';
-import privateAxios from '../../../../config/private.axios';
 import { jobGetLiveJobs } from '../../../../apis/jobs';
 
 

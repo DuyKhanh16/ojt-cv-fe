@@ -36,11 +36,20 @@ export default function JobDetail() {
     await getJobDetail(id)
       .then((res) => {
         setInfor(res.data);
+        setSalary(res.data.salary_jobs);
       })
       .catch((error) => {
         return error;
       });
   };
+
+  const getJobAppliedCandidatesbyIdF = async (id) => {
+    const result2 = await 
+    getJobAppliedCandidatesbyId(id)
+    .then((res) => {
+      setCheck(res.check);
+    });
+  }
 
   const checkSave = async () => {
     try {
@@ -51,28 +60,7 @@ export default function JobDetail() {
     }
   }
 
-  useEffect(() => {
-    const result2 = 
-    getJobAppliedCandidatesbyId(id)
-    result2.then((res) => {
-      setCheck(res.check);
-    });
-    const result = getJobDetail(id);
-    result
-      .then((res) => {
-        setInfor(res.data);
-        setSalary(res.data.salary_jobs);
-      })
-      .catch((error) => {
-        return error;
-      });
-
-      if(role !== 1){
-        navigate("/company")
-      }
-      checkSave()
-
-  }, []);
+ 
 
   const getAllLiveJob = async () => {
     try {
@@ -96,9 +84,6 @@ export default function JobDetail() {
       }
     }, 500);
   };
-  useEffect(() => {
-    getAllLiveJob();
-  }, []);
 
   const saveJob = async () => {
     setCheckSaveJob(true)
@@ -114,6 +99,13 @@ export default function JobDetail() {
       });
     }
   }
+
+  useEffect(() => {
+    getAllLiveJob();
+    inforJobDetail();
+    getJobAppliedCandidatesbyIdF(id);
+    checkSave()
+  },[]);
   return (
     <div>
       <div
