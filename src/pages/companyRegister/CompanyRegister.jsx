@@ -7,6 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 import publicAxios from "../../config/pulic.axios";
 import { notification } from "antd";
 import axios from "axios";
+import { CompanyRegister } from "../../apis/auth/auth";
 export default function () {
   const [NewCompany, setNewCompany] = useState({
     email: "",
@@ -146,10 +147,7 @@ export default function () {
           address: `${address}-${ward}-${district}-${city}`,
         }
         console.log(newCompany,"123123");
-        const res = await publicAxios.post(
-          "/api/v2/auth/register-company",
-          newCompany
-        );
+        const res = await CompanyRegister(newCompany);
         notification.success(
           {
             message: "Đăng ký thành công",

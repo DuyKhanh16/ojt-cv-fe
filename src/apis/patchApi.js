@@ -1,8 +1,9 @@
 // AUTH
 export const API_REGISTER_CANDIDATE = "/auth/register-candidate";
+
 export const API_REGISTER_COMPANY = "/auth/register-company";
 export const API_LOGIN = "/auth/login";
-export const ADMIN_LOGIN_BY_GOOGLE = "/auth/loginByGoogle";
+export const API_LOGIN_BY_GOOGLE = "/auth/loginByGoogle";
 export const API_FORGET_PASSWORD = "/auth/forgetPassword";
 export const API_GETOTP = "/auth/getOTP";
 
@@ -61,9 +62,17 @@ export const API_COMPANY_GETINFOR_BYID = "/companies/getInfoCompanyById";
 export const API_COMPANY_FLOW_BYID = "/companies/flow";
 
 
-
-
 //HET COMPANY
+
+// brand company
+export const API_CREAT_BRAND_COMPANY = "/companies/create-address";
+export const API_UPDATE_BRAND_COMPANY = "/companies/update-address";
+export const API_DELETE_BRAND_COMPANY = "/companies/delete-address-company";
+// HET brand company
+
+// typeCompany
+export const API_GETALL_TYPE_COMPANY = "/typecompany/all";
+// het typeCompany
 
 //JOB
 export const API_JOB_GETLIVEJOB = "/jobs/getLiveJobs";
@@ -87,8 +96,10 @@ export const API_JOB_GETJOBAPPLIEDCANDIDATES_BYID = "/jobs/getJobAppliedCandidat
 //HET JOB
 export const API_TYPEJOB_GETALL = "/typejob/getAll";
 export const API_LEVELJOB_GETALL = "/leveljob/getAll";
+export const API_GETJOBSFOR_COMPANY = "/jobs/getJobsForCompany";
 
 //TYPEJOB   
+
 //HET TYPEJOB
 
 //ADMIN
