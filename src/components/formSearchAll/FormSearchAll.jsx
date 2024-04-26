@@ -10,6 +10,7 @@ import { Button, Select, Input, Space, Popover } from "antd";
 import { MenuFoldOutlined } from "@ant-design/icons";
 import { Link, useNavigate } from "react-router-dom";
 import privateAxios from "../../config/private.axios";
+import { candidateGetInfor } from "../../apis/candidates";
 // import { Button, Input, Select, Space } from 'antd';
 const { Search } = Input;
 const options = [
@@ -27,7 +28,6 @@ export default function FormSearchAll() {
   const navigate = useNavigate();
   const token = JSON.parse(localStorage.getItem("token"));
   const role = JSON.parse(localStorage.getItem("role"));
-  // console.log(role)
   // khối của thằng poper của user
   const content = (
     <div className="formSearchAll__search--popover">
@@ -72,9 +72,9 @@ export default function FormSearchAll() {
   // hàm lấy thông tin người dùng
   const getInfo = () => {
     if(role === 1){
-      const res1 = privateAxios.get("api/v2/candidates/getInfor");
+      const res1 = candidateGetInfor();
       res1.then((res) => {
-        SetInfo(res.data.data);
+        SetInfo(res.data);
       });
     }
     if(role === 2){
@@ -87,7 +87,6 @@ export default function FormSearchAll() {
   useEffect(() => {
     getInfo();
   }, []);
-  // console.log(info,"123");
   return (
     <div className="formSearchAll__search" style={{padding:"0",width:"100vw"}}>
       <div className="formSearchAll__search--content" style={{width:"100vw",margin:"0 auto",marginLeft:"0px"}}>

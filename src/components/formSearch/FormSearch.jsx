@@ -10,8 +10,8 @@ import { Button, Select, Input, Space, Popover } from "antd";
 import { MenuFoldOutlined } from "@ant-design/icons";
 import { Link, useNavigate } from "react-router-dom";
 import privateAxios from "../../config/private.axios";
-import {getInforCompany} from "../../apis/company/index.js"
-// import { Button, Input, Select, Space } from 'antd';
+import { getInforCompany } from "../../apis/company/index.js";
+import { candidateGetInfor } from "../../apis/candidates/index.js";
 const { Search } = Input;
 const options = [
   {
@@ -80,34 +80,34 @@ export default function FormSearch() {
   const getInfo = () => {
     if (token) {
       if (role === 1) {
-        const res1 = privateAxios.get("api/v2/candidates/getInfor");
+        const res1 = candidateGetInfor();
         res1.then((res) => {
-          SetInfo(res.data.data);
+          SetInfo(res.data);
         });
       }
       if (role === 2) {
-      try {
-        const res = getInforCompany();
-        res.then((res) => {
-          SetInfo(res.data);
-        })
-      } catch (error) {
-        console.log(error)
-      }
+        try {
+          const res = getInforCompany();
+          res.then((res) => {
+            SetInfo(res.data);
+          });
+        } catch (error) {
+          return error;
+        }
       }
     }
   };
   const goHome = () => {
     if (role == 1) {
       navigate("/candidate");
-    } if (role == 2) {
+    }
+    if (role == 2) {
       navigate("/company");
     }
-  }
+  };
   useEffect(() => {
     getInfo();
   }, []);
-  console.log(info, "123");
   return (
     <div className="form__search">
       <div className="form__search--content">

@@ -42,3 +42,12 @@ export const LoginByGoogle = async (user) => {
         console.log(error)
     }
 }
+
+export const checkMail = async (email) => {
+    try {
+        const res = await privateAxios.post(`${API_MAIL_CHECKMAIL}?email=${email}`)
+        return res
+    } catch (error) {
+        console.log(error)
+    }
+}

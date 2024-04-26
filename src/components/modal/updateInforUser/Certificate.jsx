@@ -4,51 +4,50 @@ import "./Certificate.scss";
 import privateAxios from "../../../config/private.axios";
 import { notification } from "antd";
 import { useSelector } from "react-redux";
+import {
+  candidateCreateCertificate,
+  candidateUpdateCertificate,
+} from "../../../apis/candidates";
 
 function Certificate({ isOpen, close, certificate }) {
-
-  const [user, setUser] = useState({
-  });
+  const [user, setUser] = useState({});
   const usera = useSelector((state) => state.candidate.data);
-  console.log(certificate);
+
   useEffect(() => {
-    setUser({ ...user,candidate_id:usera.id});
-  },[usera])
-  console.log(usera);
-  
+    setUser({ ...user, candidate_id: usera.id });
+  }, [usera]);
+
   const changeValue = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
+
   const updateCertificate = async () => {
     if (certificate.status == "update") {
       try {
-        const update = await privateAxios.patch(
-          `api/v2/candidate/updateCertificate/${certificate.item.id}`,
+        const update = await candidateUpdateCertificate(
+          certificate.item.id,
           user
         );
         notification.success({
-          message: update.data.message,
+          message: update.message,
         });
         setUser({});
         close();
       } catch (error) {
         notification.error({
-          message: error.response.data.message,
+          message: error.response.message,
         });
       }
     } else if (certificate.status == "creat") {
       try {
-        const create = await privateAxios.post(
-          `api/v2/candidate/createCertificate`,
-          user
-        );
+        const create = await candidateCreateCertificate(user);
         notification.success({
-          message: create.data.message,
+          message: create.message,
         });
         close();
       } catch (error) {
         notification.error({
-          message: error.response.data.message,
+          message: error.response.message,
         });
       }
     }

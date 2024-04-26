@@ -4,16 +4,17 @@ import "./Certificate.scss";
 import privateAxios from "../../../config/private.axios";
 import { notification } from "antd";
 import { useSelector } from "react-redux";
+import {
+  candidateCreateExperience,
+  candidateUpdateExperience,
+} from "../../../apis/candidates";
 function Exp({ isOpenP, close, exp }) {
-  console.log(exp);
   const usera = useSelector((state) => state.candidate.data);
-  const [user, setUser] = useState({
-  });
+  const [user, setUser] = useState({});
+
   useEffect(() => {
-    setUser({ ...user,candidate_id:usera.id});
-  },[usera])
-  console.log(usera);
- 
+    setUser({ ...user, candidate_id: usera.id });
+  }, [usera]);
 
   const changeValue = (e) => {
     console.log(user);
@@ -22,34 +23,28 @@ function Exp({ isOpenP, close, exp }) {
   const updateExp = async () => {
     if (exp.status == "update") {
       try {
-        const update = await privateAxios.patch(
-          `api/v2/candidate/updateExperience/${exp?.item.id}`,
-          user
-        );
+        const update = await candidateUpdateExperience(exp?.item.id, user);
         notification.success({
-          message: update.data.message,
+          message: update.message,
         });
         setUser({});
         close();
       } catch (error) {
         notification.error({
-          message: error.response.data.message,
+          message: error.response.message,
         });
       }
     } else if (exp.status == "creat") {
       try {
-        const create = await privateAxios.post(
-          `api/v2/candidate/createExperience`,
-          user
-        );
+        const create = await candidateCreateExperience(user);
         notification.success({
-          message: create.data.message,
+          message: create.message,
         });
         setUser({});
         close();
       } catch (error) {
         notification.error({
-          message: error.response.data.message,
+          message: error.response.message,
         });
       }
     }

@@ -60,8 +60,6 @@ export default function JobDetail() {
     }
   }
 
- 
-
   const getAllLiveJob = async () => {
     try {
       const res = await jobGetLiveJobs();
