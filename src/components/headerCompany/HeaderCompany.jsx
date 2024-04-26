@@ -5,7 +5,6 @@ import phone from "../../assets/images/main/PhoneCall.png";
 import american from "../../assets/images/main/image123.png";
 export default function HeaderCompany() {
   const [isOpen, setIsOpen] = useState(false);
-  const open = () => {};
   return (
     <>
       <div className="headerCompany">

@@ -11,7 +11,7 @@ import {
   candidateUpdateSkill,
 } from "../../../apis/candidates";
 export default function Skill({ isOpen, close, skill }) {
-  const usera = useSelector((state) => state.candidate.data);
+  const userSkill = useSelector((state) => state.candidate.data);
   const [allLevel, setAllLevel] = useState([]);
   const [user, setUser] = useState({
     name: "",
@@ -25,9 +25,9 @@ export default function Skill({ isOpen, close, skill }) {
       ...user,
       name: skill?.item?.name,
       leveljob_id: skill?.item?.leveljob_id?.name,
-      candidate_id: usera.id,
+      candidate_id: userSkill.id,
     });
-  }, [usera]);
+  }, [userSkill]);
 
   const changeValue = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
@@ -37,31 +37,22 @@ export default function Skill({ isOpen, close, skill }) {
     close();
   };
   const addSkill = async () => {
-    if (skill.status == "update") {
-      console.log(user);
-      try {
+    try {
+      if (skill.status == "update") {
         const res = await candidateUpdateSkill(skill?.item.id, user);
         notification.success({
           message: res.message,
         });
-      } catch (error) {
-        notification.error({
-          message: error.response.message,
-        });
-      }
-      closeModal();
-    } else {
-      try {
+      } else {
         const res = await candidateCreateSkill(user);
         notification.success({
           message: res.message,
         });
-      } catch (error) {
-        notification.error({
-          message: error.response.message,
-        });
       }
-      closeModal();
+    } catch (error) {
+      notification.error({
+        message: error.response.message,
+      });
     }
   };
   return (

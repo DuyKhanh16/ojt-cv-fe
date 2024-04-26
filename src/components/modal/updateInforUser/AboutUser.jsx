@@ -12,7 +12,7 @@ function AboutUser({ isOpen, close, item }) {
   useEffect(() => {
     dispatch(candidateAsync());
   }, [dispatch]);
-  console.log(user);
+
   const [aboutUser, setAboutUser] = useState({
     aboutMe: user?.aboutme,
   });

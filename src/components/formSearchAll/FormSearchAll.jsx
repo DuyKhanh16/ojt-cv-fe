@@ -24,7 +24,7 @@ const options = [
   },
 ];
 export default function FormSearchAll() {
-  const [info, SetInfo] = useState({});
+  const [info, setInfor] = useState({});
   const navigate = useNavigate();
   const token = JSON.parse(localStorage.getItem("token"));
   const role = JSON.parse(localStorage.getItem("role"));
@@ -72,15 +72,15 @@ export default function FormSearchAll() {
   // hàm lấy thông tin người dùng
   const getInfo = () => {
     if(role === 1){
-      const res1 = candidateGetInfor();
-      res1.then((res) => {
-        SetInfo(res.data);
+      const response = candidateGetInfor();
+      response.then((res) => {
+        setInfor(res.data);
       });
     }
     if(role === 2){
-      const res2 = privateAxios.get("api/v2/companies/getInfor");
-      res2.then((res) => {
-        SetInfo(res.data.data);
+      const response = privateAxios.get("api/v2/companies/getInfor");
+      response.then((res) => {
+        setInfor(res.data.data);
       });
     }
   };

@@ -151,7 +151,6 @@ function UpdateInforUser({ isOpen, close }) {
   };
 
   const handleWard = async (e) => {
-    console.log(userUpdate.address);
     setWard(e.target.value);
     setUserUpdate({
       ...userUpdate,
@@ -159,7 +158,6 @@ function UpdateInforUser({ isOpen, close }) {
     });
   };
   const handleAddress = async (e) => {
-    console.log(address);
     setAddress(e.target.value);
     setUserUpdate({
       ...userUpdate,

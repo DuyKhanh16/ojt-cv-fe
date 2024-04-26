@@ -9,15 +9,14 @@ import {
   candidateUpdateExperience,
 } from "../../../apis/candidates";
 function Exp({ isOpenP, close, exp }) {
-  const usera = useSelector((state) => state.candidate.data);
+  const userExp = useSelector((state) => state.candidate.data);
   const [user, setUser] = useState({});
 
   useEffect(() => {
-    setUser({ ...user, candidate_id: usera.id });
-  }, [usera]);
+    setUser({ ...user, candidate_id: userExp.id });
+  }, [userExp]);
 
   const changeValue = (e) => {
-    console.log(user);
     setUser({ ...user, [e.target.name]: e.target.value });
   };
   const updateExp = async () => {
@@ -34,7 +33,7 @@ function Exp({ isOpenP, close, exp }) {
           message: error.response.message,
         });
       }
-    } else if (exp.status == "creat") {
+    } else if (exp.status == "create") {
       try {
         const create = await candidateCreateExperience(user);
         notification.success({

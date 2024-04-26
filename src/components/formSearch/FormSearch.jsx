@@ -24,7 +24,7 @@ const options = [
   },
 ];
 export default function FormSearch() {
-  const [info, SetInfo] = useState({});
+  const [info, setInfor] = useState({});
   const navigate = useNavigate();
   const token = JSON.parse(localStorage.getItem("token"));
   const role = JSON.parse(localStorage.getItem("role"));
@@ -80,16 +80,16 @@ export default function FormSearch() {
   const getInfo = () => {
     if (token) {
       if (role === 1) {
-        const res1 = candidateGetInfor();
-        res1.then((res) => {
-          SetInfo(res.data);
+        const response = candidateGetInfor();
+        response.then((res) => {
+          setInfor(res.data);
         });
       }
       if (role === 2) {
         try {
-          const res = getInforCompany();
-          res.then((res) => {
-            SetInfo(res.data);
+          const response = getInforCompany();
+          response.then((res) => {
+            setInfor(res.data);
           });
         } catch (error) {
           return error;

@@ -9,12 +9,12 @@ import {
   candidateUpdateProject,
 } from "../../../apis/candidates";
 function ProjectUser({ isOpen, close, project }) {
-  const usera = useSelector((state) => state.candidate.data);
+  const userProject = useSelector((state) => state.candidate.data);
   const [user, setUser] = useState({});
 
   useEffect(() => {
-    setUser({ ...user, candidate_id: usera.id });
-  }, [usera]);
+    setUser({ ...user, candidate_id: userProject.id });
+  }, [userProject]);
 
   const changeValue = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
@@ -34,7 +34,7 @@ function ProjectUser({ isOpen, close, project }) {
           message: error.response.message,
         });
       }
-    } else if (project.status == "creat") {
+    } else if (project.status == "create") {
       try {
         const create = await candidateCreateProject(user);
         notification.success({

@@ -11,11 +11,11 @@ import {
 
 function Certificate({ isOpen, close, certificate }) {
   const [user, setUser] = useState({});
-  const usera = useSelector((state) => state.candidate.data);
+  const userCerti = useSelector((state) => state.candidate.data);
 
   useEffect(() => {
-    setUser({ ...user, candidate_id: usera.id });
-  }, [usera]);
+    setUser({ ...user, candidate_id: userCerti.id });
+  }, [userCerti]);
 
   const changeValue = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
@@ -38,7 +38,7 @@ function Certificate({ isOpen, close, certificate }) {
           message: error.response.message,
         });
       }
-    } else if (certificate.status == "creat") {
+    } else if (certificate.status == "create") {
       try {
         const create = await candidateCreateCertificate(user);
         notification.success({

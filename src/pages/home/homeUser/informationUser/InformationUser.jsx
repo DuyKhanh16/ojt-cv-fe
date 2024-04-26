@@ -118,7 +118,7 @@ export default function InformationUserB() {
   const creatSkill = () => {
     setOpenSkill(true);
     setItemSkillUpdate({
-      status: "creat",
+      status: "create",
       item: user,
     });
   };
@@ -133,7 +133,7 @@ export default function InformationUserB() {
   const creatAboutMe = () => {
     setOpenAbout(true);
     setItemAboutUpdate({
-      status: "creat",
+      status: "create",
       item: user,
     });
   };
@@ -163,7 +163,7 @@ export default function InformationUserB() {
   const creatEdu = () => {
     setOpenEdu(true);
     setItemEduUpdate({
-      status: "creat",
+      status: "create",
     });
   };
   // sua edu
@@ -204,7 +204,7 @@ export default function InformationUserB() {
   const creatExp = async () => {
     setOpenExp(true);
     setItemExpUpdate({
-      status: "creat",
+      status: "create",
     });
   };
 
@@ -228,7 +228,7 @@ export default function InformationUserB() {
   const creatProject = () => {
     setOpenProject(true);
     setItemProjectUpdate({
-      status: "creat",
+      status: "create",
     });
   };
   /* het project */
@@ -252,7 +252,7 @@ export default function InformationUserB() {
   const creatCerti = () => {
     setOpenCert(true);
     setItemCertificateUpdate({
-      status: "creat",
+      status: "create",
     });
   };
 

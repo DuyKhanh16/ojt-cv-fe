@@ -10,12 +10,12 @@ import {
 } from "../../../apis/candidates";
 
 function Education({ isOpen, close, edu }) {
-  const usera = useSelector((state) => state.candidate.data);
+  const userEdu = useSelector((state) => state.candidate.data);
   const [user, setUser] = useState({});
 
   useEffect(() => {
-    setUser({ ...user, candidate_id: usera.id });
-  }, [usera]);
+    setUser({ ...user, candidate_id: userEdu.id });
+  }, [userEdu]);
 
   const changeValue = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
@@ -34,7 +34,7 @@ function Education({ isOpen, close, edu }) {
         });
       }
       close();
-    } else if (edu.status == "creat") {
+    } else if (edu.status == "create") {
       try {
         const create = await candidateCreateEducation(user);
         notification.success({
