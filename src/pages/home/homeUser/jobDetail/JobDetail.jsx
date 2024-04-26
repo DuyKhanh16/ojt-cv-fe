@@ -15,6 +15,7 @@ import privateAxios from "../../../../config/private.axios";
 import ApplyJob from "../applyJob/ApplyJob";
 import { Button, notification } from "antd";
 import publicAxios from "../../../../config/pulic.axios";
+import { getJobAppliedCandidatesbyId, getJobDetail, jobGetLiveJobs } from "../../../../apis/jobs";
 
 export default function JobDetail() {
   const { id } = useParams();
@@ -30,17 +31,14 @@ export default function JobDetail() {
   const role = JSON.parse(localStorage.getItem("role"));
   const [checkSaveJob,setCheckSaveJob]=React.useState(false)
 
-  window.scrollTo(0, 0);
   // lay het thong tin cua jobdetail
   const inforJobDetail = async () => {
-    await privateAxios
-      .get(`/api/v2/jobs/detail/${id}`)
+    await getJobDetail(id)
       .then((res) => {
-        console.log(res.data.data);
-        setInfor(res.data.data);
+        setInfor(res.data);
       })
       .catch((error) => {
-        console.log(error);
+        return error;
       });
   };
 
@@ -54,21 +52,19 @@ export default function JobDetail() {
   }
 
   useEffect(() => {
-    const result2 = privateAxios.get(
-      `/api/v2/jobs/getJobAppliedCandidatesbyId/${id}`
-    );
+    const result2 = 
+    getJobAppliedCandidatesbyId(id)
     result2.then((res) => {
-      setCheck(res.data.check);
+      setCheck(res.check);
     });
-    const result = privateAxios.get(`/api/v2/jobs/detail/${id}`);
+    const result = getJobDetail(id);
     result
       .then((res) => {
-        console.log(res.data.data);
-        setInfor(res.data.data);
-        setSalary(res.data.data.salary_jobs);
+        setInfor(res.data);
+        setSalary(res.data.salary_jobs);
       })
       .catch((error) => {
-        console.log(error);
+        return error;
       });
 
       if(role !== 1){
@@ -80,11 +76,10 @@ export default function JobDetail() {
 
   const getAllLiveJob = async () => {
     try {
-      const res = await publicAxios.get("/api/v2/jobs/getLiveJobs");
-      console.log("23", res.data.data);
-      setLiveJob(res.data.data);
+      const res = await jobGetLiveJobs();
+      setLiveJob(res.data);
     } catch (error) {
-      console.log(error);
+      return error;
     }
   };
   const close = (message, status) => {

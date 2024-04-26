@@ -10,11 +10,13 @@ const ACCESS_TOKEN_KEY = "token";
  * @return Access token
  */
 export const getAccessToken = ()  => {
+
  const token = JSON.parse(localStorage.getItem(ACCESS_TOKEN_KEY));
  if(token) {
    return token;
  }
  return null;
+
 };
 
 /**
@@ -23,14 +25,14 @@ export const getAccessToken = ()  => {
  * @param value - Access token
  */
 export const setAccessToken = (value) => {
-  window.localStorage.setItem(ACCESS_TOKEN_KEY, value);
+localStorage.setItem(ACCESS_TOKEN_KEY, JSON.stringify (value));
 };
 
 /**
  * Remove access token
  */
 export const removeAccessToken = () => {
-  window.localStorage.removeItem(ACCESS_TOKEN_KEY);
+  localStorage.removeItem(ACCESS_TOKEN_KEY);
 };
 
 
