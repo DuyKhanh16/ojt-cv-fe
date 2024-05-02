@@ -95,8 +95,7 @@ export default function SearchCompany() {
               className="searchCompany__outStandingJob--header__view"
               onClick={() => navigate("/candidate/job-list")}
             >
-              <p>Xem thêm</p>
-              <img src={arrow} alt="" />
+           
             </div>
           </div>
           <div className="main__outStandingCompany--listCompany">

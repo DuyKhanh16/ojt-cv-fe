@@ -11,9 +11,10 @@ import arowright from "../../../../assets/images/main/fi_arrow-right.png";
 import axios from "axios";
 import privateAxios from "../../../../config/private.axios";
 import publicAxios from "../../../../config/pulic.axios";
-// import CkEditorComponent from "../../../../config/CkEditorComponent";
 import logo from "../../../../assets/images/main/Software code testing-pana 1.png";
 import { useNavigate } from "react-router";
+import { getJobsForCompanyS, getInforCompany, updateInfoCompany, createAddressCompany, updateAddressCompany, deleteAddressCompany } from "../../../../apis/company/index.js"
+import { getAllTypeCompany } from "../../../../apis/type_company/typecompany.js"
 
 export default function UpdateInforBusiness() {
   // window.scrollTo(0, 0);
@@ -37,8 +38,8 @@ export default function UpdateInforBusiness() {
   const [district, setDistrict] = useState("");
   const [ward, setWard] = useState("");
   const [address, setAddress] = useState("");
-  const [edit,setEdit]=useState(false)
-  const [idaddress,setidaddress]=useState()
+  const [edit, setEdit] = useState(false)
+  const [idaddress, setidaddress] = useState()
   // console.log(address)
 
   const [infoCompany, setInfoCompany] = useState({});
@@ -71,67 +72,68 @@ export default function UpdateInforBusiness() {
     policy: "",
   });
 
- 
+
   const navigate = useNavigate();
   const role = JSON.parse(localStorage.getItem("role"));
   // lấy thông tin company
   const getinfoCompany = async () => {
     try {
-    const res = await privateAxios.get("api/v2/companies/getInfor")
-      setInfoCompany(res.data.data);
-      setListBrand(res.data.data.address_company);
-      // Settycompany(res.data.data.typeCompany_id.name);
-      console.log(res.data.data)
+      const res = await getInforCompany()
+      setInfoCompany(res.data);
+      setListBrand(res.data.address_company);
       setUpdateCompany({
-        name: res.data.data.name,
-        size: res.data.data.size,
-        link_facebook: res.data.data.link_facebook,
-        website: res.data.data.website,
-        description: res.data.data.description,
-        email: res.data.data.account_company_id.email,
-        phone: res.data.data.phone,
-        photo: res.data.data.logo,
-        typeCompany_id: res.data.data.typeCompany_id.id,
-        policy: res.data.data.policy,
+        name: res.data.name,
+        size: res.data.size,
+        link_facebook: res.data.link_facebook,
+        website: res.data.website,
+        description: res.data.description,
+        email: res.data.account_company_id.email,
+        phone: res.data.phone,
+        photo: res.data.logo,
+        typeCompany_id: res.data.typeCompany_id.id,
+        policy: res.data.policy,
       });
-      // console.log(updateCompany)
-  } catch (error) {
-    console.log(error)
-  }
-  
+    } catch (error) {
+      console.log(error)
+    }
+
   };
-  console.log(updateCompany)
 
   // lấy các jobs của công ty
-  const getJobsForCompany = () => {
-    const res = privateAxios.get("api/v2/jobs/getJobsForCompany");
+  const getJobsByCompany = () => {
+    const res = getJobsForCompanyS()
     res.then((res) => {
-      setListJobs(res.data.data);
+      setListJobs(res.data);
     });
   }
+
   //  lấy các type company
   const getTypeCompany = () => {
-    const res = publicAxios.get("api/v2/typecompany/all");
-    res.then((res) => {
-      setListTypeCompany(res.data.data);
-    });
+    try {
+      const res = getAllTypeCompany()
+      res.then((res) => {
+        console.log(res)
+        setListTypeCompany(res.data)
+      })
+      
+    } catch (error) {
+      console.log(error)
+    }  
   };
-
   useEffect(() => {
     getinfoCompany();
     getTypeCompany();
-    getJobsForCompany();
-    if(role !== 2){
+    getJobsByCompany();
+    if (role !== 2) {
       navigate("/candidate")
     }
   }, [flag]);
-
-  // console.log(listjobs, "123123");
+  
+  // console.log(listTypeCompany)
 
   // api thành phố
   const handleGetDataCity = async () => {
     let data = await axios.get(`https://vapi.vnappmob.com/api/province/`);
-    // console.log(data.data.results);
     setDataCity(data.data.results);
   };
   useEffect(() => {
@@ -173,7 +175,7 @@ export default function UpdateInforBusiness() {
     reader.readAsDataURL(file);
   };
   // viêt các hàm
-  //  hàm validate thêm địa chỉ công ty
+
 
   // modal 1
   const showModal = () => {
@@ -181,25 +183,25 @@ export default function UpdateInforBusiness() {
   };
 
   const handleOk = async () => {
-    // const errors = {};
-    // let hasError = false;
-    // if (!updateCompany.name.trim()) {
-    //   errors.name = "Tên doanh nghiệp không được để trống";
-    //   hasError = true;
-    // }
-    // if (!updateCompany.email.trim()) {
-    //   errors.email = "Email không được để trống";
-    //   hasError = true;
-    // }
-    // if (!updateCompany.phone.trim()) {
-    //   errors.phone = "Số điện thoại không được để trống";
-    //   hasError = true;
-    // }
+    const errors = {};
+    let hasError = false;
+    if (!updateCompany.name.trim()) {
+      errors.name = "Tên doanh nghiệp không được để trống";
+      hasError = true;
+    }
+    if (!updateCompany.email.trim()) {
+      errors.email = "Email không được để trống";
+      hasError = true;
+    }
+    if (!updateCompany.phone.trim()) {
+      errors.phone = "Số điện thoại không được để trống";
+      hasError = true;
+    }
 
-    // if (hasError) {
-    //   setErrorMessages(errors);
-    //   return;
-    // }
+    if (hasError) {
+      setErrorMessages(errors);
+      return;
+    }
 
     if (selectedMedia) {
       const formData = new FormData();
@@ -216,13 +218,8 @@ export default function UpdateInforBusiness() {
         ...updateCompany,
         photo: media,
       };
-      // console.log(media)
-      // console.log(updateCompany1)
       try {
-        const res = await axios.patch(
-          `http://localhost:3000/api/v2/companies/update-info/${infoCompany.id}`,
-          updateCompany1
-        );
+        const res = await updateInfoCompany(infoCompany.id, updateCompany1);
         notification.success({
           message: "Cập nhật thành công",
           duration: 2,
@@ -236,10 +233,7 @@ export default function UpdateInforBusiness() {
       }
     } else {
       try {
-        const res = await axios.patch(
-          `http://localhost:3000/api/v2/companies/update-info/${infoCompany.id}`,
-          updateCompany
-        );
+        const res = await updateInfoCompany(infoCompany.id, updateCompany);
         notification.success({
           message: "Cập nhật thành công",
           duration: 2,
@@ -261,22 +255,20 @@ export default function UpdateInforBusiness() {
   // modal 2
   const showModal2 = (item) => {
     // console.log(item);
-    if(item.address === undefined){
+    if (item.address === undefined) {
       setEdit(false)
-      
+
     }
-    if(item.address){
-   setEdit(true)
-   setidaddress(item.id)
+    if (item.address) {
+      setEdit(true)
+      setidaddress(item.id)
     }
 
     setIsModalOpen2(true);
   };
-console.log(address,ward,district,city)
+
   const handleOk2 = async () => {
-    console.log(edit)
-    // console.log(address);
-    if(!edit){
+    if (!edit) {
       if (address === "") {
         notification.error({
           message: "Hãy điền đủ thông tin",
@@ -288,10 +280,7 @@ console.log(address,ward,district,city)
         const newAdress = {
           address: `${address} - ${ward} - ${district} - ${city}`,
         };
-        const res = await axios.post(
-          `http://localhost:3000/api/v2/companies/create-address/${infoCompany.id}`,
-          newAdress
-        );
+        const res = createAddressCompany(infoCompany.id, newAdress);
         notification.success({
           message: "Thêm Địa chỉ thành công",
           duration: 2,
@@ -306,15 +295,11 @@ console.log(address,ward,district,city)
         console.log(error);
       }
     }
-    if(edit){
-// console.log(idaddress,"ăn vào đây")
+    if (edit) {
       const newAdress = {
         address: `${address} - ${ward} - ${district} - ${city}`,
       };
-      const res = await axios.patch(
-        `http://localhost:3000/api/v2/companies/update-address/${idaddress}`,
-        newAdress
-      );
+      const res = await updateAddressCompany(idaddress, newAdress);
       notification.success({
         message: "Cap nhap thanh cong",
         duration: 2,
@@ -343,9 +328,7 @@ console.log(address,ward,district,city)
       return;
     } else {
       try {
-        await axios.delete(
-          `http://localhost:3000/api/v2/companies/delete-address-company/${item.id}`
-        );
+        await deleteAddressCompany(item.id);
         SetFlag(!flag);
         notification.success({
           message: "Đã xóa địa chỉ thành công",
@@ -357,11 +340,8 @@ console.log(address,ward,district,city)
       }
     }
   };
-  const description =infoCompany?.description?.split('\n');
-  const policy =infoCompany?.policy?.split('\n');
-  // console.log(inforequiments)
-  // console.log(infoCompany);
-  console.log(edit)
+  const description = infoCompany?.description?.split('\n');
+  const policy = infoCompany?.policy?.split('\n');
 
   return (
     <>
@@ -411,7 +391,7 @@ console.log(address,ward,district,city)
           </div>
         </div>
       </div>
-            
+
       <div
         style={{
           display:
@@ -492,7 +472,7 @@ console.log(address,ward,district,city)
                 </div>
               </div>
             </div>
-            <div className="user-companyView-info-feature" style={{width:"36%"}}>
+            <div className="user-companyView-info-feature" style={{ width: "36%" }}>
               <button onClick={showModal}>Chỉnh sửa</button>
             </div>
           </div>
@@ -500,7 +480,7 @@ console.log(address,ward,district,city)
           <Modal
             onOk={handleOk2}
             onCancel={handleCancel2}
-            title={edit === true  ? "Sửa địa chỉ" : "Thêm địa chỉ"}
+            title={edit === true ? "Sửa địa chỉ" : "Thêm địa chỉ"}
             open={isModalOpen2}
             width={600}
           >
@@ -773,22 +753,22 @@ console.log(address,ward,district,city)
             <p style={{ fontWeight: "500", fontSize: "25px", color: "black" }}>
               Mô tả về công ty{" "}
               <span>
-              
+
               </span>
               <div
                 className="bg-white p-5"
               // dangerouslySetInnerHTML={{ __html: text }}
               />
             </p>
-           <ul style={{ marginTop: "10px",marginLeft: "20px" }}>
-           {description?.map((item, index) => (
-             <li key={index}>{item}</li>
-           ))}
-           </ul>
+            <ul style={{ marginTop: "10px", marginLeft: "20px" }}>
+              {description?.map((item, index) => (
+                <li key={index}>{item}</li>
+              ))}
+            </ul>
             <p style={{ fontWeight: "500", fontSize: "25px", color: "black" }}>
               Chính sách
             </p>
-            <ul style={{ marginTop: "10px",marginLeft: "20px" }}>
+            <ul style={{ marginTop: "10px", marginLeft: "20px" }}>
               {policy?.map((item, index) => (
                 <li style={{ marginBottom: "10px" }} key={index}>{item}</li>
               ))}
@@ -868,16 +848,16 @@ console.log(address,ward,district,city)
                 <i class="fa-regular fa-map"></i> Xem trên Maps
               </p>
               <iframe
-              title="Google Maps"
-              width="400"
-              height="350"
-              frameborder="0" 
-              style={{ border: 0 ,}}
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7456.362334988663!2d106.68267485!3d20.8647468!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x314a7af131094315%3A0x9a9d9e52c6ccc37b!2zTWluaCBLaGFpLCBI4buTbmcgQsOgbmcsIEjhuqNpIFBow7JuZw!5e0!3m2!1svi!2s!4v1713681761804!5m2!1svi!2s"
-              allowfullscreen=""
-              aria-hidden="false"
-              tabindex="0"
-            ></iframe>            </div>
+                title="Google Maps"
+                width="400"
+                height="350"
+                frameborder="0"
+                style={{ border: 0, }}
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7456.362334988663!2d106.68267485!3d20.8647468!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x314a7af131094315%3A0x9a9d9e52c6ccc37b!2zTWluaCBLaGFpLCBI4buTbmcgQsOgbmcsIEjhuqNpIFBow7JuZw!5e0!3m2!1svi!2s!4v1713681761804!5m2!1svi!2s"
+                allowfullscreen=""
+                aria-hidden="false"
+                tabindex="0"
+              ></iframe>            </div>
             <div
               className="user-companyView-orther-social-container"
               style={{
@@ -918,15 +898,16 @@ console.log(address,ward,district,city)
             </div>
           </div>
         </div>
-          <div style={{ borderTop: "1px solid #E7F0FA",padding:"32px"}}>
-          <div style={{fontSize:"28px",fontWeight:"500",paddingLeft:"32px"}}>Các job của công ty</div>
+        <div style={{ borderTop: "1px solid #E7F0FA", padding: "32px" }}>
+          <div style={{ fontSize: "28px", fontWeight: "500", paddingLeft: "32px" }}>Các job của công ty</div>
           <div style={{
-          display: "flex",flexWrap: "wrap",gap: "20px",
-           height: "auto", padding: "32px" }}>
-           
+            display: "flex", flexWrap: "wrap", gap: "20px",
+            height: "auto", padding: "32px"
+          }}>
+
             {listjobs.map((item) =>
               <div
-              onClick={() => navigate(`/company/updatejob/${item.id}`)}
+                onClick={() => navigate(`/company/updatejob/${item.id}`)}
                 style={{
                   width: "400px",
                   height: "auto",
@@ -936,7 +917,7 @@ console.log(address,ward,district,city)
                   fontSize: "14px"
                 }}
                 className="main__outStandingJob--listJob__item"
-  
+
               >
                 <div style={{ display: "flex", gap: "10px" }}>
                   <div>
@@ -950,7 +931,7 @@ console.log(address,ward,district,city)
                       <div> <img src={arowright}></img></div>
                     </div>
                     <div> Thời gian : {item.types_jobs[0].typejob.name}</div>
-  
+
                     <div style={{ display: "flex", gap: "10px", }}>
                       <img
                         style={{ width: "20px", height: "20px" }}
@@ -959,11 +940,11 @@ console.log(address,ward,district,city)
                     </div>
                   </div>
                 </div>
-  
+
               </div>
             )}
           </div>
-          </div>
+        </div>
       </div>
     </>
   );

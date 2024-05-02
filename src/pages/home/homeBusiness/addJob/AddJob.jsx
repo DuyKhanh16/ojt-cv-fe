@@ -4,6 +4,8 @@ import { useNavigate } from "react-router";
 import privateAxios from "../../../../config/private.axios";
 import axios from "axios";
 import { Select, notification } from "antd";
+import { getInforCompany } from "../../../../apis/company/index.js"
+import {getTypeJobs,getLevelJobs,getSalaries,createJobs} from "../../../../apis/jobs/index.js"
 export default function AddJob() {
 
   // window.scrollTo(0, 0);
@@ -28,40 +30,48 @@ export default function AddJob() {
   });
   
   
-  // const role = JSON.parse(localStorage.getItem("role"));
+  const role = JSON.parse(localStorage.getItem("role"));
 
 
   // lấy thông tin company
   const getInfo = async () => {
-    const res = await privateAxios.get("api/v2/companies/getInfor");
-    res.then((res) => {
-      SetInfoCompany(res.data.data);
-      setAdressCompany(res.data.data.address_company);
-    });
+   try {
+    const res = await getInforCompany();
+    SetInfoCompany(res.data);
+    setAdressCompany(res.data.address_company);
+   } catch (error) {
+    console.log(error)
+   }
   };
 
-  console.log(infoCompany, "infoCompany");
   //  hàm lấy các type job
   const getTypeJob = async () => {
-    const res = await axios.get("http://localhost:3000/api/v2/typejob/getall");
-    res.then((res) => {
-      setListTypeJob(res.data);
-    });
+   try {
+    const res = await getTypeJobs();
+    setListTypeJob(res);
+   } catch (error) {
+    console.log(error)
+   }
   };
+
   //  hàm lấy các level job
   const levelJobs = async () => {
-    const res = await axios.get("http://localhost:3000/api/v2/leveljob/getall");
-    res.then((res) => {
-      setLevelJob(res.data);
-    });
+   try {
+    const res =  await getLevelJobs()
+    setLevelJob(res)
+   } catch (error) {
+    console.log(error)
+   }
   };
 
   // hàm lấy các salary
   const getlistSalary = async () => {
-    const res = await axios.get("http://localhost:3000/api/v2/salary/getAll");
-    res.then((res) => {
-      setSalary(res.data);
-    });
+    try {
+      const res = await getSalaries()
+      setSalary(res);
+    } catch (error) {
+      console.log(error)
+    }
   };
 
   useEffect(() => {
@@ -84,10 +94,7 @@ export default function AddJob() {
       })
     }
     try {
-      const res = await axios.post(
-        `http://localhost:3000/api/v2/jobs/create/${infoCompany.id}`,
-        newJob
-      );
+      const res = await createJobs(infoCompany.id, newJob);
       notification.success({
         message: "Đã tạo job thành công",
         placement: "topRight",

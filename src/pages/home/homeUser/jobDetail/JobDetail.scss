@@ -390,7 +390,7 @@
                 margin-left: 0px !important;
                 color: white;
                 border-radius: 5px;
-                cursor: pointer;
+                // cursor: pointer;
                 gap: 0px !important;
                 .job__detail--company--apply--bookmark1{
                     width: 46px !important;
@@ -400,7 +400,11 @@
                     border-radius: 4px;
                     opacity: 0px;
                     margin-left: 53px;
+                    i:hover{
+                        color:gold;
+                    }
                 }
+               
                 .job__detail--company--apply--apply11{
                     width: 148px!important;
                     height: 46px !important;

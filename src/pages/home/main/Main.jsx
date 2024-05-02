@@ -23,21 +23,31 @@ import publicAxios from "../../../config/pulic.axios";
 import { Outlet, useNavigate } from "react-router";
 import CheckLogin from "../../../components/confirm/CheckLogin";
 import axios from "axios";
-
+import privateAxios from "../../../config/private.axios";
+import { candidateGetAll } from "../../../apis/candidates";
+import { firstPagination, jobGetLiveJobs, jobGetNewJobs, pagination } from "../../../apis/jobs";
 export default function Main() {
   const [allCompany, setAllCompany] = useState([]);
   const [allLiveJob, setLiveJob] = useState([]);
   const [allNewJob, setNewJob] = useState([]);
   const [allCandidate, setAllCandidate] = useState([]);
   const [salary, setSalary] = useState([]);
-  
+  const [jobOutStanding, setJobOutStanding] = useState([]);
+  const [companyOutStanding, setCompanyOutStanding] = useState([]);
+  const [candidateOutStanding, setCandidateOutStanding] = useState([]);
+  const [pageNumbers, setPageNumbers] = useState([1,2,3]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [jobPanigation, setJobPanigation] = useState([]);
   const navigate = useNavigate();
   // check token
   const role1 = JSON.parse(localStorage.getItem("role"));
   const token = localStorage.getItem("token") || null;
   const [isOpen, setIsOpen] = useState(false);
+  const [flag, setflag] = useState(false);
+  const [checkPage, setCheckPage] = useState(1);
+  const [lisJobSave, setLisJobSave] = useState([]);
+  const [chekSave, setChekSave] = useState(true);
   const open = () => {
-    console.log(isOpen);
     setIsOpen(!isOpen);
   };
 
@@ -45,51 +55,143 @@ export default function Main() {
     try {
       const res = await publicAxios.get("/api/v2/companies/getAll");
       setAllCompany(res.data.data);
-      const res1 = await publicAxios.get(
-        `/api/v2/jobs/getJobsCompanyById/${res.data.data[0].id}`
-      );
+    } catch (error) {
+      return error;
+    }
+  };
+
+  const getCompanyOutStanding = async () => {
+    try {
+      setCompanyOutStanding(allCompany.slice(0, 6));
     } catch (error) {
       console.log(error);
     }
   };
+
   const getAllLiveJob = async () => {
     try {
-      const res = await publicAxios.get("/api/v2/jobs/getLiveJobs");
-      setLiveJob(res.data.data);
+      const res = await jobGetLiveJobs();
+      setLiveJob(res.data);
+    } catch (error) {
+      return error;
+    }
+  };
+
+  const getJobOutStanding = async () => {
+    try {
+      setJobOutStanding(allLiveJob.slice(0, 6));
     } catch (error) {
       console.log(error);
     }
   };
-  console.log(allLiveJob)
+
   const getAllNewJob = async () => {
     try {
-      const res = await publicAxios.get("/api/v2/jobs/getNewJobs");
-      setNewJob(res.data.data);
+      const res = await jobGetNewJobs();
+      setNewJob(res.data);
     } catch (error) {
-      console.log(error);
+      return error;
     }
   };
+
   const getAllCandidate = async () => {
     try {
-      const res = await publicAxios.get("api/v2/candidates/getAll");
-      console.log(res.data.data);
-      setAllCandidate(res.data.data);
+      const res = await candidateGetAll();
+      setAllCandidate(res.data);
+    } catch (error) {
+      return error;
+    }
+  };
+
+  const getCandidateOutStanding = async () => {
+    try {
+      setCandidateOutStanding(allCandidate.slice(0, 6));
     } catch (error) {
       console.log(error);
     }
   };
-  console.log(allCandidate)
+
+  const getListJobSave = async () => {
+    try {
+      const res = await privateAxios.get("api/v2/candidates/getJobSave");
+      console.log(res);
+      setLisJobSave(res.data.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     getAllCompany();
     getAllLiveJob();
     getAllNewJob();
     getAllCandidate();
-   
-  }, []);
+    caculatePage();
+    getListJobSave();
+    firstPage();
+  }, [flag]);
+
+  const candidateSaveJob = async (id) => {
+    setChekSave(false);
+    if (!chekSave) return;
+
+    try {
+      await privateAxios.post(
+        `/api/v2/candidates/candidate-save-job/?job_id=${id}`
+      );
+      notification.success({
+        message: "Đã lưu công việc",
+      });
+      setflag(!flag);
+    } catch (error) {
+      console.log(error);
+      notification.error({
+        message: "không thể lưu công việc này 2 lần",
+      });
+    }
+  };
+
+  // phan trang
+  const caculatePage = () => {
+    console.log(allLiveJob)
+    if (allLiveJob?.length>0) {
+    let number = Math.ceil(allLiveJob?.length / 6);
+    setPageNumbers(Array.from({ length: number }, (_, i) => i + 1));
+    }
+    
+  };
+  
+  const firstPage = ()=> {
+    if (checkPage == 1) {
+      firstPagination()
+    .then((res) => {
+      setJobPanigation(res.data)
+    })
+    .catch((error) => {
+      return error;
+    })
+
+    } else {
+      return;
+    }
+    
+  }
+  const onPageChange = (page) => {
+    pagination(page)
+    .then((res) => {
+      setCheckPage(checkPage+1);
+      setJobPanigation(res.data);
+      setCurrentPage(page);
+    })
+    .catch((error) => {
+      return error;
+    })
+  }
+  console.log(pageNumbers)
+console.log(jobPanigation)
   return (
     <>
       <CheckLogin isOpen={isOpen} close={open}></CheckLogin>
-
       <div className="main__container">
         <div className="main__introduce">
           <div className="main--searchJob">
@@ -131,12 +233,25 @@ export default function Main() {
                     />
                   </div>
                 </div>
-                <div
-                  className="main--searchJob--left__formSearch__button"
-                  onClick={() => navigate("/search-all")}
-                >
-                  Tìm kiếm
-                </div>
+                {token ? (
+                  <>
+                    <div
+                      className="main--searchJob--left__formSearch__button"
+                      onClick={() => navigate("/search-all")}
+                    >
+                      Tìm kiếm
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div
+                      className="main--searchJob--left__formSearch__button"
+                      onClick={() => open()}
+                    >
+                      Tìm kiếm
+                    </div>
+                  </>
+                )}
               </div>
               <p className="main--searchJob--left__text--down">
                 Từ khóa: thực tập FE, thực tập BE, thực tập UI/UX...
@@ -173,6 +288,7 @@ export default function Main() {
                 </p>
               </div>
             </div>
+
             <div className="main--showInformation__candicates">
               <div className="main--showInformation__candicates--icon">
                 <img src={users} alt="" />
@@ -218,11 +334,77 @@ export default function Main() {
           <div className="main__outStandingJob--listJob">
             {token ? (
               <>
-                {allLiveJob?.map((item) => (
+                {jobPanigation?.map((item) => (
+                  <>
+                    <div
+                      className="main__outStandingJob--listJob__item"
+                      key={item.id}
+                    >
+                      <div className="main__outStandingJob--listJob__item--top">
+                        <span
+                          onClick={() =>
+                            navigate(`/candidate/jobdetail/${item.id}`)
+                          }
+                          className="main__outStandingJob--listJob__item--top__name"
+                        >
+                          {item.title}
+                        </span>
+                        <div className="main__outStandingJob--listJob__item--top__salary">
+                          <div className="main__outStandingJob--listJob__item--top__salary__text">
+                            <p>{item?.types_jobs[0].typejob.name}</p>
+                          </div>
+                          <span className="main__outStandingJob--listJob__item--top__salary__price">
+                            {item?.salary_jobs[0]?.salary.name}
+                          </span>
+                        </div>
+                      </div>
+                      <div className="main__outStandingJob--listJob__item--bottom">
+                        <div className="main__outStandingJob--listJob__item--bottom--left">
+                          <div className="main__outStandingJob--listJob__item--bottom__logo">
+                            <img src={item?.company.logo} alt="" />
+                          </div>
+                          <div className="main__outStandingJob--listJob__item--bottom__nameLogo">
+                            <p className="main__outStandingJob--listJob__item--bottom__nameLogo__text">
+                              {item?.company.name}
+                            </p>
+                            <div className="main__outStandingJob--listJob__item--bottom__nameLogo__location">
+                              <img src={MapPin} alt="" />
+                              <p>{item?.address_company.address}</p>
+                            </div>
+                          </div>
+                        </div>
+                        {lisJobSave.findIndex(
+                          (job) => job.job.id === item.id
+                        ) !== -1 ? (
+                          <div className="main__outStandingJob--listJob__item--bottom__bookmark">
+                            <i
+                              style={{ color: "gold" }}
+                              class="fa-solid fa-bookmark"
+                            ></i>
+                          </div>
+                        ) : (
+                          <div
+                            onClick={() => candidateSaveJob(item.id)}
+                            className="main__outStandingJob--listJob__item--bottom__bookmark"
+                          >
+                            <i
+                              style={{ opacity: "0.5" }}
+                              class="fa-solid fa-bookmark"
+                            ></i>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </>
+                ))}
+              </>
+            ) : (
+              <>
+                {jobPanigation?.map((item) => (
                   <div
                     className="main__outStandingJob--listJob__item"
                     key={item.id}
-                    onClick={() => navigate(`/candidate/jobdetail/${item.id}`)}
+                    onClick={() => open()}
                   >
                     <div className="main__outStandingJob--listJob__item--top">
                       <span className="main__outStandingJob--listJob__item--top__name">
@@ -253,56 +435,90 @@ export default function Main() {
                         </div>
                       </div>
                       <div className="main__outStandingJob--listJob__item--bottom__bookmark">
-                        <img src={BookmarkSimple} alt="" />
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </>
-            ) : (
-              <>
-                {allLiveJob?.map((item) => (
-                  <div
-                    className="main__outStandingJob--listJob__item"
-                    key={item.id}
-                    onClick={() => open()}
-                  >
-                    <div className="main__outStandingJob--listJob__item--top">
-                      <span className="main__outStandingJob--listJob__item--top__name">
-                        {item.title}
-                      </span>
-                      <div className="main__outStandingJob--listJob__item--top__salary">
-                        <div className="main__outStandingJob--listJob__item--top__salary__text">
-                          <p>{item?.types_jobs[0].typejob.name}</p>
-                        </div>
-                        <span className="main__outStandingJob--listJob__item--top__salary__price">
-                          {item.salary}
-                        </span>
-                      </div>
-                    </div>
-                    <div className="main__outStandingJob--listJob__item--bottom">
-                      <div className="main__outStandingJob--listJob__item--bottom--left">
-                        <div className="main__outStandingJob--listJob__item--bottom__logo">
-                          <img src={item?.company.logo} alt="" />
-                        </div>
-                        <div className="main__outStandingJob--listJob__item--bottom__nameLogo">
-                          <p className="main__outStandingJob--listJob__item--bottom__nameLogo__text">
-                            {item?.company.name}
-                          </p>
-                          <div className="main__outStandingJob--listJob__item--bottom__nameLogo__location">
-                            <img src={MapPin} alt="" />
-                            <p>{item?.address_company.address}</p>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="main__outStandingJob--listJob__item--bottom__bookmark">
-                        <img src={BookmarkSimple} alt="" />
+                        <i class="fa-regular fa-bookmark"></i>
                       </div>
                     </div>
                   </div>
                 ))}
               </>
             )}
+          </div>
+          <div class="fui-roundedFull-pagination">
+            <ul class="pagination-list">
+              <li class="pagination-item btn-prev">
+                <a href="#" class="pagination-link">
+                  <svg
+                    width="6"
+                    height="10"
+                    viewBox="0 0 6 10"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      clipRule="evenodd"
+                      d="M5.20711 0.792893C5.59763 1.18342 5.59763 1.81658 5.20711 2.20711L2.41421 5L5.20711 7.79289C5.59763 8.18342 5.59763 8.81658 5.20711 9.20711C4.81658 9.59763 4.18342 9.59763 3.79289 9.20711L0.292893 5.70711C-0.0976311 5.31658 -0.0976311 4.68342 0.292893 4.29289L3.79289 0.792893C4.18342 0.402369 4.81658 0.402369 5.20711 0.792893Z"
+                      fill="currentColor"
+                    ></path>
+                  </svg>
+                </a>
+              </li>
+              {pageNumbers?.map((page) => (
+                <li key={page} className="pagination-item">
+                  <p
+                    onClick={() => onPageChange(page)}
+                    className={`pagination-link ${
+                    currentPage === page ? "selected" : ""
+                    }`}
+                  >
+                    {page}
+                  </p>
+                </li>
+              ))}
+              {/* <li class="pagination-item">
+                <a href="#" class="pagination-link">
+                  1
+                </a>
+              </li>
+              <li class="pagination-item">
+                <a href="#" class="pagination-link selected">
+                  2
+                </a>
+              </li>
+              <li class="pagination-item">
+                <a href="#" class="pagination-link">
+                  3
+                </a>
+              </li>
+              <li class="pagination-item">
+                <a href="#" class="pagination-link">
+                  4
+                </a>
+              </li>
+              <li class="pagination-item">
+                <a href="#" class="pagination-link">
+                  5
+                </a>
+              </li> */}
+              <li class="pagination-item btn-next">
+                <a href="#" class="pagination-link">
+                  <svg
+                    width="6"
+                    height="10"
+                    viewBox="0 0 6 10"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      clipRule="evenodd"
+                      d="M0.792893 0.792893C0.402369 1.18342 0.402369 1.81658 0.792893 2.20711L3.58579 5L0.792893 7.79289C0.402369 8.18342 0.402369 8.81658 0.792893 9.20711C1.18342 9.59763 1.81658 9.59763 2.20711 9.20711L5.70711 5.70711C6.09763 5.31658 6.09763 4.68342 5.70711 4.29289L2.20711 0.792893C1.81658 0.402369 1.18342 0.402369 0.792893 0.792893Z"
+                      fill="currentColor"
+                    ></path>
+                  </svg>
+                </a>
+              </li>
+            </ul>
           </div>
         </div>
 
@@ -319,7 +535,7 @@ export default function Main() {
           <div className="main__outStandingCandidate--listCandidate">
             {token ? (
               <>
-                {allCandidate.map((item) => (
+                {allCandidate?.map((item) => (
                   <div
                     className="main__outStandingCandidate--listCandidate__item"
                     onClick={() =>
@@ -340,7 +556,6 @@ export default function Main() {
                             <div className="main__outStandingCandidate--listCandidate__item__information--left__name--bottom__left">
                               {item?.position}
                             </div>
-                        
                           </div>
                         </div>
                       </div>
@@ -353,15 +568,14 @@ export default function Main() {
                         Kĩ năng lập trình:
                       </div>
                       <div className="main__outStandingCandidate--listCandidate__item__technical__list">
-                        {
-                          item?.skills_candidate?.map((item) => (
-                            <div className="main__outStandingCandidate--listCandidate__item__technical__list__item" key={item.id}>
+                        {item?.skills_candidate?.map((item) => (
+                          <div
+                            className="main__outStandingCandidate--listCandidate__item__technical__list__item"
+                            key={item.id}
+                          >
                             {item.name}
                           </div>
-                          ))
-                        }
-                        
-                        
+                        ))}
                       </div>
                     </div>
                     <div className="main__outStandingCandidate--listCandidate__item__language">
@@ -383,7 +597,7 @@ export default function Main() {
               </>
             ) : (
               <>
-                {allCandidate.map((item) => (
+                {allCandidate?.map((item) => (
                   <div
                     className="main__outStandingCandidate--listCandidate__item"
                     onClick={() => open()}
@@ -402,9 +616,9 @@ export default function Main() {
                             <div className="main__outStandingCandidate--listCandidate__item__information--left__name--bottom__left">
                               {item?.position}
                             </div>
-                            <div className="main__outStandingCandidate--listCandidate__item__information--left__name--bottom__right">
+                            {/* <div className="main__outStandingCandidate--listCandidate__item__information--left__name--bottom__right">
                               Fresher
-                            </div>
+                            </div> */}
                           </div>
                         </div>
                       </div>
@@ -414,25 +628,28 @@ export default function Main() {
                     </div>
                     <div className="main__outStandingCandidate--listCandidate__item__technical">
                       <div className="main__outStandingCandidate--listCandidate__item__technical__title">
-                        Technical in use:
+                        Kĩ năng lập trình:
                       </div>
                       <div className="main__outStandingCandidate--listCandidate__item__technical__list">
-                        <div className="main__outStandingCandidate--listCandidate__item__technical__list__item">
-                          ReactJS
-                        </div>
-                        <div className="main__outStandingCandidate--listCandidate__item__technical__list__item">
-                          NodeJS
-                        </div>
+                        {item?.skills_candidate?.map((item) => (
+                          <div
+                            className="main__outStandingCandidate--listCandidate__item__technical__list__item"
+                            key={item.id}
+                          >
+                            {item.name}
+                          </div>
+                        ))}
                       </div>
                     </div>
                     <div className="main__outStandingCandidate--listCandidate__item__language">
                       <div className="main__outStandingCandidate--listCandidate__item__language__title">
-                        Foreign Language:
+                        Ngoại ngữ:
                       </div>
                       <div className="main__outStandingCandidate--listCandidate__item__language__list">
-                        <div className="main__outStandingCandidate--listCandidate__item__language__list__item">
-                          {item?.certificate_candidate[0].name}
-                          {item?.certificate_candidate[0].info}
+                        <div className="main__outStandingCandidate--listCandidate__item__language__list">
+                          <div className="main__outStandingCandidate--listCandidate__item__language__list__item">
+                            {item?.certificate_candidate[0].name}
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -457,11 +674,11 @@ export default function Main() {
               <img src={arrow} alt="" />
             </div>
           </div>
-          
+
           <div className="main__outStandingCompany--listCompany">
             {token ? (
               <>
-                {allCompany.map((item) => (
+                {allCompany?.map((item) => (
                   <div
                     className="main__outStandingCompany--listCompany__item"
                     key={item.id}
@@ -496,7 +713,7 @@ export default function Main() {
               </>
             ) : (
               <>
-                {allCompany.map((item) => (
+                {allCompany?.map((item) => (
                   <div
                     className="main__outStandingCompany--listCompany__item"
                     key={item.id}
@@ -531,9 +748,9 @@ export default function Main() {
           </div>
         </div>
 
-        <div className="main__comment">
+        {/* <div className="main__comment">
           <div className="main__comment__title">
-            <p>Clients Testimonial</p>
+            <p>Bình luận</p>
           </div>
           <div className="main__comment__allComment">
             <div className="main__comment__allComment__arrowLeft">
@@ -621,8 +838,8 @@ export default function Main() {
                     xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
-                      fill-rule="evenodd"
-                      clip-rule="evenodd"
+                      fillRule="evenodd"
+                      clipRule="evenodd"
                       d="M5.20711 0.792893C5.59763 1.18342 5.59763 1.81658 5.20711 2.20711L2.41421 5L5.20711 7.79289C5.59763 8.18342 5.59763 8.81658 5.20711 9.20711C4.81658 9.59763 4.18342 9.59763 3.79289 9.20711L0.292893 5.70711C-0.0976311 5.31658 -0.0976311 4.68342 0.292893 4.29289L3.79289 0.792893C4.18342 0.402369 4.81658 0.402369 5.20711 0.792893Z"
                       fill="currentColor"
                     ></path>
@@ -664,8 +881,8 @@ export default function Main() {
                     xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
-                      fill-rule="evenodd"
-                      clip-rule="evenodd"
+                      fillRule="evenodd"
+                      clipRule="evenodd"
                       d="M0.792893 0.792893C0.402369 1.18342 0.402369 1.81658 0.792893 2.20711L3.58579 5L0.792893 7.79289C0.402369 8.18342 0.402369 8.81658 0.792893 9.20711C1.18342 9.59763 1.81658 9.59763 2.20711 9.20711L5.70711 5.70711C6.09763 5.31658 6.09763 4.68342 5.70711 4.29289L2.20711 0.792893C1.81658 0.402369 1.18342 0.402369 0.792893 0.792893Z"
                       fill="currentColor"
                     ></path>
@@ -674,7 +891,7 @@ export default function Main() {
               </li>
             </ul>
           </div>
-        </div>
+        </div> */}
       </div>
     </>
   );

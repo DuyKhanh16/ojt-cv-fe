@@ -10,7 +10,10 @@ import { Button, Select, Input, Space, Popover } from "antd";
 import { MenuFoldOutlined } from "@ant-design/icons";
 import { Link, useNavigate } from "react-router-dom";
 import privateAxios from "../../config/private.axios";
-// import { Button, Input, Select, Space } from 'antd';
+import { getInforCompany } from "../../apis/company/index.js";
+import { candidateGetInfor } from "../../apis/candidates/index.js";
+import { useDispatch, useSelector } from "react-redux";
+import { candidateAsync } from "../../redux/reduce/candidateReduce.js";
 const { Search } = Input;
 const options = [
   {
@@ -23,11 +26,11 @@ const options = [
   },
 ];
 export default function FormSearch() {
-  const [info, SetInfo] = useState({});
+  const [info, setInfor] = useState({});
   const navigate = useNavigate();
   const token = JSON.parse(localStorage.getItem("token"));
   const role = JSON.parse(localStorage.getItem("role"));
-  // console.log(role)
+
   // khối của thằng poper của user
   const content = (
     <div className="form__search--popover">
@@ -70,37 +73,51 @@ export default function FormSearch() {
         className="form__search--popover--logout"
       >
         <MenuFoldOutlined size={40} className="custom-icon" />
-        <p>Đăng xuất</p>
+        <p style={{ cursor: "pointer" }}>Đăng xuất</p>
       </div>
     </div>
   );
   // hàm lấy thông tin người dùng
-
+  const dispatch = useDispatch();
+  const userReducer = useSelector((state) => state.candidate.data);
+  useEffect(() => {
+    dispatch(candidateAsync());
+  }, [dispatch]);
   const getInfo = () => {
     if (token) {
       if (role === 1) {
-        const res1 = privateAxios.get("api/v2/candidates/getInfor");
-        res1.then((res) => {
-          SetInfo(res.data.data);
+        const response = candidateGetInfor();
+        response.then((res) => {
+          setInfor(res.data);
         });
       }
       if (role === 2) {
-        const res2 = privateAxios.get("api/v2/companies/getInfor");
-        res2.then((res) => {
-          SetInfo(res.data.data);
-        });
+        try {
+          const response = getInforCompany();
+          response.then((res) => {
+            setInfor(res.data);
+          });
+        } catch (error) {
+          return error;
+        }
       }
     }
   };
-
+  const goHome = () => {
+    if (role == 1) {
+      navigate("/candidate");
+    }
+    if (role == 2) {
+      navigate("/company");
+    }
+  };
   useEffect(() => {
     getInfo();
   }, []);
-  console.log(info, "123");
   return (
     <div className="form__search">
       <div className="form__search--content">
-        <div className="form__search--image">
+        <div className="form__search--image" onClick={goHome}>
           <img className="form__search--image--logo" src={avatar}></img>
         </div>
         <div className="form__search--input">
@@ -146,7 +163,7 @@ export default function FormSearch() {
           </div>
           <div className="form__search--name"></div>
           {token ? (
-            <p>{info?.name}</p>
+            <p>{userReducer?.name}</p>
           ) : (
             <Button className="bnt-1">
               {" "}
