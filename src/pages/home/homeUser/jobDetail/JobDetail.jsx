@@ -43,6 +43,10 @@ export default function JobDetail() {
       });
   };
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+
+>>>>>>> dd988baafda70e7ed69f6718d4019d1222113aee
   useEffect(() => {
     const result2 = privateAxios.get(`/api/v2/jobs/getJobAppliedCandidatesbyId/${id}`);
     result2.then((res) => {
@@ -63,7 +67,11 @@ export default function JobDetail() {
         navigate("/company")
       }
   }, []);
+<<<<<<< HEAD
 =======
+=======
+
+>>>>>>> dd988baafda70e7ed69f6718d4019d1222113aee
 
   const getJobAppliedCandidatesbyIdF = async (id) => {
     const result2 = await 
@@ -81,7 +89,10 @@ export default function JobDetail() {
       console.log(error);
     }
   }
+<<<<<<< HEAD
 >>>>>>> 5a95e15513f6889a28c0629d74c72c5675ef803f
+=======
+>>>>>>> dd988baafda70e7ed69f6718d4019d1222113aee
 
   const getAllLiveJob = async () => {
     try {
