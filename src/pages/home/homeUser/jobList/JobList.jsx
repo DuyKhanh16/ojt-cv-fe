@@ -1,18 +1,14 @@
 import React from 'react'
 import axios from "axios";
-import filter from "../../../../assets/images/listJob/filter.png"
 import './jobList.scss'
-import Header from '../../../../components/header/Header';
-import FormSearch from '../../../../components/formSearch/FormSearch';
-import Footer from '../../../../components/footer/Footer';
 import { useNavigate } from 'react-router';
-import privateAxios from '../../../../config/private.axios';
+import { jobGetLiveJobs } from '../../../../apis/jobs';
+
 
 export default function JobList() {
   const [ListCity, setListCity] = React.useState([]);
   const [ListJob, setListJob] = React.useState([]);
 
-  window.scrollTo(0, 0);
   const navigate = useNavigate();
   const role = JSON.parse(localStorage.getItem("role"));
   async function getListCity() {
@@ -24,16 +20,14 @@ export default function JobList() {
     }
   }
   const getAllJob = async () => {
-    await privateAxios
-    .get("api/v2/jobs/getLiveJobs")
+    await jobGetLiveJobs()
     .then((res) => {
-      setListJob(res.data.data);
+      setListJob(res.data);
     })
     .catch((error) => {
-      console.log(error);
+      return error;
     })
   }
-  console.log(ListJob)
   React.useEffect(() => {
     getListCity();
     getAllJob();
@@ -79,7 +73,7 @@ export default function JobList() {
             <div className='user-ListJob-job-info'>
               <div className='user-ListJob-job-infoCompany'>
               <div className='user-ListJob-job-info-logo'>
-              <img width={48} src={job?.company.logo} alt="logo"/>
+              <img width={48} height={48} src={job?.company.logo} alt="logo"/>
               </div>
               <div className='user-ListJob-job-info-company'>
               <p >{job?.company.name}</p>

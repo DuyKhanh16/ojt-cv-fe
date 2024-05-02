@@ -3,14 +3,18 @@ import { useNavigate } from 'react-router'
 import './ForgetPassword.scss'
 import publicAxios from '../../../config/pulic.axios'
 import { set } from 'firebase/database'
+import { checkMail } from '../../../apis/auth/auth'
 export default function ForgetPassword({isOpen,close}) {
     const [email, setEmail] = React.useState('')
     const [check, setCheck] = React.useState("")
-   
     const checkEmail = async()=> {
+<<<<<<< HEAD
         console.log(email)
         const result = await publicAxios.get(`/api/v2/auth/checkMail?email=${email}`)
         console.log(result.data.token)
+=======
+        const result = await checkMail(email)
+>>>>>>> 5a95e15513f6889a28c0629d74c72c5675ef803f
         setCheck(result.data.check)
         localStorage.setItem("tokenPassword",JSON.stringify(result.data.token))
         setTimeout(()=>{

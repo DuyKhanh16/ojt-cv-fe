@@ -22,8 +22,6 @@ export default function MainBusiness() {
   const [allCandidate, setAllCandidate] = useState([]);
   const role = JSON.parse(localStorage.getItem("role"));
   const navigate = useNavigate();
-  // console.log(role,"11111111")
-
 
   const getAllCompany = async () => {
     try {

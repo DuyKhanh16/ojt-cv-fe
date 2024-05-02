@@ -1,32 +1,9 @@
-import React from "react";
-import UserLogin from "./pages/userLogin/UserLogin";
-import UserRegister from "./pages/userRegister/UserRegister";
-import CompanyRegister from "./pages/companyRegister/CompanyRegister";
-import Main from "./pages/home/main/Main";
-import InformationUser from "./pages/home/homeBusiness/informationUser/InformationUser";
-import AddJob from "./pages/home/homeBusiness/addJob/AddJob";
-import JobDetail from "./pages/home/homeUser/jobDetail/JobDetail";
-import UpdateJobBusiness from "./pages/home/homeBusiness/updateJobBusiness/UpdateJobBusiness";
-import InformationUserB from "./pages/home/homeUser/informationUser/InformationUser";
-import ListCompany from "./pages/home/homeUser/listCompany/ListCompany";
-import InformationComany from "./pages/home/homeUser/informationComany/InformationComany";
-import UpdateInforBusiness from "./pages/home/homeBusiness/updateInforBusiness/UpdateInforBusiness";
-import AllCV from "./pages/home/homeUser/allCV/AllCV";
-import JobList from "./pages/home/homeUser/jobList/JobList";
-import AllUserAdmin from "./pages/home/admin/allUserAdmin/AllUserAdmin";
-import AllJobAdmin from "./pages/home/admin/allJobAdmin/AllJobAdmin";
-import AllCompanyAdmin from "./pages/home/admin/allCompanyAdmin/AllCompanyAdmin";
-import AllUserApply from "./pages/home/homeBusiness/allUserApply/AllUserApply";
-import Alljob from "./pages/home/homeBusiness/allJob/Alljob";
-import HomeAdmin from "./pages/home/admin/homeAdmin/HomeAdmin";
-import MainBusiness from "./pages/home/homeBusiness/mainBusiness/MainBusiness";
+import React, { useEffect } from "react";
 import {
-  Outlet,
-  Link,
-  createBrowserRouter,
   RouterProvider,
-  useNavigation,
+  useLocation,
 } from "react-router-dom";
+<<<<<<< HEAD
 import AdminChart from "./pages/home/admin/adminChart/AdminChart";
 import Router from "./layouts/router/Router";
 import CompanyRoute from "./layouts/companyRoute/CompanyRoute";
@@ -208,6 +185,9 @@ const router = createBrowserRouter([
   /* het admin */
 ]);
 
+=======
+import router from "./routes/route.config";
+>>>>>>> 5a95e15513f6889a28c0629d74c72c5675ef803f
 export default function App() {
   return <RouterProvider router={router} fallbackElement={<p>Loading...</p>} />;
 }

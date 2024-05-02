@@ -21,7 +21,6 @@ export default function SearchAll() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((state) => state.candidate.data);
-  console.log(user);
   useEffect(() => {
     navigate("/search-all/search-job");
     dispatch(candidateAsync());
@@ -61,9 +60,6 @@ export default function SearchAll() {
           >
             <header>
               <div className="image-text">
-                <a className="image" href="#">
-                  <img src={avatar} alt="Fast UI" />
-                </a>
                 <div className="text logo-text">
                   <span
                     className="profession"
@@ -72,7 +68,6 @@ export default function SearchAll() {
                       transition: "1s",
                     }}
                   >
-                    {user?.name}
                   </span>
                 </div>
               </div>
@@ -187,7 +182,7 @@ export default function SearchAll() {
         <div
             className="searchAll__content-Right"
             style={{
-              marginLeft: toggleSidebar ? "0px" : "160px",
+              marginLeft: toggleSidebar ? "0px" : "120px",
               transition: "1s",
             }}
           >

@@ -7,6 +7,12 @@ import deletea from "../../../assets/images/main/delete.png";
 import privateAxios from "../../../config/private.axios";
 import { message, notification } from "antd";
 import axios from "axios";
+import {
+  candidateGetInfor,
+  updateInfoCandidate,
+} from "../../../apis/candidates";
+import { useDispatch, useSelector } from "react-redux";
+import { candidateAsync } from "../../../redux/reduce/candidateReduce";
 function UpdateInforUser({ isOpen, close }) {
   const [user, setUser] = useState({});
   const [flag, setFlag] = useState(0);
@@ -43,9 +49,7 @@ function UpdateInforUser({ isOpen, close }) {
   }, []);
   const handleCity = async (e) => {
     let idCity = e.target.value;
-
     const nameCity = dataCity.find((item) => item.province_name === idCity);
-
     const numberCity = nameCity.province_id;
     let data = await axios.get(
       `https://vapi.vnappmob.com/api/province/district/${numberCity}`
@@ -66,30 +70,33 @@ function UpdateInforUser({ isOpen, close }) {
     setDataWard(data.data.results);
   };
   // het api thanh pho
+
+  const dispatch = useDispatch();
+  const userReducer = useSelector((state) => state.candidate.data);
+  useEffect(() => {
+    dispatch(candidateAsync());
+  }, [dispatch]);
+// console.log(userReducer)
   const getUser = () => {
-    console.log(address)
-    privateAxios
-      .get("api/v2/candidates/getInfor")
-      .then((res) => {
-        setUser(res.data.data);
+    if (userReducer) {
+      setUser(userReducer);
         setUserUpdate({
-          name: res.data.data.name,
-          address: res.data.data.address,
-          phone: res.data.data.phone,
-          gender: res.data.data.gender,
-          link_git: res.data.data.link_git,
-          birthday: res.data.data.birthday,
-          position: res.data.data.position,
-          avatar: res.data.data.avatar,
+          name: userReducer.name,
+          address: userReducer.address,
+          phone: userReducer.phone,
+          gender: userReducer.gender,
+          link_git: userReducer.link_git,
+          birthday: userReducer.birthday,
+          position: userReducer.position,
+          avatar: userReducer.avatar,
         });
-        setCity(res.data.data.address.split("-")[3]);
-        setDistrict(res.data.data.address.split("-")[2]);
-        setAddress(res.data.data.address.split("-")[0]);
-        setWard(res.data.data.address.split("-")[1]);
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
+        setCity(userReducer?.address?.split("-")[3]);
+        setDistrict(userReducer?.address?.split("-")[2]);
+        setAddress(userReducer?.address?.split("-")[0]);
+        setWard(userReducer?.address?.split("-")[1]);
+    }
+        
+      
   };
   const getChange = (e) => {
     setUserUpdate({ ...userUpdate, [e.target.name]: e.target.value });
@@ -104,7 +111,6 @@ function UpdateInforUser({ isOpen, close }) {
     reader.readAsDataURL(file);
   };
   const updateInfor = async () => {
-    console.log(selectedMedia);
     if (selectedMedia) {
       const formData = new FormData();
       formData.append("file", selectedMedia);
@@ -116,57 +122,55 @@ function UpdateInforUser({ isOpen, close }) {
         ),
       ]);
       const media = uploadMedia.data.secure_url;
-      console.log(media);
-      await privateAxios
-        .patch(`/api/v2/candidates/updateInfoCandidate`, {
-          ...userUpdate,
-          avatar: media,
-        })
+      await updateInfoCandidate({ ...userUpdate, avatar: media })
         .then((res) => {
           setUserUpdate(res);
           notification.success({
             message: "Cập nhật thông tin thành công",
           });
-          setFlag(flag + 1);
+      close();
+          
         })
         .catch((error) => {
-          console.error("Error:", error);
+          return error;
         });
-      close();
     } else {
-      await privateAxios
-        .patch(`/api/v2/candidates/updateInfoCandidate`, userUpdate)
+      updateInfoCandidate(userUpdate)
         .then((res) => {
           setUserUpdate(res);
           notification.success({
             message: "Cập nhật thông tin thành công",
           });
-          setFlag(flag + 1);
+      close();
+         
         })
         .catch((error) => {
-          console.error("Error:", error);
+          return error;
         });
-      close();
     }
   };
   useEffect(() => {
     getUser();
-  }, [flag]);
+  }, [userReducer]);
   const closeModal = () => {
     setPreview("");
     close();
   };
 
   const handleWard = async (e) => {
-    console.log(userUpdate.address)
     setWard(e.target.value);
-    setUserUpdate({ ...userUpdate, address: `${address}-${e.target.value}-${district}-${city}` });
-  }
+    setUserUpdate({
+      ...userUpdate,
+      address: `${address}-${e.target.value}-${district}-${city}`,
+    });
+  };
   const handleAddress = async (e) => {
-    console.log(address)
     setAddress(e.target.value);
-    setUserUpdate({ ...userUpdate, address: `${e.target.value}-${ward}-${district}-${city}` });
-  }
+    setUserUpdate({
+      ...userUpdate,
+      address: `${e.target.value}-${ward}-${district}-${city}`,
+    });
+  };
   //  hàm validate các trường
   const validate = () => {
     let tempErrors = {};
@@ -336,7 +340,7 @@ function UpdateInforUser({ isOpen, close }) {
                     name=""
                     id=""
                   >
-                    <option value="">{ city ? city :"Chọn thành phố"}</option>
+                    <option value="">{city ? city : "Chọn thành phố"}</option>
                     {dataCity.map((item, index) => (
                       <option key={index} value={item.code}>
                         {item.province_name}
@@ -355,7 +359,7 @@ function UpdateInforUser({ isOpen, close }) {
                     name=""
                     id=""
                   >
-                    <option>{district ? district :"Chọn Quận/Huyện"}</option>
+                    <option>{district ? district : "Chọn Quận/Huyện"}</option>
                     {dataDistrict.map((item, index) => (
                       <option key={index} value={item.code}>
                         {item.district_name}
@@ -373,8 +377,7 @@ function UpdateInforUser({ isOpen, close }) {
                     name=""
                     id=""
                   >
-
-                    <option value="">{ward ? ward :"Chọn Phường/Xã"}</option>
+                    <option value="">{ward ? ward : "Chọn Phường/Xã"}</option>
 
                     {dataWard.map((item, index) => (
                       <option key={index}>{item.ward_name}</option>
@@ -390,17 +393,19 @@ function UpdateInforUser({ isOpen, close }) {
                   {errors.ward && <div className="error">{errors.ward}</div>}
                 </div>
                 <div>
-                <label>Địa chỉ chi tiết</label>
-                <br></br>
-                <input
-                  name="address"
-                  value={address}
-                  onChange={handleAddress}
-                  type="text"
-                  placeholder="Địa chỉ chi tiết"
-                />
-                {errors.address && <div className="error">{errors.address}</div>}
-              </div>
+                  <label>Địa chỉ chi tiết</label>
+                  <br></br>
+                  <input
+                    name="address"
+                    value={address}
+                    onChange={handleAddress}
+                    type="text"
+                    placeholder="Địa chỉ chi tiết"
+                  />
+                  {errors.address && (
+                    <div className="error">{errors.address}</div>
+                  )}
+                </div>
               </div>
               <div className="inforUserItem">
                 <label htmlFor="">SĐT </label>

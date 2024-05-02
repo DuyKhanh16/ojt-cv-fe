@@ -8,6 +8,11 @@ import { Await, Link, useNavigate } from "react-router-dom";
 import publicAxios from "../../config/pulic.axios";
 import { notification } from "antd";
 import ForgetPassword from "../../components/modal/forgetPassword/ForgetPassword";
+import { initializeApp } from "firebase/app";
+import { getAuth, signInWithPopup } from "firebase/auth";
+import { auth, provider } from "../../config/firebase";
+import privateAxios from "../../config/private.axios";
+import {Login,LoginByGoogle} from "../../apis/auth/auth"
 export default function UserLogin() {
   const [user, setUser] = useState({
     email: "",
@@ -45,46 +50,89 @@ export default function UserLogin() {
     // Kiểm tra xem có lỗi nào không
     return Object.values(tempErrors).every((x) => x === "");
   };
-  // đăng nhập
-  const handlelogin = async () => {
-    if (validate()) {
-      try {
 
-        console.log(user, "111");
-        const res = await publicAxios.post("api/v2/auth/login", user);
-        console.log(res.data.data.role, "123");
-        if (res.data.data.role === 0) {
-          localStorage.setItem("token", JSON.stringify(res.data.data.token));
-          localStorage.setItem("role", JSON.stringify(res.data.data.role));
-          notification.success({
-            message: res.data.message,
-          });
-          navigate("/admin");
-        }
+  //dang nhap bang gg
 
+  //Lấy đối tượng auth từ Firebase
 
-        if (res.data.data.role === 1 && res.data.data.status === 1) {
-          localStorage.setItem("token", JSON.stringify(res.data.data.token));
-          localStorage.setItem("role", JSON.stringify(res.data.data.role));
+  //Tạo một provider cho đăng nhập bằng Google
+
+  const signInWithGoogle = async () => {
+    try {
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+      const userGoogle = {
+        name: user.displayName,
+        email: user.email,
+        password: user.uid
+        
+      };
+     LoginByGoogle(userGoogle)
+      .then((response) => { 
+        if (response.data.role === 1 && response.data.status === 1) {
+          localStorage.setItem("token", JSON.stringify(response.data.token));
+          localStorage.setItem("role", JSON.stringify(response.data.role));
           navigate("/candidate");
-
           notification.success({
-            message: res.data.message,
+            message: response.message,
           });
-        } else if (res.data.data.role === 1 && res.data.data.status === 0) {
+        } else if (response.data.role === 1 && response.data.status === 0) {
           notification.error({
             message: "Tài khoản của bạn đang bị khoá",
           });
         }
 
+        if (response.data.role === 2) {
+          localStorage.setItem("token", JSON.stringify(response.data.token));
+          localStorage.setItem("role", JSON.stringify(response.data.role));
+          navigate("/company");
+          notification.success({
+            message: response.message,
+          });
+        }
+      })
+    } catch (error) {
+      return error;
+    }
+  };
 
-        if (res.data.data.role === 2) {
-          localStorage.setItem("token", JSON.stringify(res.data.data.token));
-          localStorage.setItem("role", JSON.stringify(res.data.data.role));
+
+  // het dang nhap bang gg
+  // đăng nhập
+  const handlelogin = async () => {
+    if (validate()) {
+      try {
+        const response = await Login(user)
+        if (response.data.data.role === 0) {
+          localStorage.setItem("token", JSON.stringify(response.data.data.token));
+          localStorage.setItem("role", JSON.stringify(response.data.data.role));
+          notification.success({
+            message: response.data.message,
+          });
+          navigate("/admin");
+        }
+
+        if (response.data.data.role === 1 && response.data.data.status === 1) {
+          localStorage.setItem("token", JSON.stringify(response.data.data.token));
+          localStorage.setItem("role", JSON.stringify(response.data.data.role));
+          navigate("/candidate");
+
+          notification.success({
+            message: response.data.message,
+          });
+        } else if (response.data.data.role === 1 && response.data.data.status === 0) {
+          notification.error({
+            message: "Tài khoản của bạn đang bị khoá",
+          });
+        }
+
+        if (response.data.data.role === 2) {
+          localStorage.setItem("token", JSON.stringify(response.data.data.token));
+          localStorage.setItem("role", JSON.stringify(response.data.data.role));
           navigate("/company");
 
           notification.success({
-            message: res.data.message,
+            message: response.data.message,
           });
         }
       } catch (error) {
@@ -157,6 +205,24 @@ export default function UserLogin() {
               </div>
               <div onClick={handlelogin} className="btn">
                 Đăng nhập
+              </div>
+              <div className="user__login-input__or">
+                <div className="user__login-input__or--line">
+
+                </div>
+                <div className="user__login-input__or--text">
+                  Hoặc
+                </div>
+                <div className="user__login-input__or--line">
+
+                </div>
+
+              </div>
+              <div className="user__login-input__loginByGg" 
+                onClick={signInWithGoogle}
+              >
+                    <img src={"https://itviec.com/assets/google_logo-af373a5e64715e7d4fcdea711f96995f7fd7a49725b3dd8910d4749b74742cb2.svg"} alt="" />
+                    <p>Đăng nhập bằng Google</p>
               </div>
               <div className="user__login-input__footer">
                 <span className="user__login-input__footer--forgot" onClick={() => setOpen(true)}>

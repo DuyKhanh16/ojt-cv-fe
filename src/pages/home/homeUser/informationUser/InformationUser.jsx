@@ -49,8 +49,6 @@ export default function InformationUserB() {
   const [checkCerti, setCheckCerti] = useState(false);
   const [checkSkill, setCheckSkill] = useState(false);
 
-  
-
   // bien hung update sang modal
   const [itemEduUpdate, setItemEduUpdate] = useState({});
   const [itemDelete, setItemDelete] = useState({});
@@ -83,7 +81,6 @@ export default function InformationUserB() {
     setOpenConfirm(false);
     setOpenSkill(false);
     setFlag(flag + 1);
-   
   }, [dispatch]);
 
   useEffect(() => {
@@ -111,9 +108,7 @@ export default function InformationUserB() {
     checkSkillF();
   }, [user, exp, project, education, certificate, skill]);
 
-
   const checkSkillF = () => {
-    console.log("11", skill);
     if (skill?.length > 0) {
       setCheckSkill(true);
     } else {
@@ -123,10 +118,10 @@ export default function InformationUserB() {
   const creatSkill = () => {
     setOpenSkill(true);
     setItemSkillUpdate({
-      status: "creat",
+      status: "create",
       item: user,
     });
-  }
+  };
 
   const updateSkill = (item) => {
     setOpenSkill(true);
@@ -134,11 +129,11 @@ export default function InformationUserB() {
       status: "update",
       item: item,
     });
-  }
+  };
   const creatAboutMe = () => {
     setOpenAbout(true);
     setItemAboutUpdate({
-      status: "creat",
+      status: "create",
       item: user,
     });
   };
@@ -168,7 +163,7 @@ export default function InformationUserB() {
   const creatEdu = () => {
     setOpenEdu(true);
     setItemEduUpdate({
-      status: "creat",
+      status: "create",
     });
   };
   // sua edu
@@ -191,7 +186,6 @@ export default function InformationUserB() {
   /* kinh nghiem */
   const checkExpF = () => {
     if (exp.length > 0) {
-      // console.log("11", exp);
       setCheckExp(true);
     } else {
       setCheckExp(false);
@@ -210,7 +204,7 @@ export default function InformationUserB() {
   const creatExp = async () => {
     setOpenExp(true);
     setItemExpUpdate({
-      status: "creat",
+      status: "create",
     });
   };
 
@@ -234,7 +228,7 @@ export default function InformationUserB() {
   const creatProject = () => {
     setOpenProject(true);
     setItemProjectUpdate({
-      status: "creat",
+      status: "create",
     });
   };
   /* het project */
@@ -258,12 +252,11 @@ export default function InformationUserB() {
   const creatCerti = () => {
     setOpenCert(true);
     setItemCertificateUpdate({
-      status: "creat",
+      status: "create",
     });
   };
 
   /* het cert */
-  console.log("data", user);
 
   return (
     <>
@@ -295,17 +288,16 @@ export default function InformationUserB() {
         project={itemProjectUpdate}
       ></ProjectUser>
       <UpdateInforUser isOpen={openUpdateUser} close={close}></UpdateInforUser>
-      <Skill
-        isOpen={openSkill}
-        close={close}
-        skill={itemSkillUpdate}
-      ></Skill>
+      <Skill isOpen={openSkill} close={close} skill={itemSkillUpdate}></Skill>
       <Confirm isOpen={openConfirm} close={close} value={itemDelete}></Confirm>
       <UpdateInforUser></UpdateInforUser>
       <div className="informationUser">
         <div className="informationUser__navbar2">
           <div className="informationUser__navbar__contain">
-            <NavLink className={"informationUser__navbar__item"} to={"/candidate/user-detail"}>
+            <NavLink
+              className={"informationUser__navbar__item"}
+              to={"/candidate/user-detail"}
+            >
               {" "}
               <span class="material-symbols-outlined">arrow_back</span>Quay lại
               hồ sơ cá nhân
@@ -405,7 +397,7 @@ export default function InformationUserB() {
                 </p>
               </div>
               <div className="informationUser__contain__left__item">
-                {checkSkill ?(
+                {checkSkill ? (
                   <span
                     style={{ color: "green" }}
                     class="material-symbols-outlined"
@@ -430,7 +422,7 @@ export default function InformationUserB() {
             education?.length > 0 &&
             exp?.length > 0 &&
             project?.length > 0 &&
-            certificate?.length > 0&&
+            certificate?.length > 0 &&
             skill?.length > 0 ? (
               <>
                 <div className="informationUser__contain__left__button">
@@ -450,8 +442,19 @@ export default function InformationUserB() {
 
           <div className="informationUser__contain__right">
             <div className="informationUser__contain__right__infor">
-              <div style={{ width: "80px", height: "80px",borderRadius: "50%", overflow: "hidden"  }}>
-                <img src={user?.avatar} alt="" width={80} height={80}/>
+              <div
+                style={{
+                  width: "8vw",
+                  height: "8vw",
+                  borderRadius: "50%",
+                  overflow: "hidden",
+                }}
+              >
+                <img
+                  src={user?.avatar}
+                  alt=""
+                  style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                />
               </div>
 
               <div className="informationUser__infor">
@@ -464,7 +467,7 @@ export default function InformationUserB() {
                     color: "#767F8C",
                   }}
                 >
-                  Full-stack Developer
+                  {user?.position}
                 </p>
                 <div className="informationUser__infor__list">
                   <div>
@@ -483,7 +486,7 @@ export default function InformationUserB() {
                     </p>
                     <p>
                       <span>
-                        <img src={location} alt="" />
+                        <img src={location} style={{ width: "1vw" }} alt="" />
                       </span>
                       {user?.address ? user?.address : "Cập nhật thêm địa chỉ"}
                     </p>
@@ -492,7 +495,7 @@ export default function InformationUserB() {
                   <div>
                     <p>
                       <span>
-                        <img src={phone} alt="" />
+                        <img src={phone} style={{ width: "0.8vw" }} alt="" />
                       </span>
                       {user?.phone
                         ? user?.phone
@@ -506,7 +509,7 @@ export default function InformationUserB() {
                     </p>
                     <p>
                       <span>
-                        <img src={world} alt="" />
+                        <img src={world} style={{ width: "2vw" }} alt="" />
                       </span>
                       {user?.link_git
                         ? user?.link_git
@@ -515,7 +518,14 @@ export default function InformationUserB() {
                   </div>
                 </div>
               </div>
-              <div style={{ position: "absolute", right: "30px", top: "30px" }}>
+              <div
+                style={{
+                  position: "absolute",
+                  right: "30px",
+                  top: "30px",
+                  cursor: "pointer",
+                }}
+              >
                 <img
                   src={vector2}
                   onClick={() => setOpenUpdateUser(!openUpdateUser)}

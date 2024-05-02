@@ -13,8 +13,9 @@ import "./JobDetail.scss";
 import { useNavigate, useParams } from "react-router";
 import privateAxios from "../../../../config/private.axios";
 import ApplyJob from "../applyJob/ApplyJob";
-import { notification } from "antd";
+import { Button, notification } from "antd";
 import publicAxios from "../../../../config/pulic.axios";
+import { getJobAppliedCandidatesbyId, getJobDetail, jobGetLiveJobs } from "../../../../apis/jobs";
 
 export default function JobDetail() {
   const { id } = useParams();
@@ -28,21 +29,20 @@ export default function JobDetail() {
   const [check, setCheck] = useState(false);
   const navigate = useNavigate();
   const role = JSON.parse(localStorage.getItem("role"));
+  const [checkSaveJob,setCheckSaveJob]=React.useState(false)
 
-
-  window.scrollTo(0, 0);
   // lay het thong tin cua jobdetail
   const inforJobDetail = async () => {
-    await privateAxios
-      .get(`/api/v2/jobs/detail/${id}`)
+    await getJobDetail(id)
       .then((res) => {
-        console.log(res.data.data);
-        setInfor(res.data.data);
+        setInfor(res.data);
+        setSalary(res.data.salary_jobs);
       })
       .catch((error) => {
-        console.log(error);
+        return error;
       });
   };
+<<<<<<< HEAD
   useEffect(() => {
     const result2 = privateAxios.get(`/api/v2/jobs/getJobAppliedCandidatesbyId/${id}`);
     result2.then((res) => {
@@ -63,14 +63,32 @@ export default function JobDetail() {
         navigate("/company")
       }
   }, []);
+=======
+
+  const getJobAppliedCandidatesbyIdF = async (id) => {
+    const result2 = await 
+    getJobAppliedCandidatesbyId(id)
+    .then((res) => {
+      setCheck(res.check);
+    });
+  }
+
+  const checkSave = async () => {
+    try {
+      const res= await privateAxios.get(`/api/v2/candidates/checkSaveJob?job_id=${id}`);
+      setCheckSaveJob(res.data.data)
+    } catch (error) {
+      console.log(error);
+    }
+  }
+>>>>>>> 5a95e15513f6889a28c0629d74c72c5675ef803f
 
   const getAllLiveJob = async () => {
     try {
-      const res = await publicAxios.get("/api/v2/jobs/getLiveJobs");
-      console.log("23", res.data.data);
-      setLiveJob(res.data.data);
+      const res = await jobGetLiveJobs();
+      setLiveJob(res.data);
     } catch (error) {
-      console.log(error);
+      return error;
     }
   };
   const close = (message, status) => {
@@ -87,11 +105,28 @@ export default function JobDetail() {
       }
     }, 500);
   };
+
+  const saveJob = async () => {
+    setCheckSaveJob(true)
+    try {
+      await privateAxios.post(`/api/v2/candidates/candidate-save-job/?job_id=${id}`)
+       notification.success({
+        message: "Đã lưu công việc",
+      });
+    } catch (error) {
+      console.log(error);
+      notification.error({
+        message: "không thể lưu công việc này 2 lần",
+      });
+    }
+  }
+
   useEffect(() => {
     getAllLiveJob();
-  }, []);
-  // console.log(infor)
-  // console.log(salary)
+    inforJobDetail();
+    getJobAppliedCandidatesbyIdF(id);
+    checkSave()
+  },[]);
   return (
     <div>
       <div
@@ -175,14 +210,12 @@ export default function JobDetail() {
               </div>
             </div>
             <div className="job__detail--company--apply1">
-              <button className="job__detail--company--apply--bookmark1">
-                <span
-                  class="material-symbols-outlined"
-                  style={{ color: "rgba(188, 34, 40, 1)", fontWeight: "800" }}
-                >
-                  bookmark
-                </span>
-              </button>
+
+              {checkSaveJob===false?    <Button className="job__detail--company--apply--bookmark1" onClick={saveJob} >
+              <i style={{color:"red",fontSize:28}} class="fa-solid fa-bookmark"></i>
+              </Button>:    <Button className="job__detail--company--apply--bookmark1"  >
+              <i style={{color:"orange",fontSize:28}} class="fa-solid fa-bookmark"></i>
+              </Button>}
               {
                 check?<button
                 className="job__detail--company--apply--apply11"
@@ -192,13 +225,14 @@ export default function JobDetail() {
                 <p>Đã ứng tuyển </p>
               </button>:<button
                 className="job__detail--company--apply--apply11"
-                onClick={() => setIsOpen(true)}
               >
-                <p> Ứng tuyển </p>
+                <p  onClick={() => setIsOpen(true)}
+               > Ứng tuyển </p>
                 <img src={arrow}></img>
               </button>
               }
               
+
             </div>
           </div>
           <div className="job__detail--description1">
@@ -319,7 +353,7 @@ export default function JobDetail() {
                       <p>{item?.types_jobs[0].typejob.name}</p>
                     </div>
                     <span className="job__detail__outStandingJob--listJob__item--top__salary__price">
-                      {item.salary}
+                    {item?.salary_jobs[0]?.salary.name}
                     </span>
                   </div>
                 </div>

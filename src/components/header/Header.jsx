@@ -3,12 +3,12 @@ import "./Header.scss";
 import { NavLink } from "react-router-dom";
 import phone from "../../assets/images/main/PhoneCall.png";
 import american from "../../assets/images/main/image123.png";
+import vietnam from "../../assets/images/vietnam-26834_1280.png";
 import CheckLogin from "../confirm/CheckLogin";
 export default function Header() {
   const token = localStorage.getItem("token") || null;
   const [isOpen, setIsOpen] = useState(false);
   const open = () => {
-    console.log(isOpen);
     setIsOpen(!isOpen);
   };
   return (
@@ -27,15 +27,15 @@ export default function Header() {
           </NavLink>
           {token ? (
             <>
-            <NavLink to="/candidate/job-list" className="navbar_item">
-            Việc làm
-          </NavLink>
+              <NavLink to="/candidate/job-list" className="navbar_item">
+                Việc làm
+              </NavLink>
             </>
           ) : (
             <>
-             <span className="navbar_item"  onClick={() => open()}>
-            Việc làm
-          </span>
+              <span className="navbar_item" onClick={() => open()}>
+                Việc làm
+              </span>
             </>
           )}
           {token ? (
@@ -59,12 +59,12 @@ export default function Header() {
         <div className="header__contact">
           <div className="header__contact__phone">
             <img src={phone} alt="" height={24} width={24} />
-            <p> +84 123 456 789</p>
+            <p style={{opacity: '0.8'}}> 1800 8198</p>
           </div>
           <div className="header__language">
-            <img src={american} alt="" />
+            <img src={vietnam} alt="" />
             <select>
-              <option value="">English</option>
+              <option value="">Tiếng việt</option>
             </select>
           </div>
         </div>

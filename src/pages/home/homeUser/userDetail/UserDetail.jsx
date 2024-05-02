@@ -17,6 +17,9 @@ import { candidateAsync } from "../../../../redux/reduce/candidateReduce";
 import { useDispatch, useSelector } from "react-redux";
 import privateAxios from "../../../../config/private.axios";
 import { useNavigate } from "react-router";
+import { candidateGetAllInformation } from "../../../../apis/candidates";
+import { getAllJobApply } from "../../../../apis/jobs";
+
 export default function UserDetail() {
   const [infor, setInfor] = React.useState({});
   const [allJob, setAllJob] = React.useState([]);
@@ -24,41 +27,31 @@ export default function UserDetail() {
   const navigate = useNavigate();
   const role = JSON.parse(localStorage.getItem("role"));
   const user = useSelector((state) => state.candidate.data);
-  
-  window.scrollTo(0, 0);
 
   const getInforCV = async () => {
-    await privateAxios
-      .get("api/v2/candidates/getAllInformation")
+    await candidateGetAllInformation()
       .then((res) => {
-        setInfor(res.data.data);
-        console.log(infor);
+        setInfor(res.data);
       })
       .catch((error) => {
-        console.error("Error:", error);
+        return error;
       });
   };
-  console.log(user);
-  console.log(infor);
+  
   const allJobApply = async () => {
-    await privateAxios
-    .get("api/v2/jobs/getJobAppliedCandidates")
-    .then((res) => {
-      console.log(res.data.data);
-      setAllJob(res.data.data);
-    })
-    .catch((error) => {
-      console.error("Error:", error);
-    })
-  }
-  console.log(allJob)
+    await getAllJobApply()
+      .then((res) => {
+        setAllJob(res.data);
+      })
+      .catch((error) => {
+        return error;
+      });
+  };
+
   useEffect(() => {
     dispatch(candidateAsync());
     getInforCV();
     allJobApply();
-    if(role !== 1) {
-      navigate("/company")
-    }
   }, [dispatch]);
   return (
     <>
@@ -71,7 +64,7 @@ export default function UserDetail() {
           <div className="userDetail-header">
             <div className="userDetail-header--left">
               <div className="userDetail-header--left__avatar">
-              <img src={user?.avatar} alt="" />
+                <img src={user?.avatar} alt="" />
               </div>
               <div className="userDetail-header--left__infor">
                 <p>{user?.name}</p>
@@ -180,9 +173,7 @@ export default function UserDetail() {
                   <p>Địa chỉ cá nhân</p>
                 </div>
                 <div className="userDetail-content--right__address--bottom">
-                  <p>
-                   {infor?.address}
-                  </p>
+                  <p>{infor?.address}</p>
                 </div>
               </div>
               <div className="userDetail-content--right__skills">
@@ -244,7 +235,10 @@ export default function UserDetail() {
                   <p>Thông tin CV</p>
                 </div>
                 <div className="userDetail-content--right__gotoCV--bottom">
-                  <div className="userDetail-content--right__gotoCV--btn" onClick={() => navigate("/candidate/inforcv")}>
+                  <div
+                    className="userDetail-content--right__gotoCV--btn"
+                    onClick={() => navigate("/candidate/inforcv")}
+                  >
                     Truy cập CV
                   </div>
                 </div>
@@ -253,7 +247,7 @@ export default function UserDetail() {
           </div>
         </div>
         <div className="userDetail__outStandingJob">
-        <div className="userDetail__outStandingJob--header">
+          <div className="userDetail__outStandingJob--header">
             <span className="userDetail__outStandingJob--header__title">
               Công việc đã ứng tuyển
             </span>
@@ -262,10 +256,9 @@ export default function UserDetail() {
               onClick={() => navigate("/candidate/job-list")}
             >
               <p></p>
-              
             </div>
           </div>
-        <div className="userDetail__outStandingJob--listJob">
+          <div className="userDetail__outStandingJob--listJob">
             {allJob?.map((item) => (
               <div
                 className="userDetail__outStandingJob--listJob__item"
@@ -295,7 +288,9 @@ export default function UserDetail() {
                       </p>
                       <div className="userDetail__outStandingJob--listJob__item--bottom__nameLogo__location">
                         <img src={MapPin} alt="" />
-                        <p>{item?.job_id?.company?.address_company[0]?.address}</p>
+                        <p>
+                          {item?.job_id?.company?.address_company[0]?.address}
+                        </p>
                       </div>
                     </div>
                   </div>
@@ -307,7 +302,6 @@ export default function UserDetail() {
             ))}
           </div>
         </div>
-        
       </div>
     </>
   );

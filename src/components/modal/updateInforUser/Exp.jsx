@@ -4,52 +4,54 @@ import "./Certificate.scss";
 import privateAxios from "../../../config/private.axios";
 import { notification } from "antd";
 import { useSelector } from "react-redux";
+import {
+  candidateCreateExperience,
+  candidateUpdateExperience,
+} from "../../../apis/candidates";
 function Exp({ isOpenP, close, exp }) {
-  console.log(exp);
-  const usera = useSelector((state) => state.candidate.data);
-  const [user, setUser] = useState({
-  });
+  const userExp = useSelector((state) => state.candidate.data);
+  const [user, setUser] = useState({});
+
   useEffect(() => {
-    setUser({ ...user,candidate_id:usera.id});
-  },[usera])
-  console.log(usera);
- 
+    setUser({ ...user, candidate_id: userExp.id });
+  }, [userExp]);
 
   const changeValue = (e) => {
-    console.log(user);
     setUser({ ...user, [e.target.name]: e.target.value });
   };
   const updateExp = async () => {
+    let start_at = new Date(user.start_at).getTime();
+    let end_at = new Date(user.end_at).getTime();
+    if (start_at > end_at) {
+      notification.error({
+        message: "Ngày bắt đầu phải nhỏ hơn ngày kết thúc",
+      });
+      return;
+    }
     if (exp.status == "update") {
       try {
-        const update = await privateAxios.patch(
-          `api/v2/candidate/updateExperience/${exp?.item.id}`,
-          user
-        );
+        const update = await candidateUpdateExperience(exp?.item.id, user);
         notification.success({
-          message: update.data.message,
+          message: "Cập nhật thông tin thành công",
         });
         setUser({});
         close();
       } catch (error) {
         notification.error({
-          message: error.response.data.message,
+          message: error.response.message,
         });
       }
-    } else if (exp.status == "creat") {
+    } else if (exp.status == "create") {
       try {
-        const create = await privateAxios.post(
-          `api/v2/candidate/createExperience`,
-          user
-        );
+        const create = await candidateCreateExperience(user);
         notification.success({
-          message: create.data.message,
+          message: create.message,
         });
         setUser({});
         close();
       } catch (error) {
         notification.error({
-          message: error.response.data.message,
+          message: error.response.message,
         });
       }
     }

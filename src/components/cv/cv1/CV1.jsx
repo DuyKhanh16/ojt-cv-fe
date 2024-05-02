@@ -6,6 +6,7 @@ import emailicon from "../../../assets/images/cv/email.svg";
 import dateicon from "../../../assets/images/cv/date.svg";
 import addressicon from "../../../assets/images/cv/address.svg";
 import privateAxios from "../../../config/private.axios";
+import { candidateGetAllInformation } from "../../../apis/candidates";
 export default function CV1({ item }) {
   console.log("item", item);
   const [inforCV, setInforCV] = React.useState({});
@@ -17,21 +18,19 @@ export default function CV1({ item }) {
   const [aboutMe, setAboutMe] = React.useState("");
   const [skill, setSkill] = React.useState([]);
   const getInforCV = async () => {
-    await privateAxios
-      .get("api/v2/candidates/getAllInformation")
+    await candidateGetAllInformation()
       .then((res) => {
-        console.log(res.data.data);
-        setInforCV(res.data.data);
-        setEmail(res.data.data.account_candidate_id.email);
-        setEducation(res.data.data.education_candidate);
-        setExp(res.data.data.experience_candidate);
-        setProject(res.data.data.project_candidate);
-        setCertificate(res.data.data.certificate_candidate);
-        setAboutMe(res.data.data.aboutme);
-        setSkill(res.data.data.skills_candidate);
+        setInforCV(res.data);
+        setEmail(res.data.account_candidate_id.email);
+        setEducation(res.data.education_candidate);
+        setExp(res.data.experience_candidate);
+        setProject(res.data.project_candidate);
+        setCertificate(res.data.certificate_candidate);
+        setAboutMe(res.data.aboutme);
+        setSkill(res.data.skills_candidate);
       })
       .catch((error) => {
-        console.error("Error:", error);
+        return error;
       });
   };
   useEffect(() => {
@@ -101,15 +100,14 @@ export default function CV1({ item }) {
               <p className="CV1__content--left__skill__title title">Kĩ năng</p>
               {skill?.map((item) => (
                 <div className="CV1__content--left__skill__item" key={item.id}>
-                <p className="CV1__content--left__skill__item__level">
-                  Trung bình
-                </p>
-                <div className="CV1__content--left__skill__item__nameSkill">
-                  {item.name}
+                  <p className="CV1__content--left__skill__item__level">
+                    Trung bình
+                  </p>
+                  <div className="CV1__content--left__skill__item__nameSkill">
+                    {item.name}
+                  </div>
                 </div>
-              </div>
               ))}
-              
             </div>
             <div className="CV1__content--left__certificate">
               <p className="CV1__content--left__certificate__title title">
