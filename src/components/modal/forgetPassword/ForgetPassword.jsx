@@ -10,8 +10,10 @@ export default function ForgetPassword({isOpen,close}) {
     const checkEmail = async()=> {
         console.log(email)
         const result = await publicAxios.get(`/api/v2/auth/checkMail?email=${email}`)
+        console.log(result.data.token)
         setCheck(result.data.check)
-        setTimeout(() => {
+        localStorage.setItem("tokenPassword",JSON.stringify(result.data.token))
+        setTimeout(()=>{
             close()
         },[1000])
     }
@@ -37,7 +39,6 @@ export default function ForgetPassword({isOpen,close}) {
           <button className='updateInforUser__button__cancel' onClick={()=>close()}>Quay lại</button>
         </div>
         </div>
-        
       </div>
     </div>
     </>
