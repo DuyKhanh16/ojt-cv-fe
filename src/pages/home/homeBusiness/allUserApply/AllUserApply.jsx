@@ -27,24 +27,15 @@ export default function AllUserApply() {
   useEffect(() => {
     const getAllJob = privateAxios.get("api/v2/jobs/getJobsForCompany");
     getAllJob.then((res) => {
-
       setAllJob(res.data.data)
     })
    if(role !==2) {
     navigate('/candidate')
    }
-    // const getCandidates = privateAxios.get("api/v2/jobs/getCandidatesApplying")
-    // getCandidates.then((res) => {
-    //   console.log(res);
-    //   setAllUserApply(res.data.data)
-    // })
   },[flag])
   const findCandidate = async(id)=>{
-    console.log(id)
     setIdCheck(id)
     const res = await privateAxios.get(`api/v2/jobs/getCandidatesbyIdJob/${id}`)
-
-    console.log(res);
     setAllUserApply(res.data.data);
   };
   const displayCV = (link) => {
@@ -84,7 +75,6 @@ export default function AllUserApply() {
         message:"Gửi mail từ chối thành công"
       })
       const res1 = await privateAxios.get(`api/v2/jobs/getCandidatesbyIdJob/${idcheck}`)
-      console.log(res);
       setAllUserApply(res1.data.data)
     } catch (error) {
       console.log(error);
@@ -107,7 +97,6 @@ export default function AllUserApply() {
         message:"Đặt lịch phỏng vấn cho ứng tuyển thành công"
       })
       const res1 = await privateAxios.get(`api/v2/jobs/getCandidatesbyIdJob/${idcheck}`)
-      console.log(res);
       setAllUserApply(res1.data.data)
       setFlag(!flag)
     } catch (error) {

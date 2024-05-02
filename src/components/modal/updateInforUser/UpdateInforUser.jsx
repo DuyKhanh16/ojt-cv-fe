@@ -11,6 +11,8 @@ import {
   candidateGetInfor,
   updateInfoCandidate,
 } from "../../../apis/candidates";
+import { useDispatch, useSelector } from "react-redux";
+import { candidateAsync } from "../../../redux/reduce/candidateReduce";
 function UpdateInforUser({ isOpen, close }) {
   const [user, setUser] = useState({});
   const [flag, setFlag] = useState(0);
@@ -68,28 +70,33 @@ function UpdateInforUser({ isOpen, close }) {
     setDataWard(data.data.results);
   };
   // het api thanh pho
+
+  const dispatch = useDispatch();
+  const userReducer = useSelector((state) => state.candidate.data);
+  useEffect(() => {
+    dispatch(candidateAsync());
+  }, [dispatch]);
+// console.log(userReducer)
   const getUser = () => {
-    candidateGetInfor()
-      .then((res) => {
-        setUser(res.data);
+    if (userReducer) {
+      setUser(userReducer);
         setUserUpdate({
-          name: res.data.name,
-          address: res.data.address,
-          phone: res.data.phone,
-          gender: res.data.gender,
-          link_git: res.data.link_git,
-          birthday: res.data.birthday,
-          position: res.data.position,
-          avatar: res.data.avatar,
+          name: userReducer.name,
+          address: userReducer.address,
+          phone: userReducer.phone,
+          gender: userReducer.gender,
+          link_git: userReducer.link_git,
+          birthday: userReducer.birthday,
+          position: userReducer.position,
+          avatar: userReducer.avatar,
         });
-        setCity(res.data.address.split("-")[3]);
-        setDistrict(res.data.address.split("-")[2]);
-        setAddress(res.data.address.split("-")[0]);
-        setWard(res.data.address.split("-")[1]);
-      })
-      .catch((error) => {
-        return error;
-      });
+        setCity(userReducer?.address?.split("-")[3]);
+        setDistrict(userReducer?.address?.split("-")[2]);
+        setAddress(userReducer?.address?.split("-")[0]);
+        setWard(userReducer?.address?.split("-")[1]);
+    }
+        
+      
   };
   const getChange = (e) => {
     setUserUpdate({ ...userUpdate, [e.target.name]: e.target.value });
@@ -121,12 +128,12 @@ function UpdateInforUser({ isOpen, close }) {
           notification.success({
             message: "Cập nhật thông tin thành công",
           });
-          setFlag(flag + 1);
+      close();
+          
         })
         .catch((error) => {
           return error;
         });
-      close();
     } else {
       updateInfoCandidate(userUpdate)
         .then((res) => {
@@ -134,17 +141,17 @@ function UpdateInforUser({ isOpen, close }) {
           notification.success({
             message: "Cập nhật thông tin thành công",
           });
-          setFlag(flag + 1);
+      close();
+         
         })
         .catch((error) => {
           return error;
         });
-      close();
     }
   };
   useEffect(() => {
     getUser();
-  }, [flag]);
+  }, [userReducer]);
   const closeModal = () => {
     setPreview("");
     close();

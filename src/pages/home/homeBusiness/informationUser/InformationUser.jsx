@@ -15,11 +15,14 @@ import { useDispatch, useSelector } from "react-redux";
 import privateAxios from "../../../../config/private.axios";
 import { useNavigate, useParams } from "react-router";
 import { set } from "firebase/database";
+import {
+  candidateGetInfor,
+  candidateGetInforById,
+} from "../../../../apis/candidates";
 export default function InformationUser() {
   window.scrollTo(0, 0);
 
   const { id } = useParams();
-  console.log(id);
   const [role, setRole] = useState("");
   const [infor, setInfor] = React.useState({});
   const [inforCompany, setInforCompany] = React.useState({});
@@ -36,24 +39,22 @@ export default function InformationUser() {
   const user = useSelector((state) => state.candidate.data);
 
   const getInforUser = async () => {
-    await privateAxios
-      .get(`api/v2/candidates/getInfor`)
+    await candidateGetInfor()
       .then((res) => {
-        setInforCompany(res.data.data);
-        setRole(res.data.data.account_candidate_id?.role);
+        setInforCompany(res.data);
+        setRole(res.data.account_candidate_id?.role);
       })
       .catch((error) => {
-        console.error("Error:", error);
+        return error;
       });
   };
   const getInforCV = async () => {
-    await privateAxios
-      .get(`api/v2/candidates/getInforCandidatebyId/${id}`)
+    await candidateGetInforById(id)
       .then((res) => {
-        setInfor(res.data.data);
+        setInfor(res.data);
       })
       .catch((error) => {
-        console.error("Error:", error);
+        return error;
       });
   };
   const getInforCompany = async () => {
@@ -67,7 +68,6 @@ export default function InformationUser() {
         console.error("Error:", error);
       });
   };
-
   return (
     <>
       <div className="informationUser__container">
@@ -96,9 +96,6 @@ export default function InformationUser() {
                 <div className="informationUser-header--left__infor__list">
                   <div className="informationUser-header--left__infor__list__itemLeft">
                     {infor?.position}
-                  </div>
-                  <div className="informationUser-header--left__infor__list__itemRight">
-                    Fresher
                   </div>
                 </div>
               </div>
@@ -256,17 +253,6 @@ export default function InformationUser() {
                   </div>
                 </div>
               </div>
-              {/* <div className="informationUser-content--right__gotoCV">
-                <div className="informationUser-content--right__gotoCV--top">
-                  <img src={cv} alt="" />
-                  <p>Thông tin CV</p>
-                </div>
-                <div className="informationUser-content--right__gotoCV--bottom">
-                  <div className="informationUser-content--right__gotoCV--btn" onClick={() => navigate("/candidate/inforcv")}>
-                    Truy cập CV
-                  </div>
-                </div>
-              </div> */}
             </div>
           </div>
         </div>
