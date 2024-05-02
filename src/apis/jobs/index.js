@@ -12,7 +12,9 @@ import {
   API_SALARY_GETALL,
   API_JOB_CREATE_BYID,
   API_JOB_EDIT_BYID,
-  API_JOB_DELETE_BYID
+  API_JOB_DELETE_BYID,
+  API_JOB_PANIGATION,
+  API_JOB_FIRSTPANIGATION
 
 } from "../patchApi";
 
@@ -142,4 +144,23 @@ export const deleteJobs = async (id) => {
   } catch (error) {
     console.log(error) 
   }
+}
+
+//phan trang
+export const firstPagination = async () => {
+  try {
+    const response = await privateAxios.get(API_JOB_FIRSTPANIGATION);
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+}
+
+export const pagination = async (number) => {
+    try {
+      const response = await privateAxios.get(`${API_JOB_PANIGATION}?page=${number}`);
+      return response.data;
+    } catch (error) {
+      return error;
+    }
 }

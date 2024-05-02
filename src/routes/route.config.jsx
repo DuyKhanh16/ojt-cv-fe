@@ -33,170 +33,169 @@ import UserRegister from "../pages/userRegister/UserRegister";
 import { useEffect } from "react";
 
 const router = createBrowserRouter([
-    /* source chung */
-    {
-      path: "/",
-      element: <Router />,
-      children: [
-        {
-          path: "",
-          element: <Main />,
-        },
-      ],
-    },
-    {
-      path:'/search-all',
-      element:<SearchAll></SearchAll>,
-      children:[
-        {
-          path:"search-job",
-          element:<SearchJob></SearchJob>
-        },
-        {
-          path:"search-candidate",
-          element:<SearchCandidate></SearchCandidate>
-        },
-        {
-          path:"search-company",
-          element:<SearchCompany></SearchCompany>
-        }
-      ]
-  
-    },
-    {
-      path: "/login",
-      element: <UserLogin />,
-    },
-    {
-      path: "/user-register",
-      element: <UserRegister />,
-    },
-    {
-      path: "/company-register",
-      element: <CompanyRegister />,
-    },
-    {
-      path: "/allcv",
-      element: <AllCV></AllCV>,
-    },
-    
-    /* het source chung */
-  
-    /* candidate */
-  
-    {
-      path: "/candidate",
-      element: <Router />,
-      children: [
-        {
-          path: "", // Correct way to specify a nested route
-          element: <Main />,
-        },
-        {
-          path:"user-detail",
-          element:<UserDetail></UserDetail>
-        },
-        {
-          path: "job-list",
-          element: <JobList></JobList>,
-        },
-        {
-          path: "jobdetail/:id",
-          element: <JobDetail></JobDetail>,
-        },
-  
-        {
-          path: "inforcv",
-          element: <InformationUserB></InformationUserB>,
-        },
-  
-        {
-          path: "company-detail",
-          element: <InformationComany></InformationComany>,
-        },
-        {
-          path: "candidate-outstanding/:id",
-          element: <InformationUser></InformationUser>,
-        },
-        {
-          path:"infor-companybycandidate/:id",
-          element:<InforOutStandingCompany></InforOutStandingCompany>
-        }
-      ],
-    },
-  
-    /* het candidate */
-  
-    /* company */
-    {
-      path: "/company",
-      element: <CompanyRoute></CompanyRoute>,
-      children: [
-        {
-          path: "",
-          element: <MainBusiness />,
-        },
-        {
-          path: "alluserapply",
-          element: <AllUserApply />,
-        },
-        {
-          path: "alljob",
-          element: <Alljob />,
-        },
-        {
-          path: "candidate-outstanding-bybussiness/:id",
-          element: <InformationUser />,
-        },
-        {
-          path: "addnewjob",
-          element: <AddJob />,
-        },
-        {
-          path: "updatejob/:id",
-          element: <UpdateJobBusiness />,
-        },
-        {
-          path: "update-infor-company",
-          element: <UpdateInforBusiness />,
-        },
-  
-        {
-          path: "updateinforthefirst",
-          element: <UpdateInfoFistTime />,
-        },
-      ],
-    },
-  
-    /* het company */
-    {
-      path:"/update-password",
-     element:<UpdatePassword/>
-    },
-    /* admin */
-    {
-      path: "/admin",
-      element: <HomeAdmin />,
-      children: [
-        {
-          path: "users",
-          element: <AllUserAdmin />,
-        },
-        {
-          path: "",
-          element: <AdminChart />,
-        },
-        {
-          path: "jobs",
-          element: <AllJobAdmin />,
-        },
-        {
-          path: "companies",
-          element: <AllCompanyAdmin />,
-         },
-      ],
-    },
-    /* het admin */
+  /* source chung */
+  {
+    path: "/",
+    element: <Router />,
+    children: [
+      {
+        path: "",
+        element: <Main />,
+      },
+    ],
+  },
+  {
+    path: "/search-all",
+    element: <SearchAll></SearchAll>,
+    children: [
+      {
+        path: "search-job",
+        element: <SearchJob></SearchJob>,
+      },
+      {
+        path: "search-candidate",
+        element: <SearchCandidate></SearchCandidate>
+      },
+      {
+        path: "search-company",
+        element: <SearchCompany></SearchCompany>,
+      },
+    ],
+  },
+  {
+    path: "/login",
+    element: <UserLogin />,
+  },
+  {
+    path: "/user-register",
+    element: <UserRegister />,
+  },
+  {
+    path: "/company-register",
+    element: <CompanyRegister />,
+  },
+  {
+    path: "/allcv",
+    element: <AllCV></AllCV>,
+  },
+
+  /* het source chung */
+
+  /* candidate */
+
+  {
+    path: "/candidate",
+    element: <Router />,
+    children: [
+      {
+        path: "", // Correct way to specify a nested route
+        element: <Main />,
+      },
+      {
+        path: "user-detail",
+        element: <UserDetail></UserDetail>,
+      },
+      {
+        path: "job-list",
+        element: <JobList></JobList>,
+      },
+      {
+        path: "jobdetail/:id",
+        element: <JobDetail></JobDetail>,
+      },
+
+      {
+        path: "inforcv",
+        element: <InformationUserB></InformationUserB>,
+      },
+
+      {
+        path: "company-detail",
+        element: <InformationComany></InformationComany>,
+      },
+      {
+        path: "candidate-outstanding/:id",
+        element: <InformationUser></InformationUser>,
+      },
+      {
+        path: "infor-companybycandidate/:id",
+        element: <InforOutStandingCompany></InforOutStandingCompany>,
+      },
+    ],
+  },
+
+  /* het candidate */
+
+  /* company */
+  {
+    path: "/company",
+    element: <CompanyRoute></CompanyRoute>,
+    children: [
+      {
+        path: "",
+        element: <MainBusiness />,
+      },
+      {
+        path: "alluserapply",
+        element: <AllUserApply />,
+      },
+      {
+        path: "alljob",
+        element: <Alljob />,
+      },
+      {
+        path: "candidate-outstanding-bybussiness/:id",
+        element: <InformationUser />,
+      },
+      {
+        path: "addnewjob",
+        element: <AddJob />,
+      },
+      {
+        path: "updatejob/:id",
+        element: <UpdateJobBusiness />,
+      },
+      {
+        path: "update-infor-company",
+        element: <UpdateInforBusiness />,
+      },
+
+      {
+        path: "updateinforthefirst",
+        element: <UpdateInfoFistTime />,
+      },
+    ],
+  },
+
+  /* het company */
+  {
+    path: "/update-password",
+    element: <UpdatePassword />,
+  },
+  /* admin */
+  {
+    path: "/admin",
+    element: <HomeAdmin />,
+    children: [
+      {
+        path: "users",
+        element: <AllUserAdmin />,
+      },
+      {
+        path: "",
+        element: <AdminChart />,
+      },
+      {
+        path: "jobs",
+        element: <AllJobAdmin />,
+      },
+      {
+        path: "companies",
+        element: <AllCompanyAdmin />,
+      },
+    ],
+  },
+  /* het admin */
 ]);
 // const location = useLocation();
 // useEffect(() => {
@@ -206,5 +205,4 @@ const router = createBrowserRouter([
 //   });
 // }, [location.pathname]);
 
-
-  export default router
+export default router;

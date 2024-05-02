@@ -8,16 +8,14 @@ import privateAxios from "../../../../config/private.axios";
 import { notification, Switch } from "antd";
 import axios from "axios";
 
-// import { Switch } from 'antd';
 export default function Alljob() {
-  // window.scrollTo(0, 0);
-
+  window.scrollTo(0, 0);
+  
   const [allJobs, setAllJobs] = useState([]);
   const [infoCompany, SetInfoCompany] = useState();
   const [status, setStatus] = useState();
   const [flag, setflag] = useState(false);
   const [key, setKey] = useState("");
- 
   const id = useParams();
   const role =JSON.parse(localStorage.getItem("role"))
   const navigate = useNavigate();

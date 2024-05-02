@@ -11,7 +11,6 @@ import { MenuFoldOutlined } from "@ant-design/icons";
 import { Link, useNavigate } from "react-router-dom";
 import privateAxios from "../../config/private.axios";
 import { candidateGetInfor } from "../../apis/candidates";
-// import { Button, Input, Select, Space } from 'antd';
 const { Search } = Input;
 const options = [
   {
@@ -65,7 +64,7 @@ export default function FormSearchAll() {
         className="formSearchAll__search--popover--logout"
       >
         <MenuFoldOutlined size={40} className="custom-icon" />
-        <p>Log out</p>
+        <p style={{ cursor: "pointer" }}>Đăng xuất</p>
       </div>
     </div>
   );

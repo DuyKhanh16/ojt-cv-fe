@@ -13,7 +13,7 @@ export const UserRegister = async (newuser) => {
         const response = await privateAxios.post(API_REGISTER_CANDIDATE, newuser)
         return response
     } catch (error) {
-        console.log(error)
+        return error
     }
 }
 
@@ -22,7 +22,7 @@ export const CompanyRegister = async (newuCompany) => {
         const response = await privateAxios.post(API_REGISTER_COMPANY, newuCompany)
         return response
     } catch (error) {
-        console.log(error)
+        return error
     }
 }
 export const Login = async (user) => {
@@ -30,16 +30,16 @@ export const Login = async (user) => {
         const response = await privateAxios.post(API_LOGIN, user)
         return response
     } catch (error) {
-        console.log(error)
+        return error
     }
 }
 
 export const LoginByGoogle = async (user) => {
     try {
         const response = await privateAxios.post(API_LOGIN_BY_GOOGLE, user)
-        return response
+        return response.data
     } catch (error) {
-        console.log(error)
+        return error
     }
 }
 
@@ -48,6 +48,6 @@ export const checkMail = async (email) => {
         const response = await privateAxios.post(`${API_MAIL_CHECKMAIL}?email=${email}`)
         return response
     } catch (error) {
-        console.log(error)
+        return error
     }
 }

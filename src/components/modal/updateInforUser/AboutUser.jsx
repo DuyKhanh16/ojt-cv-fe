@@ -24,7 +24,7 @@ function AboutUser({ isOpen, close, item }) {
       .then((res) => {
         close();
         notification.success({
-          message: "Thêm thông tin thành công",
+          message: "Cập nhật thông tin thành công",
         });
       })
       .catch((error) => {

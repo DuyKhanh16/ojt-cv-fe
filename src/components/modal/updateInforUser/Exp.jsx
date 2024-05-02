@@ -20,11 +20,19 @@ function Exp({ isOpenP, close, exp }) {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
   const updateExp = async () => {
+    let start_at = new Date(user.start_at).getTime();
+    let end_at = new Date(user.end_at).getTime();
+    if (start_at > end_at) {
+      notification.error({
+        message: "Ngày bắt đầu phải nhỏ hơn ngày kết thúc",
+      });
+      return;
+    }
     if (exp.status == "update") {
       try {
         const update = await candidateUpdateExperience(exp?.item.id, user);
         notification.success({
-          message: update.message,
+          message: "Cập nhật thông tin thành công",
         });
         setUser({});
         close();
