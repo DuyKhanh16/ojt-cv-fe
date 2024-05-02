@@ -43,6 +43,28 @@ export default function JobDetail() {
       });
   };
 
+  useEffect(() => {
+    const result2 = privateAxios.get(`/api/v2/jobs/getJobAppliedCandidatesbyId/${id}`);
+    result2.then((res) => {
+      console.log(res.data.check);
+      setCheck(res.data.check);
+    })
+    const result = privateAxios.get(`/api/v2/jobs/detail/${id}`);
+    result
+      .then((res) => {
+        console.log(res.data.data);
+        setInfor(res.data.data);
+        setSalary(res.data.data.salary_jobs);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+      if(role !== 1){
+        navigate("/company")
+      }
+  }, []);
+
+
   const getJobAppliedCandidatesbyIdF = async (id) => {
     const result2 = await 
     getJobAppliedCandidatesbyId(id)

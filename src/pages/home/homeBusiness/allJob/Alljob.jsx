@@ -231,7 +231,7 @@ export default function Alljob() {
                   {item.status ? (
                     <div
                       onClick={() => handleUpdateStatus(item)}
-                      style={{ backgroundColor: "#FF9999" }}
+                      style={{ backgroundColor: "brown", color: "white",borderRadius:"5px" ,width:"200px",display:"flex",justifyContent:"center",alignItems:"center" }}
                       className="alljob__content__bodyTable__item__action__delete btn"
                     >
                       <p>Dừng tuyển dụng</p>
@@ -239,7 +239,7 @@ export default function Alljob() {
                   ) : (
                     <div
                       onClick={() => handleUpdateStatus(item)}
-                      style={{ backgroundColor: "#FF6600" }}
+                      style={{ backgroundColor: "green", color: "white",borderRadius:"5px" ,width:"200px",display:"flex",justifyContent:"center",alignItems:"center" }}
                       className="alljob__content__bodyTable__item__action__delete btn"
                     >
                       <p>Bật tuyển dụng</p>
