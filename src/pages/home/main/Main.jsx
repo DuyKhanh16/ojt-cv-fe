@@ -461,8 +461,7 @@ export default function Main() {
                     {page}
                   </p>
                 </li>
-              ))}
-             
+              ))} 
               <li class="pagination-item btn-next" onClick={increPage}>
                 <p class="pagination-link">
                   <svg
