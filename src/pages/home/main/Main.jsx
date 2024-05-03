@@ -59,7 +59,7 @@ export default function Main() {
       return error;
     }
   };
-
+  
   const getCompanyOutStanding = async () => {
     try {
       setCompanyOutStanding(allCompany.slice(0, 6));
@@ -111,15 +111,15 @@ export default function Main() {
     }
   };
 
-  const getListJobSave = async () => {
-    try {
-      const res = await privateAxios.get("api/v2/candidates/getJobSave");
-      console.log(res);
-      setLisJobSave(res.data.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  // const getListJobSave = async () => {
+  //   try {
+  //     const res = await privateAxios.get("api/v2/candidates/getJobSave");
+  //     console.log(res);
+  //     setLisJobSave(res.data.data);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   useEffect(() => {
     getAllCompany();
@@ -127,7 +127,7 @@ export default function Main() {
     getAllNewJob();
     getAllCandidate();
     caculatePage();
-    getListJobSave();
+    // getListJobSave();
     firstPage();
   }, [flag]);
 

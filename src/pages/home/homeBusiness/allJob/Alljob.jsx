@@ -7,8 +7,9 @@ import { useNavigate, useParams } from "react-router";
 import privateAxios from "../../../../config/private.axios";
 import { notification, Switch } from "antd";
 import axios from "axios";
-import {getJobsForCompany} from "../../../../apis/jobs/index"
-
+// import {getJobsForCompany,getInforCompany} from "../../../../apis/jobs/index"
+import {getInforCompany,getalljobsCompanys,searchJobs} from "../../../../apis/company/index"
+import {updateStatusOn,updateStatusOff,deleteJobs} from "../../../../apis/jobs/index"
 export default function Alljob() {
   window.scrollTo(0, 0);
   
@@ -23,19 +24,19 @@ export default function Alljob() {
 
   // get info company
   const getInfo = () => {
-    const res = privateAxios.get("api/v2/companies/getInfor");
+    const res = getInforCompany()
     res.then((res) => {
-      SetInfoCompany(res.data.data);
+      SetInfoCompany(res.data);
     });
   };
-
+// console.log(infoCompany)
   const getallJobsCompany = async () => {
-    const res1 = privateAxios.get(
-      `api/v2/jobs/getJobsForCompany/?status=${status}`
-    );
-    res1.then((res) => {
-      setAllJobs(res.data.data);
-    });
+    try {
+      const res = await getalljobsCompanys(status);
+      setAllJobs(res.data);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   console.log(allJobs)
@@ -54,12 +55,11 @@ export default function Alljob() {
   // hàm thay đổi trạng thái công việc
 
   const handleUpdateStatus = async (item) => {
+    // console.log(item)
     if (item.status === 1) {
       console.log("đã ăn vào");
       try {
-        const res = await axios.patch(
-          `http://localhost:3000/api/v2/jobs/updatestatus/${item.id}?status=0`
-        );
+        const res = await updateStatusOn(item.id);
         notification.success({ message: "Đã thay đổi trang thái" });
         setflag(!flag);
       } catch (error) {
@@ -68,9 +68,7 @@ export default function Alljob() {
     }
     if (item.status === 0) {
       try {
-        const res = await axios.patch(
-          `http://localhost:3000/api/v2/jobs/updatestatus/${item.id}?status=1`
-        );
+        const res = await updateStatusOff(item.id);
         notification.success({ message: "Đã thay đổi trang thái" });
         setflag(!flag);
       } catch (error) {
@@ -84,7 +82,7 @@ export default function Alljob() {
   const handleDelete = async (id) => {
     if (confirm("Bạn có muốn xóa")) {
       try {
-        const res = await privateAxios.delete(`api/v2/jobs/delete/${id}`);
+        const res = await deleteJobs(id);
         notification.success({ message: "Đã xóa thành công" });
         getallJobsCompany();
         setflag(!flag)
@@ -97,15 +95,15 @@ export default function Alljob() {
   // thay đổi trạng thái filter
   const handlefilteJobs = (e) => {
     setStatus(e.target.value);
-    getallJobsCompany();
     setflag(!flag);
   };
 
   // hàm tim kiếm
   const handleSearch = () => {
-    const res = privateAxios.get(`api/v2/jobs/getJobsForCompany/?key=${key}`);
+    const res = searchJobs(key);
     res.then((res) => {
-      setAllJobs(res.data.data);
+      setAllJobs(res.data);
+      setKey("");
     });
   };
 

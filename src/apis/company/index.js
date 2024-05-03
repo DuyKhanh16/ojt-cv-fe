@@ -27,6 +27,14 @@ export const getJobsForCompanyS = async () => {
         console.log(error)
     }
 }
+export const getalljobsCompanys = async (status) => {
+    try {
+        const res = await privateAxios.get(`${API_GETJOBSFOR_COMPANY}/?status=${status}`)
+        return res.data
+    } catch (error) {
+        console.log(error)
+    }
+}
 // update info company
 export const updateInfoCompany = async (id, data) => {
     try {
@@ -60,6 +68,16 @@ export const updateAddressCompany = async (id, data) => {
 export const deleteAddressCompany = async (id) => {
     try {
         const res = await privateAxios.delete(`${API_DELETE_BRAND_COMPANY}/${id}`)
+        return res.data
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+// search job theo tên
+export const searchJobs = async (name) => {
+    try {
+        const res = await privateAxios.get(`${API_GETJOBSFOR_COMPANY}/?key=${name}`)
         return res.data
     } catch (error) {
         console.log(error)
