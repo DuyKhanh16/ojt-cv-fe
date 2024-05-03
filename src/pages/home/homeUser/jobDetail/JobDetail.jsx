@@ -138,7 +138,7 @@ export default function JobDetail() {
                 style={{ width: "100px", height: "100px" }}
               >
                 <img
-                  style={{ width: "100%", height: "100%", borderRadius: "5px" }}
+                  style={{ width: "100%", height: "100%", borderRadius: "5px",objectFit:"contain" }}
                   src={infor?.company?.logo}
                 ></img>
               </div>

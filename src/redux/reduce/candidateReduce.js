@@ -6,8 +6,12 @@ import privateAxios from '../../config/private.axios';
 export const candidateAsync = createAsyncThunk(
   'candidate/candidateAsync',   
   async () => {
+    const token = JSON.parse(localStorage.getItem('token'));
+    if (token) {
     const response = await privateAxios.get('api/v2/candidates/getInfor'); // call API function
     return response.data.data;
+    }
+    
   }
 );
 
