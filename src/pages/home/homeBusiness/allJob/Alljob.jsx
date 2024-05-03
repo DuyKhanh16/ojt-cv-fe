@@ -7,6 +7,7 @@ import { useNavigate, useParams } from "react-router";
 import privateAxios from "../../../../config/private.axios";
 import { notification, Switch } from "antd";
 import axios from "axios";
+import {getJobsForCompany} from "../../../../apis/jobs/index"
 
 // import { Switch } from 'antd';
 export default function Alljob() {
@@ -30,7 +31,7 @@ export default function Alljob() {
     });
   };
 
-  const getallJobsCompany = () => {
+  const getallJobsCompany = async () => {
     const res1 = privateAxios.get(
       `api/v2/jobs/getJobsForCompany/?status=${status}`
     );
@@ -39,6 +40,7 @@ export default function Alljob() {
     });
   };
 
+  console.log(allJobs)
   useEffect(() => {
     getInfo();
     getallJobsCompany();

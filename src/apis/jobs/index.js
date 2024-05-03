@@ -12,7 +12,8 @@ import {
   API_SALARY_GETALL,
   API_JOB_CREATE_BYID,
   API_JOB_EDIT_BYID,
-  API_JOB_DELETE_BYID
+  API_JOB_DELETE_BYID,
+  API_JOB_GETJOBFORCOMPANY
 
 } from "../patchApi";
 
@@ -126,6 +127,7 @@ export const createJobs = async (id,data) => {
 
 // sửa thông tin jobs
 export const updateJobs = async (id,data) => {
+  console.log(id,data)
   try {
     const res = await privateAxios.patch(`${API_JOB_EDIT_BYID}/${id}`, data)
     return res.data
@@ -141,5 +143,16 @@ export const deleteJobs = async (id) => {
     return res.data
   } catch (error) {
     console.log(error) 
+  }
+}
+
+// lấy tất cả công việc của công ty
+export const getJobsForCompany = async (status) => {
+  console.log(status)
+  try {
+    const res = await privateAxios.get(`${API_JOB_GETJOBFORCOMPANY}/?status=${status}`)
+    return res.data 
+  } catch (error) {
+    console.log(error)
   }
 }
