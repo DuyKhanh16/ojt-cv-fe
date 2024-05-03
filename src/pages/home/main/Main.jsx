@@ -25,7 +25,12 @@ import CheckLogin from "../../../components/confirm/CheckLogin";
 import axios from "axios";
 import privateAxios from "../../../config/private.axios";
 import { candidateGetAll } from "../../../apis/candidates";
-import { firstPagination, jobGetLiveJobs, jobGetNewJobs, pagination } from "../../../apis/jobs";
+import {
+  firstPagination,
+  jobGetLiveJobs,
+  jobGetNewJobs,
+  pagination,
+} from "../../../apis/jobs";
 export default function Main() {
   const [allCompany, setAllCompany] = useState([]);
   const [allLiveJob, setLiveJob] = useState([]);
@@ -35,7 +40,7 @@ export default function Main() {
   const [jobOutStanding, setJobOutStanding] = useState([]);
   const [companyOutStanding, setCompanyOutStanding] = useState([]);
   const [candidateOutStanding, setCandidateOutStanding] = useState([]);
-  const [pageNumbers, setPageNumbers] = useState([1,2,3]);
+  const [pageNumbers, setPageNumbers] = useState([1, 2, 3]);
   const [currentPage, setCurrentPage] = useState(1);
   const [jobPanigation, setJobPanigation] = useState([]);
   const navigate = useNavigate();
@@ -59,14 +64,8 @@ export default function Main() {
       return error;
     }
   };
-  
-  const getCompanyOutStanding = async () => {
-    try {
-      setCompanyOutStanding(allCompany.slice(0, 6));
-    } catch (error) {
-      console.log(error);
-    }
-  };
+
+
 
   const getAllLiveJob = async () => {
     try {
@@ -74,14 +73,6 @@ export default function Main() {
       setLiveJob(res.data);
     } catch (error) {
       return error;
-    }
-  };
-
-  const getJobOutStanding = async () => {
-    try {
-      setJobOutStanding(allLiveJob.slice(0, 6));
-    } catch (error) {
-      console.log(error);
     }
   };
 
@@ -103,23 +94,19 @@ export default function Main() {
     }
   };
 
-  const getCandidateOutStanding = async () => {
-    try {
-      setCandidateOutStanding(allCandidate.slice(0, 6));
-    } catch (error) {
-      console.log(error);
+
+  const getListJobSave = async () => {
+    if (token) {
+      try {
+        const res = await privateAxios.get("api/v2/candidates/getJobSave");
+        console.log(res);
+        setLisJobSave(res.data.data);
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 
-  // const getListJobSave = async () => {
-  //   try {
-  //     const res = await privateAxios.get("api/v2/candidates/getJobSave");
-  //     console.log(res);
-  //     setLisJobSave(res.data.data);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
 
   useEffect(() => {
     getAllCompany();
@@ -153,42 +140,46 @@ export default function Main() {
 
   // phan trang
   const caculatePage = () => {
-    console.log(allLiveJob)
-    if (allLiveJob?.length>0) {
-    let number = Math.ceil(allLiveJob?.length / 6);
-    setPageNumbers(Array.from({ length: number }, (_, i) => i + 1));
+    if (allLiveJob?.length > 0) {
+      let number = Math.ceil(allLiveJob?.length / 6);
+      setPageNumbers(Array.from({ length: number }, (_, i) => i + 1));
     }
-    
   };
-  
-  const firstPage = ()=> {
+
+  const firstPage = () => {
     if (checkPage == 1) {
       firstPagination()
-    .then((res) => {
-      setJobPanigation(res.data)
-    })
-    .catch((error) => {
-      return error;
-    })
-
+        .then((res) => {
+          setJobPanigation(res.data);
+        })
+        .catch((error) => {
+          return error;
+        });
     } else {
       return;
     }
-    
-  }
+  };
   const onPageChange = (page) => {
     pagination(page)
-    .then((res) => {
-      setCheckPage(checkPage+1);
-      setJobPanigation(res.data);
-      setCurrentPage(page);
-    })
-    .catch((error) => {
-      return error;
-    })
+      .then((res) => {
+        setCheckPage(checkPage + 1);
+        setJobPanigation(res.data);
+        setCurrentPage(page);
+      })
+      .catch((error) => {
+        return error;
+      });
+  };
+  const decrePage = () => {
+    if (currentPage > 1) {
+      onPageChange(currentPage - 1);
+    }
   }
-  console.log(pageNumbers)
-console.log(jobPanigation)
+  const increPage = () => {
+    if (currentPage < pageNumbers.length) {
+      onPageChange(currentPage + 1);
+    }
+  }
   return (
     <>
       <CheckLogin isOpen={isOpen} close={open}></CheckLogin>
@@ -445,8 +436,8 @@ console.log(jobPanigation)
           </div>
           <div class="fui-roundedFull-pagination">
             <ul class="pagination-list">
-              <li class="pagination-item btn-prev">
-                <a href="#" class="pagination-link">
+              <li class="pagination-item btn-prev" onClick={decrePage}>
+                <p  class="pagination-link">
                   <svg
                     width="6"
                     height="10"
@@ -461,47 +452,23 @@ console.log(jobPanigation)
                       fill="currentColor"
                     ></path>
                   </svg>
-                </a>
+                </p>
               </li>
               {pageNumbers?.map((page) => (
                 <li key={page} className="pagination-item">
                   <p
                     onClick={() => onPageChange(page)}
                     className={`pagination-link ${
-                    currentPage === page ? "selected" : ""
+                      currentPage === page ? "selected" : ""
                     }`}
                   >
                     {page}
                   </p>
                 </li>
               ))}
-              {/* <li class="pagination-item">
-                <a href="#" class="pagination-link">
-                  1
-                </a>
-              </li>
-              <li class="pagination-item">
-                <a href="#" class="pagination-link selected">
-                  2
-                </a>
-              </li>
-              <li class="pagination-item">
-                <a href="#" class="pagination-link">
-                  3
-                </a>
-              </li>
-              <li class="pagination-item">
-                <a href="#" class="pagination-link">
-                  4
-                </a>
-              </li>
-              <li class="pagination-item">
-                <a href="#" class="pagination-link">
-                  5
-                </a>
-              </li> */}
-              <li class="pagination-item btn-next">
-                <a href="#" class="pagination-link">
+             
+              <li class="pagination-item btn-next" onClick={increPage}>
+                <p class="pagination-link">
                   <svg
                     width="6"
                     height="10"
@@ -516,7 +483,7 @@ console.log(jobPanigation)
                       fill="currentColor"
                     ></path>
                   </svg>
-                </a>
+                </p>
               </li>
             </ul>
           </div>

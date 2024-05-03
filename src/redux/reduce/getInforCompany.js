@@ -6,10 +6,12 @@ import privateAxios from '../../config/private.axios';
 export const inforCompanyAsync = createAsyncThunk(
   'inforCompany/inforCompanyAsync',   
   async () => {
+    const token = JSON.parse(localStorage.getItem('token'));
+    if (token) {
     const response = await privateAxios.get('api/v2/companies/getInfor'); 
-    console.log(response.data.data);
     // call API function
     return response.data.data;
+    }
   }
 );
 

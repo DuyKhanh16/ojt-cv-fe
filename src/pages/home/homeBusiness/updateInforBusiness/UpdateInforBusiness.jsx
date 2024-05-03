@@ -301,7 +301,7 @@ export default function UpdateInforBusiness() {
       };
       const res = await updateAddressCompany(idaddress, newAdress);
       notification.success({
-        message: "Cap nhap thanh cong",
+        message: "Cập nhật thông tin thành công",
         duration: 2,
       });
       setCity("");
