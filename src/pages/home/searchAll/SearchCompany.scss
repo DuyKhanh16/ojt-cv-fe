@@ -218,7 +218,7 @@
                 cursor: pointer;
                 .main__outStandingCompany--listCompany__item__top {
                   width: 100%;
-                  height: 56px;
+                  height: auto;
                   display: flex;
                   gap: 16px;
                   .main__outStandingCompany--listCompany__item__top--logo {
@@ -234,7 +234,7 @@
                   }
                   .main__outStandingCompany--listCompany__item__top--name {
                     width: 304px;
-                    height: 56px;
+                    height: auto;
                     .main__outStandingCompany--listCompany__item__top--name--top {
                       display: flex;
                       align-items: center;
