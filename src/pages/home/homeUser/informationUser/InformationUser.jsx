@@ -486,7 +486,9 @@ export default function InformationUserB() {
                     </p>
                     <p>
                       <span>
-                        <img src={location} style={{ width: "1vw" }} alt="" />
+                      <span class="material-symbols-outlined">
+                      location_on
+                      </span>
                       </span>
                       {user?.address ? user?.address : "Cập nhật thêm địa chỉ"}
                     </p>
@@ -495,7 +497,9 @@ export default function InformationUserB() {
                   <div>
                     <p>
                       <span>
-                        <img src={phone} style={{ width: "0.8vw" }} alt="" />
+                      <span class="material-symbols-outlined">
+                      call
+                      </span>
                       </span>
                       {user?.phone
                         ? user?.phone
@@ -503,13 +507,17 @@ export default function InformationUserB() {
                     </p>
                     <p>
                       <span>
-                        <img src={userIcon} alt="" />
+                      <span class="material-symbols-outlined">
+                        account_circle
+                        </span>
                       </span>
                       {user?.gender ? user?.gender : "Cập nhật thêm giới tính"}
                     </p>
                     <p>
                       <span>
-                        <img src={world} style={{ width: "2vw" }} alt="" />
+                      <span class="material-symbols-outlined">
+                      language
+                      </span>
                       </span>
                       {user?.link_git
                         ? user?.link_git
