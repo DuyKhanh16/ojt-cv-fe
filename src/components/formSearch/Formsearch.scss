@@ -93,6 +93,7 @@
       justify-content: space-around;
       .form__search--image {
         width: 127px;
+        cursor: pointer;
 
         img {
           width: 127px;
@@ -116,6 +117,7 @@
         align-items: center;
         justify-content: space-between;
         gap: 10px;
+        cursor: pointer;
         img {
           width: 25px;
           height: 25px;

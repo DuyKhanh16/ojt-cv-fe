@@ -2,6 +2,8 @@ import React, { memo, useState } from 'react'
 import '../confirm/Comfirm.scss'
 import privateAxios from '../../config/private.axios'
 import { notification } from 'antd'
+import publicAxios from '../../config/pulic.axios'
+
  function Confirm({isOpen,close,value}) {
 
   console.log(value)
@@ -67,7 +69,45 @@ import { notification } from 'antd'
         })
       })
       close();
+    } else if (value.table === "location") {
+      console.log(value)
+      if (value.listBrand.length === 1) {
+            notification.error({
+              message: "Địa điểm đang được sử dụng, vui lòng chọn địa điểm khác",
+            });
+            return;
+          } else {
+            try {
+              await publicAxios.delete(
+                `api/v2/companies/delete-address-company/${value.id.id}`
+              );
+              notification.success({
+                message: "Đã xóa địa chỉ thành công",
+                placement: "topRight",
+                duration: 2,
+              });
+              close();
+            } catch (error) {
+              console.log(error);
+            }
+          }
+    }else if (value.table === "skill") {
+      await privateAxios
+      .delete(`api/v2/candidate/deleteSkill/${value.id}`)
+      .then((res)=>{
+        console.log("API response data:", res);
+        notification.success({
+          message:res.data.message
+        })
+      })
+      .catch((error) => {
+        notification.error({
+          message: error.response.data.message,
+        })
+      })
+      close();
     }
+    
     
 
   }

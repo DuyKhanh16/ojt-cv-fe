@@ -48,7 +48,7 @@ body {
         color: #f8f7f7;
       }
       .CV1__header--left__name {
-        font-size: 2.5vw;
+        font-size: 2vw;
         font-weight: 600;
       }
     }
@@ -70,11 +70,10 @@ body {
         }
       }
     }
-    
   }
-  .CV1__header::after{
+  .CV1__header::after {
     position: absolute;
-    left:0;
+    left: 0;
     top: 12vw;
     content: "";
     width: 150%;
@@ -83,7 +82,7 @@ body {
     transform: rotate(-2deg);
     z-index: 1;
   }
-  
+
   .CV1__content {
     width: 100%;
     height: auto;
@@ -103,11 +102,10 @@ body {
         font-size: 1.5vw;
         font-weight: 600;
         text-transform: uppercase;
-
       }
       .CV1__content--left__yourInfor {
         img {
-          width: 2vw;
+          width: 1vw;
           height: 1vw;
         }
         .CV1__content--left__yourInfor--phone {
@@ -242,7 +240,7 @@ body {
       .CV1__content--right__introduce {
         .CV1__content--right__introduce__content {
           margin-top: 2vw;
-          font-size:1vw;
+          font-size: 1vw;
           font-weight: 400;
           line-break: auto;
         }
@@ -267,14 +265,13 @@ body {
               color: #000;
             }
             .CV1__content--right__experience--item__role__time {
-            font-size: 0.7vw;
-            font-weight: 400;
-            color: #000;
+              font-size: 0.7vw;
+              font-weight: 400;
+              color: #000;
             }
-            
           }
           .CV1__content--right__experience--item__company {
-            font-size: 1.1vw;
+            font-size: 1vw;
             font-weight: 600;
             text-transform: uppercase;
             color: #000;
@@ -300,17 +297,16 @@ body {
             justify-content: space-between;
             align-items: center;
             .CV1__content--right__project--item__nameProject__title {
-              font-size: 1.3vw;
+              font-size: 1.1vw;
               font-weight: 700;
               text-transform: uppercase;
               color: #000;
             }
             .CV1__content--right__project--item__nameProject__time {
-            font-size: 0.7vw;
-            font-weight: 400;
-            color: #000;
+              font-size: 0.7vw;
+              font-weight: 400;
+              color: #000;
             }
-            
           }
           .CV1__content--right__project--item__discription {
             font-size: 1vw;
@@ -319,7 +315,6 @@ body {
           }
         }
       }
-      
     }
   }
 }

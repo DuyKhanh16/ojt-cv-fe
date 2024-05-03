@@ -1,80 +1,16 @@
 import React from 'react'
 import axios from "axios";
-import filter from "../../../../assets/images/listJob/filter.png"
 import './jobList.scss'
-import Header from '../../../../components/header/Header';
-import FormSearch from '../../../../components/formSearch/FormSearch';
-import Footer from '../../../../components/footer/Footer';
 import { useNavigate } from 'react-router';
+import { jobGetLiveJobs } from '../../../../apis/jobs';
+
 
 export default function JobList() {
   const [ListCity, setListCity] = React.useState([]);
-  const [ListJob, setListJob] = React.useState([
-    {
-      Id:1,
-      title:"Fresher Java Developer",
-      type:"Full-time",
-      salary:"2000$",
-      location:"HCM, TP. HCM",
-      logo:"https://cdn.pixabay.com/photo/2017/01/19/09/11/logo-google-1991840_1280.png",
-      companyName:"Google"
-    },
-    {
-      Id:2,
-      title:"Fresher Java Developer",
-      type:"Full-time",
-      salary:"2000$",
-      location:"HCM, TP. HCM",
-      logo:"https://cdn.pixabay.com/photo/2017/01/19/09/11/logo-google-1991840_1280.png",
-      companyName:"Google"
-    },
-    {
-      Id:3,
-      title:"Fresher Java Developer",
-      type:"Full-time",
-      salary:"2000$",
-      location:"HCM, TP. HCM",
-      logo:"https://cdn.pixabay.com/photo/2017/01/19/09/11/logo-google-1991840_1280.png",
-      companyName:"Google"
-    },
-    {
-      Id:4,
-      title:"Fresher Java Developer",
-      type:"Full-time",
-      salary:"2000$",
-      location:"HCM, TP. HCM",
-      logo:"https://cdn.pixabay.com/photo/2017/01/19/09/11/logo-google-1991840_1280.png",
-      companyName:"Google"
-    },
-    {
-      Id:5,
-      title:"Fresher Java Developer",
-      type:"Full-time",
-      salary:"2000$",
-      location:"HCM, TP. HCM",
-      logo:"https://cdn.pixabay.com/photo/2017/01/19/09/11/logo-google-1991840_1280.png",
-      companyName:"Google"
-    },
-    {
-      Id:6,
-      title:"Fresher Java Developer",
-      type:"Full-time",
-      salary:"2000$",
-      location:"HCM, TP. HCM",
-      logo:"https://cdn.pixabay.com/photo/2017/01/19/09/11/logo-google-1991840_1280.png",
-      companyName:"Google"
-    },
-    {
-      Id:7,
-      title:"Fresher Java Developer",
-      type:"Full-time",
-      salary:"2000$",
-      location:"HCM, TP. HCM",
-      logo:"https://cdn.pixabay.com/photo/2017/01/19/09/11/logo-google-1991840_1280.png",
-      companyName:"Google"
-    },
-  ]);
+  const [ListJob, setListJob] = React.useState([]);
+
   const navigate = useNavigate();
+  const role = JSON.parse(localStorage.getItem("role"));
   async function getListCity() {
     try {
       const result = await axios.get("https://vapi.vnappmob.com/api/province/");
@@ -83,8 +19,21 @@ export default function JobList() {
       console.log(error);
     }
   }
+  const getAllJob = async () => {
+    await jobGetLiveJobs()
+    .then((res) => {
+      setListJob(res.data);
+    })
+    .catch((error) => {
+      return error;
+    })
+  }
   React.useEffect(() => {
     getListCity();
+    getAllJob();
+    if(role !== 1) {
+      navigate("/company");
+    }
   }, [])
   return (
     <>
@@ -115,20 +64,20 @@ export default function JobList() {
       </div>
       <div className='user-ListJob-jobRender'>
         {ListJob.map((job) => {
-          return( <div key={job.Id} className='user-ListJob-job' onClick={() => navigate(`/candidate/jobdetail/${job.Id}`)}>
+          return( <div key={job.id} className='user-ListJob-job' style={{cursor:"pointer"}} onClick={() => navigate(`/candidate/jobdetail/${job.id}`)}>
             <p className='user-ListJob-job-title'>{job.title}</p>
             <div className='user-ListJob-job-typeSalary'>
-              <p className='typeJob'>{job.type}</p> 
-              <p>Salay:{job.salary}</p>
+              <p className='typeJob'>{job?.types_jobs[0].typejob.name}</p> 
+              <p>Lương: {job?.salary_jobs[0]?.salary?.name}</p>
             </div>
             <div className='user-ListJob-job-info'>
               <div className='user-ListJob-job-infoCompany'>
               <div className='user-ListJob-job-info-logo'>
-              <img width={48} src={job.logo} alt="logo"/>
+              <img width={48} height={48} src={job?.company.logo} alt="logo"/>
               </div>
               <div className='user-ListJob-job-info-company'>
-              <p >{job.companyName}</p>
-                <p className='user-ListJob-job-info-location'><i class="fa-solid fa-location-dot"></i> {job.location}</p>
+              <p >{job?.company.name}</p>
+                <p className='user-ListJob-job-info-location'><i class="fa-solid fa-location-dot"></i> {job?.address_company.address}</p>
               </div>
               </div>
               <i style={{marginTop:"20px"}} class="fa-solid fa-bookmark"></i>

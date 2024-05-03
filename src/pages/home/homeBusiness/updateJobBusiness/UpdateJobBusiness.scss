@@ -18,8 +18,8 @@ body::-webkit-scrollbar {
     
     .job__detail--content{
         background-color: white;
-        width: 1320px;
-        height: 1396px;
+        width: 90vw;
+        height: auto;
         // top: 290px;
         padding: 24px 60px 24px 60px;
         left: 80px;
@@ -95,8 +95,8 @@ body::-webkit-scrollbar {
             width: 1320px;
             gap: 24px;
             .job__detail--description--title{
-                width: 630px;
-                height: 1268px;
+                width: 50vw;
+                height: auto;
                 color: #5E6670;
                 text-align: left;
                 p{
@@ -110,6 +110,7 @@ body::-webkit-scrollbar {
                     }
                 }
             }
+          
             .job__detail--description--details{
                 width: 550px;
                 height: 160px;
@@ -124,7 +125,7 @@ body::-webkit-scrollbar {
             .job__detail--description--overview{
                 margin-top: 32px;
                 width: 550px;
-                height: 278px;
+                height: 200px;
                 border: 2px #E7F0FA solid;
                 border-radius: 8px 8px 0px 0px;
                 padding: 32px;

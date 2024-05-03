@@ -7,6 +7,12 @@ import eye from "../../assets/images/userLogin/eye (1) 1.png";
 import { Await, Link, useNavigate } from "react-router-dom";
 import publicAxios from "../../config/pulic.axios";
 import { notification } from "antd";
+import ForgetPassword from "../../components/modal/forgetPassword/ForgetPassword";
+import { initializeApp } from "firebase/app";
+import { getAuth, signInWithPopup } from "firebase/auth";
+import { auth, provider } from "../../config/firebase";
+import privateAxios from "../../config/private.axios";
+import {Login,LoginByGoogle} from "../../apis/auth/auth"
 export default function UserLogin() {
   const [user, setUser] = useState({
     email: "",
@@ -14,7 +20,8 @@ export default function UserLogin() {
   });
   const [errors, setErrors] = useState({});
   const [passwordShown, setPasswordShown] = useState(false);
-  const navigate = useNavigate()
+  const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
 
   // Hàm kiểm tra email hợp lệ
   const isEmailValid = (email) => {
@@ -33,67 +40,111 @@ export default function UserLogin() {
         : "Email không hợp lệ"
       : "Email không được để trống";
 
-      tempErrors.password = user.password
+    tempErrors.password = user.password
       ? user.password.length >= 6
         ? ""
         : "Mật khẩu phải có ít nhất 6 ký tự"
       : "Mật khẩu không được để trống";
 
-      setErrors(tempErrors);
-      // Kiểm tra xem có lỗi nào không
-      return Object.values(tempErrors).every((x) => x === "");
-  }
+    setErrors(tempErrors);
+    // Kiểm tra xem có lỗi nào không
+    return Object.values(tempErrors).every((x) => x === "");
+  };
+
+  //dang nhap bang gg
+
+ 
+
+
+  // // Lấy đối tượng auth từ Firebase
+
+  // // Tạo một provider cho đăng nhập bằng Google
+
+  const signInWithGoogle = async () => {
+    try {
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+      const userGoogle = {
+        name: user.displayName,
+        email: user.email,
+        password: user.uid
+        
+      };
+     LoginByGoogle(userGoogle)
+      .then((response) => {
+        localStorage.setItem("token", JSON.stringify(response.data.data.token));
+        localStorage.setItem("role", JSON.stringify(response.data.data.role));
+        notification.success({
+          message: "dang nhap thanh cong",
+        });
+        navigate("/candidate");
+
+        
+      })
+    } catch (error) {
+      console.error("Google authentication failed:", error);
+    }
+  };
+
+
+  // het dang nhap bang gg
   // đăng nhập
-  // console.log(user)
   const handlelogin = async () => {
-    if(validate()) {
+    if (validate()) {
       try {
-        console.log(user,"111")
-        const res = await publicAxios.post("api/v2/auth/login",user)
-        console.log(res.data.data.role,"123")
-        if(res.data.data.role === 0 ){
-          localStorage.setItem("token",JSON.stringify(res.data.data.token))
-          localStorage.setItem("role",JSON.stringify(res.data.data.role))
+        console.log(user, "111");
+          const response = await Login(user)
+        if (response.data.data.role === 0) {
+          localStorage.setItem("token", JSON.stringify(response.data.data.token));
+          localStorage.setItem("role", JSON.stringify(response.data.data.role));
           notification.success({
-            message:res.data.message
-          })
-          navigate("/admin")
+            message: response.data.message,
+          });
+          navigate("/admin");
         }
 
-        if(res.data.data.role === 1){
 
-          localStorage.setItem("token",JSON.stringify(res.data.data.token))
-          localStorage.setItem("role",JSON.stringify(res.data.data.role))
+        if (response.data.data.role === 1 && response.data.data.status === 1) {
+          localStorage.setItem("token", JSON.stringify(response.data.data.token));
+          localStorage.setItem("role", JSON.stringify(response.data.data.role));
+          navigate("/candidate");
 
-          navigate("/candidate")
           notification.success({
-            message:res.data.message
-          })
+            message: response.data.message,
+          });
+        } else if (response.data.data.role === 1 && response.data.data.status === 0) {
+          notification.error({
+            message: "Tài khoản của bạn đang bị khoá",
+          });
         }
-        if(res.data.data.role ===2){
-          localStorage.setItem("token",JSON.stringify(res.data.data.token))
-          localStorage.setItem("role",JSON.stringify(res.data.data.role))
 
-          navigate("/company")
+
+        if (response.data.data.role === 2) {
+          localStorage.setItem("token", JSON.stringify(response.data.data.token));
+          localStorage.setItem("role", JSON.stringify(response.data.data.role));
+          navigate("/company");
+
           notification.success({
-            message:res.data.message
-          })
+            message: response.data.message,
+          });
         }
       } catch (error) {
-        console.log(error)
-        notification.error(
-          {
-            message:"Đăng nhập thất bại"
-          }
-        );
+        console.log(error);
+        notification.error({
+          message: "Đăng nhập thất bại",
+        });
       }
     }
+  };
+  const close = () => {
+    setOpen(false);
   }
   return (
     <>
+      <ForgetPassword isOpen={open} close={close} />
       <div className="user__login__container">
         {/* logo */}
-        <div className="logo">
+        <div className="logo" onClick={() => navigate("/")}>
           <img src={logo} alt="rikkei" />
         </div>
         {/*end logo */}
@@ -116,7 +167,7 @@ export default function UserLogin() {
                   value={user.email}
                   name="email"
                   type="text"
-                  placeholder="abc@gmail.com"
+                  placeholder="Nhập email"
                 />
                 {errors.email && <div className="error">{errors.email}</div>}
               </div>
@@ -132,7 +183,7 @@ export default function UserLogin() {
                     name="password"
                     className="user__login-input__password--text"
                     type={passwordShown ? "text" : "password"}
-                    placeholder="nhập mật khẩu"
+                    placeholder="Nhập mật khẩu"
                   />
                   <span
                     onClick={togglePasswordVisibility}
@@ -145,11 +196,29 @@ export default function UserLogin() {
                   )}
                 </div>
               </div>
-              <div
-               onClick={handlelogin}
-               className="btn">Đăng nhập</div>
+              <div onClick={handlelogin} className="btn">
+                Đăng nhập
+              </div>
+              <div className="user__login-input__or">
+                <div className="user__login-input__or--line">
+
+                </div>
+                <div className="user__login-input__or--text">
+                  Hoặc
+                </div>
+                <div className="user__login-input__or--line">
+
+                </div>
+
+              </div>
+              <div className="user__login-input__loginByGg" 
+                onClick={signInWithGoogle}
+              >
+                    <img src={"https://itviec.com/assets/google_logo-af373a5e64715e7d4fcdea711f96995f7fd7a49725b3dd8910d4749b74742cb2.svg"} alt="" />
+                    <p>Đăng nhập bằng Google</p>
+              </div>
               <div className="user__login-input__footer">
-                <span className="user__login-input__footer--forgot">
+                <span className="user__login-input__footer--forgot" onClick={() => setOpen(true)}>
                   Quên mật khẩu
                 </span>
                 <div className="user__login-input__footer--context">

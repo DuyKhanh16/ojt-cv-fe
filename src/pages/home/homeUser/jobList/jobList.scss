@@ -174,8 +174,9 @@ body {
         width: 91%;
         margin: 0 auto;
         display: flex;
-        justify-content: space-between;
+        // gap: 30px;
         flex-wrap: wrap;
+         justify-content: space-between;
         @media screen and (min-width: 576px) and (max-width: 768px) {
             width: 100%;
             justify-content: space-evenly;
@@ -195,13 +196,14 @@ body {
         }
 
         .user-ListJob-job {
-            width: 425px;
-            height: 170px;
-            border: 1px solid rgba(128, 128, 128, 0.314);
+            width: 450px;
+            height: 13vw;
+            border: 1px solid rgba(228, 229, 232, 1);
             border-radius: 8px;
-            padding: 24px;
-             margin: 0px !important;
-            margin-bottom: 24px !important;
+            padding: 13px 20px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            margin: 20px 0;
+        transition: transform 0.3s ease-in-out;
             @media screen and (min-width: 576px) and (max-width: 768px) {
                 width: 255px;
                 
@@ -210,7 +212,10 @@ body {
                 width: 500px;
                 }
             .user-ListJob-job-title {
-                font-size: 20px;
+                width: 100%; /* Độ rộng của phần tử chứa ngày */
+                white-space: nowrap; /* Ngăn chặn ngắt dòng */
+                overflow: hidden; /* Ẩn phần vượt quá giới hạn chiều rộng */
+                text-overflow: ellipsis; /* Hiển thị dấu chấm (...) khi text bị cắt */
             }
 
             .user-ListJob-job-typeSalary {
@@ -237,9 +242,16 @@ body {
             .user-ListJob-job-infoCompany {
                 display: flex;
 
+
                 .user-ListJob-job-info-logo {
                     width: 48px;
                     height: 48px;
+                    overflow: hidden;
+                    img{
+                        width: 48px !important;
+                        height: 48px !important;
+
+                    }
 
                 }
 
@@ -262,6 +274,10 @@ body {
             }
 
         }
+        }
+        .user-ListJob-job:hover{
+            border: 2px solid #0ab305;
+            transform: scale(1.05)
         }
 
     }

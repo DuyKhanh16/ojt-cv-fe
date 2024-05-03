@@ -1,0 +1,369 @@
+:root {
+    --primary: rgba(188, 34, 40, 1);
+    --secondary: rgba(0, 0, 0, 1);
+    --white: rgba(255, 255, 255, 1);
+    --gray: rgba(93, 90, 111, 1);
+    --dark-blue: rgba(10, 3, 60, 1);
+    --line-gadient: linear-gradient(
+      rgba(10, 3, 60, 0),
+      rgba(10, 3, 60, 1),
+      rgba(10, 3, 60, 0)
+    );
+    --fuiMegamenu-text: #2c2f32;
+    --fuiMegamenu-primary: #1dc071;
+    --body-color: #e4e9f7;
+    --sidebar-color: #fff;
+    --fui-sidebar-primary-color: #1dc071;
+    --fui-sidebar-primary-color-light: #f1fbf7;
+    --toggle-color: #ddd;
+    --text-color: #808191;
+  
+    /* ====== Transition ====== */
+    --tran-03: all 0.3s ease;
+    --tran-03: all 0.3s ease;
+    --tran-04: all 0.3s ease;
+    --tran-05: all 0.7s ease;
+  }
+  html,
+  body {
+    font-family: "Cabin", sans-serif;
+    font-size: 1.4vw;
+    padding: 0;
+    margin: 0;
+    width: 100vw;
+    box-sizing: border-box;
+  }
+  body::-webkit-scrollbar {
+    display: none;
+  }
+  .searchCandidate__container {
+    width: 100%;
+    height: 100vh;
+    margin-bottom: 2vw;
+    margin-top: 2vw;
+    .searchCandidate__container__header {
+      width: 100%;
+      margin-left: 100px;
+      height: 56px;
+      display: flex;
+      gap: 1vw;
+      align-items: center;
+      .inputS {
+        width: 20%;
+        height: 100%;
+        display: flex;
+        gap: 1vw;
+        justify-content: center;
+        align-items: center;
+        padding: 0 1vw;
+        box-shadow: 0 10px 40px rgba(0,0,0,.13);
+        border-radius: 6px;
+      }
+      .searchCandidate__container__header__inputText {
+        .material-symbols-outlined {
+            font-size: 2vw;
+            font-weight: 400;
+            color: rgb(127,135,143);
+        }
+        input {
+            width: 10vw;
+            height: 100%;
+            font-size: 16px;
+            border: none;
+            padding: 5px;
+        }
+      }
+      .searchCandidate__container__header__selectCity {
+        .material-symbols-outlined {
+            font-size: 2vw;
+            font-weight: 400;
+            color: rgb(127,135,143);
+        }
+        select {
+            width: 10vw;
+            height: 100%;
+            font-size: 16px;
+            border: none;
+            padding: 5px;
+            cursor: pointer;
+            
+        }
+      }
+      .searchCandidate__container__header__selectLevel {
+        .material-symbols-outlined {
+            font-size: 2vw;
+            font-weight: 400;
+            color: rgb(127,135,143);
+        }
+        select {
+            width: 12vw;
+            height: 100%;
+            font-size: 16px;
+            border: none;
+            padding: 5px;
+            cursor: pointer;
+            option {
+                cursor: pointer;
+            }
+        }
+      }
+      .searchCandidate__container__header__selectPositon {
+        .material-symbols-outlined {
+            font-size: 2vw;
+            font-weight: 400;
+            color: rgb(127,135,143);
+        }
+        select {
+            width: 12vw;
+            height: 100%;
+            font-size: 16px;
+            border: none;
+            padding: 5px;
+            cursor: pointer;
+            option {
+                cursor: pointer;
+            }
+        } 
+      }
+    
+      .searchCandidate__container__header__button {
+        width: 14% !important;
+        background-color: var(--primary);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 30px;
+        color: #fff;
+        border-radius: 5px;
+        border: none;
+        cursor: pointer;
+        user-select: none;
+        position: relative;
+        isolation: isolate;
+        overflow: hidden;
+
+        &:hover::before {
+          left: auto;
+          right: 0;
+          width: 100%;
+        }
+
+        &::before {
+          content: "";
+          position: absolute;
+          left: 0;
+          right: auto;
+          top: 0;
+          height: 100%;
+          width: 0;
+          background-color: #fff;
+          opacity: 0.1;
+          z-index: -1;
+          transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+      }
+    }
+    .searchCandidate__container__body {
+        width: 100%;
+        height: auto;
+        margin-left: 30px;
+        .searchCandidate__outStandingJob {
+            width: 100%;
+            // height: 1050px;
+            padding: 48px 60px 0 60px;
+            background-color: #fff;
+            .searchCandidate__outStandingJob--header {
+              width: 100%;
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              .searchCandidate__outStandingJob--header__title {
+                width: 35%;
+                font-size: 40px;
+                font-weight: 500;
+                line-height: 48px;
+                color: rgba(25, 31, 51, 1);
+              }
+              .searchCandidate__outStandingJob--header__view {
+                width: 8%;
+                font-size: 16px;
+                font-weight: 600;
+                line-height: 24px;
+                color: var(--primary);
+                cursor: pointer;
+                display: flex;
+                gap: 10px;
+                img {
+                  width: 24px;
+                  height: 24px;
+                }
+              }
+            }
+         
+            .mainBusiness__outStandingCandidate--listCandidate {
+                width: 100%;
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                grid-gap: 24px;
+                margin-top: 50px;
+                .mainBusiness__outStandingCandidate--listCandidate__item {
+                  width: 100%;
+                  height: 270px;
+                  padding: 24px;
+                  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+                  transition: transform 0.3s ease-in-out;
+                  cursor: pointer;
+                  .mainBusiness__outStandingCandidate--listCandidate__item__information {
+                    width: 100%;
+                    height: 78px;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    .mainBusiness__outStandingCandidate--listCandidate__item__information--left {
+                      display: flex;
+                      align-items: center;
+                      gap: 12px;
+                      .mainBusiness__outStandingCandidate--listCandidate__item__information--left__avatar {
+                        width: 86px;
+                        height: 78px;
+                        border-radius: 4px;
+                        background-color: #fff;
+                        img {
+                          width: 100%;
+                          height: 100%;
+                          object-fit: contain;
+                        }
+                      }
+                      .mainBusiness__outStandingCandidate--listCandidate__item__information--left__name {
+                        .mainBusiness__outStandingCandidate--listCandidate__item__information--left__name--top {
+                          font-size: 16px;
+                          font-weight: 500;
+                          line-height: 24px;
+                          color: rgba(24, 25, 28, 1);
+                        }
+                        .mainBusiness__outStandingCandidate--listCandidate__item__information--left__name--bottom {
+                          display: flex;
+                          gap: 8px;
+                          .mainBusiness__outStandingCandidate--listCandidate__item__information--left__name--bottom__left {
+                            width: auto;
+                            height: 28px;
+                            background-color: rgba(11, 160, 44, 1);
+                            border-radius: 3px;
+                            padding: 4px 6px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            font-size: 14px;
+                            font-weight: 600;
+                            line-height: 20px;
+                            color: rgba(255, 255, 255, 1);
+                          }
+                          .mainBusiness__outStandingCandidate--listCandidate__item__information--left__name--bottom__right {
+                            width: 75px;
+                            height: 28px;
+                            border-radius: 52px;
+                            background-color: rgba(231, 240, 250, 1);
+                            padding: 4px 12px 4px 12px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            font-size: 14px;
+                            font-weight: 400;
+                            line-height: 20px;
+                            color: rgba(10, 101, 204, 1);
+                          }
+                        }
+                      }
+                    }
+                    .mainBusiness__outStandingCandidate--listCandidate__item__information--right {
+                      width: 18.13px;
+                      height: 14.81px;
+                      cursor: pointer;
+                    }
+                  }
+                  .mainBusiness__outStandingCandidate--listCandidate__item__technical {
+                    display: flex;
+                    margin-top: 20px;
+                    gap: 8px;
+                    .mainBusiness__outStandingCandidate--listCandidate__item__technical__title {
+                      font-size: 14px;
+                      font-weight: 400;
+                      line-height: 20px;
+                      color: rgba(118, 127, 140, 1);
+                    }
+                    .mainBusiness__outStandingCandidate--listCandidate__item__technical__list {
+                      display: flex;
+                      gap: 8px;
+                      .mainBusiness__outStandingCandidate--listCandidate__item__technical__list__item {
+                        width: 70px;
+                        height: 20px;
+                        border-radius: 3px;
+                        padding: 4px 8px 4px 8px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        background-color: rgba(231, 246, 234, 1);
+                        color: rgba(11, 160, 44, 1);
+                        font-size: 12px;
+                        font-weight: 600;
+                        line-height: 12px;
+                      }
+                    }
+                  }
+                  .mainBusiness__outStandingCandidate--listCandidate__item__language {
+                    display: flex;
+                    gap: 8px;
+                    margin-top: 20px;
+                    .mainBusiness__outStandingCandidate--listCandidate__item__language__title {
+                      font-size: 14px;
+                      font-weight: 400;
+                      line-height: 20px;
+                      color: rgba(118, 127, 140, 1);
+                    }
+                    .mainBusiness__outStandingCandidate--listCandidate__item__language__list {
+                      display: flex;
+                      gap: 8px;
+                      .mainBusiness__outStandingCandidate--listCandidate__item__language__list__item {
+                        width: auto;
+                        height: 20px;
+                        background-color: rgba(252, 225, 209, 1);
+                        border-radius: 3px;
+                        padding: 4px 8px 4px 8px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        font-size: 12px;
+                        font-weight: 600;
+                        line-height: 12px;
+                        color: rgba(241, 106, 27, 1);
+                      }
+                    }
+                  }
+                  .mainBusiness__outStandingCandidate--listCandidate__item__local {
+                    display: flex;
+                    gap: 8px;
+                    margin-top: 20px;
+                    img {
+                      width: 18px;
+                      height: 18px;
+                    }
+                    p {
+                      font-size: 14px;
+                      font-weight: 400;
+                      line-height: 20px;
+                      color: rgba(118, 127, 140, 1);
+                    }
+                  }
+                }
+                .mainBusiness__outStandingCandidate--listCandidate__item:hover{
+                  border: 2px solid #0ab305;
+                  transform: scale(1.05);
+                }
+        
+            }
+            
+          }
+    }
+  }

@@ -45,8 +45,8 @@ body::-webkit-scrollbar {
     }
   }
   .informationUser__body {
-    padding: 48px 0px 0 60px;
-    
+    padding: 2vw 5vw;
+
     .informationUser-header {
       width: 100%;
       height: 96px;
@@ -74,7 +74,7 @@ body::-webkit-scrollbar {
             align-items: center;
             margin-top: 10px;
             .informationUser-header--left__infor__list__itemLeft {
-              width: 92px;
+              width: auto;
               height: 28px;
               background-color: rgba(11, 160, 44, 1);
               border-radius: 3px;
@@ -105,6 +105,7 @@ body::-webkit-scrollbar {
       .informationUser-header--right {
         display: flex;
         gap: 12px;
+        width: 33%;
         .informationUser-header--right__icon {
           width: 56px;
           height: 56px;
@@ -159,13 +160,17 @@ body::-webkit-scrollbar {
     .informationUser-content {
       width: 100%;
       margin-top: 80px;
-      height: 1520px;
+      height: auto;
+      margin-bottom: 2vw;
       display: flex;
       gap: 29px;
       .informationUser-content--left {
         width: 1076px;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
         .informationUser-content--left__aboutInfor {
-          height: 360px;
+          height: auto;
           .informationUser-content--left__aboutInfor__title {
             font-size: 20px;
             font-weight: 500;
@@ -173,7 +178,7 @@ body::-webkit-scrollbar {
             color: rgba(24, 25, 28, 1);
           }
           .informationUser-content--left__aboutInfor__content {
-            margin-top: 20px;
+            margin-top: 30px;
             text-wrap: wrap;
             line-break: auto;
             font-size: 16px;
@@ -184,7 +189,28 @@ body::-webkit-scrollbar {
           }
         }
         .informationUser-content--left__experience {
+          height: auto;
           .informationUser-content--left__experience__title {
+            font-size: 20px;
+            font-weight: 500;
+            line-height: 28px;
+            color: rgba(24, 25, 28, 1);
+          }
+          ul {
+            margin-left: 1vw;
+            li {
+              text-wrap: wrap;
+              font-size: 16px;
+              font-weight: 400;
+              line-height: 20px;
+              color: rgba(94, 102, 112, 1);
+              // margin-bottom: 1vw;
+            }
+          }
+        }
+        .informationUser-content--left__future {
+          height: auto;
+          .informationUser-content--left__future__title {
             font-size: 20px;
             font-weight: 500;
             line-height: 28px;
@@ -202,8 +228,10 @@ body::-webkit-scrollbar {
             }
           }
         }
-        .informationUser-content--left__future {
-          .informationUser-content--left__future__title {
+        .informationUser-content--left__project {
+          height: auto;
+          margin-top: 1vw;
+          .informationUser-content--left__project__title {
             font-size: 20px;
             font-weight: 500;
             line-height: 28px;

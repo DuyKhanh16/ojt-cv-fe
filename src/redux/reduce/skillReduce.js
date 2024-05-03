@@ -3,10 +3,11 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';// import function to fetch data
 import privateAxios from '../../config/private.axios';
 
-export const candidateAsync = createAsyncThunk(
-  'candidate/candidateAsync',   
+export const skillAsync = createAsyncThunk(
+  'skill/skillAsync',   
   async () => {
-    const response = await privateAxios.get('api/v2/candidates/getInfor'); // call API function
+    const response = await privateAxios.get('api/v2/candidate/getAllSkills');
+    console.log(response.data.data) // call API function
     return response.data.data;
   }
 );
@@ -16,20 +17,20 @@ const initialState = {
   status: 'idle',
 };
 
-const candidateSlice = createSlice({
+const skillSlice = createSlice({
   name: 'posts',
   initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(candidateAsync.pending, (state) => {
+      .addCase(skillAsync.pending, (state) => {
         state.status = 'loading';
       })
-      .addCase(candidateAsync.fulfilled, (state, action) => {
+      .addCase(skillAsync.fulfilled, (state, action) => {
         state.status = 'idle';
         state.data = action.payload;
       });
   },
 });
 
-export default candidateSlice.reducer;
+export default skillSlice.reducer;

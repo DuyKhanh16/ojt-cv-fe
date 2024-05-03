@@ -3,62 +3,53 @@ import "./formModal.scss";
 import "./Certificate.scss";
 import { notification } from "antd";
 import privateAxios from "../../../config/private.axios";
+import { useSelector } from "react-redux";
+import {
+  candidateCreateProject,
+  candidateUpdateProject,
+} from "../../../apis/candidates";
 function ProjectUser({ isOpen, close, project }) {
-  const [user, setUser] = useState({
-    // name:project?.name,
-    // info:project?.info,
-    // link:project?.link,
-    // start_at:project?.start_at,
-    // end_at:project?.end_at,
-  });
-  console.log(project);
+  const userProject = useSelector((state) => state.candidate.data);
+  const [user, setUser] = useState({});
+
   useEffect(() => {
-    const getUser = privateAxios.get("api/v2/candidates/getInfor");
-    getUser.then((res) => {
-      console.log("API response data:", res.data.data);
-      setUser({ ...user, candidate_id: res.data.data.id });
-    });
-  }, []);
+    setUser({ ...user, candidate_id: userProject.id });
+  }, [userProject]);
+
   const changeValue = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
+
   const updateProject = async () => {
     if (project.status == "update") {
       try {
-        const update = await privateAxios.patch(
-          `api/v2/candidate/updateProject/${project.item.id}`,
-          user
-        );
+        const update = await candidateUpdateProject(project?.item.id, user);
         notification.success({
-          message: update.data.message,
+          message: update.message,
         });
         setUser({});
         close();
       } catch (error) {
         notification.error({
-          message: error.response.data.message,
+          message: error.response.message,
         });
       }
-    } else if (project.status == "creat") {
+    } else if (project.status == "create") {
       try {
-        const create = await privateAxios.post(
-          `api/v2/candidate/createProject`,
-          user
-        );
+        const create = await candidateCreateProject(user);
         notification.success({
-          message: create.data.message,
+          message: create.message,
         });
         close();
       } catch (error) {
         notification.error({
-          message: error.response.data.message,
+          message: error.response.message,
         });
       }
     }
   };
   return (
     <>
-    
       {project.status == "update" ? (
         <div style={{ display: isOpen ? "block" : "none" }}>
           <div className="updateInforUser">

@@ -8,7 +8,6 @@ export default function Header() {
   const token = localStorage.getItem("token") || null;
   const [isOpen, setIsOpen] = useState(false);
   const open = () => {
-    console.log(isOpen);
     setIsOpen(!isOpen);
   };
   return (
@@ -27,15 +26,15 @@ export default function Header() {
           </NavLink>
           {token ? (
             <>
-            <NavLink to="/candidate/jobList" className="navbar_item">
-            Việc làm
-          </NavLink>
+              <NavLink to="/candidate/job-list" className="navbar_item">
+                Việc làm
+              </NavLink>
             </>
           ) : (
             <>
-             <span className="navbar_item"  onClick={() => open()}>
-            Việc làm
-          </span>
+              <span className="navbar_item" onClick={() => open()}>
+                Việc làm
+              </span>
             </>
           )}
           {token ? (

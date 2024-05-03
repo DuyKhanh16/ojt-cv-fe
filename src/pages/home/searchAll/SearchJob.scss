@@ -1,0 +1,316 @@
+:root {
+    --primary: rgba(188, 34, 40, 1);
+    --secondary: rgba(0, 0, 0, 1);
+    --white: rgba(255, 255, 255, 1);
+    --gray: rgba(93, 90, 111, 1);
+    --dark-blue: rgba(10, 3, 60, 1);
+    --line-gadient: linear-gradient(
+      rgba(10, 3, 60, 0),
+      rgba(10, 3, 60, 1),
+      rgba(10, 3, 60, 0)
+    );
+    --fuiMegamenu-text: #2c2f32;
+    --fuiMegamenu-primary: #1dc071;
+    --body-color: #e4e9f7;
+    --sidebar-color: #fff;
+    --fui-sidebar-primary-color: #1dc071;
+    --fui-sidebar-primary-color-light: #f1fbf7;
+    --toggle-color: #ddd;
+    --text-color: #808191;
+  
+    /* ====== Transition ====== */
+    --tran-03: all 0.3s ease;
+    --tran-03: all 0.3s ease;
+    --tran-04: all 0.3s ease;
+    --tran-05: all 0.7s ease;
+  }
+  html,
+  body {
+    font-family: "Cabin", sans-serif;
+    font-size: 1.4vw;
+    padding: 0;
+    margin: 0;
+    width: 100vw;
+    box-sizing: border-box;
+  }
+  body::-webkit-scrollbar {
+    display: none;
+  }
+  .searchJob__container {
+    width: 100%;
+    height: 100vh;
+    margin-bottom: 2vw;
+    margin-top: 2vw;
+    .searchJob__container__header {
+        width: 100%;
+        margin-left: 100px;
+      height: 56px;
+      display: flex;
+      gap: 1vw;
+      align-items: center;
+      .inputS {
+        width: 18%;
+        height: 100%;
+        display: flex;
+        gap: 1vw;
+        justify-content: center;
+        align-items: center;
+        padding: 0 1vw;
+        box-shadow: 0 10px 40px rgba(0,0,0,.13);
+        border-radius: 6px;
+      }
+      .searchJob__container__header__inputText {
+        .material-symbols-outlined {
+            font-size: 2vw;
+            font-weight: 400;
+            color: rgb(127,135,143);
+        }
+        input {
+            width: 10vw;
+            height: 100%;
+            font-size: 16px;
+            border: none;
+            padding: 5px;
+        }
+      }
+      .searchJob__container__header__selectCity {
+        .material-symbols-outlined {
+            font-size: 2vw;
+            font-weight: 400;
+            color: rgb(127,135,143);
+        }
+        select {
+            width: 10vw;
+            height: 100%;
+            font-size: 16px;
+            border: none;
+            padding: 5px;
+            cursor: pointer;
+            
+        }
+      }
+      .searchJob__container__header__selectLevel {
+        .material-symbols-outlined {
+            font-size: 2vw;
+            font-weight: 400;
+            color: rgb(127,135,143);
+        }
+        select {
+            width: 12vw;
+            height: 100%;
+            font-size: 16px;
+            border: none;
+            padding: 5px;
+            cursor: pointer;
+            option {
+                cursor: pointer;
+            }
+        }
+      }
+      .searchJob__container__header__selectSalary {
+        .material-symbols-outlined {
+            font-size: 2vw;
+            font-weight: 400;
+            color: rgb(127,135,143);
+        }
+        select {
+            width: 10vw;
+            height: 100%;
+            font-size: 16px;
+            border: none;
+            padding: 5px;
+            cursor: pointer;
+            option {
+                cursor: pointer;
+            }
+        } 
+      }
+    
+      .searchJob__container__header__button {
+        width: 14% !important;
+        background-color: var(--primary);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 30px;
+        color: #fff;
+        border-radius: 5px;
+        border: none;
+        cursor: pointer;
+        user-select: none;
+        position: relative;
+        isolation: isolate;
+        overflow: hidden;
+
+        &:hover::before {
+          left: auto;
+          right: 0;
+          width: 100%;
+        }
+
+        &::before {
+          content: "";
+          position: absolute;
+          left: 0;
+          right: auto;
+          top: 0;
+          height: 100%;
+          width: 0;
+          background-color: #fff;
+          opacity: 0.1;
+          z-index: -1;
+          transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+      }
+    }
+    .searchJob__container__body {
+        width: 100%;
+        height: auto;
+        margin-left: 30px;
+        .searchJob__outStandingJob {
+            width: 100%;
+            // height: 1050px;
+            padding: 48px 60px 0 60px;
+            background-color: #fff;
+            .searchJob__outStandingJob--header {
+              width: 100%;
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              .searchJob__outStandingJob--header__title {
+                width: 35%;
+                font-size: 40px;
+                font-weight: 500;
+                line-height: 48px;
+                color: rgba(25, 31, 51, 1);
+              }
+              .searchJob__outStandingJob--header__view {
+                width: 8%;
+                font-size: 16px;
+                font-weight: 600;
+                line-height: 24px;
+                color: var(--primary);
+                cursor: pointer;
+                display: flex;
+                gap: 10px;
+                img {
+                  width: 24px;
+                  height: 24px;
+                }
+              }
+            }
+            .searchJob__outStandingJob--listJob {
+              width: 100%;
+              margin-top: 50px;
+              display: grid;
+              grid-template-columns: repeat(3, 1fr);
+              grid-gap: 24px;
+              .searchJob__outStandingJob--listJob__item {
+                width: 100%;
+                height: 170px;
+                border: 1px solid rgba(228, 229, 232, 1);
+                border-radius: 8px;
+                padding: 20px;
+                box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+                  transition: transform 0.3s ease-in-out;
+                  cursor: pointer;
+                .searchJob__outStandingJob--listJob__item--top {
+                  width: 100%;
+                  height: 54px;
+                  .searchJob__outStandingJob--listJob__item--top__name {
+                    width: 100%;
+                    font-size: 18px;
+                    font-weight: 500;
+                    line-height: 28px;
+                    color: rgba(24, 25, 28, 1);
+                  }
+                  .searchJob__outStandingJob--listJob__item--top__salary {
+                    width: 100%;
+                    display: flex;
+                    gap: 8px;
+                    .searchJob__outStandingJob--listJob__item--top__salary__text {
+                      width: 60px;
+                      height: 20px;
+                      background-color: rgba(231, 246, 234, 1);
+                      border-radius: 3px;
+                      display: flex;
+                      justify-content: center;
+                      p {
+                        font-size: 12px;
+                        font-weight: 600;
+                        line-height: 20px;
+                        color: rgba(11, 160, 44, 1);
+                      }
+                    }
+                    .text2{
+                      background-color: rgba(255, 166, 0, 0.514) !important;
+                    }
+                    .searchJob__outStandingJob--listJob__item--top__salary__price {
+                      font-size: 14px;
+                      font-weight: 400;
+                      line-height: 20px;
+                      color: rgba(118, 127, 140, 1);
+                    }
+                  }
+                }
+                .searchJob__outStandingJob--listJob__item--bottom {
+                  width: 100%;
+                  height: 48px;
+                  display: flex;
+                  justify-content: space-between;
+                  align-items: center;
+                  margin-top: 20px;
+                  .searchJob__outStandingJob--listJob__item--bottom--left {
+                    display: flex;
+                    gap: 12px;
+                    .searchJob__outStandingJob--listJob__item--bottom__logo {
+                      width: 48px;
+                      height: 48px;
+                      background-color: rgba(237, 239, 245, 1);
+                      // padding: 12px;
+                      border-radius: 4px;
+                      overflow: hidden;
+                      margin-top: 0.3rem;
+                      img {
+                        width: 48px;
+                        height: 48px;
+                      }
+                    }
+                    .searchJob__outStandingJob--listJob__item--bottom__nameLogo {
+                      .searchJob__outStandingJob--listJob__item--bottom__nameLogo__text {
+                        font-size: 16px;
+                        font-weight: 500;
+                        line-height: 24px;
+                        color: rgba(24, 25, 28, 1);
+                      }
+                      .searchJob__outStandingJob--listJob__item--bottom__nameLogo__location {
+                        display: flex;
+                        gap: 5px;
+                        img {
+                          width: 18px;
+                          height: 18px;
+                        }
+                        p {
+                          font-size: 14px;
+                          font-weight: 400;
+                          line-height: 24px;
+                        }
+                      }
+                    }
+                  }
+                  .searchJob__outStandingJob--listJob__item--bottom__bookmark {
+                    width: 24px;
+                    height: 24px;
+                  }
+                }
+              }
+              .searchJob__outStandingJob--listJob__item:hover {
+                border: 2px solid #0ab305;
+                transform: scale(1.05);
+              }
+            }
+          }
+    }
+  }

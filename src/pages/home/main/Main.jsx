@@ -21,53 +21,135 @@ import FormSearch from "../../../components/formSearch/FormSearch";
 import { notification } from "antd";
 import publicAxios from "../../../config/pulic.axios";
 import { Outlet, useNavigate } from "react-router";
+import CheckLogin from "../../../components/confirm/CheckLogin";
+import axios from "axios";
+import privateAxios from "../../../config/private.axios";
+import { candidateGetAll } from "../../../apis/candidates";
+import { jobGetLiveJobs, jobGetNewJobs } from "../../../apis/jobs";
+;
 
 export default function Main() {
   const [allCompany, setAllCompany] = useState([]);
   const [allLiveJob, setLiveJob] = useState([]);
   const [allNewJob, setNewJob] = useState([]);
   const [allCandidate, setAllCandidate] = useState([]);
+  const [salary, setSalary] = useState([]);
+  const [jobOutStanding, setJobOutStanding] = useState([]);
+  const [companyOutStanding, setCompanyOutStanding] = useState([]);
+  const [candidateOutStanding, setCandidateOutStanding] = useState([]);
   const navigate = useNavigate();
+  // check token
+  const role1 = JSON.parse(localStorage.getItem("role"));
+  const token = localStorage.getItem("token") || null;
+  const [isOpen, setIsOpen] = useState(false);
+  const [flag, setflag] = useState(false);
+  const [lisJobSave, setLisJobSave] = useState([]);
+  const [chekSave, setChekSave] = useState(true);
+  const open = () => {
+    setIsOpen(!isOpen);
+  };
+
   const getAllCompany = async () => {
     try {
       const res = await publicAxios.get("/api/v2/companies/getAll");
       setAllCompany(res.data.data);
     } catch (error) {
-      console.log(error);
+      return error;
     }
   };
+
+  const getCompanyOutStanding = async () => {
+    try {
+      setCompanyOutStanding(allCompany.slice(0,6));
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   const getAllLiveJob = async () => {
     try {
-      const res = await publicAxios.get("/api/v2/jobs/getLiveJobs");
-      setLiveJob(res.data.data);
+      const res = await jobGetLiveJobs();
+      setLiveJob(res.data);
+    } catch (error) {
+      return error;
+    }
+  };
+
+  const getJobOutStanding = async () => {
+    try {
+      setJobOutStanding(allLiveJob.slice(0,6));
     } catch (error) {
       console.log(error);
     }
-  };
+  }
+  
+
   const getAllNewJob = async () => {
     try {
-      const res = await publicAxios.get("/api/v2/jobs/getNewJobs");
-      setNewJob(res.data.data);
+      const res = await jobGetNewJobs();
+      setNewJob(res.data);
     } catch (error) {
-      console.log(error);
+      return error;
     }
   };
+
   const getAllCandidate = async () => {
     try {
-      const res = await publicAxios.get("/api/v2/candidates/getAll");
-      setAllCandidate(res.data.data);
+      const res = await candidateGetAll();
+      setAllCandidate(res.data);
+    } catch (error) {
+      return error;
+    }
+  };
+
+  const getCandidateOutStanding = async () => {
+    try {
+      setCandidateOutStanding(allCandidate.slice(0,6));
     } catch (error) {
       console.log(error);
     }
-  };
+  }
+
+  const getListJobSave = async () => {
+    try {
+      const res= await privateAxios.get("api/v2/candidates/getJobSave")
+      console.log(res);
+      setLisJobSave(res.data.data)
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   useEffect(() => {
     getAllCompany();
     getAllLiveJob();
     getAllNewJob();
     getAllCandidate();
-  }, []);
+
+   getListJobSave()
+  }, [flag]);
+  
+  const candidateSaveJob =async(id)=>{
+    setChekSave(false)
+    if(!chekSave) return
+
+    try {
+      await privateAxios.post(`/api/v2/candidates/candidate-save-job/?job_id=${id}`)
+       notification.success({
+        message: "Đã lưu công việc",
+      });
+      setflag(!flag)
+    } catch (error) {
+      console.log(error);
+      notification.error({
+        message: "không thể lưu công việc này 2 lần",
+      });
+    }
+  }
+
   return (
     <>
+      <CheckLogin isOpen={isOpen} close={open}></CheckLogin>
       <div className="main__container">
         <div className="main__introduce">
           <div className="main--searchJob">
@@ -77,9 +159,9 @@ export default function Main() {
                 Tìm kiếm công việc phù hợp với năng lực của bạn cùng chúng tôi
               </h1>
               <p className="main--searchJob--left__text--up">
-                Aliquam vitae turpis in diam convallis finibus in at risus.
-                Nullam <br />
-                in scelerisque leo, eget sollicitudin velit bestibulum.
+                Khám phá danh sách top 30 IT hàng đầu Việt Nam.
+                <br />
+                Hàng ngàn công việc đang chờ bạn ứng tuyển.
               </p>
               <div className="main--searchJob--left__formSearch">
                 <div className="main--searchJob--left__formSearch__input">
@@ -92,7 +174,7 @@ export default function Main() {
                       className="main--searchJob--left__formSearch__input--left__text"
                       name=""
                       id=""
-                      placeholder="Job tittle, Keyword..."
+                      placeholder="Ứng viên, công ty, việc làm..."
                     />
                   </div>
                   <div className="main--searchJob--left__formSearch__input--line"></div>
@@ -104,17 +186,38 @@ export default function Main() {
                       type="text"
                       name=""
                       id=""
-                      placeholder="Your Location"
+                      placeholder="Địa điểm"
                       className="main--searchJob--left__formSearch__input--right__text"
                     />
                   </div>
                 </div>
-                <div className="main--searchJob--left__formSearch__button">
-                  Find Job
+                {token?(
+                  <>
+                  <div
+                  className="main--searchJob--left__formSearch__button"
+                  onClick={() => navigate("/search-all")}
+                >
+                  Tìm kiếm
                 </div>
+                  </>
+                ):
+                (
+                  <>
+                  <div
+                  className="main--searchJob--left__formSearch__button"
+                  onClick={() => open()}
+                >
+                  Tìm kiếm
+                </div>
+                  </>
+                )
+              
+              
+              }
+                
               </div>
               <p className="main--searchJob--left__text--down">
-                Suggestion: Designer, Programing, Digital Marketing, Animation.
+                Từ khóa: thực tập FE, thực tập BE, thực tập UI/UX...
               </p>
             </div>
             <div className="main--searchJob--right">
@@ -131,7 +234,7 @@ export default function Main() {
                   <strong>{allLiveJob.length}</strong>
                 </p>
                 <p className="main--showInformation__liveJob--text__name">
-                  Live Jobs
+                  Công việc đang tuyển
                 </p>
               </div>
             </div>
@@ -144,10 +247,11 @@ export default function Main() {
                   <strong>{allCompany.length}</strong>
                 </p>
                 <p className="main--showInformation__companies--text__name">
-                  Companies
+                  Công ty
                 </p>
               </div>
             </div>
+            
             <div className="main--showInformation__candicates">
               <div className="main--showInformation__candicates--icon">
                 <img src={users} alt="" />
@@ -157,7 +261,7 @@ export default function Main() {
                   <strong>{allCandidate.length}</strong>
                 </p>
                 <p className="main--showInformation__candicates--text__name">
-                  Candicates
+                  Ứng viên
                 </p>
               </div>
             </div>
@@ -170,64 +274,122 @@ export default function Main() {
                   <strong>{allNewJob.length}</strong>
                 </p>
                 <p className="main--showInformation__newJobs--text__name">
-                  New Jobs
+                  Công việc đã đăng
                 </p>
               </div>
             </div>
           </div>
         </div>
+
         <div className="main__outStandingJob">
           <div className="main__outStandingJob--header">
             <span className="main__outStandingJob--header__title">
               Công việc nổi bật
             </span>
-            <div className="main__outStandingJob--header__view" onClick={()=> navigate("/candidate/jobList")}>
+            <div
+              className="main__outStandingJob--header__view"
+              onClick={() => navigate("/candidate/job-list")}
+            >
               <p>Xem thêm</p>
               <img src={arrow} alt="" />
             </div>
           </div>
           <div className="main__outStandingJob--listJob">
-            {allLiveJob.map((item) => (
-              <div
-                className="main__outStandingJob--listJob__item"
-                key={item.id}
-              >
-                <div className="main__outStandingJob--listJob__item--top">
-                  <span className="main__outStandingJob--listJob__item--top__name">
-                    {item.title}
-                  </span>
-                  <div className="main__outStandingJob--listJob__item--top__salary">
-                    <div className="main__outStandingJob--listJob__item--top__salary__text">
-                      <p>{item.description}</p>
+            {token ? (
+              <>
+                {allLiveJob?.map((item) => (
+                  <div
+                    className="main__outStandingJob--listJob__item"
+                    key={item.id}
+                   
+                  >
+                    <div className="main__outStandingJob--listJob__item--top">
+                      <span  onClick={() => navigate(`/candidate/jobdetail/${item.id}`)}   className="main__outStandingJob--listJob__item--top__name">
+                        {item.title}
+                      </span>
+                      <div className="main__outStandingJob--listJob__item--top__salary">
+                        <div className="main__outStandingJob--listJob__item--top__salary__text">
+                          <p>{item?.types_jobs[0].typejob.name}</p>
+                        </div>
+                        <span className="main__outStandingJob--listJob__item--top__salary__price">
+                          {item?.salary_jobs[0]?.salary.name}
+                        </span>
+                      </div>
                     </div>
-                    <span className="main__outStandingJob--listJob__item--top__salary__price">
-                      {item.salary}
-                    </span>
+                    <div className="main__outStandingJob--listJob__item--bottom">
+                      <div className="main__outStandingJob--listJob__item--bottom--left">
+                        <div className="main__outStandingJob--listJob__item--bottom__logo">
+                          <img src={item?.company.logo} alt="" />
+                        </div>
+                        <div className="main__outStandingJob--listJob__item--bottom__nameLogo">
+                          <p className="main__outStandingJob--listJob__item--bottom__nameLogo__text">
+                            {item?.company.name}
+                          </p>
+                          <div className="main__outStandingJob--listJob__item--bottom__nameLogo__location">
+                            <img src={MapPin} alt="" />
+                            <p>{item?.address_company.address}</p>
+                          </div>
+                        </div>
+                      </div>
+                     {lisJobSave.findIndex((job) => job.job.id === item.id) !== -1  ?  <div  className="main__outStandingJob--listJob__item--bottom__bookmark">
+                      <i style={{color:"gold"}} class="fa-solid fa-bookmark"></i>
+                      </div>: <div  onClick={() => candidateSaveJob(item.id)} className="main__outStandingJob--listJob__item--bottom__bookmark">
+                      <i style={{opacity:"0.5"}} class="fa-solid fa-bookmark"></i>
+                      </div>
+                       
+                     }
+                    </div>
                   </div>
-                </div>
-                <div className="main__outStandingJob--listJob__item--bottom">
-                  <div className="main__outStandingJob--listJob__item--bottom--left">
-                    <div className="main__outStandingJob--listJob__item--bottom__logo">
-                      <img src={LogoG} alt="" />
+                ))}
+              </>
+            ) : (
+              <>
+                {allLiveJob?.map((item) => (
+                  <div
+                    className="main__outStandingJob--listJob__item"
+                    key={item.id}
+                    onClick={() => open()}
+                  >
+                    <div className="main__outStandingJob--listJob__item--top">
+                      <span className="main__outStandingJob--listJob__item--top__name">
+                        {item.title}
+                      </span>
+                      <div className="main__outStandingJob--listJob__item--top__salary">
+                        <div className="main__outStandingJob--listJob__item--top__salary__text">
+                          <p>{item?.types_jobs[0].typejob.name}</p>
+                        </div>
+                        <span className="main__outStandingJob--listJob__item--top__salary__price">
+                        {item?.salary_jobs[0]?.salary.name}
+
+                        </span>
+                      </div>
                     </div>
-                    <div className="main__outStandingJob--listJob__item--bottom__nameLogo">
-                      <p className="main__outStandingJob--listJob__item--bottom__nameLogo__text">
-                        Google Inc.
-                      </p>
-                      <div className="main__outStandingJob--listJob__item--bottom__nameLogo__location">
-                        <img src={MapPin} alt="" />
-                        <p>Dhaka, Bangladesh</p>
+                    <div className="main__outStandingJob--listJob__item--bottom">
+                      <div className="main__outStandingJob--listJob__item--bottom--left">
+                        <div className="main__outStandingJob--listJob__item--bottom__logo">
+                          <img src={item?.company.logo} alt="" />
+                        </div>
+                        <div className="main__outStandingJob--listJob__item--bottom__nameLogo">
+                          <p className="main__outStandingJob--listJob__item--bottom__nameLogo__text">
+                            {item?.company.name}
+                          </p>
+                          <div className="main__outStandingJob--listJob__item--bottom__nameLogo__location">
+                            <img src={MapPin} alt="" />
+                            <p>{item?.address_company.address}</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="main__outStandingJob--listJob__item--bottom__bookmark">
+                      <i class="fa-regular fa-bookmark"></i>
                       </div>
                     </div>
                   </div>
-                  <div className="main__outStandingJob--listJob__item--bottom__bookmark">
-                    <img src={BookmarkSimple} alt="" />
-                  </div>
-                </div>
-              </div>
-            ))}
+                ))}
+              </>
+            )}
           </div>
         </div>
+
         <div className="main__outStandingCandidate">
           <div className="main__outStandingCandidate--header">
             <span className="main__outStandingCandidate--header__title">
@@ -239,63 +401,140 @@ export default function Main() {
             </div>
           </div>
           <div className="main__outStandingCandidate--listCandidate">
-            {allCandidate.map((item) => (
-              <div
-                className="main__outStandingCandidate--listCandidate__item"
-                key={item.id}
-              >
-                <div className="main__outStandingCandidate--listCandidate__item__information">
-                  <div className="main__outStandingCandidate--listCandidate__item__information--left">
-                    <div className="main__outStandingCandidate--listCandidate__item__information--left__avatar"></div>
-                    <div className="main__outStandingCandidate--listCandidate__item__information--left__name">
-                      <div className="main__outStandingCandidate--listCandidate__item__information--left__name--top">
-                        {item.name}
-                      </div>
-                      <div className="main__outStandingCandidate--listCandidate__item__information--left__name--bottom">
-                        <div className="main__outStandingCandidate--listCandidate__item__information--left__name--bottom__left">
-                          Front end
+            {token ? (
+              <>
+                {allCandidate?.map((item) => (
+                  <div
+                    className="main__outStandingCandidate--listCandidate__item"
+                    onClick={() =>
+                      navigate(`/candidate/candidate-outstanding/${item.id}`)
+                    }
+                    key={item.id}
+                  >
+                    <div className="main__outStandingCandidate--listCandidate__item__information">
+                      <div className="main__outStandingCandidate--listCandidate__item__information--left">
+                        <div className="main__outStandingCandidate--listCandidate__item__information--left__avatar">
+                          <img src={item?.avatar} alt="" />
                         </div>
-                        <div className="main__outStandingCandidate--listCandidate__item__information--left__name--bottom__right">
-                          Fresher
+                        <div className="main__outStandingCandidate--listCandidate__item__information--left__name">
+                          <div className="main__outStandingCandidate--listCandidate__item__information--left__name--top">
+                            {item.name}
+                          </div>
+                          <div className="main__outStandingCandidate--listCandidate__item__information--left__name--bottom">
+                            <div className="main__outStandingCandidate--listCandidate__item__information--left__name--bottom__left">
+                              {item?.position}
+                            </div>
+                        
+                          </div>
+                        </div>
+                      </div>
+                      <div className="main__outStandingCandidate--listCandidate__item__information--right">
+                        <img src={arrow} alt="" />
+                      </div>
+                    </div>
+                    <div className="main__outStandingCandidate--listCandidate__item__technical">
+                      <div className="main__outStandingCandidate--listCandidate__item__technical__title">
+                        Kĩ năng lập trình:
+                      </div>
+                      <div className="main__outStandingCandidate--listCandidate__item__technical__list">
+                        {
+                          item?.skills_candidate?.map((item) => (
+                            <div className="main__outStandingCandidate--listCandidate__item__technical__list__item" key={item.id}>
+                            {item.name}
+                          </div>
+                          ))
+                        }
+                        
+                        
+                      </div>
+                    </div>
+                    <div className="main__outStandingCandidate--listCandidate__item__language">
+                      <div className="main__outStandingCandidate--listCandidate__item__language__title">
+                        Ngoại ngữ:
+                      </div>
+                      <div className="main__outStandingCandidate--listCandidate__item__language__list">
+                        <div className="main__outStandingCandidate--listCandidate__item__language__list__item">
+                          {item?.certificate_candidate[0].name}
                         </div>
                       </div>
                     </div>
-                  </div>
-                  <div className="main__outStandingCandidate--listCandidate__item__information--right">
-                    <img src={arrow} alt="" />
-                  </div>
-                </div>
-                <div className="main__outStandingCandidate--listCandidate__item__technical">
-                  <div className="main__outStandingCandidate--listCandidate__item__technical__title">
-                    Technical in use:
-                  </div>
-                  <div className="main__outStandingCandidate--listCandidate__item__technical__list">
-                    <div className="main__outStandingCandidate--listCandidate__item__technical__list__item">
-                      ReactJS
-                    </div>
-                    <div className="main__outStandingCandidate--listCandidate__item__technical__list__item">
-                      NodeJS
+                    <div className="main__outStandingCandidate--listCandidate__item__local">
+                      <img src={MapPin} alt="" />
+                      <p>{item?.address}</p>
                     </div>
                   </div>
-                </div>
-                <div className="main__outStandingCandidate--listCandidate__item__language">
-                  <div className="main__outStandingCandidate--listCandidate__item__language__title">
-                    Foreign Language:
-                  </div>
-                  <div className="main__outStandingCandidate--listCandidate__item__language__list">
-                    <div className="main__outStandingCandidate--listCandidate__item__language__list__item">
-                      N2
+                ))}
+              </>
+            ) : (
+              <>
+                {allCandidate?.map((item) => (
+                  <div
+                    className="main__outStandingCandidate--listCandidate__item"
+                    onClick={() => open()}
+                    key={item.id}
+                  >
+                    <div className="main__outStandingCandidate--listCandidate__item__information">
+                      <div className="main__outStandingCandidate--listCandidate__item__information--left">
+                        <div className="main__outStandingCandidate--listCandidate__item__information--left__avatar">
+                          <img src={item?.avatar} alt="" />
+                        </div>
+                        <div className="main__outStandingCandidate--listCandidate__item__information--left__name">
+                          <div className="main__outStandingCandidate--listCandidate__item__information--left__name--top">
+                            {item.name}
+                          </div>
+                          <div className="main__outStandingCandidate--listCandidate__item__information--left__name--bottom">
+                            <div className="main__outStandingCandidate--listCandidate__item__information--left__name--bottom__left">
+                              {item?.position}
+                            </div>
+                            {/* <div className="main__outStandingCandidate--listCandidate__item__information--left__name--bottom__right">
+                              Fresher
+                            </div> */}
+                          </div>
+                        </div>
+                      </div>
+                      <div className="main__outStandingCandidate--listCandidate__item__information--right">
+                        <img src={arrow} alt="" />
+                      </div>
+                    </div>
+                    <div className="main__outStandingCandidate--listCandidate__item__technical">
+                      <div className="main__outStandingCandidate--listCandidate__item__technical__title">
+                        Kĩ năng lập trình:
+                      </div>
+                      <div className="main__outStandingCandidate--listCandidate__item__technical__list">
+                        {
+                          item?.skills_candidate?.map((item) => (
+                            <div className="main__outStandingCandidate--listCandidate__item__technical__list__item" key={item.id}>
+                            {item.name}
+                          </div>
+                          ))
+                        }
+                        
+                        
+                      </div>
+                    </div>
+                    <div className="main__outStandingCandidate--listCandidate__item__language">
+                      <div className="main__outStandingCandidate--listCandidate__item__language__title">
+                        Ngoại ngữ:
+                      </div>
+                      <div className="main__outStandingCandidate--listCandidate__item__language__list">
+                      <div className="main__outStandingCandidate--listCandidate__item__language__list">
+                        <div className="main__outStandingCandidate--listCandidate__item__language__list__item">
+                          {item?.certificate_candidate[0].name}
+                        </div>
+                      </div>
+                      </div>
+                    </div>
+                    <div className="main__outStandingCandidate--listCandidate__item__local">
+                      <img src={MapPin} alt="" />
+                      <p>{item?.address}</p>
                     </div>
                   </div>
-                </div>
-                <div className="main__outStandingCandidate--listCandidate__item__local">
-                  <img src={MapPin} alt="" />
-                  <p>Ha Noi, Viet Nam</p>
-                </div>
-              </div>
-            ))}
+                ))}
+              </>
+            )}
           </div>
         </div>
+
         <div className="main__outStandingCompany">
           <div className="main__outStandingCompany--header">
             <span className="main__outStandingCompany--header__title">
@@ -306,41 +545,83 @@ export default function Main() {
               <img src={arrow} alt="" />
             </div>
           </div>
+          
           <div className="main__outStandingCompany--listCompany">
-            {allCompany.map((item) => (
-              <div
-                className="main__outStandingCompany--listCompany__item"
-                key={item.id}
-              >
-                <div className="main__outStandingCompany--listCompany__item__top">
-                  <div className="main__outStandingCompany--listCompany__item__top--logo">
-                    <img src={global} alt="" />
-                  </div>
-                  <div className="main__outStandingCompany--listCompany__item__top--name">
-                    <div className="main__outStandingCompany--listCompany__item__top--name--top">
-                      <span>{item.name}</span>
-                      <div className="main__outStandingCompany--listCompany__item__top--name--top__featured">
-                        Featured
+            {token ? (
+              <>
+                {allCompany?.map((item) => (
+                  <div
+                    className="main__outStandingCompany--listCompany__item"
+                    key={item.id}
+                    onClick={() =>
+                      navigate(`/candidate/infor-companybycandidate/${item.id}`)
+                    }
+                  >
+                    <div className="main__outStandingCompany--listCompany__item__top">
+                      <div className="main__outStandingCompany--listCompany__item__top--logo">
+                        <img src={item?.logo} alt="" />
+                      </div>
+                      <div className="main__outStandingCompany--listCompany__item__top--name">
+                        <div className="main__outStandingCompany--listCompany__item__top--name--top">
+                          <span>{item.name}</span>
+                          <div className="main__outStandingCompany--listCompany__item__top--name--top__featured">
+                            {item?.typeCompany_id.name}
+                          </div>
+                        </div>
+                        <div className="main__outStandingCompany--listCompany__item__top--name--bottom">
+                          <img src={MapPin} alt="" />
+                          <p className="main__outStandingCompany--listCompany__item__top--name--bottom__location">
+                            {item?.address_company[0].address}
+                          </p>
+                        </div>
                       </div>
                     </div>
-                    <div className="main__outStandingCompany--listCompany__item__top--name--bottom">
-                      <img src={MapPin} alt="" />
-                      <p className="main__outStandingCompany--listCompany__item__top--name--bottom__location">
-                        Dhaka, Bangladesh
-                      </p>
+                    <div className="main__outStandingCompany--listCompany__item__bottom">
+                      Xem thông tin
                     </div>
                   </div>
-                </div>
-                <div className="main__outStandingCompany--listCompany__item__bottom">
-                  Open Position (3)
-                </div>
-              </div>
-            ))}
+                ))}
+              </>
+            ) : (
+              <>
+                {allCompany?.map((item) => (
+                  <div
+                    className="main__outStandingCompany--listCompany__item"
+                    key={item.id}
+                    onClick={() => open()}
+                  >
+                    <div className="main__outStandingCompany--listCompany__item__top">
+                      <div className="main__outStandingCompany--listCompany__item__top--logo">
+                        <img src={item?.logo} alt="" />
+                      </div>
+                      <div className="main__outStandingCompany--listCompany__item__top--name">
+                        <div className="main__outStandingCompany--listCompany__item__top--name--top">
+                          <span>{item.name}</span>
+                          <div className="main__outStandingCompany--listCompany__item__top--name--top__featured">
+                            {item?.typeCompany_id.name}
+                          </div>
+                        </div>
+                        <div className="main__outStandingCompany--listCompany__item__top--name--bottom">
+                          <img src={MapPin} alt="" />
+                          <p className="main__outStandingCompany--listCompany__item__top--name--bottom__location">
+                            {item?.address_company[0].address}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="main__outStandingCompany--listCompany__item__bottom">
+                      Xem thông tin công ty
+                    </div>
+                  </div>
+                ))}
+              </>
+            )}
           </div>
         </div>
+
         <div className="main__comment">
           <div className="main__comment__title">
-            <p>Clients Testimonial</p>
+            <p>Bình luận</p>
           </div>
           <div className="main__comment__allComment">
             <div className="main__comment__allComment__arrowLeft">

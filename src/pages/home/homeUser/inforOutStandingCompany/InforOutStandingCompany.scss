@@ -1,0 +1,14 @@
+body{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body::-webkit-scrollbar {
+  display: none;
+}
+
+
+.user-companyView-info-feature {
+  // margin-right: 4vw;
+  width: 41%;
+}

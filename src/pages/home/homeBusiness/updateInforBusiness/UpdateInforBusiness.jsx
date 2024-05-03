@@ -5,13 +5,20 @@ import Footer from "../../../../components/footer/Footer";
 import map from "../../../../assets/images/map.jpeg";
 import "./updateInfoBusinis.scss";
 import { Button, Modal, notification } from "antd";
+import Mappin from "../../../../assets/images/main/MapPin.png";
+import BookmarkSimple from "../../../../assets/images/main/BookmarkSimple.png";
+import arowright from "../../../../assets/images/main/fi_arrow-right.png";
 import axios from "axios";
 import privateAxios from "../../../../config/private.axios";
 import publicAxios from "../../../../config/pulic.axios";
-import CkEditorComponent from "../../../../config/CkEditorComponent";
 import logo from "../../../../assets/images/main/Software code testing-pana 1.png";
+import { useNavigate } from "react-router";
+import { getJobsForCompanyS, getInforCompany, updateInfoCompany, createAddressCompany, updateAddressCompany, deleteAddressCompany } from "../../../../apis/company/index.js"
+import { getAllTypeCompany } from "../../../../apis/type_company/typecompany.js"
 
 export default function UpdateInforBusiness() {
+  // window.scrollTo(0, 0);
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isModalOpen2, setIsModalOpen2] = useState(false);
   const [flag, SetFlag] = useState(false);
@@ -19,6 +26,7 @@ export default function UpdateInforBusiness() {
   const [preview, setPreview] = useState(undefined);
   const [selectedMedia, setSelectedMedia] = useState(null);
   const [errors, setErrors] = useState({});
+  const [listjobs, setListJobs] = useState([]);
 
   // api tỉnh
 
@@ -30,6 +38,8 @@ export default function UpdateInforBusiness() {
   const [district, setDistrict] = useState("");
   const [ward, setWard] = useState("");
   const [address, setAddress] = useState("");
+  const [edit, setEdit] = useState(false)
+  const [idaddress, setidaddress] = useState()
   // console.log(address)
 
   const [infoCompany, setInfoCompany] = useState({});
@@ -62,50 +72,68 @@ export default function UpdateInforBusiness() {
     policy: "",
   });
 
+
+  const navigate = useNavigate();
+  const role = JSON.parse(localStorage.getItem("role"));
   // lấy thông tin company
-  const getinfoCompany = () => {
-    const res2 = privateAxios.get("api/v2/companies/getInfor");
-    res2.then((res) => {
-      console.log(res)
-      setInfoCompany(res.data.data);
-      const companyData = res.data.data;
-      // console.log(companyData,"dữ liệu");
+  const getinfoCompany = async () => {
+    try {
+      const res = await getInforCompany()
+      setInfoCompany(res.data);
+      setListBrand(res.data.address_company);
       setUpdateCompany({
-        // Giữ lại các giá trị hiện tại của updateCompany
-        name: companyData?.name,
-        size: companyData?.size,
-        link_facebook: companyData?.link_facebook,
-        website: companyData?.website,
-        description: companyData?.description,
-        email: companyData?.account_company_id.email,
-        phone: companyData?.phone,
-        photo: companyData?.logo,
-        typeCompany_id: companyData?.typeCompany_id.id,
-        policy: companyData?.policy,
+        name: res.data.name,
+        size: res.data.size,
+        link_facebook: res.data.link_facebook,
+        website: res.data.website,
+        description: res.data.description,
+        email: res.data.account_company_id.email,
+        phone: res.data.phone,
+        photo: res.data.logo,
+        typeCompany_id: res.data.typeCompany_id.id,
+        policy: res.data.policy,
       });
-      setListBrand(companyData?.address_company);
-      Settycompany(companyData?.typeCompany_id.name);
-    });
-  };
-  //  lấy các type company
-  const getTypeCompany = () => {
-    const res = publicAxios.get("api/v2/typecompany/all");
-    res.then((res) => {
-      setListTypeCompany(res.data.data);
-    });
+    } catch (error) {
+      console.log(error)
+    }
+
   };
 
+  // lấy các jobs của công ty
+  const getJobsByCompany = () => {
+    const res = getJobsForCompanyS()
+    res.then((res) => {
+      setListJobs(res.data);
+    });
+  }
+
+  //  lấy các type company
+  const getTypeCompany = () => {
+    try {
+      const res = getAllTypeCompany()
+      res.then((res) => {
+        console.log(res)
+        setListTypeCompany(res.data)
+      })
+      
+    } catch (error) {
+      console.log(error)
+    }  
+  };
   useEffect(() => {
     getinfoCompany();
     getTypeCompany();
+    getJobsByCompany();
+    if (role !== 2) {
+      navigate("/candidate")
+    }
   }, [flag]);
-
-  // console.log(listBrand, "123123");
+  
+  // console.log(listTypeCompany)
 
   // api thành phố
   const handleGetDataCity = async () => {
     let data = await axios.get(`https://vapi.vnappmob.com/api/province/`);
-    // console.log(data.data.results);
     setDataCity(data.data.results);
   };
   useEffect(() => {
@@ -147,7 +175,7 @@ export default function UpdateInforBusiness() {
     reader.readAsDataURL(file);
   };
   // viêt các hàm
-  //  hàm validate thêm địa chỉ công ty
+
 
   // modal 1
   const showModal = () => {
@@ -169,15 +197,7 @@ export default function UpdateInforBusiness() {
       errors.phone = "Số điện thoại không được để trống";
       hasError = true;
     }
-    // if (updateCompany.size.trim() === "") {
-    //   errors.size = "Số lượng nhân viên không được để trống";
-    //   hasError = true;
-    // } else if (!/^\d+$/.test(updateCompany.size.trim())) {
-    //   errors.size = "Số lượng nhân viên chỉ được nhập số";
-    //   hasError = true;
-    // }
 
-    // Nếu có lỗi, cập nhật state để hiển thị thông báo lỗi
     if (hasError) {
       setErrorMessages(errors);
       return;
@@ -198,13 +218,8 @@ export default function UpdateInforBusiness() {
         ...updateCompany,
         photo: media,
       };
-      // console.log(media)
-      // console.log(updateCompany1)
       try {
-        const res = await axios.patch(
-          `http://localhost:3000/api/v2/companies/update-info/${infoCompany.id}`,
-          updateCompany1
-        );
+        const res = await updateInfoCompany(infoCompany.id, updateCompany1);
         notification.success({
           message: "Cập nhật thành công",
           duration: 2,
@@ -218,10 +233,7 @@ export default function UpdateInforBusiness() {
       }
     } else {
       try {
-        const res = await axios.patch(
-          `http://localhost:3000/api/v2/companies/update-info/${infoCompany.id}`,
-          updateCompany
-        );
+        const res = await updateInfoCompany(infoCompany.id, updateCompany);
         notification.success({
           message: "Cập nhật thành công",
           duration: 2,
@@ -241,39 +253,65 @@ export default function UpdateInforBusiness() {
   };
 
   // modal 2
-  const showModal2 = () => {
+  const showModal2 = (item) => {
+    // console.log(item);
+    if (item.address === undefined) {
+      setEdit(false)
+
+    }
+    if (item.address) {
+      setEdit(true)
+      setidaddress(item.id)
+    }
+
     setIsModalOpen2(true);
   };
 
   const handleOk2 = async () => {
-    // console.log(address);
-    if (address === "") {
-      notification.error({
-        message: "Hãy điền đủ thông tin",
-        duration: 2,
-      });
-      return;
+    if (!edit) {
+      if (address === "") {
+        notification.error({
+          message: "Hãy điền đủ thông tin",
+          duration: 2,
+        });
+        return;
+      }
+      try {
+        const newAdress = {
+          address: `${address} - ${ward} - ${district} - ${city}`,
+        };
+        const res = createAddressCompany(infoCompany.id, newAdress);
+        notification.success({
+          message: "Thêm Địa chỉ thành công",
+          duration: 2,
+        });
+        setCity("");
+        setDistrict("");
+        setWard("");
+        setAddress("");
+        SetFlag(!flag);
+        setIsModalOpen2(false);
+      } catch (error) {
+        console.log(error);
+      }
     }
-    try {
+    if (edit) {
       const newAdress = {
         address: `${address} - ${ward} - ${district} - ${city}`,
       };
-      const res = await axios.post(
-        `http://localhost:3000/api/v2/companies/create-address/${infoCompany.id}`,
-        newAdress
-      );
+      const res = await updateAddressCompany(idaddress, newAdress);
       notification.success({
-        message: "Thêm Địa chỉ thành công",
+        message: "Cap nhap thanh cong",
         duration: 2,
       });
-      setIsModalOpen2(false);
       setCity("");
       setDistrict("");
       setWard("");
       setAddress("");
       SetFlag(!flag);
-    } catch (error) {
-      console.log(error);
+      setidaddress(null)
+      setEdit(false)
+      setIsModalOpen2(false);
     }
   };
 
@@ -283,16 +321,14 @@ export default function UpdateInforBusiness() {
 
   // xoá 1 địa chỉ  chi nhánh công ty
   const handleDelete = async (item) => {
-    if (item.status === 1) {
+    if (listBrand.length === 1) {
       notification.error({
         message: "Địa điểm đang được sử dụng, vui lòng chọn địa điểm khác",
       });
       return;
     } else {
       try {
-        await axios.delete(
-          `http://localhost:3000/api/v2/companies/delete-address-company/${item.id}`
-        );
+        await deleteAddressCompany(item.id);
         SetFlag(!flag);
         notification.success({
           message: "Đã xóa địa chỉ thành công",
@@ -304,30 +340,69 @@ export default function UpdateInforBusiness() {
       }
     }
   };
+  const description = infoCompany?.description?.split('\n');
+  const policy = infoCompany?.policy?.split('\n');
 
-  // ckeditor
-  const [text, setText] = useState("");
-  const handleTakeValue = (value) => {
-    setText(value);
-  };
-  console.log(infoCompany)
   return (
     <>
-    
-      <div style={{display:(infoCompany?.logo == null || infoCompany.website==null || infoCompany.description==null || infoCompany.size==null ? 'block' : 'none')}} >
-        <div style={{alignItems:"center"}}>
-          <img src={logo}></img>
-          <h3>
-            Chao mung {infoCompany?.name}, Ban hay cap nhat thong tin cua minh
-          </h3>
-          <div className="user-companyView-info-feature">
-          <button onClick={showModal}>Chỉnh sửa</button>
-        </div>
-         
+      <div
+        style={{
+          display:
+            infoCompany?.logo == null ||
+              infoCompany.website == null ||
+              infoCompany.description == null ||
+              infoCompany.size == null
+              ? "block"
+              : "none",
+        }}
+      >
+        <div style={{ alignItems: "center", display: "flex" }}>
+          <div style={{ marginRight: "20px", width: "50vw" }}>
+            {" "}
+            <img
+              style={{ width: "100%", marginRight: "20px" }}
+              src={logo}
+            ></img>
+          </div>
+          <div
+            style={{ textAlign: "center", width: "50vw", marginRight: "20px" }}
+            className="user-companyView-info-feature"
+          >
+            <h4>
+              Chào mừng {infoCompany?.name} đã đến với RikeiEdu, Bạn hãy cập
+              nhật thông tin doanh nghiệp của mình !
+            </h4>
+            <button
+              style={{
+                marginRight: "20px",
+                backgroundColor: "red",
+                border: "none",
+                width: "300px",
+                height: "60px",
+                borderRadius: "5px",
+                fontSize: "20px",
+                color: "white",
+                marginTop: "40px",
+              }}
+              onClick={showModal}
+            >
+              Cập nhật
+            </button>
+          </div>
         </div>
       </div>
-      
-      <div style={{display:(infoCompany?.logo == null || infoCompany.website==null || infoCompany.description==null || infoCompany.size==null ? 'none' : 'block')}} >
+
+      <div
+        style={{
+          display:
+            infoCompany?.logo == null ||
+              infoCompany.website == null ||
+              infoCompany.description == null ||
+              infoCompany.size == null
+              ? "none"
+              : "block",
+        }}
+      >
         <div className="user-ListJob-title">
           <p>
             <span>Trang chủ / Thông tin doanh nghiệp /</span> Doanh nghiệp của
@@ -336,7 +411,7 @@ export default function UpdateInforBusiness() {
         </div>
         <div
           className="user-companyView"
-          style={{ marginBottom: "24px", width: "100vw", padding: "0 7vw" }}
+          style={{ marginBottom: "24px", width: "100vw", padding: "2vw 7vw" }}
         >
           <div className="user-companyView-info">
             <div className="user-companyView-info-company">
@@ -371,22 +446,33 @@ export default function UpdateInforBusiness() {
                     100 người theo dõi
                   </span>
                 </p>
-                <p style={{ marginLeft: "24px" }}>
-                  <span className="user-companyView-info-company-type">
+                <p style={{ marginLeft: "0px" }}>
+                  <span
+                    className="user-companyView-info-company-type"
+                    style={{ textAlign: "center" }}
+                  >
                     {/*   {companyDetail.typeCompany} */}
-                    {typecompany}
+                    Outsource
                   </span>{" "}
-                  <span className="user-companyView-info-company-verified">
-                    verified
-                  </span>
                 </p>
-                <p className="user-companyView-info-company-web">
+                <div
+                  className="user-companyView-info-company-web"
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "10px",
+                    marginLeft: "0px",
+                  }}
+                >
                   {/* {companyDetail.web}  */}
-                  {infoCompany?.website}
-                </p>
+                  <span class="material-symbols-outlined">language</span>
+                  <a style={{ borderBottom: "1px solid black" }}>
+                    {infoCompany?.website}
+                  </a>
+                </div>
               </div>
             </div>
-            <div className="user-companyView-info-feature">
+            <div className="user-companyView-info-feature" style={{ width: "36%" }}>
               <button onClick={showModal}>Chỉnh sửa</button>
             </div>
           </div>
@@ -394,12 +480,12 @@ export default function UpdateInforBusiness() {
           <Modal
             onOk={handleOk2}
             onCancel={handleCancel2}
-            title="Thêm địa chỉ công ty"
+            title={edit === true ? "Sửa địa chỉ" : "Thêm địa chỉ"}
             open={isModalOpen2}
             width={600}
           >
             <div className="company__register-input__address">
-        <label htmlFor="">Địa chỉ công ty</label>
+              <label htmlFor="">Địa chỉ công ty</label>
               <br />
               <div style={{ display: "flex", gap: "10px" }}>
                 <select
@@ -460,7 +546,6 @@ export default function UpdateInforBusiness() {
                   <div className="error">{errors.district}</div>
                 )}
                 {errors.ward && <div className="error">{errors.ward}</div>}
-        
               </div>
               <div style={{ marginTop: "20px" }}>
                 <label style={{ fontSize: "14px" }}>Địa chỉ chi tiết</label>
@@ -472,11 +557,12 @@ export default function UpdateInforBusiness() {
                     height: "40px",
                     border: "1px solid #E7F0FA",
                     borderRadius: "5px",
-            }}
+                  }}
                   type="text"
                 ></input>
-                {errors.address && <div className="error">{errors.address}</div>}
-         
+                {errors.address && (
+                  <div className="error">{errors.address}</div>
+                )}
               </div>
             </div>
           </Modal>
@@ -525,7 +611,7 @@ export default function UpdateInforBusiness() {
                     onChange={handleAddMedia}
                     type="file"
                   ></input>
-                  <img src={preview ? preview : updateCompany.photo}></img>
+                  <img src={preview ? preview : updateCompany.logo}></img>
                 </div>
               </div>
               <div style={{ width: "60%", marginLeft: "-150px" }}>
@@ -538,7 +624,7 @@ export default function UpdateInforBusiness() {
                         email: e.target.value,
                       })
                     }
-                    value={updateCompany.email}
+                    value={updateCompany?.account_company_id?.email}
                     name="email"
                     type="text"
                   ></input>
@@ -554,7 +640,7 @@ export default function UpdateInforBusiness() {
                         ...updateCompany,
                         phone: e.target.value,
                       })
-              }
+                    }
                     value={updateCompany.phone}
                     name="phone"
                     type="text"
@@ -634,7 +720,7 @@ export default function UpdateInforBusiness() {
             <p>Mô tả Doanh nghiệp</p>
             <textarea
               onChange={(e) =>
-          setUpdateCompany({
+                setUpdateCompany({
                   ...updateCompany,
                   description: e.target.value,
                 })
@@ -664,25 +750,29 @@ export default function UpdateInforBusiness() {
           }}
         >
           <div className="user-companyView-describe">
-            <p style={{ fontWeight: "500", fontSize: "18px", color: "black" }}>
+            <p style={{ fontWeight: "500", fontSize: "25px", color: "black" }}>
               Mô tả về công ty{" "}
               <span>
-                <i
-                  style={{ color: "red", marginLeft: "8px" }}
-                  class="fa-regular fa-pen-to-square"
-                ></i>
+
               </span>
-              <CkEditorComponent getValue={handleTakeValue} />
               <div
-                  className="bg-white p-5"
-                  dangerouslySetInnerHTML={{ __html: text }}
-                />
+                className="bg-white p-5"
+              // dangerouslySetInnerHTML={{ __html: text }}
+              />
             </p>
-            {infoCompany?.description}
-            <p style={{ fontWeight: "500", fontSize: "18px", color: "black" }}>
+            <ul style={{ marginTop: "10px", marginLeft: "20px" }}>
+              {description?.map((item, index) => (
+                <li key={index}>{item}</li>
+              ))}
+            </ul>
+            <p style={{ fontWeight: "500", fontSize: "25px", color: "black" }}>
               Chính sách
             </p>
-            {infoCompany?.policy}
+            <ul style={{ marginTop: "10px", marginLeft: "20px" }}>
+              {policy?.map((item, index) => (
+                <li style={{ marginBottom: "10px" }} key={index}>{item}</li>
+              ))}
+            </ul>
             <div
               style={{
                 width: "100%",
@@ -715,10 +805,10 @@ export default function UpdateInforBusiness() {
                     paddingRight: "10px",
                   }}
                 >
-            <i style={{ color: "#BC2228" }} class="fa-solid fa-plus"></i>
+                  <i style={{ color: "#BC2228" }} class="fa-solid fa-plus"></i>
                 </div>
               </div>
-              {listBrand?.map((item) => (
+              {listBrand.map((item) => (
                 <div
                   style={{ display: "flex", alignItems: "center" }}
                   className="container"
@@ -744,6 +834,7 @@ export default function UpdateInforBusiness() {
                         className="far fa-trash-alt"
                       ></i>
                       <i
+                        onClick={() => showModal2(item)}
                         style={{ color: "red", fontSize: "16px" }}
                         className="far fa-pen-to-square"
                       ></i>
@@ -756,8 +847,17 @@ export default function UpdateInforBusiness() {
               <p>
                 <i class="fa-regular fa-map"></i> Xem trên Maps
               </p>
-              <img src={map} alt="" />
-            </div>
+              <iframe
+                title="Google Maps"
+                width="400"
+                height="350"
+                frameborder="0"
+                style={{ border: 0, }}
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7456.362334988663!2d106.68267485!3d20.8647468!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x314a7af131094315%3A0x9a9d9e52c6ccc37b!2zTWluaCBLaGFpLCBI4buTbmcgQsOgbmcsIEjhuqNpIFBow7JuZw!5e0!3m2!1svi!2s!4v1713681761804!5m2!1svi!2s"
+                allowfullscreen=""
+                aria-hidden="false"
+                tabindex="0"
+              ></iframe>            </div>
             <div
               className="user-companyView-orther-social-container"
               style={{
@@ -776,7 +876,7 @@ export default function UpdateInforBusiness() {
                   color: "black",
                 }}
               >
-                chia sẻ thông tin công ty đến mọi người:
+                Chia sẻ thông tin công ty đến mọi người:
               </p>
               <div className="user-companyView-orther-social">
                 <p style={{ width: "150px", height: "40px" }}>
@@ -793,9 +893,56 @@ export default function UpdateInforBusiness() {
                 </p>
                 <p>
                   <i class="fa-regular fa-envelope"></i>
-          </p>
+                </p>
               </div>
             </div>
+          </div>
+        </div>
+        <div style={{ borderTop: "1px solid #E7F0FA", padding: "32px" }}>
+          <div style={{ fontSize: "28px", fontWeight: "500", paddingLeft: "32px" }}>Các job của công ty</div>
+          <div style={{
+            display: "flex", flexWrap: "wrap", gap: "20px",
+            height: "auto", padding: "32px"
+          }}>
+
+            {listjobs.map((item) =>
+              <div
+                onClick={() => navigate(`/company/updatejob/${item.id}`)}
+                style={{
+                  width: "400px",
+                  height: "auto",
+                  border: "2px solid #E7F0FA",
+                  borderRadius: "8px",
+                  padding: "12px",
+                  fontSize: "14px"
+                }}
+                className="main__outStandingJob--listJob__item"
+
+              >
+                <div style={{ display: "flex", gap: "10px" }}>
+                  <div>
+                    <img
+                      style={{ width: "100px", height: "100px" }}
+                      src={item.company.logo}></img></div>
+                  <div>
+                    <div style={{ fontWeight: "500", fontSize: "16px" }}>{item.title}</div>
+                    <div style={{ display: "flex", justifyContent: "space-between" }}>
+                      <div> Công ty {item.company.name}</div>
+                      <div> <img src={arowright}></img></div>
+                    </div>
+                    <div> Thời gian : {item.types_jobs[0].typejob.name}</div>
+
+                    <div style={{ display: "flex", gap: "10px", }}>
+                      <img
+                        style={{ width: "20px", height: "20px" }}
+                        src={Mappin}></img>
+                      <div>{item.address_company.address}</div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            )}
           </div>
         </div>
       </div>

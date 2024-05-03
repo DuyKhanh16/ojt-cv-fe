@@ -3,77 +3,53 @@ import "./formModal.scss";
 import "./Certificate.scss";
 import privateAxios from "../../../config/private.axios";
 import { notification } from "antd";
-function Exp({ isOpenP, close, exp, userE }) {
-  console.log(exp);
-  const [user, setUser] = useState({
-    // company:exp?.company,
-    // position:exp?.position,
-    // start_at:exp?.start_at,
-    // end_at:exp?.end_at,
-    // info:exp?.info,
-  });
-  console.log(user);
+import { useSelector } from "react-redux";
+import {
+  candidateCreateExperience,
+  candidateUpdateExperience,
+} from "../../../apis/candidates";
+function Exp({ isOpenP, close, exp }) {
+  const userExp = useSelector((state) => state.candidate.data);
+  const [user, setUser] = useState({});
+
   useEffect(() => {
-    const getUser = privateAxios.get("api/v2/candidates/getInfor");
-    getUser.then((res) => {
-      console.log("API response data:", res.data.data);
-      setUser({ ...user, candidate_id: res.data.data.id });
-    });
-  }, []);
+    setUser({ ...user, candidate_id: userExp.id });
+  }, [userExp]);
 
   const changeValue = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
-  useEffect(() => {
-    const getUser = privateAxios.get("api/v2/candidates/getInfor");
-    getUser.then((res) => {
-      console.log("API response data:", res.data.data);
-      setUser({ ...user, candidate_id: res.data.data.id });
-    });
-  }, []);
   const updateExp = async () => {
     if (exp.status == "update") {
       try {
-        const update = await privateAxios.patch(
-          `api/v2/candidate/updateExperience/${exp?.item.id}`,
-          user
-        );
+        const update = await candidateUpdateExperience(exp?.item.id, user);
         notification.success({
-          message: update.data.message,
+          message: update.message,
         });
         setUser({});
         close();
       } catch (error) {
         notification.error({
-          message: error.response.data.message,
+          message: error.response.message,
         });
       }
-    } else if (exp.status == "creat") {
+    } else if (exp.status == "create") {
       try {
-        const create = await privateAxios.post(
-          `api/v2/candidate/createExperience`,
-          user
-        );
+        const create = await candidateCreateExperience(user);
         notification.success({
-          message: create.data.message,
+          message: create.message,
         });
         setUser({});
         close();
       } catch (error) {
         notification.error({
-          message: error.response.data.message,
+          message: error.response.message,
         });
       }
     }
   };
   const closeModal = () => {
-    setUser({
-      position: "",
-      company: "",
-      start_at: "",
-      end_at: "",
-      info: "",
-    });
+    setUser({});
     close();
   };
   return (

@@ -3,56 +3,51 @@ import "./formModal.scss";
 import "./Certificate.scss";
 import privateAxios from "../../../config/private.axios";
 import { notification } from "antd";
+import { useSelector } from "react-redux";
+import {
+  candidateCreateCertificate,
+  candidateUpdateCertificate,
+} from "../../../apis/candidates";
 
 function Certificate({ isOpen, close, certificate }) {
-  const [user, setUser] = useState({
-    // name:certificate?.name,
-    // organization:certificate?.organization,
-    // info:certificate?.info,
-    // start_at:certificate?.start_at,
-    // end_at:certificate?.end_at,
-  });
-  console.log(certificate);
+  const [user, setUser] = useState({});
+  const userCerti = useSelector((state) => state.candidate.data);
+
   useEffect(() => {
-    const getUser = privateAxios.get("api/v2/candidates/getInfor");
-    getUser.then((res) => {
-      console.log("API response data:", res.data.data);
-      setUser({ ...user, candidate_id: res.data.data.id });
-    });
-  }, []);
+    setUser({ ...user, candidate_id: userCerti.id });
+  }, [userCerti]);
+
   const changeValue = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
+
   const updateCertificate = async () => {
     if (certificate.status == "update") {
       try {
-        const update = await privateAxios.patch(
-          `api/v2/candidate/updateCertificate/${certificate.item.id}`,
+        const update = await candidateUpdateCertificate(
+          certificate.item.id,
           user
         );
         notification.success({
-          message: update.data.message,
+          message: update.message,
         });
         setUser({});
         close();
       } catch (error) {
         notification.error({
-          message: error.response.data.message,
+          message: error.response.message,
         });
       }
-    } else if (certificate.status == "creat") {
+    } else if (certificate.status == "create") {
       try {
-        const create = await privateAxios.post(
-          `api/v2/candidate/createCertificate`,
-          user
-        );
+        const create = await candidateCreateCertificate(user);
         notification.success({
-          message: create.data.message,
+          message: create.message,
         });
         close();
       } catch (error) {
         notification.error({
-          message: error.response.data.message,
+          message: error.response.message,
         });
       }
     }

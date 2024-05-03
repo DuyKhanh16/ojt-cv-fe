@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./AdminChart.scss";
 import Logo from "./../../../../assets/images/main/briefcase-duotone 1.png";
 import company from "./../../../../assets/images/main/buildings-duotone 1.png";
@@ -14,7 +14,9 @@ import {
   Legend,
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
-import { Doughnut } from 'react-chartjs-2'; 
+import { Doughnut } from "react-chartjs-2";
+import publicAxios from "../../../../config/pulic.axios";
+import { useNavigate } from "react-router";
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -25,13 +27,72 @@ ChartJS.register(
   Legend
 );
 export default function AdminChart() {
+  window.scrollTo(0, 0);
+  const [allCompany, setAllCompany] = useState([]);
+  const [allLiveJob, setLiveJob] = useState([]);
+  const [allNewJob, setNewJob] = useState([]);
+  const [allCandidate, setAllCandidate] = useState([]);
+  const role = JSON.parse(localStorage.getItem("role"));
+  const token1 = JSON.parse(localStorage.getItem("token"));
+  const navigate = useNavigate();
+
+  const getAllCompany = async () => {
+    try {
+      const res = await publicAxios.get("/api/v2/companies/getAll");
+      setAllCompany(res.data.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const getAllLiveJob = async () => {
+    try {
+      const res = await publicAxios.get("/api/v2/jobs/getLiveJobs");
+      setLiveJob(res.data.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const getAllNewJob = async () => {
+    try {
+      const res = await publicAxios.get("/api/v2/jobs/getNewJobs");
+      setNewJob(res.data.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const getAllCandidate = async () => {
+    try {
+      const res = await publicAxios.get("/api/v2/candidates/getAll");
+      console.log(res.data.data);
+      setAllCandidate(res.data.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    getAllCompany();
+    getAllLiveJob();
+    getAllNewJob();
+    getAllCandidate();
+    if(!token1){
+      navigate("/login");
+    }
+    if(role == 1){
+      navigate("/candidate");
+    }
+    if(role == 2){
+      navigate("/company");
+    }
+  }, []);
+
+
   // data lấy dữ liệu về hiển thị
   const data1 = {
     labels: ["Candidate", "Company", "Jobs"],
     datasets: [
       {
         label: "Tổng ",
-        data: [100, 50, 123],
+        data: [allCandidate.length, allCompany.length, allNewJob.length],
         backgroundColor: "#E80505",
         borderColor: "rgba(255, 99, 132, 1)",
         borderWidth: 1,
@@ -73,41 +134,34 @@ export default function AdminChart() {
     },
   };
 
-//   phâdng biểu đồ 2   
-const data = {
-    labels: ['Có việc', 'Đang chờ việc', 'Đã chuyển nghề',],
+  //   phân biểu đồ 2
+  const data = {
+    labels: ["Có việc", "Đang chờ việc", "Đã chuyển nghề"],
     datasets: [
       {
-        label: 'học viên',
+        label: "học viên",
         data: [12, 19, 3],
-        backgroundColor: [
-            "#FBAB7E",
-          '#85FFBD',
-          '#F4D03F',
-          
-        ],
-                
+        backgroundColor: ["#FBAB7E", "#85FFBD", "#F4D03F"],
+
         borderColor: [
-          'rgba(255, 99, 132, 1)',
-          'rgba(54, 162, 235, 1)',
-          'rgba(255, 206, 86, 1)',
-         
+          "rgba(255, 99, 132, 1)",
+          "rgba(54, 162, 235, 1)",
+          "rgba(255, 206, 86, 1)",
         ],
         borderWidth: 1,
       },
     ],
   };
 
-
   const options = {
     responsive: true,
     plugins: {
       legend: {
-        position: 'top',
-      },    
+        position: "top",
+      },
       title: {
         display: true,
-        text: 'Tổng số học viên',
+        text: "Tổng số học viên",
         font: {
           size: 20,
         },
@@ -122,14 +176,14 @@ const data = {
   return (
     <div className="adminChart">
       {/* content */}
-      <div 
-      style={{
-        display: "flex",
-        gap: "10px",
-      paddingBottom: "20px",
-      }}
-      className="adminChart__header">
-     
+      <div
+        style={{
+          display: "flex",
+          gap: "10px",
+          paddingBottom: "20px",
+        }}
+        className="adminChart__header"
+      >
         <p>Dashboard</p>
       </div>
       <div className="adminChart__content">
@@ -138,7 +192,7 @@ const data = {
             <img src={Logo}></img>
           </div>
           <div className="adminChart__content__Candicates__text">
-            <strong>12345</strong>
+            <strong>{allLiveJob.length}</strong>
             <p>Live Jobs</p>
           </div>
         </div>
@@ -147,7 +201,7 @@ const data = {
             <img style={{ backgroundColor: "#BC2228" }} src={company}></img>
           </div>
           <div className="adminChart__content__Candicates__text">
-            <strong>12345</strong>
+            <strong>{allCompany.length}</strong>
             <p>Company</p>
           </div>
         </div>
@@ -156,7 +210,7 @@ const data = {
             <img src={user}></img>
           </div>
           <div className="adminChart__content__Candicates__text">
-            <strong>12345</strong>
+            <strong>{allCandidate.length}</strong>
             <p>Candicates</p>
           </div>
         </div>{" "}
@@ -165,7 +219,7 @@ const data = {
             <img src={Logo}></img>
           </div>
           <div className="adminChart__content__Candicates__text">
-            <strong>12345</strong>
+            <strong>{allNewJob.length}</strong>
             <p>New Jobs</p>
           </div>
         </div>
@@ -193,10 +247,18 @@ const data = {
           {" "}
           <Bar options={options1} data={data1} />
         </div>
-        <div style={{ width: "35%" ,  backgroundColor: "white",
-        height: "100%",
-        padding: "20px",
-        borderRadius: "10px",   }}> <Doughnut data={data} options={options} /></div>
+        <div
+          style={{
+            width: "35%",
+            backgroundColor: "white",
+            height: "100%",
+            padding: "20px",
+            borderRadius: "10px",
+          }}
+        >
+          {" "}
+          <Doughnut data={data} options={options} />
+        </div>
       </div>
     </div>
   );
