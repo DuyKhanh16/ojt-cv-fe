@@ -21,11 +21,19 @@ function Education({ isOpen, close, edu }) {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
   const updateEducatrion = async () => {
+    let start_at = new Date(user.start_at).getTime();
+    let end_at = new Date(user.end_at).getTime();
+    if (start_at > end_at) {
+      notification.error({
+        message: "Ngày bắt đầu phải nhỏ hơn ngày kết thúc",
+      });
+      return;
+    }
     if (edu.status == "update") {
       try {
         const update = await candidateUpdateEducation(edu.item.id, user);
         notification.success({
-          message: update.message,
+          message: "Cập nhật thành công",
         });
         setUser({});
       } catch (error) {

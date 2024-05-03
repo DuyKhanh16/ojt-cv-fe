@@ -13,7 +13,9 @@ import {
   API_JOB_CREATE_BYID,
   API_JOB_EDIT_BYID,
   API_JOB_DELETE_BYID,
-  API_JOB_GETJOBFORCOMPANY
+  API_JOB_GETJOBFORCOMPANY,
+  API_JOB_PANIGATION,
+  API_JOB_FIRSTPANIGATION
 
 } from "../patchApi";
 
@@ -146,6 +148,7 @@ export const deleteJobs = async (id) => {
   }
 }
 
+
 // lấy tất cả công việc của công ty
 export const getJobsForCompany = async (status) => {
   console.log(status)
@@ -156,3 +159,22 @@ export const getJobsForCompany = async (status) => {
     console.log(error)
   }
 }
+//phan trang
+export const firstPagination = async () => {
+  try {
+    const response = await privateAxios.get(API_JOB_FIRSTPANIGATION);
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+}
+
+export const pagination = async (number) => {
+    try {
+      const response = await privateAxios.get(`${API_JOB_PANIGATION}?page=${number}`);
+      return response.data;
+    } catch (error) {
+      return error;
+    }
+}
+

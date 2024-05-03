@@ -22,6 +22,14 @@ function Certificate({ isOpen, close, certificate }) {
   };
 
   const updateCertificate = async () => {
+    let start_at = new Date(user.start_at).getTime();
+    let end_at = new Date(user.end_at).getTime();
+    if (start_at > end_at) {
+      notification.error({
+        message: "Ngày bắt đầu phải nhỏ hơn ngày kết thúc",
+      });
+      return;
+    }
     if (certificate.status == "update") {
       try {
         const update = await candidateUpdateCertificate(
@@ -29,7 +37,7 @@ function Certificate({ isOpen, close, certificate }) {
           user
         );
         notification.success({
-          message: update.message,
+          message: "Cập nhật thông tin thành công",
         });
         setUser({});
         close();

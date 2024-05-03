@@ -159,8 +159,6 @@ export default function SearchJob() {
               className="searchJob__outStandingJob--header__view"
               onClick={() => navigate("/candidate/job-list")}
             >
-              <p>Xem thêm</p>
-              <img src={arrow} alt="" />
             </div>
           </div>
           <div className="searchJob__outStandingJob--listJob">
@@ -172,7 +170,9 @@ export default function SearchJob() {
               >
                 <div className="searchJob__outStandingJob--listJob__item--top">
                   <span className="searchJob__outStandingJob--listJob__item--top__name">
+                    <p>
                     {item?.title}
+                    </p>
                   </span>
                   <div className="searchJob__outStandingJob--listJob__item--top__salary">
                     <div className="searchJob__outStandingJob--listJob__item--top__salary__text">

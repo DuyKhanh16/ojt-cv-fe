@@ -444,13 +444,17 @@ export default function InformationUserB() {
             <div className="informationUser__contain__right__infor">
               <div
                 style={{
-                  width: "80px",
-                  height: "80px",
+                  width: "8vw",
+                  height: "8vw",
                   borderRadius: "50%",
                   overflow: "hidden",
                 }}
               >
-                <img src={user?.avatar} alt="" width={80} height={80} />
+                <img
+                  src={user?.avatar}
+                  alt=""
+                  style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                />
               </div>
 
               <div className="informationUser__infor">
@@ -463,7 +467,7 @@ export default function InformationUserB() {
                     color: "#767F8C",
                   }}
                 >
-                  Full-stack Developer
+                  {user?.position}
                 </p>
                 <div className="informationUser__infor__list">
                   <div>
@@ -482,7 +486,7 @@ export default function InformationUserB() {
                     </p>
                     <p>
                       <span>
-                        <img src={location} alt="" />
+                        <img src={location} style={{ width: "1vw" }} alt="" />
                       </span>
                       {user?.address ? user?.address : "Cập nhật thêm địa chỉ"}
                     </p>
@@ -491,7 +495,7 @@ export default function InformationUserB() {
                   <div>
                     <p>
                       <span>
-                        <img src={phone} alt="" />
+                        <img src={phone} style={{ width: "0.8vw" }} alt="" />
                       </span>
                       {user?.phone
                         ? user?.phone
@@ -505,7 +509,7 @@ export default function InformationUserB() {
                     </p>
                     <p>
                       <span>
-                        <img src={world} alt="" />
+                        <img src={world} style={{ width: "2vw" }} alt="" />
                       </span>
                       {user?.link_git
                         ? user?.link_git
@@ -514,7 +518,14 @@ export default function InformationUserB() {
                   </div>
                 </div>
               </div>
-              <div style={{ position: "absolute", right: "30px", top: "30px" }}>
+              <div
+                style={{
+                  position: "absolute",
+                  right: "30px",
+                  top: "30px",
+                  cursor: "pointer",
+                }}
+              >
                 <img
                   src={vector2}
                   onClick={() => setOpenUpdateUser(!openUpdateUser)}

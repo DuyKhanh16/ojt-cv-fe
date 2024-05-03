@@ -12,6 +12,8 @@ import { Link, useNavigate } from "react-router-dom";
 import privateAxios from "../../config/private.axios";
 import { getInforCompany } from "../../apis/company/index.js";
 import { candidateGetInfor } from "../../apis/candidates/index.js";
+import { useDispatch, useSelector } from "react-redux";
+import { candidateAsync } from "../../redux/reduce/candidateReduce.js";
 const { Search } = Input;
 const options = [
   {
@@ -71,12 +73,16 @@ export default function FormSearch() {
         className="form__search--popover--logout"
       >
         <MenuFoldOutlined size={40} className="custom-icon" />
-        <p>Đăng xuất</p>
+        <p style={{ cursor: "pointer" }}>Đăng xuất</p>
       </div>
     </div>
   );
   // hàm lấy thông tin người dùng
-
+  const dispatch = useDispatch();
+  const userReducer = useSelector((state) => state.candidate.data);
+  useEffect(() => {
+    dispatch(candidateAsync());
+  }, [dispatch]);
   const getInfo = () => {
     if (token) {
       if (role === 1) {
@@ -157,7 +163,7 @@ export default function FormSearch() {
           </div>
           <div className="form__search--name"></div>
           {token ? (
-            <p>{info?.name}</p>
+            <p>{userReducer?.name}</p>
           ) : (
             <Button className="bnt-1">
               {" "}
