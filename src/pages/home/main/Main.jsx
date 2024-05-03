@@ -65,6 +65,8 @@ export default function Main() {
     }
   };
 
+
+
   const getAllLiveJob = async () => {
     try {
       const res = await jobGetLiveJobs();
@@ -92,6 +94,7 @@ export default function Main() {
     }
   };
 
+
   const getListJobSave = async () => {
     if (token) {
       try {
@@ -104,13 +107,14 @@ export default function Main() {
     }
   };
 
+
   useEffect(() => {
     getAllCompany();
     getAllLiveJob();
     getAllNewJob();
     getAllCandidate();
     caculatePage();
-    getListJobSave();
+    // getListJobSave();
     firstPage();
   }, [flag]);
 

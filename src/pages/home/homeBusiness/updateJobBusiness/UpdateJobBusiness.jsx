@@ -142,6 +142,7 @@ const getlistSalary = async () => {
 
   const handleOk =async () => {
    
+    
     // console.log(id,updatejobs)
     const updatejobsNew = {
       title: updatejobs.title,
@@ -149,12 +150,11 @@ const getlistSalary = async () => {
       requirements: updatejobs.requirements,
       salary: updatejobs.salary,
       expire_at: updatejobs.expire_at,
-      address_company_id: updatejobs.address_company_id,
-      typejob_id: updatejobs.typejob_id,
-      leveljob_id: updatejobs.leveljob_id,
+      address_company_id: updatejobs.address_company_id.toString(),
+      typejob_id: updatejobs.typejob_id.toString(),
+      leveljob_id: updatejobs.leveljob_id.toString(),
       created_at: updatejobs.created_at,
     }
-   
     try {
       const res = await updateJobs(id,updatejobsNew)
       notification.success({
@@ -162,6 +162,8 @@ const getlistSalary = async () => {
         duration: 2,
       });
       setFlag(!flag)
+    getJobsDetails();
+
     } catch (error) {
       console.log(error)
     }

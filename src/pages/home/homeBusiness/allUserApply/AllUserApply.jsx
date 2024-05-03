@@ -6,6 +6,8 @@ import Footer from "../../../../components/footer/Footer";
 import privateAxios from "../../../../config/private.axios";
 import { Button, Modal, notification } from "antd";
 import { useNavigate } from "react-router";
+import {getInforCompany,getJobsForCompanyS} from "../../../../apis/company/index.js"
+import {findCandidates} from "../../../../apis/jobs/index.js"
 
 export default function AllUserApply() {
   window.scrollTo(0, 0);
@@ -18,25 +20,34 @@ export default function AllUserApply() {
   const [idApply, setIdApply] = useState("");
   const [flag, setFlag] = useState(true)
   const [interviewDay,setInterviewDay] = useState("")
+  const [interviewAdress,setInterviewAdress] = useState("")
   const [idcheck,setIdCheck] = useState("")
+  const [info,setInfo] = useState()
+  const [listaddress,setListAddress] = useState([])
+
 
  const role = JSON.parse(localStorage.getItem("role"));
   const navigate = useNavigate();
 
   
   useEffect(() => {
-    const getAllJob = privateAxios.get("api/v2/jobs/getJobsForCompany");
+    const getAllJob = getJobsForCompanyS();
     getAllJob.then((res) => {
-      setAllJob(res.data.data)
+      setAllJob(res.data)
+    })
+    getInforCompany().then((res) =>{
+      setInfo(res.data)
+      setListAddress(res.data.address_company)
     })
    if(role !==2) {
     navigate('/candidate')
    }
   },[flag])
+//  console.log(info.account_company_id.email)
   const findCandidate = async(id)=>{
     setIdCheck(id)
-    const res = await privateAxios.get(`api/v2/jobs/getCandidatesbyIdJob/${id}`)
-    setAllUserApply(res.data.data);
+    const res = await findCandidates(id)
+    setAllUserApply(res.data);
   };
   const displayCV = (link) => {
     setImgCV(link);
@@ -68,7 +79,7 @@ export default function AllUserApply() {
     }
     try {
       const res = await privateAxios.post(
-        `api/v2/jobs/cancelCandidate/${idApply}`
+        `api/v2/jobs/cancelCandidate/${idApply}`,{nameCompany : info.name,}
       );
       setIsModalOpen(false);
       notification.success({
@@ -86,23 +97,36 @@ export default function AllUserApply() {
       setIsModalOpen2(false);
       return;
     }
+    if(interviewDay === "" || interviewAdress === ""){
+      notification.error({
+        message:"Hãy điền đầy đủ thông tin"})
+        return
+      }
     try {
       const res = await privateAxios.post(
         `api/v2/jobs/update-interview-date/${idApply}`,
-        { interview_day: interviewDay }
+        { interview_day: interviewDay,
+        interview_adress: interviewAdress,
+        nameCompany : info.name,
+        emailCompany :info.account_company_id.email
+       }
       );
       setIsModalOpen2(false);
       setIsModalOpen(false);
       notification.success({
         message:"Đặt lịch phỏng vấn cho ứng tuyển thành công"
       })
+      setInterviewDay("")
+      setInterviewAdress("")
       const res1 = await privateAxios.get(`api/v2/jobs/getCandidatesbyIdJob/${idcheck}`)
       setAllUserApply(res1.data.data)
       setFlag(!flag)
+
     } catch (error) {
       console.log(error);
     }
   };
+
   return (
     <>
       <div
@@ -270,12 +294,23 @@ export default function AllUserApply() {
         footer={null}
         style={{ padding: "20px", textAlign: "center" }}
       >
-        <div style={{ height: "100px", paddingTop: "30px" }}>
+        <div style={{ height: "170px", paddingTop: "30px", }}>
           <input
             type="date"
             min={new Date().toISOString().split("T")[0]}
             onChange={(e) => setInterviewDay(e.target.value)}
           />
+          <select
+            onChange={(e) => setInterviewAdress(e.target.value)}
+           style={{ paddingTop: "10px",marginTop: "10px",padingBottom: "10px",
+          width: "100%", height: "35px",border: "1px solid black", borderRadius: "5px" }}>
+          
+            <option value="1">Chọn địa chỉ</option>
+            {listaddress.map((item, index) => {
+              return <option value={item.address}>{item.address}</option>;
+            })}
+          </select>
+          <br></br>
           <Button
             type="primary"
             style={{ margin: "10px", backgroundColor: "red" }}

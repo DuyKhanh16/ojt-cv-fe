@@ -6,15 +6,17 @@ import {
   API_JOB_GETJOBAPPLIEDCANDIDATES_BYID,
   API_JOB_GETLIVEJOB,
   API_JOB_GETNEWJOB,
-
+  API_JOB_GETCANDIDATE_BYIDJOB,
   API_TYPEJOB_GETALL,
   API_LEVELJOB_GETALL,
   API_SALARY_GETALL,
   API_JOB_CREATE_BYID,
   API_JOB_EDIT_BYID,
   API_JOB_DELETE_BYID,
+  API_JOB_GETJOBFORCOMPANY,
   API_JOB_PANIGATION,
-  API_JOB_FIRSTPANIGATION
+  API_JOB_FIRSTPANIGATION,
+  API_JOB_UPDATESTATUS_BYID
 
 } from "../patchApi";
 
@@ -128,6 +130,7 @@ export const createJobs = async (id,data) => {
 
 // sửa thông tin jobs
 export const updateJobs = async (id,data) => {
+  console.log(id,data)
   try {
     const res = await privateAxios.patch(`${API_JOB_EDIT_BYID}/${id}`, data)
     return res.data
@@ -146,6 +149,17 @@ export const deleteJobs = async (id) => {
   }
 }
 
+
+// lấy tất cả công việc của công ty
+export const getJobsForCompany = async (status) => {
+  console.log(status)
+  try {
+    const res = await privateAxios.get(`${API_JOB_GETJOBFORCOMPANY}/?status=${status}`)
+    return res.data 
+  } catch (error) {
+    console.log(error)
+  }
+}
 //phan trang
 export const firstPagination = async () => {
   try {
@@ -163,4 +177,46 @@ export const pagination = async (number) => {
     } catch (error) {
       return error;
     }
+}
+
+// thay dổi trạng thái vcoong việc (bật tuyển dụng)
+
+export const updateStatusOn = async (id) => {
+  try {
+    const res = await privateAxios.patch(`${API_JOB_UPDATESTATUS_BYID}/${id}?status=0`)
+    return 
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+// thay đổi trạng thái công việc (dừng tuyển dụng)
+
+export const updateStatusOff = async (id) => {
+  try {
+    const res = await privateAxios.patch(`${API_JOB_UPDATESTATUS_BYID}/${id}?status=1`)
+    return 
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+// tìm các ứng viên đã ứng tuyển vào công việc này qua id jobs
+export const findCandidates = async (id) => {
+  try {
+    const res = await privateAxios.get(`${API_JOB_GETCANDIDATE_BYIDJOB}/${id}`)
+    return res.data
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+// Coong ty gui mail tu choi phong van
+export const CompanyCancelCandidates = async (id,data) => {
+  console.log(id,data)
+  try {
+    
+  } catch (error) {
+    console.log(error)
+  }
 }
