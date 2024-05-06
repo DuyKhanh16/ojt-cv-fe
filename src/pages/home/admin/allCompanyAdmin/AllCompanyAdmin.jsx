@@ -128,6 +128,7 @@ console.log(currentListCompany)
                   height: "150px",
                   borderRadius: "50%",
                   marginLeft: "200px",
+                  objectFit:"contain"
                 }}
                 src={infoCompany.logo}
               ></img>

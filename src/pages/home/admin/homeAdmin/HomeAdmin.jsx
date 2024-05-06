@@ -81,7 +81,7 @@ export default function HomeAdmin() {
               <header>
                 <div className="image-text">
                   <a className="image" href="#">
-                    <img src={avatar} alt="Fast UI" />
+                    <img src="https://cdn0.iconfinder.com/data/icons/man-user-human-profile-person-business-avatar/100/13-1User_11-512.png" alt="Fast UI" />
                   </a>
                   <div className="text logo-text">
                     <span

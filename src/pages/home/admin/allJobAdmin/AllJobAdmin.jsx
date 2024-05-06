@@ -243,7 +243,7 @@ export default function AllJobAdmin() {
                   <div 
                   style={{display:"flex",alignItems:"center",justifyContent:"center"}}
                   className="allJobAdmin__content__headerTable__namejob column">
-                  <img src={item?.company.logo} style={{width:"50px",height:"50px"}}></img>
+                  <img src={item?.company.logo} style={{width:"50px",height:"50px",objectFit:"contain"}}></img>
                 </div>
                   <div className="allJobAdmin__content__headerTable__time column">
                     <span class="material-symbols-outlined">
