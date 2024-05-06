@@ -16,6 +16,7 @@ export default function () {
     email: "",
     password: "",
     confirmPassword: "",
+    
   });
   const [errors, setErrors] = useState({});
   const [passwordShown, setPasswordShown] = useState(false);

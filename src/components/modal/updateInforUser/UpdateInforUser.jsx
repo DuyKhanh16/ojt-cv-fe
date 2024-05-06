@@ -2,6 +2,8 @@ import React, { memo, useEffect, useState } from "react";
 import "./formModal.scss";
 import "./UpdateInforUser.scss";
 import logo from "../../../assets/images/main/logo.png";
+import avatar from "../../../assets/111.jpg";
+
 import sua from "../../../assets/images/main/sualogo.png";
 import deletea from "../../../assets/images/main/delete.png";
 import privateAxios from "../../../config/private.axios";
@@ -242,7 +244,7 @@ function UpdateInforUser({ isOpen, close }) {
                     ? preview
                     : userUpdate.avatar
                     ? userUpdate.avatar
-                    : logo
+                    : avatar
                 }
                 alt=""
                 width={100}
