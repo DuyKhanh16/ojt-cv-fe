@@ -7,11 +7,11 @@ import {
   deleteCandidateCertificate,
   deleteCandidateEducation,
   deleteCandidateExperience,
+  deleteCandidateProject,
   deleteCandidateSkill,
 } from "../../apis/candidates";
 
 function Confirm({ isOpen, close, value }) {
-  console.log(value);
   const confirm = async () => {
     if (value.table === "exp") {
       await deleteCandidateExperience(value.id)

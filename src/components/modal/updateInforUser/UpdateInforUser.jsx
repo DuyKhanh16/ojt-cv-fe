@@ -2,6 +2,8 @@ import React, { memo, useEffect, useState } from "react";
 import "./formModal.scss";
 import "./UpdateInforUser.scss";
 import logo from "../../../assets/images/main/logo.png";
+import avatar from "../../../assets/111.jpg";
+
 import sua from "../../../assets/images/main/sualogo.png";
 import deletea from "../../../assets/images/main/delete.png";
 import privateAxios from "../../../config/private.axios";
@@ -242,7 +244,7 @@ function UpdateInforUser({ isOpen, close }) {
                     ? preview
                     : userUpdate.avatar
                     ? userUpdate.avatar
-                    : logo
+                    : avatar
                 }
                 alt=""
                 width={100}
@@ -316,7 +318,7 @@ function UpdateInforUser({ isOpen, close }) {
                   value={userUpdate?.position}
                   name="position"
                   type="text"
-                  placeholder="ABCde"
+                  placeholder="Chuyên môn"
                 />
               </div>
               <div className="inforUserItem">
@@ -414,7 +416,7 @@ function UpdateInforUser({ isOpen, close }) {
                   value={userUpdate?.phone}
                   name="phone"
                   type="text"
-                  placeholder="ABCde"
+                  placeholder="Thêm số điện thoại"
                 />
               </div>
               <div className="inforUserItem">
@@ -424,7 +426,7 @@ function UpdateInforUser({ isOpen, close }) {
                   value={userUpdate?.birthday}
                   name="birthday"
                   type="date"
-                  placeholder="ABCde"
+                  placeholder="Ngày sinh"
                 />
               </div>
               <div className="inforUserItem">
@@ -434,7 +436,7 @@ function UpdateInforUser({ isOpen, close }) {
                   value={userUpdate?.gender}
                   name="gender"
                   type="text"
-                  placeholder="ABCde"
+                  placeholder="Giới tính"
                 />
               </div>
               <div className="inforUserItem">
@@ -444,7 +446,7 @@ function UpdateInforUser({ isOpen, close }) {
                   value={userUpdate?.link_git}
                   name="link_git"
                   type="text"
-                  placeholder="ABCde"
+                  placeholder="Link github của bạn"
                 />
               </div>
             </div>

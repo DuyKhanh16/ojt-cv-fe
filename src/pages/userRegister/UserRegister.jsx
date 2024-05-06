@@ -16,6 +16,7 @@ export default function () {
     email: "",
     password: "",
     confirmPassword: "",
+    
   });
   const [errors, setErrors] = useState({});
   const [passwordShown, setPasswordShown] = useState(false);
@@ -172,7 +173,7 @@ export default function () {
                     name="confirmPassword"
                     value={NewUser.confirmPassword}
                     className="user__register-input__confirmPassword--text"
-                    type={confirmPasswordShown ? 'text' : 'password'}
+                    // type={confirmPasswordShown ? 'text' : 'password'}
                     placeholder="Nhập lại mật khẩu"
                   />
                   

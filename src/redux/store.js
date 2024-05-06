@@ -8,6 +8,8 @@ import projectReducer from "./reduce/projectReduce";
 import certificateReducer from "./reduce/certificateReduce";
 import inforCompanyReducer from "./reduce/getInforCompany";
 import skillReducer from "./reduce/skillReduce";
+import getJobAppliedCandidatesbyId from './reduce/getJobAppliedCandidatesbyId'
+
 export const store = configureStore({
   reducer: {
     candidate: candidateReducer,
@@ -17,5 +19,6 @@ export const store = configureStore({
     certificate: certificateReducer,
     inforCompany: inforCompanyReducer,
     skill: skillReducer,
+    getJobApplied: getJobAppliedCandidatesbyId,
   },
 });

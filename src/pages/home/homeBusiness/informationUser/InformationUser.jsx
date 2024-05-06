@@ -108,9 +108,9 @@ export default function InformationUser() {
                   <div className="informationUser-header--right__icon">
                     <img src={heart} alt="" />
                   </div>
-                  <div className="informationUser-header--right__button">
+                  {/* <div className="informationUser-header--right__button">
                     Xem CV
-                  </div>
+                  </div> */}
                 </>
               )}
             </div>

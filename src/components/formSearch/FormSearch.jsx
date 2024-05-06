@@ -14,7 +14,11 @@ import { getInforCompany } from "../../apis/company/index.js";
 import { candidateGetInfor } from "../../apis/candidates/index.js";
 import { useDispatch, useSelector } from "react-redux";
 import { candidateAsync } from "../../redux/reduce/candidateReduce.js";
+<<<<<<< HEAD
 import { io } from "socket.io-client";
+=======
+import { inforCompanyAsync } from "../../redux/reduce/getInforCompany.js";
+>>>>>>> ea58e0243a9923213fd9f030511b39933edc1a0f
 const { Search } = Input;
 const options = [
   {
@@ -82,8 +86,10 @@ export default function FormSearch() {
   // hàm lấy thông tin người dùng
   const dispatch = useDispatch();
   const userReducer = useSelector((state) => state.candidate.data);
+  const companyReducer = useSelector((state) => state.inforCompany.data);
   useEffect(() => {
     dispatch(candidateAsync());
+    dispatch(inforCompanyAsync());
   }, [dispatch]);
   const getInfo = () => {
     if (token) {
@@ -170,7 +176,7 @@ export default function FormSearch() {
           </div>
           <div className="form__search--name"></div>
           {token ? (
-            <p>{userReducer?.name}</p>
+            <p>{role == 1 ? userReducer?.name : companyReducer?.name}</p>   
           ) : (
             <Button className="bnt-1">
               {" "}

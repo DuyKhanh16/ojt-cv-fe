@@ -144,8 +144,9 @@ export default function InformationUserB() {
       item: user,
     });
   };
+  console.log(user)
   const checkAboutmeF = () => {
-    if (user?.aboutme != "") {
+    if (user?.aboutme != null) {
       setCheckAboutMe(true);
     } else {
       setCheckAboutMe(false);
@@ -450,11 +451,23 @@ export default function InformationUserB() {
                   overflow: "hidden",
                 }}
               >
-                <img
+                {
+                  user?.avatar == null ? (
+                    <img
+                  src="https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg"
+                  alt=""
+                  style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                />
+                  ):
+                  (
+                    <img
                   src={user?.avatar}
                   alt=""
                   style={{ width: "100%", height: "100%", objectFit: "cover" }}
                 />
+                  )
+                }
+                
               </div>
 
               <div className="informationUser__infor">
@@ -486,7 +499,9 @@ export default function InformationUserB() {
                     </p>
                     <p>
                       <span>
-                        <img src={location} style={{ width: "1vw" }} alt="" />
+                      <span class="material-symbols-outlined">
+                      location_on
+                      </span>
                       </span>
                       {user?.address ? user?.address : "Cập nhật thêm địa chỉ"}
                     </p>
@@ -495,7 +510,9 @@ export default function InformationUserB() {
                   <div>
                     <p>
                       <span>
-                        <img src={phone} style={{ width: "0.8vw" }} alt="" />
+                      <span class="material-symbols-outlined">
+                      call
+                      </span>
                       </span>
                       {user?.phone
                         ? user?.phone
@@ -503,13 +520,17 @@ export default function InformationUserB() {
                     </p>
                     <p>
                       <span>
-                        <img src={userIcon} alt="" />
+                      <span class="material-symbols-outlined">
+                        account_circle
+                        </span>
                       </span>
                       {user?.gender ? user?.gender : "Cập nhật thêm giới tính"}
                     </p>
                     <p>
                       <span>
-                        <img src={world} style={{ width: "2vw" }} alt="" />
+                      <span class="material-symbols-outlined">
+                      language
+                      </span>
                       </span>
                       {user?.link_git
                         ? user?.link_git
@@ -606,7 +627,7 @@ export default function InformationUserB() {
                 </div>
               ))}
 
-              <img src={vetor} alt="" onClick={creatEdu} />
+              <img src={vetor} alt="" onClick={creatEdu} style={{ cursor: "pointer" }} />
             </div>
 
             <div
@@ -647,7 +668,7 @@ export default function InformationUserB() {
                 </div>
               ))}
 
-              <img src={vetor} alt="" onClick={creatExp} />
+              <img src={vetor} alt="" onClick={creatExp} style={{ cursor: "pointer" }} />
             </div>
 
             <div
@@ -687,7 +708,7 @@ export default function InformationUserB() {
                   </p>
                 </div>
               ))}
-              <img src={vetor} alt="" onClick={creatProject} />
+              <img src={vetor} alt="" onClick={creatProject} style={{ cursor: "pointer" }} />
             </div>
 
             <div
@@ -727,7 +748,7 @@ export default function InformationUserB() {
                   </p>
                 </div>
               ))}
-              <img src={vetor} alt="" onClick={creatCerti} />
+              <img src={vetor} alt="" onClick={creatCerti} style={{ cursor: "pointer" }} />
             </div>
 
             <div
@@ -764,7 +785,7 @@ export default function InformationUserB() {
                   </p>
                 </div>
               ))}
-              <img src={vetor} alt="" onClick={creatSkill} />
+              <img src={vetor} alt="" onClick={creatSkill} style={{ cursor: "pointer" }} />
             </div>
           </div>
         </div>

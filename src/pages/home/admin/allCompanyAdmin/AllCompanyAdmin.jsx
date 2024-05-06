@@ -4,7 +4,7 @@ import "./AllCompanyAdmin.scss";
 import AdminSearch from "../../../../components/adminSearch/AdminSearch";
 import { useNavigate } from "react-router";
 import publicAxios from "../../../../config/pulic.axios";
-import { Switch, Modal } from "antd";
+import { Switch, Modal, Pagination } from "antd";
 export default function AllCompanyAdmin() {
   window.scrollTo(0, 0);
   const [allCompany, setAllCompany] = useState([]);
@@ -20,9 +20,12 @@ export default function AllCompanyAdmin() {
     address: "",
     email: "",
   });
+  const [currentPage, setCurrentPage] = useState(1);
+
   const role = JSON.parse(localStorage.getItem("role"))
   const token = JSON.parse(localStorage.getItem("token"));
   const navigate = useNavigate();
+  
 
   const showModal = (item) => {
     // console.log(item)
@@ -80,6 +83,17 @@ export default function AllCompanyAdmin() {
     setIsChecked(checked); // Cập nhật trạng thái của Switch
   };
 
+   //    // phân trang
+   const itemsPerPage = 6;
+   const endIndex = currentPage * itemsPerPage;
+   const startIndex = endIndex - itemsPerPage;
+   const currentListCompany = allCompany.slice(startIndex, endIndex);
+
+   const onPageChange = (page) => {
+    setCurrentPage(page);
+  };
+  console.log(allCompany)
+console.log(currentListCompany)
   return (
     <>
       <div className="allCompanyAdmin__formsearch">
@@ -114,6 +128,7 @@ export default function AllCompanyAdmin() {
                   height: "150px",
                   borderRadius: "50%",
                   marginLeft: "200px",
+                  objectFit:"contain"
                 }}
                 src={infoCompany.logo}
               ></img>
@@ -170,7 +185,7 @@ export default function AllCompanyAdmin() {
             </div>
           </div>
           <div className="allCompanyAdmin__content__bodyTable">
-            {allCompany?.map((item, index) => {
+            {currentListCompany?.map((item, index) => {
               return (
                 <div
                   className="allCompanyAdmin__content__bodyTable__item"
@@ -202,6 +217,13 @@ export default function AllCompanyAdmin() {
               );
             })}
           </div>
+          <Pagination
+          style={{ marginTop: "20px", marginLeft: "580px" }}
+          current={currentPage}
+          onChange={onPageChange}
+          pageSize={itemsPerPage}
+          total={allCompany.length}
+        />
         </div>
       </div>
     </>
