@@ -328,13 +328,16 @@ export default function UpdateInforBusiness() {
       return;
     } else {
       try {
-        await deleteAddressCompany(item.id);
+        const res = await deleteAddressCompany(item.id);
+        if(res){
+          notification.success({
+            message: "Đã xóa địa chỉ thành công",
+            placement: "topRight",
+            duration: 2,
+          });
+        }
         SetFlag(!flag);
-        notification.success({
-          message: "Đã xóa địa chỉ thành công",
-          placement: "topRight",
-          duration: 2,
-        });
+       
       } catch (error) {
         console.log(error);
       }

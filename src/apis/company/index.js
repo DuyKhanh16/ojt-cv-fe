@@ -1,3 +1,4 @@
+import { notification } from "antd";
 import privateAxios from "../base.Api"
 import {
     API_COMPANY_GETALL,
@@ -70,6 +71,11 @@ export const deleteAddressCompany = async (id) => {
         const res = await privateAxios.delete(`${API_DELETE_BRAND_COMPANY}/${id}`)
         return res.data
     } catch (error) {
+        if(error){
+            notification.error({
+                message: "Địa chỉ này đang được đăng tuyển jobs, bạn không thể xoá được !"
+            })
+        }
         console.log(error)
     }
 }
