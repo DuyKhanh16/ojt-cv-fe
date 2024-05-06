@@ -16,6 +16,8 @@ import ApplyJob from "../applyJob/ApplyJob";
 import { Button, notification } from "antd";
 import publicAxios from "../../../../config/pulic.axios";
 import { getJobAppliedCandidatesbyId, getJobDetail, jobGetLiveJobs } from "../../../../apis/jobs";
+import { useDispatch, useSelector } from "react-redux";
+import { getJobAppliedAsync } from "../../../../redux/reduce/getJobAppliedCandidatesbyId";
 
 export default function JobDetail() {
   const { id } = useParams();
@@ -44,7 +46,15 @@ export default function JobDetail() {
         return error;
       });
   };
-
+  const dispatch = useDispatch();
+  const applyCheck = useSelector((state) => {
+    console.log(state.getJobApplied)
+    return state.getJobApplied.data; // Trả về state nếu cần
+  });
+  useEffect(() => {
+    dispatch(getJobAppliedAsync(id));
+  }, [dispatch]);
+  console.log("first",applyCheck)
   useEffect(() => {
     const result2 = privateAxios.get(`/api/v2/jobs/getJobAppliedCandidatesbyId/${id}`);
     result2.then((res) => {
@@ -220,7 +230,7 @@ export default function JobDetail() {
               <i style={{color:"orange",fontSize:28}} class="fa-solid fa-bookmark"></i>
               </Button>}
               {
-                check?<button
+                applyCheck == true?<button
                 className="job__detail--company--apply--apply11"
                 style={{ backgroundColor: "gray", color: "white" }}
                 // onClick={() => setIsOpen(true)}
