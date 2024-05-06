@@ -154,7 +154,9 @@ function Certificate({ isOpen, close, certificate }) {
                     cols="30"
                     rows="10"
                     placeholder="Mô tả thêm"
-                    onChange={(e) => changeValue(e)}
+
+                    onChange={(e)=> changeValue(e)}
+
                   ></textarea>
                 </div>
               </div>

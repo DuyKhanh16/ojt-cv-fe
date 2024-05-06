@@ -45,6 +45,7 @@ export const LoginByGoogle = async (user) => {
 }
 
 export const checkMail = async (email) => {
+    console.log(email)
     try {
         const response = await privateAxios.get(`${API_MAIL_CHECKMAIL}?email=${email}`)
         return response
