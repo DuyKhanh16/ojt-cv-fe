@@ -451,11 +451,23 @@ export default function InformationUserB() {
                   overflow: "hidden",
                 }}
               >
-                <img
+                {
+                  user?.avatar == null ? (
+                    <img
+                  src="https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg"
+                  alt=""
+                  style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                />
+                  ):
+                  (
+                    <img
                   src={user?.avatar}
                   alt=""
                   style={{ width: "100%", height: "100%", objectFit: "cover" }}
                 />
+                  )
+                }
+                
               </div>
 
               <div className="informationUser__infor">

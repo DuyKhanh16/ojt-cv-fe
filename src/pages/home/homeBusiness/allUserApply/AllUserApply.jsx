@@ -126,7 +126,7 @@ export default function AllUserApply() {
       console.log(error);
     }
   };
-
+console.log(imgCV)
   return (
     <>
       <div

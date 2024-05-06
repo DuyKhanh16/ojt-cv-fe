@@ -62,7 +62,14 @@ export default function UserDetail() {
           <div className="userDetail-header">
             <div className="userDetail-header--left">
               <div className="userDetail-header--left__avatar">
-                <img src={user?.avatar} alt="avatar" />
+                {user?.avatar == null ? (
+                  <img src="https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg" alt="avatar" />
+                ):
+                (
+                  <img src={user?.avatar} alt="avatar" />
+                )
+              }
+                
               </div>
               <div className="userDetail-header--left__infor">
                 <p>{user?.name}</p>
