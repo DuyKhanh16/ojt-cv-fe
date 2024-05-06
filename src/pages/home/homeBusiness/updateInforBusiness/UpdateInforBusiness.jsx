@@ -96,9 +96,8 @@ export default function UpdateInforBusiness() {
     } catch (error) {
       console.log(error)
     }
-
   };
-
+ 
   // lấy các jobs của công ty
   const getJobsByCompany = () => {
     const res = getJobsForCompanyS()
@@ -202,7 +201,7 @@ export default function UpdateInforBusiness() {
       setErrorMessages(errors);
       return;
     }
-
+console.log(infoCompany.id)
     if (selectedMedia) {
       const formData = new FormData();
       formData.append("file", selectedMedia);
