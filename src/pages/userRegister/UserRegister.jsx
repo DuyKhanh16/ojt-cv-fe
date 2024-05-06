@@ -172,7 +172,7 @@ export default function () {
                     name="confirmPassword"
                     value={NewUser.confirmPassword}
                     className="user__register-input__confirmPassword--text"
-                    type={confirmPasswordShown ? 'text' : 'password'}
+                    // type={confirmPasswordShown ? 'text' : 'password'}
                     placeholder="Nhập lại mật khẩu"
                   />
                   

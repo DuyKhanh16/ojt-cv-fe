@@ -10,7 +10,20 @@ import {
 } from "../../../apis/candidates";
 function ProjectUser({ isOpen, close, project }) {
   const userProject = useSelector((state) => state.candidate.data);
-  const [user, setUser] = useState({});
+  const [name, setName] = useState("");
+  const [start_at, setStart_at] = useState("");
+  const [end_at, setEnd_at] = useState("");
+  const [info, setInfo] = useState("");
+  const [link, setLink] = useState("");
+  const [check, setCheck] = useState(false);
+
+  const [user, setUser] = useState({
+    name: name || project?.item?.name,
+    start_at: start_at || project?.item?.start_at,
+    end_at: end_at || project?.item?.end_at,
+    info: info || project?.item?.info,
+    link: link || project?.item?.link,
+  });
 
   useEffect(() => {
     setUser({ ...user, candidate_id: userProject.id });
@@ -18,6 +31,7 @@ function ProjectUser({ isOpen, close, project }) {
 
   const changeValue = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
+    setCheck(true);
   };
 
   const updateProject = async () => {
@@ -35,7 +49,14 @@ function ProjectUser({ isOpen, close, project }) {
         notification.success({
           message: "Cập nhật thông tin thành công",
         });
-        setUser({});
+        setUser({
+          name: "",
+          start_at: "",
+          end_at: "",
+          info: "",
+          link: "",
+        });
+        setCheck(false);
         close();
       } catch (error) {
         notification.error({
@@ -48,6 +69,14 @@ function ProjectUser({ isOpen, close, project }) {
         notification.success({
           message: create.message,
         });
+        setUser({
+          name: "",
+          start_at: "",
+          end_at: "",
+          info: "",
+          link: "",
+        });
+        setCheck(false);
         close();
       } catch (error) {
         notification.error({
@@ -67,9 +96,9 @@ function ProjectUser({ isOpen, close, project }) {
                 <div>
                   <p>Tên dự án</p>
                   <input
-                    value={user?.name || project?.item.name}
+                    value={check? user?.name : project?.item.name}
                     type="text"
-                    placeholder="ABCde"
+                    placeholder="Tên dự án"
                     name="name"
                     onChange={(e) => changeValue(e)}
                   />
@@ -77,9 +106,9 @@ function ProjectUser({ isOpen, close, project }) {
                 <div>
                   <p>Link demo</p>
                   <input
-                    value={user?.link || project?.item.link}
+                    value={check? user?.link : project?.item.link}
                     type="text"
-                    placeholder="ABCde"
+                    placeholder="Link dự án"
                     name="link"
                     onChange={(e) => changeValue(e)}
                   />
@@ -90,7 +119,7 @@ function ProjectUser({ isOpen, close, project }) {
                   <div className="timeSame">
                     <label htmlFor="">Start Date</label>
                     <input
-                      value={user?.start_at || project?.item.start_at}
+                      value={check? user?.start_at : project?.item.start_at}
                       type="date"
                       className="date"
                       name="start_at"
@@ -101,7 +130,7 @@ function ProjectUser({ isOpen, close, project }) {
                   <div className="timeSame">
                     <label htmlFor="">End Date</label>
                     <input
-                      value={user?.end_at || project?.item.end_at}
+                      value={check? user?.end_at : project?.item.end_at}
                       type="date"
                       className="date"
                       name="end_at"
@@ -113,12 +142,12 @@ function ProjectUser({ isOpen, close, project }) {
                 <div>
                   <p>Mô tả chi tiết công việc</p>
                   <textarea
-                    value={user?.info || project?.item.info}
+                    value={check? user?.info : project?.item.info}
                     name="info"
                     id=""
                     cols="30"
                     rows="10"
-                    placeholder="ABCde"
+                    placeholder="Chi tiết"
                     onChange={(e) => setUser({ ...user, info: e.target.value })}
                   ></textarea>
                 </div>
@@ -146,7 +175,7 @@ function ProjectUser({ isOpen, close, project }) {
                   <input
                     value={user?.name || ""}
                     type="text"
-                    placeholder="ABCde"
+                    placeholder="Tên dự án"
                     name="name"
                     onChange={(e) => changeValue(e)}
                   />
@@ -156,7 +185,7 @@ function ProjectUser({ isOpen, close, project }) {
                   <input
                     value={user?.link || ""}
                     type="text"
-                    placeholder="ABCde"
+                    placeholder="Link dự án"
                     name="link"
                     onChange={(e) => changeValue(e)}
                   />
@@ -195,13 +224,13 @@ function ProjectUser({ isOpen, close, project }) {
                     id=""
                     cols="30"
                     rows="10"
-                    placeholder="ABCde"
+                    placeholder="Chi tiết công việc"
                     onChange={(e) => setUser({ ...user, info: e.target.value })}
                   ></textarea>
                 </div>
               </div>
               <div className="updateInforUser__button">
-                <button onClick={updateProject}>Cập nhật</button>
+                <button onClick={updateProject}>Thêm mới</button>
                 <button
                   className="updateInforUser__button__cancel"
                   onClick={() => close()}

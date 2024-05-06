@@ -144,8 +144,9 @@ export default function InformationUserB() {
       item: user,
     });
   };
+  console.log(user)
   const checkAboutmeF = () => {
-    if (user?.aboutme != "") {
+    if (user?.aboutme != null) {
       setCheckAboutMe(true);
     } else {
       setCheckAboutMe(false);
@@ -614,7 +615,7 @@ export default function InformationUserB() {
                 </div>
               ))}
 
-              <img src={vetor} alt="" onClick={creatEdu} />
+              <img src={vetor} alt="" onClick={creatEdu} style={{ cursor: "pointer" }} />
             </div>
 
             <div
@@ -655,7 +656,7 @@ export default function InformationUserB() {
                 </div>
               ))}
 
-              <img src={vetor} alt="" onClick={creatExp} />
+              <img src={vetor} alt="" onClick={creatExp} style={{ cursor: "pointer" }} />
             </div>
 
             <div
@@ -695,7 +696,7 @@ export default function InformationUserB() {
                   </p>
                 </div>
               ))}
-              <img src={vetor} alt="" onClick={creatProject} />
+              <img src={vetor} alt="" onClick={creatProject} style={{ cursor: "pointer" }} />
             </div>
 
             <div
@@ -735,7 +736,7 @@ export default function InformationUserB() {
                   </p>
                 </div>
               ))}
-              <img src={vetor} alt="" onClick={creatCerti} />
+              <img src={vetor} alt="" onClick={creatCerti} style={{ cursor: "pointer" }} />
             </div>
 
             <div
@@ -772,7 +773,7 @@ export default function InformationUserB() {
                   </p>
                 </div>
               ))}
-              <img src={vetor} alt="" onClick={creatSkill} />
+              <img src={vetor} alt="" onClick={creatSkill} style={{ cursor: "pointer" }} />
             </div>
           </div>
         </div>
