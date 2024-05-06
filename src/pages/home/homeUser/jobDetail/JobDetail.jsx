@@ -46,15 +46,7 @@ export default function JobDetail() {
         return error;
       });
   };
-  const dispatch = useDispatch();
-  const applyCheck = useSelector((state) => {
-    console.log(state.getJobApplied)
-    return state.getJobApplied.data; // Trả về state nếu cần
-  });
-  useEffect(() => {
-    dispatch(getJobAppliedAsync(id));
-  }, [dispatch]);
-  console.log("first",applyCheck)
+  
   useEffect(() => {
     const result2 = privateAxios.get(`/api/v2/jobs/getJobAppliedCandidatesbyId/${id}`);
     result2.then((res) => {
@@ -230,7 +222,7 @@ export default function JobDetail() {
               <i style={{color:"orange",fontSize:28}} class="fa-solid fa-bookmark"></i>
               </Button>}
               {
-                applyCheck == true?<button
+                check?<button
                 className="job__detail--company--apply--apply11"
                 style={{ backgroundColor: "gray", color: "white" }}
                 // onClick={() => setIsOpen(true)}
