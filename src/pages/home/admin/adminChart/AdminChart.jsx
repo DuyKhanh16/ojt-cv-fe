@@ -32,6 +32,11 @@ export default function AdminChart() {
   const [allLiveJob, setLiveJob] = useState([]);
   const [allNewJob, setNewJob] = useState([]);
   const [allCandidate, setAllCandidate] = useState([]);
+  const [data2,setData] = useState()
+  const [listjobfail, setListjobfail] = useState([]);
+  const [canes, setCanes] = useState();
+  const [apply, setApply] = useState();
+  const [view, setView] = useState();
   const role = JSON.parse(localStorage.getItem("role"));
   const token1 = JSON.parse(localStorage.getItem("token"));
   const navigate = useNavigate();
@@ -44,6 +49,19 @@ export default function AdminChart() {
       console.log(error);
     }
   };
+  const getchart = async () => {
+    try {
+      const res = await publicAxios.get("/api/v2/jobs/admingetchart");
+      // console.log(res.data.data)
+      setData(res.data.data)
+      setCanes(res.data.data[0])
+      setApply(res.data.data[1])
+      setView(res.data.data[2])
+    } catch (error) {
+      console.log(error)
+    }
+  }
+ 
   const getAllLiveJob = async () => {
     try {
       const res = await publicAxios.get("/api/v2/jobs/getLiveJobs");
@@ -55,21 +73,24 @@ export default function AdminChart() {
   const getAllNewJob = async () => {
     try {
       const res = await publicAxios.get("/api/v2/jobs/getNewJobs");
+      setListjobfail(res.data.all.result2)
       setNewJob(res.data.data);
     } catch (error) {
       console.log(error);
     }
   };
+  // console.log(data2)
   const getAllCandidate = async () => {
     try {
       const res = await publicAxios.get("/api/v2/candidates/getAll");
-      console.log(res.data.data);
       setAllCandidate(res.data.data);
     } catch (error) {
       console.log(error);
     }
   };
+  
   useEffect(() => {
+    getchart();
     getAllCompany();
     getAllLiveJob();
     getAllNewJob();
@@ -92,25 +113,19 @@ export default function AdminChart() {
     datasets: [
       {
         label: "Tổng ",
-        data: [allCandidate.length, allCompany.length, allNewJob.length],
+        data: [allCandidate.length, allCompany.length, allNewJob.length + listjobfail.length],
         backgroundColor: "#E80505",
         borderColor: "rgba(255, 99, 132, 1)",
         borderWidth: 1,
       },
       {
         label: "Không Hoạt Động",
-        data: [20, 20, 23],
+        data: [0, 0, listjobfail.length],
         backgroundColor: "#4C83FF",
         borderColor: "rgba(54, 162, 235, 1)",
         borderWidth: 1,
       },
-      {
-        label: "Hoạt Động",
-        data: [80, 30, 100],
-        backgroundColor: "#3CD500",
-        borderColor: "rgba(255, 206, 86, 1)",
-        borderWidth: 1,
-      },
+     
     ],
   };
   //    css cho biểu đồ 1
@@ -136,11 +151,11 @@ export default function AdminChart() {
 
   //   phân biểu đồ 2
   const data = {
-    labels: ["Có việc", "Đang chờ việc", "Đã chuyển nghề"],
+    labels: ["Chờ phỏng vấn", "Cv không phù hợp", "Chờ công ty xem Cv"],
     datasets: [
       {
         label: "học viên",
-        data: [12, 19, 3],
+        data: [canes?.count, apply?.count, view?.count],
         backgroundColor: ["#FBAB7E", "#85FFBD", "#F4D03F"],
 
         borderColor: [
