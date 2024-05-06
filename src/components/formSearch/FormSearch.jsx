@@ -14,6 +14,7 @@ import { getInforCompany } from "../../apis/company/index.js";
 import { candidateGetInfor } from "../../apis/candidates/index.js";
 import { useDispatch, useSelector } from "react-redux";
 import { candidateAsync } from "../../redux/reduce/candidateReduce.js";
+import { io } from "socket.io-client";
 const { Search } = Input;
 const options = [
   {
@@ -30,6 +31,7 @@ export default function FormSearch() {
   const navigate = useNavigate();
   const token = JSON.parse(localStorage.getItem("token"));
   const role = JSON.parse(localStorage.getItem("role"));
+  const [notifacation, setNotifacation] = useState();
 
   // khối của thằng poper của user
   const content = (
@@ -112,8 +114,13 @@ export default function FormSearch() {
     }
   };
   useEffect(() => {
+    const socket=io("http://localhost:3000")
+    socket.on('server-send-notification', (data) => {
+      setNotifacation(data)
+    })
     getInfo();
   }, []);
+  console.log(notifacation);
   return (
     <div className="form__search">
       <div className="form__search--content">

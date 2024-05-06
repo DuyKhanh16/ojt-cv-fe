@@ -33,6 +33,7 @@ import UserRegister from "../pages/userRegister/UserRegister";
 import { useEffect } from "react";
 
 const router = createBrowserRouter([
+
   /* source chung */
   {
     path: "/",
@@ -196,6 +197,8 @@ const router = createBrowserRouter([
     ],
   },
   /* het admin */
+
+   
 ]);
 // const location = useLocation();
 // useEffect(() => {
