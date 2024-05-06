@@ -165,6 +165,15 @@
           }
         }
       }
+      .userDetail-content--null {
+        width: 100%;
+        height: auto;
+        color: var(--primary);
+        font-size: 2vw;
+        font-weight: 700;
+        margin-top: 4vw;
+        margin-left: 27%;
+      }
       .userDetail-content {
         width: 100%;
         margin-top: 80px;

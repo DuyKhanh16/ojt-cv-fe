@@ -65,8 +65,6 @@ export default function Main() {
     }
   };
 
-
-
   const getAllLiveJob = async () => {
     try {
       const res = await jobGetLiveJobs();
@@ -94,7 +92,6 @@ export default function Main() {
     }
   };
 
-
   const getListJobSave = async () => {
     if (token) {
       try {
@@ -106,7 +103,6 @@ export default function Main() {
       }
     }
   };
-
 
   useEffect(() => {
     getAllCompany();
@@ -174,12 +170,12 @@ export default function Main() {
     if (currentPage > 1) {
       onPageChange(currentPage - 1);
     }
-  }
+  };
   const increPage = () => {
     if (currentPage < pageNumbers.length) {
       onPageChange(currentPage + 1);
     }
-  }
+  };
   return (
     <>
       <CheckLogin isOpen={isOpen} close={open}></CheckLogin>
@@ -437,7 +433,7 @@ export default function Main() {
           <div class="fui-roundedFull-pagination">
             <ul class="pagination-list">
               <li class="pagination-item btn-prev" onClick={decrePage}>
-                <p  class="pagination-link">
+                <p class="pagination-link">
                   <svg
                     width="6"
                     height="10"
@@ -465,7 +461,7 @@ export default function Main() {
                     {page}
                   </p>
                 </li>
-              ))} 
+              ))}
               <li class="pagination-item btn-next" onClick={increPage}>
                 <p class="pagination-link">
                   <svg

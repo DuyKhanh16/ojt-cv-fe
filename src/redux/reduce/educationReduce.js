@@ -7,7 +7,6 @@ export const educationAsync = createAsyncThunk(
   'education/educationAsync',   
   async () => {
     const response = await privateAxios.get('api/v2/candidate/getAllEducationCandidate'); 
-    console.log(response.data.data);
     // call API function
     return response.data.data;
   }
