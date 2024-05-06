@@ -33,7 +33,7 @@ function Education({ isOpen, close, edu }) {
     setUser({ ...user, [e.target.name]: e.target.value });
     setCheck(true);
   };
-  console.log(user)
+  
   const updateEducatrion = async () => {
     let start_at = new Date(user.start_at).getTime();
     let end_at = new Date(user.end_at).getTime();
