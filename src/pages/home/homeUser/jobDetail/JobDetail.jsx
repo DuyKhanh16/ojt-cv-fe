@@ -126,6 +126,7 @@ export default function JobDetail() {
     getJobAppliedCandidatesbyIdF(id);
     checkSave()
   },[]);
+  console.log(id);
   return (
     <div>
       <div

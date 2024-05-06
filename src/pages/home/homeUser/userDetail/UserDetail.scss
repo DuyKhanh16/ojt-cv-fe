@@ -690,6 +690,10 @@
               line-height: 28px;
               color: rgba(24, 25, 28, 1);
             }
+            :hover.userDetail__outStandingJob--listJob__item--top__name {
+              color: green;
+              cursor: pointer;
+            }
             .userDetail__outStandingJob--listJob__item--top__salary {
               width: 100%;
               display: flex;

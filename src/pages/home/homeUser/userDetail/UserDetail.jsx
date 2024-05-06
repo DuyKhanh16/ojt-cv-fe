@@ -27,6 +27,7 @@ export default function UserDetail() {
   const navigate = useNavigate();
   const role = JSON.parse(localStorage.getItem("role"));
   const user = useSelector((state) => state.candidate.data);
+  const [listJobSave, setListJobSave] = React.useState([]); 
 
   const getInforCV = async () => {
     await candidateGetAllInformation()
@@ -37,6 +38,15 @@ export default function UserDetail() {
         return error;
       });
   };
+
+  const getAllJobSave = async () => {
+    try { 
+       const res =  await privateAxios.get(`api/v2/candidates/save-job`)
+        setListJobSave(res.data.data)
+    } catch (error) {
+      console.log(error);
+    }    
+  }
   
   const allJobApply = async () => {
     await getAllJobApply()
@@ -52,7 +62,9 @@ export default function UserDetail() {
     dispatch(candidateAsync());
     getInforCV();
     allJobApply();
+    getAllJobSave();
   }, [dispatch]);
+  console.log(listJobSave);
   return (
     <>
       <div className="userDetail__container">
@@ -265,7 +277,9 @@ export default function UserDetail() {
                 key={item.id}
               >
                 <div className="userDetail__outStandingJob--listJob__item--top">
-                  <span className="userDetail__outStandingJob--listJob__item--top__name">
+                  <span className="userDetail__outStandingJob--listJob__item--top__name" 
+                   onClick={() =>
+                    navigate(`/candidate/jobdetail/${item?.job_id?.id}`)}>
                     {item?.job_id?.title}
                   </span>
                   <div className="userDetail__outStandingJob--listJob__item--top__salary">
@@ -295,7 +309,63 @@ export default function UserDetail() {
                     </div>
                   </div>
                   <div className="userDetail__outStandingJob--listJob__item--bottom__bookmark">
-                    <img src={BookmarkSimple} alt="" />
+                    {/* <img src={BookmarkSimple} alt="" /> */}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="userDetail__outStandingJob">
+          <div className="userDetail__outStandingJob--header">
+            <span className="userDetail__outStandingJob--header__title">
+              Công việc đã lưu
+            </span>
+            <div
+              className="userDetail__outStandingJob--header__view"
+            >
+              <p></p>
+            </div>
+          </div>
+          <div className="userDetail__outStandingJob--listJob">
+            {listJobSave?.map((item) => (
+              <div
+                className="userDetail__outStandingJob--listJob__item"
+                key={item.id}
+              >
+                <div className="userDetail__outStandingJob--listJob__item--top">
+                  <span onClick={() => navigate(`/candidate/jobdetail/${item?.job?.id}`)}  className="userDetail__outStandingJob--listJob__item--top__name" >
+                    {item?.job?.title}
+                  </span>
+                  <div className="userDetail__outStandingJob--listJob__item--top__salary">
+                    <div className="userDetail__outStandingJob--listJob__item--top__salary__text">
+                      <p>{item?.job?.types_jobs[0].typejob.name}</p>
+                    </div>
+                    <span className="userDetail__outStandingJob--listJob__item--top__salary__price">
+                      {item?.job?.salary_jobs[0].salary.name}
+                    </span>
+                  </div>
+                </div>
+                <div className="userDetail__outStandingJob--listJob__item--bottom">
+                  <div className="userDetail__outStandingJob--listJob__item--bottom--left">
+                    <div className="userDetail__outStandingJob--listJob__item--bottom__logo">
+                      <img src={item?.job?.company?.logo} alt="" />
+                    </div>
+                    <div className="userDetail__outStandingJob--listJob__item--bottom__nameLogo">
+                      <p className="userDetail__outStandingJob--listJob__item--bottom__nameLogo__text">
+                        {item?.job?.company?.name}
+                      </p>
+                      <div className="userDetail__outStandingJob--listJob__item--bottom__nameLogo__location">
+                        <img src={MapPin} alt="" />
+                        <p>
+                          {item?.job?.address_company?.address}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div  className="userDetail__outStandingJob--listJob__item--bottom__bookmark">
+                    {/* <img src={BookmarkSimple} alt="" style={{backgroundColor:"gold"}}/> */}
+                    <i style={{color:"gold"}} class="fa-solid fa-bookmark"></i>
                   </div>
                 </div>
               </div>
