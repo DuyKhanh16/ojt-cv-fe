@@ -5,7 +5,8 @@ import { API_REGISTER_CANDIDATE,
      API_LOGIN, 
      API_LOGIN_BY_GOOGLE, 
      API_FORGET_PASSWORD, 
-     API_GETOTP } 
+     API_GETOTP, 
+     API_MAIL_CHECKMAIL} 
 from "../patchApi";
 
 export const UserRegister = async (newuser) => {
@@ -45,7 +46,7 @@ export const LoginByGoogle = async (user) => {
 
 export const checkMail = async (email) => {
     try {
-        const response = await privateAxios.post(`${API_MAIL_CHECKMAIL}?email=${email}`)
+        const response = await privateAxios.get(`${API_MAIL_CHECKMAIL}?email=${email}`)
         return response
     } catch (error) {
         return error

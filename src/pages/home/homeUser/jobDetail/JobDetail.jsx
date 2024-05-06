@@ -29,7 +29,9 @@ export default function JobDetail() {
   const [check, setCheck] = useState(false);
   const navigate = useNavigate();
   const role = JSON.parse(localStorage.getItem("role"));
-  const [checkSaveJob,setCheckSaveJob]=React.useState(false)
+  const [checkSaveJob,setCheckSaveJob]=React.useState(false);
+
+
 
   // lay het thong tin cua jobdetail
   const inforJobDetail = async () => {
@@ -48,6 +50,7 @@ export default function JobDetail() {
     result2.then((res) => {
       console.log(res.data.check);
       setCheck(res.data.check);
+      // window.location.reload();
     })
     const result = privateAxios.get(`/api/v2/jobs/detail/${id}`);
     result
@@ -69,7 +72,7 @@ export default function JobDetail() {
     const result2 = await 
     getJobAppliedCandidatesbyId(id)
     .then((res) => {
-      setCheck(res.check);
+      setCheck(res.data.check);
     });
   }
 

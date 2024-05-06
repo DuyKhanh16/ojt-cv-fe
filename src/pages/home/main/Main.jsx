@@ -68,7 +68,7 @@ export default function Main() {
   const getAllLiveJob = async () => {
     try {
       const res = await jobGetLiveJobs();
-      setLiveJob(res.data);
+      setLiveJob(res.data.result);
     } catch (error) {
       return error;
     }
