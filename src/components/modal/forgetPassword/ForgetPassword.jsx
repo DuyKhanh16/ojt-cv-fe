@@ -10,7 +10,7 @@ export default function ForgetPassword({isOpen,close}) {
     const checkEmail = async()=> {
 
         const result = await checkMail(email)
-
+        
         setCheck(result.data.check)
         localStorage.setItem("tokenPassword",JSON.stringify(result.data.token))
         setTimeout(()=>{
