@@ -77,6 +77,7 @@ export default function Main() {
   const getAllNewJob = async () => {
     try {
       const res = await jobGetNewJobs();
+      console.log(res.data)
       setNewJob(res.data);
     } catch (error) {
       return error;
@@ -255,7 +256,7 @@ export default function Main() {
               </div>
               <div className="main--showInformation__liveJob--text">
                 <p className="main--showInformation__liveJob--text__number">
-                  <strong>{allLiveJob.length}</strong>
+                  <strong>{allLiveJob?.length}</strong>
                 </p>
                 <p className="main--showInformation__liveJob--text__name">
                   Công việc đang tuyển
@@ -268,7 +269,7 @@ export default function Main() {
               </div>
               <div className="main--showInformation__companies--text">
                 <p className="main--showInformation__companies--text__number">
-                  <strong>{allCompany.length}</strong>
+                  <strong>{allCompany?.length}</strong>
                 </p>
                 <p className="main--showInformation__companies--text__name">
                   Công ty
@@ -282,7 +283,7 @@ export default function Main() {
               </div>
               <div className="main--showInformation__candicates--text">
                 <p className="main--showInformation__candicates--text__number">
-                  <strong>{allCandidate.length}</strong>
+                  <strong>{allCandidate?.length}</strong>
                 </p>
                 <p className="main--showInformation__candicates--text__name">
                   Ứng viên
@@ -295,7 +296,7 @@ export default function Main() {
               </div>
               <div className="main--showInformation__newJobs--text">
                 <p className="main--showInformation__newJobs--text__number">
-                  <strong>{allNewJob.length}</strong>
+                  <strong>{allLiveJob?.length}</strong>
                 </p>
                 <p className="main--showInformation__newJobs--text__name">
                   Công việc đã đăng
