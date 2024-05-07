@@ -16,17 +16,27 @@ function AboutUser({ isOpen, close, item }) {
   const [aboutUser, setAboutUser] = useState({
     aboutMe: user?.aboutme,
   });
+  const [check, setCheck] = useState(false);
   const getChange = (e) => {
     setAboutUser({ ...aboutUser, [e.target.name]: e.target.value });
+    setCheck(true);
   };
   const handleUpdate = async () => {
+    if (!aboutUser?.aboutMe) {
+      notification.warning({
+        message: "Vui lòng nhập đầy đủ thông tin",
+      });
+      setCheck(false);
+      return;
+    }
     await updateAboutMe(aboutUser)
       .then((res) => {
         close();
         notification.success({
-          message: "Thêm thông tin thành công",
+          message: "Cập nhật thông tin thành công",
         });
       })
+      setCheck(false)
       .catch((error) => {
         return error;
       });
@@ -40,7 +50,7 @@ function AboutUser({ isOpen, close, item }) {
             <div className="updateInforUser__table aboutUser">
               <label htmlFor="">Mô tả bản thân</label>
               <textarea
-                value={aboutUser.aboutMe || ""}
+                value={check? aboutUser?.aboutMe : user?.aboutme}
                 onChange={getChange}
                 name="aboutMe"
                 id=""

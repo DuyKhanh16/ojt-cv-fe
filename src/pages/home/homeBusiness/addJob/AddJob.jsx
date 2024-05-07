@@ -92,6 +92,7 @@ export default function AddJob() {
         placement: "topRight",
         duration: 2,
       })
+      return
     }
     try {
       const res = await createJobs(infoCompany.id, newJob);

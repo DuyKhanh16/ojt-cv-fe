@@ -3,6 +3,8 @@ import "./HeaderCompany.scss";
 import { NavLink } from "react-router-dom";
 import phone from "../../assets/images/main/PhoneCall.png";
 import american from "../../assets/images/main/image123.png";
+import vietnam from "../../assets/images/vietnam-26834_1280.png";
+
 export default function HeaderCompany() {
   const [isOpen, setIsOpen] = useState(false);
   return (
@@ -28,12 +30,12 @@ export default function HeaderCompany() {
         <div className="headerCompany__contact">
           <div className="headerCompany__contact__phone">
             <img src={phone} alt="" height={24} width={24} />
-            <p> +84 123 456 789</p>
+            <p> 1800 8198</p>
           </div>
           <div className="headerCompany__language">
-            <img src={american} alt="" />
+            <img src={vietnam} alt="" />
             <select>
-              <option value="">English</option>
+              <option value="">Tiếng việt</option>
             </select>
           </div>
         </div>

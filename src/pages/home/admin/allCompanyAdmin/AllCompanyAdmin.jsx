@@ -4,7 +4,7 @@ import "./AllCompanyAdmin.scss";
 import AdminSearch from "../../../../components/adminSearch/AdminSearch";
 import { useNavigate } from "react-router";
 import publicAxios from "../../../../config/pulic.axios";
-import { Switch, Modal } from "antd";
+import { Switch, Modal, Pagination, Button, notification } from "antd";
 export default function AllCompanyAdmin() {
   window.scrollTo(0, 0);
   const [allCompany, setAllCompany] = useState([]);
@@ -20,9 +20,12 @@ export default function AllCompanyAdmin() {
     address: "",
     email: "",
   });
+  const [currentPage, setCurrentPage] = useState(1);
+
   const role = JSON.parse(localStorage.getItem("role"))
   const token = JSON.parse(localStorage.getItem("token"));
   const navigate = useNavigate();
+
 
   const showModal = (item) => {
     // console.log(item)
@@ -59,27 +62,49 @@ export default function AllCompanyAdmin() {
   };
   useEffect(() => {
     getAllCompany();
-    if(!token){
+    if (!token) {
       navigate("/login");
     }
-    if(role == 1){
+    if (role == 1) {
       navigate("/candidate");
     }
-    if(role == 2){
+    if (role == 2) {
       navigate("/company");
     }
-  }, []);
+  }, [isChecked]);
 
   // thay đôi trạng thái công ty
   // Hàm xử lý sự kiện thay đổi của Switch, nhận vào dữ liệu data và sự kiện event
-  const handleChange = (data) => (checked) => {
-    console.log("Data:", data); // In ra dữ liệu được truyền vào
-    console.log("Switch checked:", checked); // In ra trạng thái của Switch
+  const handleChange = (data) => async (checked) => {
+    try {
+      const res = await publicAxios.patch(`api/v2/account/update/${data}`, {
+        status: checked,
+      });
+      setIsChecked(!isChecked);
+    
+      // window.location.reload()
+    } catch (error) {
+      console.log(error);
+    }
+    notification.success({
+      message: "Thay đổi trang thái thành công",
+      placement: "bottomRight",
+      duration: 2,
+    });
 
-    // Thực hiện các xử lý khác tại đây nếu cần
-    setIsChecked(checked); // Cập nhật trạng thái của Switch
   };
 
+  //    // phân trang
+  const itemsPerPage = 6;
+  const endIndex = currentPage * itemsPerPage;
+  const startIndex = endIndex - itemsPerPage;
+  const currentListCompany = allCompany.slice(startIndex, endIndex);
+
+  const onPageChange = (page) => {
+    setCurrentPage(page);
+  };
+  console.log(allCompany)
+  console.log(currentListCompany)
   return (
     <>
       <div className="allCompanyAdmin__formsearch">
@@ -114,6 +139,7 @@ export default function AllCompanyAdmin() {
                   height: "150px",
                   borderRadius: "50%",
                   marginLeft: "200px",
+                  objectFit: "contain"
                 }}
                 src={infoCompany.logo}
               ></img>
@@ -163,14 +189,14 @@ export default function AllCompanyAdmin() {
               <p>Điện thoại</p>
             </div>
             <div className="allCompanyAdmin__content__headerTable__active column">
-              <p>Trạng thái</p>
+              <p>Khóa đăng nhập</p>
             </div>
             <div className="allCompanyAdmin__content__headerTable__description column">
               <p>Thông tin chi tiết</p>
             </div>
           </div>
           <div className="allCompanyAdmin__content__bodyTable">
-            {allCompany?.map((item, index) => {
+            {currentListCompany?.map((item, index) => {
               return (
                 <div
                   className="allCompanyAdmin__content__bodyTable__item"
@@ -186,22 +212,29 @@ export default function AllCompanyAdmin() {
                     <p>{item?.phone}</p>
                   </div>
                   <div className="allCompanyAdmin__content__bodyTable__item__active column">
-                    <Switch
+                    <Switch style={{backgroundColor:"green"}}
                       defaultChecked
-                      // checked={item.status === 1 ? true : false}
-                      onChange={handleChange(item.id)}
+                      checked={item.account_company_id.status == 1 ? true : false}
+                      onChange={handleChange(item.account_company_id.id)}
                     />
                   </div>
                   <div
                     onClick={() => showModal(item)}
                     className="allCompanyAdmin__content__bodyTable__item__description column"
                   >
-                    <p>Xem</p>
+                    <Button style={{ backgroundColor: "Red", color: "White" }}>Chi tiết</Button>
                   </div>
                 </div>
               );
             })}
           </div>
+          <Pagination
+            style={{ marginTop: "20px", marginLeft: "580px" }}
+            current={currentPage}
+            onChange={onPageChange}
+            pageSize={itemsPerPage}
+            total={allCompany.length}
+          />
         </div>
       </div>
     </>

@@ -1,5 +1,5 @@
 import privateAxios from "../base.Api";
-import { API_CANDIDATE_CREATECERTIFICATE, API_CANDIDATE_CREATEDUCATION, API_CANDIDATE_CREATEEXPERIENCE, API_CANDIDATE_CREATEPROJECT, API_CANDIDATE_CREATESKILL, API_CANDIDATE_GETALL, API_CANDIDATE_GETALLINFORMATION, API_CANDIDATE_GETINFOR, API_CANDIDATE_UPDATECERTIFICATE_BYID, API_CANDIDATE_UPDATEEDUCATION_BYID, API_CANDIDATE_UPDATEEXPERIENCE_BYID, API_CANDIDATE_UPDATEINFORCANDIDATE, API_CANDIDATE_UPDATEPROJECT_BYID, API_CANDIDATE_UPDATESKILL_BYID } from "../patchApi";
+import { API_CANDIDATE_CREATECERTIFICATE, API_CANDIDATE_CREATEDUCATION, API_CANDIDATE_CREATEEXPERIENCE, API_CANDIDATE_CREATEPROJECT, API_CANDIDATE_CREATESKILL, API_CANDIDATE_DELETECERTIFICATE_BYID, API_CANDIDATE_DELETEEDUCATION_BYID, API_CANDIDATE_DELETEEXPERIENCE_BYID, API_CANDIDATE_DELETEPROJECT_BYID, API_CANDIDATE_DELETESKILL_BYID, API_CANDIDATE_GETALL, API_CANDIDATE_GETALLINFORMATION, API_CANDIDATE_GETINFOR, API_CANDIDATE_GETINFORCANDIDATE_BYID, API_CANDIDATE_UPDATEABOUTME, API_CANDIDATE_UPDATECERTIFICATE_BYID, API_CANDIDATE_UPDATEEDUCATION_BYID, API_CANDIDATE_UPDATEEXPERIENCE_BYID, API_CANDIDATE_UPDATEINFORCANDIDATE, API_CANDIDATE_UPDATEPROJECT_BYID, API_CANDIDATE_UPDATESKILL_BYID } from "../patchApi";
 
 export const candidateGetAll = async () => {
   try {
@@ -22,6 +22,15 @@ export const candidateGetAllInformation = async () => {
 export const candidateGetInfor = async () => {
   try {
     const response = await privateAxios.get(API_CANDIDATE_GETINFOR);
+    return response.data;
+  } catch (err) {
+    throw err;
+  }
+};
+
+export const candidateGetInforById = async (id) => {
+  try {
+    const response = await privateAxios.get(`${API_CANDIDATE_GETINFORCANDIDATE_BYID}/${id}`);
     return response.data;
   } catch (err) {
     throw err;
@@ -138,6 +147,50 @@ export const candidateCreateSkill = async (user) => {
   }
 };
 
+export const deleteCandidateEducation = async (id) => {
+  try {
+    const response = await privateAxios.delete(`${API_CANDIDATE_DELETEEDUCATION_BYID}/${id}`);
+    return response.data;
+  } catch (err) {
+    throw err;
+  }
+};
+
+export const deleteCandidateProject = async (id) => {
+  try {
+    const response = await privateAxios.delete(`${API_CANDIDATE_DELETEPROJECT_BYID}/${id}`);
+    return response.data;
+  } catch (err) {
+    throw err;
+  }
+};
+
+export const deleteCandidateExperience = async (id) => {
+  try {
+    const response = await privateAxios.delete(`${API_CANDIDATE_DELETEEXPERIENCE_BYID}/${id}`);
+    return response.data;
+  } catch (err) {
+    throw err;
+  }
+};
+
+export const deleteCandidateCertificate = async (id) => {
+  try {
+    const response = await privateAxios.delete(`${API_CANDIDATE_DELETECERTIFICATE_BYID}/${id}`);
+    return response.data;
+  } catch (err) {
+    throw err;
+  }
+};
+
+export const deleteCandidateSkill = async (id) => {
+  try {
+    const response = await privateAxios.delete(`${API_CANDIDATE_DELETESKILL_BYID}/${id}`);
+    return response.data;
+  } catch (err) {
+    throw err;
+  }
+};
 
 
 

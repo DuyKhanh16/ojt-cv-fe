@@ -53,12 +53,9 @@ export default function UserLogin() {
 
   //dang nhap bang gg
 
- 
+  //Lấy đối tượng auth từ Firebase
 
-
-  // // Lấy đối tượng auth từ Firebase
-
-  // // Tạo một provider cho đăng nhập bằng Google
+  //Tạo một provider cho đăng nhập bằng Google
 
   const signInWithGoogle = async () => {
     try {
@@ -71,18 +68,31 @@ export default function UserLogin() {
         
       };
      LoginByGoogle(userGoogle)
-      .then((response) => {
-        localStorage.setItem("token", JSON.stringify(response.data.data.token));
-        localStorage.setItem("role", JSON.stringify(response.data.data.role));
-        notification.success({
-          message: "dang nhap thanh cong",
-        });
-        navigate("/candidate");
+      .then((response) => { 
+        if (response.data.role === 1 && response.data.status === 1) {
+          localStorage.setItem("token", JSON.stringify(response.data.token));
+          localStorage.setItem("role", JSON.stringify(response.data.role));
+          navigate("/candidate");
+          notification.success({
+            message: response.message,
+          });
+        } else if (response.data.role === 1 && response.data.status === 0) {
+          notification.error({
+            message: "Tài khoản của bạn đang bị khoá",
+          });
+        }
 
-        
+        if (response.data.role === 2) {
+          localStorage.setItem("token", JSON.stringify(response.data.token));
+          localStorage.setItem("role", JSON.stringify(response.data.role));
+          navigate("/company");
+          notification.success({
+            message: response.message,
+          });
+        }
       })
     } catch (error) {
-      console.error("Google authentication failed:", error);
+      return error;
     }
   };
 
@@ -92,8 +102,7 @@ export default function UserLogin() {
   const handlelogin = async () => {
     if (validate()) {
       try {
-        console.log(user, "111");
-          const response = await Login(user)
+        const response = await Login(user)
         if (response.data.data.role === 0) {
           localStorage.setItem("token", JSON.stringify(response.data.data.token));
           localStorage.setItem("role", JSON.stringify(response.data.data.role));
@@ -102,7 +111,6 @@ export default function UserLogin() {
           });
           navigate("/admin");
         }
-
 
         if (response.data.data.role === 1 && response.data.data.status === 1) {
           localStorage.setItem("token", JSON.stringify(response.data.data.token));
@@ -117,7 +125,6 @@ export default function UserLogin() {
             message: "Tài khoản của bạn đang bị khoá",
           });
         }
-
 
         if (response.data.data.role === 2) {
           localStorage.setItem("token", JSON.stringify(response.data.data.token));

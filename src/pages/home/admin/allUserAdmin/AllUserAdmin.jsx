@@ -3,7 +3,7 @@ import "./AllUserAdmin.scss";
 import AdminSearch from "../../../../components/adminSearch/AdminSearch";
 import { useNavigate } from "react-router";
 import publicAxios from "../../../../config/pulic.axios";
-import { Switch, Modal, notification } from "antd";
+import {Button, Switch, Modal, notification } from "antd";
 export default function AllUserAdmin() {
   window.scrollTo(0, 0);
   const [allCandidate, setAllCandidate] = useState([]);
@@ -86,6 +86,8 @@ export default function AllUserAdmin() {
       console.log(error);
     }
   };
+
+
   return (
     <>
       <div className="allUserAdmin__container">
@@ -170,11 +172,11 @@ export default function AllUserAdmin() {
             <div className="allUserAdmin__content__headerTable__email column">
               <p>Email</p>
             </div>
-            <div className="allUserAdmin__content__headerTable__active column">
+            {/* <div className="allUserAdmin__content__headerTable__active column">
               <p>Trạng thái</p>
-            </div>
+            </div> */}
             <div className="allUserAdmin__content__headerTable__active column">
-              <p>Hành động</p>
+              <p>Khóa đăng nhập</p>
             </div>
             <div className="allUserAdmin__content__headerTable__description column">
               <p>Thông tin chi tiết</p>
@@ -196,13 +198,13 @@ export default function AllUserAdmin() {
                   <div className="allUserAdmin__content__bodyTable__item__email column">
                     <p>{item.account_candidate_id.email}</p>
                   </div>
-                  <div className="allUserAdmin__content__bodyTable__item__active column">
+                  {/* <div className="allUserAdmin__content__bodyTable__item__active column">
                     {item.account_candidate_id.status ? (
                       <p style={{ color: "green" }}>Hoạt động</p>
                     ) : (
                       <p style={{ color: "gray" }}>Không hoạt động</p>
                     )}
-                  </div>
+                  </div> */}
                   <div className="allUserAdmin__content__bodyTable__item__description column">
                     {item.account_candidate_id.status ? (
                       <p
@@ -210,7 +212,10 @@ export default function AllUserAdmin() {
                           BandorUnBanUser(item.account_candidate_id)
                         }
                       >
-                        Khoá
+                         <Switch style={{backgroundColor:"green",color:"White"}}
+                      defaultChecked
+                      checked={item.account_candidate_id.status  === 1 ? true : false}
+                    />
                       </p>
                     ) : (
                       <p
@@ -218,7 +223,10 @@ export default function AllUserAdmin() {
                           BandorUnBanUser(item.account_candidate_id)
                         }
                       >
-                        Mở khoá
+                        <Switch 
+                      defaultChecked
+                      checked={item.account_candidate_id.status  === 1 ? true : false}
+                    />
                       </p>
                     )}
                   </div>
@@ -227,7 +235,7 @@ export default function AllUserAdmin() {
                     onClick={() => showModal(item)}
                     className="allUserAdmin__content__bodyTable__item__description column"
                   >
-                    <p>Xem</p>
+                   <Button style={{backgroundColor:"Red",color:"White"}}>Chi tiết</Button>
                   </div>
                 </div>
               );

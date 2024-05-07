@@ -96,9 +96,8 @@ export default function UpdateInforBusiness() {
     } catch (error) {
       console.log(error)
     }
-
   };
-
+ 
   // lấy các jobs của công ty
   const getJobsByCompany = () => {
     const res = getJobsForCompanyS()
@@ -202,7 +201,7 @@ export default function UpdateInforBusiness() {
       setErrorMessages(errors);
       return;
     }
-
+console.log(infoCompany.id)
     if (selectedMedia) {
       const formData = new FormData();
       formData.append("file", selectedMedia);
@@ -301,7 +300,7 @@ export default function UpdateInforBusiness() {
       };
       const res = await updateAddressCompany(idaddress, newAdress);
       notification.success({
-        message: "Cap nhap thanh cong",
+        message: "Cập nhật thông tin thành công",
         duration: 2,
       });
       setCity("");
@@ -328,13 +327,16 @@ export default function UpdateInforBusiness() {
       return;
     } else {
       try {
-        await deleteAddressCompany(item.id);
+        const res = await deleteAddressCompany(item.id);
+        if(res){
+          notification.success({
+            message: "Đã xóa địa chỉ thành công",
+            placement: "topRight",
+            duration: 2,
+          });
+        }
         SetFlag(!flag);
-        notification.success({
-          message: "Đã xóa địa chỉ thành công",
-          placement: "topRight",
-          duration: 2,
-        });
+       
       } catch (error) {
         console.log(error);
       }

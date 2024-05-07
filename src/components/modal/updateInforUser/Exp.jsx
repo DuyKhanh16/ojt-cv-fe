@@ -10,7 +10,19 @@ import {
 } from "../../../apis/candidates";
 function Exp({ isOpenP, close, exp }) {
   const userExp = useSelector((state) => state.candidate.data);
-  const [user, setUser] = useState({});
+  const [company, setCompany] = useState("");
+  const [position, setPosition] = useState("");
+  const [start_at, setStart_at] = useState("");
+  const [end_at, setEnd_at] = useState("");
+  const [info, setInfo] = useState("");
+  const [check, setCheck] = useState(false);
+  const [user, setUser] = useState({
+    company: company||exp?.company,
+    position: position||exp?.position,
+    start_at: start_at||exp?.start_at,
+    end_at: end_at||exp?.end_at,
+    info: info||exp?.info,
+  });
 
   useEffect(() => {
     setUser({ ...user, candidate_id: userExp.id });
@@ -18,14 +30,24 @@ function Exp({ isOpenP, close, exp }) {
 
   const changeValue = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
+    setCheck(true);
   };
   const updateExp = async () => {
+    let start_at = new Date(user.start_at).getTime();
+    let end_at = new Date(user.end_at).getTime();
+    if (start_at > end_at) {
+      notification.error({
+        message: "Ngày bắt đầu phải nhỏ hơn ngày kết thúc",
+      });
+      return;
+    }
     if (exp.status == "update") {
       try {
         const update = await candidateUpdateExperience(exp?.item.id, user);
         notification.success({
-          message: update.message,
+          message: "Cập nhật thông tin thành công",
         });
+        setCheck(false);
         setUser({});
         close();
       } catch (error) {
@@ -40,6 +62,7 @@ function Exp({ isOpenP, close, exp }) {
           message: create.message,
         });
         setUser({});
+        setCheck(false);
         close();
       } catch (error) {
         notification.error({
@@ -63,9 +86,9 @@ function Exp({ isOpenP, close, exp }) {
                 <div>
                   <p>Vị trí</p>
                   <input
-                    value={user?.position || exp?.item.position}
+                    value={check? user?.position : exp?.item.position}
                     type="text"
-                    placeholder="ABCde"
+                    placeholder="Vị trí làm việc"
                     name="position"
                     onChange={(e) => changeValue(e)}
                   />
@@ -73,9 +96,9 @@ function Exp({ isOpenP, close, exp }) {
                 <div>
                   <p>Tên đơn vị công tác</p>
                   <input
-                    value={user?.company || exp?.item.company}
+                    value={check? user?.company : exp?.item.company}
                     type="text"
-                    placeholder="ABCde"
+                    placeholder="Đơn vị công tác"
                     name="company"
                     onChange={(e) => changeValue(e)}
                   />
@@ -86,7 +109,7 @@ function Exp({ isOpenP, close, exp }) {
                   <div className="timeSame">
                     <label htmlFor="">Start Date</label>
                     <input
-                      value={user?.start_at || exp?.item.start_at}
+                      value={check? user?.start_at : exp?.item.start_at}
                       type="date"
                       className="date"
                       name="start_at"
@@ -97,7 +120,7 @@ function Exp({ isOpenP, close, exp }) {
                   <div className="timeSame">
                     <label htmlFor="">End Date</label>
                     <input
-                      value={user?.end_at || exp?.item.end_at}
+                      value={check? user?.end_at : exp?.item.end_at}
                       type="date"
                       className="date"
                       name="end_at"
@@ -109,12 +132,12 @@ function Exp({ isOpenP, close, exp }) {
                 <div>
                   <p>Mô tả chi tiết công việc</p>
                   <textarea
-                    value={user?.info || exp?.item.info}
+                    value={check? user?.info : exp?.item.info}
                     name="info"
                     id=""
                     cols="30"
                     rows="10"
-                    placeholder="ABCde"
+                    placeholder="Chi tiết công việc"
                     onChange={(e) => setUser({ ...user, info: e.target.value })}
                   ></textarea>
                 </div>
@@ -142,7 +165,7 @@ function Exp({ isOpenP, close, exp }) {
                   <input
                     value={user?.position || ""}
                     type="text"
-                    placeholder="ABCde"
+                    placeholder="Vị trí làm việc"
                     name="position"
                     onChange={(e) => changeValue(e)}
                   />
@@ -152,7 +175,7 @@ function Exp({ isOpenP, close, exp }) {
                   <input
                     value={user?.company || ""}
                     type="text"
-                    placeholder="ABCde"
+                    placeholder="Đơn vị công tác"
                     name="company"
                     onChange={(e) => changeValue(e)}
                   />
@@ -191,13 +214,13 @@ function Exp({ isOpenP, close, exp }) {
                     id=""
                     cols="30"
                     rows="10"
-                    placeholder="ABCde"
+                    placeholder="Chi tiết công việc"
                     onChange={(e) => setUser({ ...user, info: e.target.value })}
                   ></textarea>
                 </div>
               </div>
               <div className="updateInforUser__button">
-                <button onClick={updateExp}>Cập nhật</button>
+                <button onClick={updateExp}>Thêm mới</button>
                 <button
                   className="updateInforUser__button__cancel"
                   onClick={closeModal}

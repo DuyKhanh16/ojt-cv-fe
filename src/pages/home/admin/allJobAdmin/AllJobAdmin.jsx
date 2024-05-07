@@ -4,7 +4,8 @@ import "./AllJobAdmin.scss";
 import AdminSearch from "../../../../components/adminSearch/AdminSearch";
 import { useNavigate } from "react-router";
 import publicAxios from "../../../../config/pulic.axios";
-import { Switch, Modal, notification } from 'antd';
+import { Switch, Modal, notification, Button } from 'antd';
+import { Pagination } from "antd";
 import axios from "axios";
 
 
@@ -14,6 +15,10 @@ export default function AllJobAdmin() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [flag, setflag] = useState(false);  
   const [isChecked, setIsChecked] = useState(false);
+  const [name,setName] = useState()
+  const [salary,setSalary] = useState()
+  const [status,Setstatus] = useState()
+  
   const [infoJob, setInfoJob] = useState({
     name: "",
     description: "",
@@ -52,30 +57,18 @@ export default function AllJobAdmin() {
   const handleCancel = () => {
     setIsModalOpen(false);
   };
- const onChange =  async (checked, event, job) => {
-    console.log(checked, event, job);
-    setIsChecked(checked);
-    const id = job.id;  
-    try {
-      const res = await axios.patch(`http://localhost:3000/api/v2/jobs/updatestatus/${id}?status=${checked ? 0 : 1}`, )
-      console.log(res);
-      notification.success({ message: "Đã thay đổi trạng thái", placement: 'bottomRight', duration: 2 });
-      setflag(!flag);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+ 
 
   const getAllNewJob = async () => {
     try {
-      const res = await publicAxios.get("/api/v2/jobs/getJobsforadmin");
+      const res = await publicAxios.get(`/api/v2/jobs/getJobsforadmin?name=${name}&salary=${salary}&status=${status}`);
       setNewJob(res.data.data);
     } catch (error) {
       console.log(error);
     }
   };
 
-  console.log(allNewJob);
+  console.log()
   useEffect(() => {
     getAllNewJob();
     if(!token1){
@@ -88,7 +81,28 @@ export default function AllJobAdmin() {
       navigate("/company");
     }
   }, [flag]);
-  console.log(allNewJob);
+
+    //    // phân trang
+    // const [currentPage, setCurrentPage] = useState(1);
+    // const itemsPerPage = 6;
+    // const endIndex = currentPage * itemsPerPage;
+    // const startIndex = endIndex - itemsPerPage;
+    // const currentListJOBS = allNewJob.slice(startIndex, endIndex);
+  
+    // const onPageChange = (page) => {
+    //   setCurrentPage(page);
+    // };
+
+    // 
+    const handlefilteJobs = (e) => {
+      Setstatus(e.target.value);
+      setflag(!flag);
+    };
+    const handlefilteJobsalary = (e) =>{
+      setSalary(e.target.value);
+      setflag(!flag);
+    }
+    console.log(allNewJob)
   return (
     <>
       <div className="allJobAdmin__formsearch">
@@ -171,10 +185,42 @@ export default function AllJobAdmin() {
               <p>Thời hạn</p>
             </div>
             <div className="allJobAdmin__content__headerTable__salary column">
-              <p>Khoảng lương</p>
+            <select
+            //  onAbort={{}}
+            onChange={handlefilteJobsalary}
+            style={{
+              border: "none",
+              backgroundColor: "#F7F7F7",
+              fontSize: "16px",
+            }}
+          >
+            <option>Khoảng lương</option>
+            <option onChange={()=>setSalary()}>Tất cả</option>
+
+            <option value={1}>Từ 2 - 4 Triệu</option>
+            <option value={2}>Từ 4 - 6 Triệu</option>
+            <option value={3}>Từ 5 - 10 Triệu</option>
+            <option value={4}>Từ 10 - 15 Triệu</option>
+            <option value={5}>Từ 15 - 20 Triệu</option>
+            <option value={6}>Thỏa thuận</option>
+          </select>
             </div>
             <div className="allJobAdmin__content__headerTable__active column">
-              <p>Trạng thái</p>
+            <select
+            //  onAbort={{}}
+            onChange={handlefilteJobs}
+            style={{
+              border: "none",
+              backgroundColor: "#F7F7F7",
+              fontSize: "16px",
+            }}
+          >
+            <option>Trạng thái</option>
+            <option onChange={()=>Setstatus()}>Tất cả</option>
+
+            <option value={1}>Đang tuyển dụng</option>
+            <option value={0}>Dừng tuyển</option>
+          </select>
             </div>
             <div className="allJobAdmin__content__headerTable__description column">
               <p>Chi tiết thông tin</p>
@@ -197,7 +243,7 @@ export default function AllJobAdmin() {
                   <div 
                   style={{display:"flex",alignItems:"center",justifyContent:"center"}}
                   className="allJobAdmin__content__headerTable__namejob column">
-                  <img src={item?.company.logo} style={{width:"50px",height:"50px"}}></img>
+                  <img src={item?.company.logo} style={{width:"50px",height:"50px",objectFit:"contain"}}></img>
                 </div>
                   <div className="allJobAdmin__content__headerTable__time column">
                     <span class="material-symbols-outlined">
@@ -221,12 +267,13 @@ export default function AllJobAdmin() {
                   <div
                     onClick={() => showModal(item)}
                     className="allJobAdmin__content__headerTable__description column">
-                    <p>Xem</p>
+                    <Button style={{ backgroundColor: "Red", color: "White" }}>Chi tiết</Button>
                   </div>
                 </div>
               );
             })}
           </div>
+        
         </div>
       </div>
     </>
