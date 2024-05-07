@@ -103,13 +103,15 @@ export default function Main() {
       }
     }
   };
-
   useEffect(() => {
     getAllCompany();
     getAllLiveJob();
     getAllNewJob();
     getAllCandidate();
     caculatePage();
+    if (token) {
+      getListJobSave()
+    }
     // getListJobSave();
     firstPage();
   }, [flag]);

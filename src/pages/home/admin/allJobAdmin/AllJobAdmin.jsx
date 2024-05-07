@@ -4,7 +4,7 @@ import "./AllJobAdmin.scss";
 import AdminSearch from "../../../../components/adminSearch/AdminSearch";
 import { useNavigate } from "react-router";
 import publicAxios from "../../../../config/pulic.axios";
-import { Switch, Modal, notification } from 'antd';
+import { Switch, Modal, notification, Button } from 'antd';
 import { Pagination } from "antd";
 import axios from "axios";
 
@@ -267,7 +267,7 @@ export default function AllJobAdmin() {
                   <div
                     onClick={() => showModal(item)}
                     className="allJobAdmin__content__headerTable__description column">
-                    <p>Xem</p>
+                    <Button style={{ backgroundColor: "Red", color: "White" }}>Chi tiết</Button>
                   </div>
                 </div>
               );

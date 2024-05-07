@@ -44,7 +44,7 @@ export default function SearchJob() {
     try {
       const res = await publicAxios.get("/api/v2/jobs/getLiveJobs");
       console.log(res.data.data);
-      setLiveJob(res.data.data);
+      setLiveJob(res.data.data.result);
     } catch (error) {
       console.log(error);
     }
@@ -162,7 +162,7 @@ export default function SearchJob() {
             </div>
           </div>
           <div className="searchJob__outStandingJob--listJob">
-            {allLiveJob.map((item) => (
+            {allLiveJob?.map((item) => (
               <div
                 className="searchJob__outStandingJob--listJob__item"
                 onClick={() => navigate(`/candidate/jobdetail/${item.id}`)}
