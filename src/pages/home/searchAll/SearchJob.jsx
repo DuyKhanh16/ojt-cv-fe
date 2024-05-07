@@ -55,7 +55,7 @@ export default function SearchJob() {
       notification.warning({ message: "Please enter some data to search!" });
       const res = await publicAxios.get("/api/v2/jobs/getLiveJobs");
       // console.log(res.data.data);
-      setLiveJob(res.data.data);
+      setLiveJob(res.data.data.result);
     }else{
       try {
       const result = await publicAxios.get(

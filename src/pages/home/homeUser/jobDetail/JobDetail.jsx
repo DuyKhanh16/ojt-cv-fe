@@ -16,8 +16,6 @@ import ApplyJob from "../applyJob/ApplyJob";
 import { Button, notification } from "antd";
 import publicAxios from "../../../../config/pulic.axios";
 import { getJobAppliedCandidatesbyId, getJobDetail, jobGetLiveJobs } from "../../../../apis/jobs";
-import { useDispatch, useSelector } from "react-redux";
-import { getJobAppliedAsync } from "../../../../redux/reduce/getJobAppliedCandidatesbyId";
 
 export default function JobDetail() {
   const { id } = useParams();
@@ -31,9 +29,7 @@ export default function JobDetail() {
   const [check, setCheck] = useState(false);
   const navigate = useNavigate();
   const role = JSON.parse(localStorage.getItem("role"));
-  const [checkSaveJob,setCheckSaveJob]=React.useState(false);
-
-
+  const [checkSaveJob,setCheckSaveJob]=React.useState(false)
 
   // lay het thong tin cua jobdetail
   const inforJobDetail = async () => {
@@ -46,21 +42,12 @@ export default function JobDetail() {
         return error;
       });
   };
-  const dispatch = useDispatch();
-  const applyCheck = useSelector((state) => {
-    console.log(state.getJobApplied)
-    return state.getJobApplied.data; // Trả về state nếu cần
-  });
-  useEffect(() => {
-    dispatch(getJobAppliedAsync(id));
-  }, [dispatch]);
-  console.log("first",applyCheck)
+
   useEffect(() => {
     const result2 = privateAxios.get(`/api/v2/jobs/getJobAppliedCandidatesbyId/${id}`);
     result2.then((res) => {
       console.log(res.data.check);
       setCheck(res.data.check);
-      // window.location.reload();
     })
     const result = privateAxios.get(`/api/v2/jobs/detail/${id}`);
     result
@@ -230,7 +217,7 @@ export default function JobDetail() {
               <i style={{color:"orange",fontSize:28}} class="fa-solid fa-bookmark"></i>
               </Button>}
               {
-                applyCheck == true?<button
+                check?<button
                 className="job__detail--company--apply--apply11"
                 style={{ backgroundColor: "gray", color: "white" }}
                 // onClick={() => setIsOpen(true)}

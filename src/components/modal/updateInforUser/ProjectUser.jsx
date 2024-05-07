@@ -64,6 +64,12 @@ function ProjectUser({ isOpen, close, project }) {
         });
       }
     } else if (project.status == "create") {
+      if (user.name == "" | user.start_at == "" | user.end_at == "" | user.info == "" | user.link == ""| user.link == undefined |user.name == undefined | user.start_at == undefined | user.end_at == undefined | user.info == undefined) {
+        notification.warning({
+          message: "Vui lòng điền đầy đủ thông tin",
+        });
+        return;
+      }
       try {
         const create = await candidateCreateProject(user);
         notification.success({

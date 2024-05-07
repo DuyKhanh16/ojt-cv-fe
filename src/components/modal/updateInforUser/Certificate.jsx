@@ -70,6 +70,12 @@ function Certificate({ isOpen, close, certificate }) {
         });
       }
     } else if (certificate.status == "create") {
+      if (user.name == ""| user.organization == ""| user.info == ""| user.start_at == ""| user.end_at == "" |user.name == undefined| user.organization == undefined| user.info == undefined| user.start_at == undefined| user.end_at == undefined ) {
+        notification.warning({
+          message: "Vui điền đầy đủ thông tin",
+        });
+        return;
+      }
       try {
         const create = await candidateCreateCertificate(user);
         notification.success({

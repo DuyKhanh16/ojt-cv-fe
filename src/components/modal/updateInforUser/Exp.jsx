@@ -56,6 +56,12 @@ function Exp({ isOpenP, close, exp }) {
         });
       }
     } else if (exp.status == "create") {
+      if (user.company == "" | user.position == "" | user.end_at == "" | user.start_at == "" | user.info == ""|user.company == undefined | user.position == undefined | user.end_at == undefined | user.start_at == undefined | user.info == undefined) {
+        notification.warning({
+          message: "Vui lòng điền đầy đủ thông tin",
+        });
+        return;
+      }
       try {
         const create = await candidateCreateExperience(user);
         notification.success({

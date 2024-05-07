@@ -50,6 +50,12 @@ export default function Skill({ isOpen, close, skill }) {
         close();
         setCheck(false);
       } else if (skill.status == "create") {
+        if (newSkill.name == ""| newSkill.leveljob_id == ""|newSkill.name == undefined| newSkill.leveljob_id == undefined )  {
+          notification.warning({
+            message: "Vui lý điền đầy đủ thông tin",
+          });
+          return;
+        }
         const res = await candidateCreateSkill(newSkill);
         notification.success({
           message: res.message,

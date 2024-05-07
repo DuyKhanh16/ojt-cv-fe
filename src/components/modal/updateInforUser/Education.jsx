@@ -33,7 +33,7 @@ function Education({ isOpen, close, edu }) {
     setUser({ ...user, [e.target.name]: e.target.value });
     setCheck(true);
   };
-  
+  console.log(user)
   const updateEducatrion = async () => {
     let start_at = new Date(user.start_at).getTime();
     let end_at = new Date(user.end_at).getTime();
@@ -44,25 +44,25 @@ function Education({ isOpen, close, edu }) {
       return;
     }
     if (edu.status == "update") {
-      if(user.name_education == "" | user.major == "" | user.end_at == "" | user.start_at == "" | user.info == ""){
-        notification.warning({
-          message: "Vui lòng điền đầy đủ thông tin",
-        });
-        return;
-      }
+      // if(user.name_education == undefined | user.major == undefined | user.end_at == undefined | user.start_at == undefined | user.info == undefined | user.name_education == "" | user.major == "" | user.end_at == "" | user.start_at == "" | user.info == ""){
+      //   notification.warning({
+      //     message: "Vui lòng điền đầy đủ thông tin",
+      //   });
+      //   return;
+      // }
       try {
         const update = await candidateUpdateEducation(edu.item.id, user);
         notification.success({
           message: "Cập nhật thành công",
         });
         setCheck(false);
-        // setUser({
-        //   major: "",
-        //   info: "",
-        //   name_education: "",
-        //   end_at: "",
-        //   start_at: "",
-        // });
+        setUser({
+          major: "",
+          info: "",
+          name_education: "",
+          end_at: "",
+          start_at: "",
+        });
       } catch (error) {
         notification.error({
           message: error.response.message,
@@ -70,6 +70,12 @@ function Education({ isOpen, close, edu }) {
       }
       close();
     } else if (edu.status == "create") {
+      if(user.name_education == undefined | user.major == undefined | user.end_at == undefined | user.start_at == undefined | user.info == undefined | user.name_education == "" | user.major == "" | user.end_at == "" | user.start_at == "" | user.info == ""){
+        notification.warning({
+          message: "Vui lòng điền đầy đủ thông tin",
+        });
+        return;
+      }
       try {
         const create = await candidateCreateEducation(user);
         notification.success({
