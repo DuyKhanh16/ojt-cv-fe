@@ -20,7 +20,7 @@ body {
 
 .allUserAdmin__container {
   width: 100%;
-  height: 100vh;
+  height: auto;
   .allUserAdmin__header {
     width: 100%;
     display: flex;
@@ -29,7 +29,7 @@ body {
   }
   .allUserAdmin__content {
     width: 100%;
-    height: 400px;
+    height: auto;
     .allUserAdmin__content__headerTable {
       width: 100%;
       background-color: #f7f7f7;

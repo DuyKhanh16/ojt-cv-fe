@@ -10,7 +10,22 @@ import {
 } from "../../../apis/candidates";
 
 function Certificate({ isOpen, close, certificate }) {
-  const [user, setUser] = useState({});
+  console.log(certificate)
+  const [name, setName] = useState("");
+  const [organization, setOrganization] = useState("");
+  const [info, setInfo] = useState("");
+  const [start_at, setStart_at] = useState("");
+  const [end_at, setEnd_at] = useState("");
+  const [check, setCheck] = useState(false);
+
+  const [user, setUser] = useState({
+    name: name || certificate?.item?.name,
+    organization: organization || certificate?.item?.organization,
+    info: info || certificate?.item?.info,
+    start_at: start_at || certificate?.item?.start_at,
+    end_at: end_at || certificate?.item?.end_at,
+  });
+
   const userCerti = useSelector((state) => state.candidate.data);
 
   useEffect(() => {
@@ -19,9 +34,18 @@ function Certificate({ isOpen, close, certificate }) {
 
   const changeValue = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
+    setCheck(true);
   };
 
   const updateCertificate = async () => {
+    let start_at = new Date(user.start_at).getTime();
+    let end_at = new Date(user.end_at).getTime();
+    if (start_at > end_at) {
+      notification.error({
+        message: "Ngày bắt đầu phải nhỏ hơn ngày kết thúc",
+      });
+      return;
+    }
     if (certificate.status == "update") {
       try {
         const update = await candidateUpdateCertificate(
@@ -29,9 +53,16 @@ function Certificate({ isOpen, close, certificate }) {
           user
         );
         notification.success({
-          message: update.message,
+          message: "Cập nhật thông tin thành công",
         });
-        setUser({});
+        setUser({
+          name: "",
+          organization: "",
+          info: "",
+          start_at: "",
+          end_at: "",
+        });
+        setCheck(false);
         close();
       } catch (error) {
         notification.error({
@@ -39,12 +70,26 @@ function Certificate({ isOpen, close, certificate }) {
         });
       }
     } else if (certificate.status == "create") {
+      if (user.name == ""| user.organization == ""| user.info == ""| user.start_at == ""| user.end_at == "" |user.name == undefined| user.organization == undefined| user.info == undefined| user.start_at == undefined| user.end_at == undefined ) {
+        notification.warning({
+          message: "Vui điền đầy đủ thông tin",
+        });
+        return;
+      }
       try {
         const create = await candidateCreateCertificate(user);
         notification.success({
           message: create.message,
         });
         close();
+        setCheck(false);
+        setUser({
+          name: "",
+          organization: "",
+          info: "",
+          start_at: "",
+          end_at: "",
+        })
       } catch (error) {
         notification.error({
           message: error.response.message,
@@ -63,9 +108,9 @@ function Certificate({ isOpen, close, certificate }) {
                 <div>
                   <p>Tên chứng chi</p>
                   <input
-                    value={user?.name || certificate?.item.name}
+                    value={check? user?.name : certificate?.item.name}
                     type="text"
-                    placeholder="ABCde"
+                    placeholder="Tên chứng chỉ"
                     name="name"
                     onChange={(e) => changeValue(e)}
                   />
@@ -73,9 +118,9 @@ function Certificate({ isOpen, close, certificate }) {
                 <div>
                   <p>Tổ chức</p>
                   <input
-                    value={user?.organization || certificate?.item.organization}
+                    value={check? user?.organization : certificate?.item.organization}
                     type="text"
-                    placeholder="ABCde"
+                    placeholder="Tổ chức"
                     name="organization"
                     onChange={(e) => changeValue(e)}
                   />
@@ -86,7 +131,7 @@ function Certificate({ isOpen, close, certificate }) {
                   <div className="timeSame">
                     <label htmlFor="">Start Date</label>
                     <input
-                      value={user?.start_at || certificate?.item.start_at}
+                      value={check? user?.start_at : certificate?.item.start_at}
                       type="date"
                       className="date"
                       name="start_at"
@@ -97,7 +142,7 @@ function Certificate({ isOpen, close, certificate }) {
                   <div className="timeSame">
                     <label htmlFor="">End Date</label>
                     <input
-                      value={user?.end_at || certificate?.item.end_at}
+                      value={check? user?.end_at : certificate?.item.end_at}
                       type="date"
                       className="date"
                       name="end_at"
@@ -109,13 +154,15 @@ function Certificate({ isOpen, close, certificate }) {
                 <div>
                   <p>Mô tả thêm</p>
                   <textarea
-                    value={user?.info || certificate?.item.info}
+                    value={check? user?.info : certificate?.item.info}
                     name="info"
                     id=""
                     cols="30"
                     rows="10"
-                    placeholder="ABCde"
-                    onChange={(e) => setUser({ ...user, info: e.target.value })}
+                    placeholder="Mô tả thêm"
+
+                    onChange={(e)=> changeValue(e)}
+
                   ></textarea>
                 </div>
               </div>
@@ -142,7 +189,7 @@ function Certificate({ isOpen, close, certificate }) {
                   <input
                     value={user?.name || ""}
                     type="text"
-                    placeholder="ABCde"
+                    placeholder="Tên chứng chỉ"
                     name="name"
                     onChange={(e) => changeValue(e)}
                   />
@@ -152,7 +199,7 @@ function Certificate({ isOpen, close, certificate }) {
                   <input
                     value={user?.organization || ""}
                     type="text"
-                    placeholder="ABCde"
+                    placeholder="Tổ chức"
                     name="organization"
                     onChange={(e) => changeValue(e)}
                   />
@@ -191,13 +238,13 @@ function Certificate({ isOpen, close, certificate }) {
                     id=""
                     cols="30"
                     rows="10"
-                    placeholder="ABCde"
+                    placeholder="Mô tả thêm"
                     onChange={(e) => setUser({ ...user, info: e.target.value })}
                   ></textarea>
                 </div>
               </div>
               <div className="updateInforUser__button">
-                <button onClick={updateCertificate}>Cập nhật</button>
+                <button onClick={updateCertificate}>Thêm thông tin</button>
                 <button
                   className="updateInforUser__button__cancel"
                   onClick={() => close()}

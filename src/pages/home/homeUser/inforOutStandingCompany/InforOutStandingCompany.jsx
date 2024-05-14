@@ -47,7 +47,7 @@ export default function InforOutStandingCompany() {
     try {
       await privateAxios.post(`/api/v2/companies/flow/${id}`)
       notification.success({
-        message: "Đã tạo Flow công ty",
+        message: "Đã theo dõi công ty",
       });
       setflag(!flag)
     } catch (error) {

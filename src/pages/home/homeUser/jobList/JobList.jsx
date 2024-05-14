@@ -22,7 +22,8 @@ export default function JobList() {
   const getAllJob = async () => {
     await jobGetLiveJobs()
     .then((res) => {
-      setListJob(res.data);
+      console.log(res)
+      setListJob(res.data.result);
     })
     .catch((error) => {
       return error;
@@ -63,7 +64,7 @@ export default function JobList() {
       <button className='user-ListJob-findJob-btn'>Find Job</button>
       </div>
       <div className='user-ListJob-jobRender'>
-        {ListJob.map((job) => {
+        {ListJob?.map((job) => {
           return( <div key={job.id} className='user-ListJob-job' style={{cursor:"pointer"}} onClick={() => navigate(`/candidate/jobdetail/${job.id}`)}>
             <p className='user-ListJob-job-title'>{job.title}</p>
             <div className='user-ListJob-job-typeSalary'>
@@ -73,7 +74,7 @@ export default function JobList() {
             <div className='user-ListJob-job-info'>
               <div className='user-ListJob-job-infoCompany'>
               <div className='user-ListJob-job-info-logo'>
-              <img width={48} height={48} src={job?.company.logo} alt="logo"/>
+              <img width={48} height={48} src={job?.company.logo} style={{objectFit:"contain"}} alt="logo"/>
               </div>
               <div className='user-ListJob-job-info-company'>
               <p >{job?.company.name}</p>

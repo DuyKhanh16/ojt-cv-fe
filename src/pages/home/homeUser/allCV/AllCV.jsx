@@ -76,9 +76,13 @@ export default function AllCV() {
   const exportCV = useReactToPrint({
     content: () => pdf.current,
     documentTitle: "CV",
-    onAfterPrint: () =>
-      notification.success({ message: "Xuất file thành công" }),
+    onAfterPrint: () => {
+      // setTimeout(() => {
+      // notification.success({ message: "Xuất file thành công" });
+      // },5000)
+    }
   });
+  
   useEffect(() => {
     getInforCV();
     if (role !== 1) {
@@ -182,7 +186,7 @@ export default function AllCV() {
 
             <div className="allCV__content--right__export">
               <div className="allCV__content--right__export--context">
-                Upgrade profile to "Excellent" to unlock Download CV
+                Tải CV tại đây
               </div>
               <div
                 className="allCV__content--right__export--btn"
@@ -190,7 +194,7 @@ export default function AllCV() {
               >
                 <span class="material-symbols-outlined">download</span>
                 <div className="allCV__content--right__export--btn__text">
-                  Download CV
+                  Tải CV
                 </div>
               </div>
             </div>

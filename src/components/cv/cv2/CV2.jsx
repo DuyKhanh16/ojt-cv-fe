@@ -120,7 +120,7 @@ export default function CV2() {
                   {item.info}
                 </p>
                 <p className="CV2__content--left__certificate--item__address">
-                  {item.organization}
+                  {item.name}
                 </p>
                 <p className="CV2__content--left__certificate--item__time">
                   {item.start_at} / {item.end_at}
@@ -133,7 +133,7 @@ export default function CV2() {
         <div className="CV2__content--right">
           <div className="CV2__content--right__introduce">
             <p className="CV2__content--right__introduce__title title">
-              Giới thiệu thông tin
+              Mô tả bản thân
             </p>
             <div className="CV2__content--right__introduce__content">
               {aboutMe}
