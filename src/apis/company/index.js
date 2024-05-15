@@ -1,3 +1,4 @@
+import { notification } from "antd";
 import privateAxios from "../base.Api"
 import {
     API_COMPANY_GETALL,
@@ -22,6 +23,14 @@ export const getInforCompany = async () => {
 export const getJobsForCompanyS = async () => {
     try {
         const res = await privateAxios.get(API_GETJOBSFOR_COMPANY)
+        return res.data
+    } catch (error) {
+        console.log(error)
+    }
+}
+export const getalljobsCompanys = async (status) => {
+    try {
+        const res = await privateAxios.get(`${API_GETJOBSFOR_COMPANY}/?status=${status}`)
         return res.data
     } catch (error) {
         console.log(error)
@@ -60,6 +69,21 @@ export const updateAddressCompany = async (id, data) => {
 export const deleteAddressCompany = async (id) => {
     try {
         const res = await privateAxios.delete(`${API_DELETE_BRAND_COMPANY}/${id}`)
+        return res.data
+    } catch (error) {
+        if(error){
+            notification.error({
+                message: "Địa chỉ này đang được đăng tuyển jobs, bạn không thể xoá được !"
+            })
+        }
+        console.log(error)
+    }
+}
+
+// search job theo tên
+export const searchJobs = async (name) => {
+    try {
+        const res = await privateAxios.get(`${API_GETJOBSFOR_COMPANY}/?key=${name}`)
         return res.data
     } catch (error) {
         console.log(error)

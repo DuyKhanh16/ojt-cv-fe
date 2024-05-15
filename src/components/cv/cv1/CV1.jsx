@@ -122,7 +122,7 @@ export default function CV1({ item }) {
                     {item.info}
                   </p>
                   <p className="CV1__content--left__certificate--item__address">
-                    {item.organization}
+                    {item.name}
                   </p>
                   <p className="CV1__content--left__certificate--item__time">
                     {item.start_at} / {item.end_at}
@@ -135,7 +135,7 @@ export default function CV1({ item }) {
           <div className="CV1__content--right">
             <div className="CV1__content--right__introduce">
               <p className="CV1__content--right__introduce__title title">
-                Giới thiệu thông tin
+                Mô tả bản thân
               </p>
               <div className="CV1__content--right__introduce__content">
                 {aboutMe}

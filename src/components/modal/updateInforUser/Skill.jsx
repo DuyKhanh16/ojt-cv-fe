@@ -13,41 +13,56 @@ import {
 export default function Skill({ isOpen, close, skill }) {
   const userSkill = useSelector((state) => state.candidate.data);
   const [allLevel, setAllLevel] = useState([]);
-  const [user, setUser] = useState({
-    name: "",
+  const [nameSkill, setNameSkill] = useState("");
+  const [check, setCheck] = useState(false);
+  const [newSkill, setNewSkill] = useState({
+    name: nameSkill || skill?.item?.name,
     leveljob_id: "",
   });
   useEffect(() => {
     const level = getLevelJob().then((res) => {
       setAllLevel(res);
     });
-    setUser({
-      ...user,
-      name: skill?.item?.name,
+    setNewSkill({
+      ...newSkill,
+      name: nameSkill,
       leveljob_id: skill?.item?.leveljob_id?.name,
       candidate_id: userSkill.id,
     });
   }, [userSkill]);
 
   const changeValue = (e) => {
-    setUser({ ...user, [e.target.name]: e.target.value });
+    setNewSkill({ ...newSkill, [e.target.name]: e.target.value });
+    setCheck(true);
   };
   const closeModal = () => {
-    setUser({});
+    setNewSkill({});
     close();
   };
   const addSkill = async () => {
     try {
       if (skill.status == "update") {
-        const res = await candidateUpdateSkill(skill?.item.id, user);
+        const res = await candidateUpdateSkill(skill?.item.id, newSkill);
         notification.success({
           message: res.message,
         });
-      } else {
-        const res = await candidateCreateSkill(user);
+        setNewSkill({});
+        close();
+        setCheck(false);
+      } else if (skill.status == "create") {
+        if (newSkill.name == ""| newSkill.leveljob_id == ""|newSkill.name == undefined| newSkill.leveljob_id == undefined )  {
+          notification.warning({
+            message: "Vui lý điền đầy đủ thông tin",
+          });
+          return;
+        }
+        const res = await candidateCreateSkill(newSkill);
         notification.success({
           message: res.message,
         });
+        close();
+        setCheck(false);
+        setCheck(false);
       }
     } catch (error) {
       notification.error({
@@ -71,15 +86,16 @@ export default function Skill({ isOpen, close, skill }) {
                       name="name"
                       placeholder="Mời nhập kĩ năng của bạn ..."
                       onChange={changeValue}
-                      value={user?.name ? user.name : skill?.item?.name}
+                      value={check ? newSkill?.name : skill?.item?.name}
+                      // value={skill?.item?.name}
                     />
                   </div>
                   <div className="skillSame">
                     <label htmlFor="">Mức độ</label>
                     <select name="leveljob_id" id="" onChange={changeValue}>
                       <option value="">
-                        {user?.leveljob_id
-                          ? user?.leveljob_id
+                        {newSkill?.leveljob_id
+                          ? newSkill?.leveljob_id
                           : skill?.item?.leveljob_id.name}
                       </option>
                       {allLevel.map((item, index) => {
@@ -91,7 +107,7 @@ export default function Skill({ isOpen, close, skill }) {
               </div>
 
               <div className="updateInforUser__button ">
-                <button onClick={addSkill}>Thêm mới </button>
+                <button onClick={addSkill}>Cập nhật </button>
                 <button
                   className="updateInforUser__button__cancel"
                   onClick={closeModal}
@@ -114,6 +130,7 @@ export default function Skill({ isOpen, close, skill }) {
                     <input
                       type="text"
                       name="name"
+                      value={newSkill?.name}
                       placeholder="Mời nhập kĩ năng của bạn ..."
                       onChange={changeValue}
                     />

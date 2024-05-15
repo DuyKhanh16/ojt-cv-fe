@@ -44,7 +44,7 @@ export default function SearchJob() {
     try {
       const res = await publicAxios.get("/api/v2/jobs/getLiveJobs");
       console.log(res.data.data);
-      setLiveJob(res.data.data);
+      setLiveJob(res.data.data.result);
     } catch (error) {
       console.log(error);
     }
@@ -55,7 +55,7 @@ export default function SearchJob() {
       notification.warning({ message: "Please enter some data to search!" });
       const res = await publicAxios.get("/api/v2/jobs/getLiveJobs");
       // console.log(res.data.data);
-      setLiveJob(res.data.data);
+      setLiveJob(res.data.data.result);
     }else{
       try {
       const result = await publicAxios.get(
@@ -159,8 +159,6 @@ export default function SearchJob() {
               className="searchJob__outStandingJob--header__view"
               onClick={() => navigate("/candidate/job-list")}
             >
-              <p>Xem thêm</p>
-              <img src={arrow} alt="" />
             </div>
           </div>
           <div className="searchJob__outStandingJob--listJob">
@@ -172,7 +170,9 @@ export default function SearchJob() {
               >
                 <div className="searchJob__outStandingJob--listJob__item--top">
                   <span className="searchJob__outStandingJob--listJob__item--top__name">
+                    <p>
                     {item?.title}
+                    </p>
                   </span>
                   <div className="searchJob__outStandingJob--listJob__item--top__salary">
                     <div className="searchJob__outStandingJob--listJob__item--top__salary__text">

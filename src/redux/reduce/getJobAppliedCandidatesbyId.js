@@ -3,15 +3,17 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';// import function to fetch data
 import privateAxios from '../../config/private.axios';
 
-export const inforCompanyAsync = createAsyncThunk(
-  'inforCompany/inforCompanyAsync',   
-  async () => {
+export const getJobAppliedAsync = createAsyncThunk(
+  'getJobApplied/getJobAppliedAsync',   
+  async (id) => {
+    console.log(id)
     const token = JSON.parse(localStorage.getItem('token'));
     if (token) {
-    const response = await privateAxios.get('api/v2/companies/getInfor'); 
-    // call API function
-    return response.data.data;
+    const response = await privateAxios.get(`/api/v2/jobs/getJobAppliedCandidatesbyId/${id}`); // call API function
+    console.log(response.data)
+    return response.data;
     }
+    
   }
 );
 
@@ -20,20 +22,20 @@ const initialState = {
   status: 'idle',
 };
 
-const inforCompanySlice = createSlice({
+const getJobAppliedSlice = createSlice({
   name: 'posts',
   initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(inforCompanyAsync.pending, (state) => {
+      .addCase(getJobAppliedAsync.pending, (state) => {
         state.status = 'loading';
       })
-      .addCase(inforCompanyAsync.fulfilled, (state, action) => {
+      .addCase(getJobAppliedAsync.fulfilled, (state, action) => {
         state.status = 'idle';
         state.data = action.payload;
       });
   },
 });
 
-export default inforCompanySlice.reducer;
+export default getJobAppliedSlice.reducer;

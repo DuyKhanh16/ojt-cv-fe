@@ -7,7 +7,6 @@ export const skillAsync = createAsyncThunk(
   'skill/skillAsync',   
   async () => {
     const response = await privateAxios.get('api/v2/candidate/getAllSkills');
-    console.log(response.data.data) // call API function
     return response.data.data;
   }
 );

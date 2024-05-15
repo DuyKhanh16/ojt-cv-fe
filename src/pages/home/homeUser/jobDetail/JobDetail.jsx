@@ -43,11 +43,33 @@ export default function JobDetail() {
       });
   };
 
+  useEffect(() => {
+    const result2 = privateAxios.get(`/api/v2/jobs/getJobAppliedCandidatesbyId/${id}`);
+    result2.then((res) => {
+      console.log(res.data.check);
+      setCheck(res.data.check);
+    })
+    const result = privateAxios.get(`/api/v2/jobs/detail/${id}`);
+    result
+      .then((res) => {
+        console.log(res.data.data);
+        setInfor(res.data.data);
+        setSalary(res.data.data.salary_jobs);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+      if(role !== 1){
+        navigate("/company")
+      }
+  }, []);
+
+
   const getJobAppliedCandidatesbyIdF = async (id) => {
     const result2 = await 
     getJobAppliedCandidatesbyId(id)
     .then((res) => {
-      setCheck(res.check);
+      setCheck(res.data.check);
     });
   }
 
@@ -63,7 +85,8 @@ export default function JobDetail() {
   const getAllLiveJob = async () => {
     try {
       const res = await jobGetLiveJobs();
-      setLiveJob(res.data);
+      console.log(res)
+      setLiveJob(res.data.result);
     } catch (error) {
       return error;
     }
@@ -138,7 +161,7 @@ export default function JobDetail() {
                 style={{ width: "100px", height: "100px" }}
               >
                 <img
-                  style={{ width: "100%", height: "100%", borderRadius: "5px" }}
+                  style={{ width: "100%", height: "100%", borderRadius: "5px",objectFit:"contain" }}
                   src={infor?.company?.logo}
                 ></img>
               </div>

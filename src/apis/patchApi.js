@@ -93,6 +93,8 @@ export const API_JOB_CANCELCANDIDATE_BYID = "/jobs/cancelCandidate";
 export const API_JOB_SEARCHJOB = "/jobs/searchJob";
 export const API_JOB_UPDATEINTERVIEWDATE_BYID = "/jobs/update-interview-date";
 export const API_JOB_GETJOBAPPLIEDCANDIDATES_BYID = "/jobs/getJobAppliedCandidatesById";
+export const API_JOB_PANIGATION = "/jobs/getAllPaging";
+export const API_JOB_FIRSTPANIGATION = "/jobs/fisrtPage";
 
 //HET JOB
 export const API_TYPEJOB_GETALL = "/typejob/getAll";
